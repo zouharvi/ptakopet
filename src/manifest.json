@@ -5,8 +5,10 @@
     "version": "1",
     "author": "Vilém Zouhar",
     "content_scripts": [{
-      /*  "css": ["styles.css"], */
         "js": ["main.js"],
         "matches": ["https://vilda.net/*"]
-    }]
+    }],
+    "web_accessible_resources": [
+        "floater.html"
+    ]
 }
