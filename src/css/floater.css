@@ -1,0 +1,51 @@
+div#ptakopet {
+    width: 400px;
+    height: auto;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    background-color: #d6d6d6d5;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#control_bar {
+    height: 30px;
+}
+
+#ptakopet #control_bar i {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#ptakopet #control_bar {
+    text-align: center;
+}
+
+#ptakopet #control_bar i.title {
+    font-size: 15px;
+    font-style: normal; 
+}
+
+#ptakopet textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+    resize: none;
+    outline:none;
+}
+
+#ptakopet textarea /*:first-of-type*/ {
+    margin-bottom: 20px;
+}
+
+#ptakopet textarea:last-of-type {
+    background-color: #ecececd5;
+}
+
+#ptakopet #bottom_bar {
+    height: 40px; 
+    font-size: 20px;
+}
