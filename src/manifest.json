@@ -5,7 +5,7 @@
     "version": "1",
     "author": "Vilém Zouhar",
     "content_scripts": [{
-        "js": ["js/jquery.3.3.1.min.js", "js/bootstraper.js"],
+        "js": ["js/jquery.3.3.1.min.js", "js/ptakopet.js"],
         "matches": ["https://vilda.net/*"]
     }],
     "web_accessible_resources": [

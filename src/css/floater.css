@@ -9,6 +9,8 @@ div#ptakopet_floater {
     padding: 10px;
     font-family: 'Roboto', sans-serif;
 
+    visibility: hidden;
+
     z-index: 120391231;
 }
 
