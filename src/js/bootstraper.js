@@ -39,10 +39,29 @@ ptakopet.refresh_floater_pos = function() {
 
 ptakopet.atrap_text_inputs = function() {
     $('input[type=text]').each(function(i, obj) {
-        $(obj).hover(function(a, b) {
-            console.log(this);
+        let trigger_id = 'ptakopet_i' + i;
+        $('html').append('<img src="' + ptakopet.getURL('../src/logo_bird_mini.png') + '" class="ptakopet_trigger_bird" id="' + trigger_id + '">');
+        let trigger_obj = $('#' +trigger_id);
+
+        // add button with hash id
+        $(obj).focusin(function(a, b) {
+            trigger_obj.css('visibility', 'visible');
+            let parent_offset = $(obj).offset();
+            trigger_obj.offset({top: parent_offset.top, left: parent_offset.left+200});
+            ptakopet.cur_input = $(obj);
         })
-        console.log(i);
+        $(obj).focusout(function(a, b) {
+            // dirty trick to make the click event fire before the button disappears
+            window.setTimeout(function() {
+                $('#' +trigger_id).css('visibility', 'hidden');
+            }, 100);
+        })
+
+        trigger_obj.click(function(a, b) {
+            ptakopet.floater.css('visibility', 'visible');
+            ptakopet.cur_input.focus();
+
+        })
     });
 }
 
