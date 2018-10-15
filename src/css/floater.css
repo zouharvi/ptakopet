@@ -14,20 +14,20 @@ div#ptakopet_floater {
     z-index: 120391231;
 }
 
-#control_bar {
+#ptakopet_control_bar {
     height: 35px;
 }
 
-#ptakopet_floater #control_bar i {
+#ptakopet_floater #ptakopet_control_bar i {
     font-size: 24px;
     cursor: pointer;
 }
 
-#ptakopet_floater #control_bar {
+#ptakopet_floater #ptakopet_control_bar {
     text-align: center;
 }
 
-#ptakopet_floater #control_bar i.title {
+#ptakopet_floater #ptakopet_control_bar i.title {
     font-size: 15px;
     font-style: normal; 
 }
