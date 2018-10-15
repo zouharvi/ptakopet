@@ -3,18 +3,25 @@
 // to run.
 // Since jQuery is loaded only after floater.html
 // is added to DOM, we have to use basic JS toolset.
-// Due to separate contexts, we cannot wait for jQuery
-// to load.
+// Due to separate contexts (content/background),
+// we cannot wait for jQuery to load.
+
+// add this: to make ptakopet work on your webpage
+// <script id='ptakopet_init' src='path/to/ptakopet/js/ptakopet_init.js'></script>
 
 
 // chrome supports chrome only
 // IE supports browser only
 // Firefox & Opera support both
 var browser = browser || chrome;
-let is_extension = (typeof browser.runtime != "undefined");
+let is_extension = (typeof browser.bookmarks != "undefined");
 let getURL = is_extension ?
     browser.runtime.getURL :
-    function(s) { return s; };
+    function(s) { 
+        // dev/ptakopet/js/ptakopet_init.js -> ptakopet_init
+        let p = document.getElementById('ptakopet_init').src.replace('ptakopet_init.js','');
+        return p+s;
+     };
 
 // store current extension url in html dom, but hide it
 // easier than firing events through different contexts
