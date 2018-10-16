@@ -1,6 +1,7 @@
 var ptakopet = ptakopet || {};
 ptakopet.translator = {};
-ptakopet.translator.selected_engine = "bojar_khresmoi";
+// ptakopet.translator.selected_engine = "bojar_khresmoi";
+ptakopet.translator.selected_engine = "popel_lindat";
 ptakopet.translator.engines = {};
 
 function ptakopet_translator_ready() {
@@ -19,18 +20,33 @@ function ptakopet_translator_ready() {
                     targetLang: 'cs',
                     text: s
                 },
-                async: true
-            }).done(function(data) {
-                let res = JSON.parse(data);
-                if(res.errorCode == 0) {
-                    let s = "";
-                    for(i in res.translation) {
-                        s += res.translation[i].translated[0].text;
+                async: true,
+                success: function(data) {
+                    let res = JSON.parse(data);
+                    if(res.errorCode == 0) {
+                        let s = "";
+                        for(i in res.translation) {
+                            s += res.translation[i].translated[0].text;
+                        }
+                        callback(s);
                     }
-                    console.log("handling to callback: " + s);
-                    callback(s);
                 }
-                // console.log(data);
+            });
+        }
+    }
+    ptakopet.translator.engines.popel_lindat = {
+        translate: function(s, callback) {
+            $.ajax({
+                type: "POST",
+                url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/models/cs-en",
+                data: {
+                    input_text: s,
+                },
+                async: true,
+                success: function(data) {
+                    // the response is not a valid JSON array (single quotes instead of double)
+                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|\\n['"]\])/g, ''));
+                }
             });
         }
     }

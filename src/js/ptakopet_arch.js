@@ -19,7 +19,7 @@ function ptakopet_arch_ready() {
     }
     
     // atrap text inputs
-    $('input[type=text]').each(function(i, obj) {
+    $('input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)').each(function(i, obj) {
         let trigger_id = 'ptakopet_i' + i;
         $('html').append('<img src="' + ptakopet.getURL('../src/logo_bird_mini.png') + '" class="ptakopet_trigger_bird" id="' + trigger_id + '">');
         let trigger_obj = $('#' +trigger_id);
