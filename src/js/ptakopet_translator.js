@@ -44,8 +44,9 @@ function ptakopet_translator_ready() {
                 },
                 async: true,
                 success: function(data) {
-                    // the response is not a valid JSON array (single quotes instead of double)
-                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|\\n['"]\])/g, ''));
+                    // the response is not a valid JSON array (single instead of double quotes)
+                    // bunch of more processing
+                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n"));
                 }
             });
         }
