@@ -15,8 +15,8 @@ if(typeof(ptakopet) == 'undefined') {
     // chrome supports chrome only
     // IE supports browser only
     // Firefox & Opera support both
-    var browser = browser || chrome;
-    let is_extension = (typeof browser.extension != "undefined");
+    var browser = browser || chrome || {};
+    let is_extension = (Object.keys(browser).length != 0 && typeof browser.extension != "undefined");
     let getURL = is_extension ?
         browser.runtime.getURL :
         function(s) { 
