@@ -5,8 +5,8 @@
     "version": "1",
     "author": "Vilém Zouhar",
     "content_scripts": [{
-        "js": ["js/ptakopet_init.js"],
-        "matches": ["https://vilda.net/*"]
+        "matches": ["<all_urls>"],
+        "js": ["js/ptakopet_init.js"]
     }],
     "web_accessible_resources": [
         "html/*",
