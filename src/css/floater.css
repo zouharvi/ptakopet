@@ -54,13 +54,13 @@ div#ptakopet_floater {
     font-size: 20px;
 }
 
-.ptakopet_trigger_bird {
+#ptakopet_floater_icon {
     visibility: hidden;
     position: absolute;
     z-index: 120391231;
     cursor: pointer;
     width: 25px;
     padding: 2px;
-    background-color: #f3f3f3ee;
+    background-color: #f3f3f3a4;
     border-radius: 3px;
 }

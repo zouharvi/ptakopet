@@ -26,8 +26,10 @@ function ptakopet_arch_ready() {
             ptakopet.fi.css('visibility', 'visible');
             let parent_offset = $(obj).offset();
             let parent_width = $(obj).width();
+            let parent_height = $(obj).height();
             ptakopet.fi.offset({top: parent_offset.top+5, left: parent_offset.left+parent_width-10});
             ptakopet.cur_input = $(obj);
+            ptakopet.fi.css('max-width', parent_height-3);
         })
 
         // focusout handled implicitly
