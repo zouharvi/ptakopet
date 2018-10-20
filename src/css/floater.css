@@ -2,7 +2,7 @@ div#ptakopet_floater {
     width: 400px;
     height: auto;
     position: fixed;
-    top: 20px;
+    top: 10px;
 
     background-color: #d6d6d6d5;
     border-radius: 10px;
@@ -27,9 +27,8 @@ div#ptakopet_floater {
     text-align: center;
 }
 
-#ptakopet_floater #ptakopet_control_bar i.title {
-    font-size: 15px;
-    font-style: normal; 
+#ptakopet_floater #ptakopet_control_bar img {
+    display: inline-block;
 }
 
 #ptakopet_floater textarea {
@@ -61,4 +60,7 @@ div#ptakopet_floater {
     z-index: 120391231;
     cursor: pointer;
     width: 25px;
+    padding: 2px;
+    background-color: #f3f3f3e7;
+    border-radius: 3px;
 }

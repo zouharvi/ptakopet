@@ -9,7 +9,7 @@ function ptakopet_arch_ready() {
     
     ptakopet.refresh_floater_pos = function() {
         // change the actuall position
-        ptakopet.floater.css(ptakopet.position_left?'left':'right', '20px');
+        ptakopet.floater.css(ptakopet.position_left?'left':'right', '10px');
         ptakopet.floater.css(!ptakopet.position_left?'left':'right', '');
     
         // change the icon
@@ -28,7 +28,9 @@ function ptakopet_arch_ready() {
         $(obj).focusin(function(a, b) {
             trigger_obj.css('visibility', 'visible');
             let parent_offset = $(obj).offset();
-            trigger_obj.offset({top: parent_offset.top, left: parent_offset.left+200});
+            let parent_width = $(obj).width();
+            console.log(parent_width);
+            trigger_obj.offset({top: parent_offset.top+5, left: parent_offset.left+parent_width-10});
             ptakopet.cur_input = $(obj);
         })
 
@@ -36,7 +38,7 @@ function ptakopet_arch_ready() {
             // dirty trick to make the click event fire before the button disappears
             window.setTimeout(function() {
                 $('#' +trigger_id).css('visibility', 'hidden');
-            }, 700);
+            }, 1000);
         })
 
         trigger_obj.click(function(a, b) {
