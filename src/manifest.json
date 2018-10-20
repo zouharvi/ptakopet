@@ -6,7 +6,7 @@
     "author": "Vilém Zouhar",
     "content_scripts": [{
         "matches": ["<all_urls>"],
-        "exclude_matches": ["*://*.youtube.com/*"],
+        "exclude_matches": ["*://*.youtube.com/*", "*://*.google.com/*", "*://*/*pdf"],
         "js": ["js/ptakopet_init.js"],
         "run_at": "document_end"
     }],
