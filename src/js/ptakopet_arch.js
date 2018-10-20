@@ -21,7 +21,7 @@ function ptakopet_arch_ready() {
     
     // atrap text inputs
     $('input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)').each(function(i, obj) {
-        // add button with hash id
+        // set trigger to focusin
         $(obj).focusin(function(a, b) {
             ptakopet.fi.css('visibility', 'visible');
             let parent_offset = $(obj).offset();
@@ -31,13 +31,15 @@ function ptakopet_arch_ready() {
             ptakopet.cur_input = $(obj);
             ptakopet.fi.css('max-width', parent_height-3);
         })
-
+        
         // focusout handled implicitly
     });
 
     ptakopet.fi.click(function(a, b) {
         ptakopet.floater.css('visibility', 'visible');
-        // ptakopet.cur_input.focus();
+        ptakopet.ta1.val(ptakopet.cur_input.val());
+        // trigger input to start translate cascade
+        ptakopet.ta1.trigger('input');
     })
 
     // atrap ptakopet text areas
