@@ -85,5 +85,4 @@ if(typeof(ptakopet) == 'undefined') {
 
 
     floater_req.send();
-
 }

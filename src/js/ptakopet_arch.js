@@ -1,3 +1,4 @@
+var PTAKOPET_ARCH_LOADED = true;
 
 function ptakopet_arch_ready() {
     ptakopet.position_left = typeof(localStorage.ptakopet_position_left)=="undefined"?true:localStorage.ptakopet_position_left=='true';
@@ -25,11 +26,11 @@ function ptakopet_arch_ready() {
         $(obj).focusin(function(a, b) {
             ptakopet.fi.css('visibility', 'visible');
             let parent_offset = $(obj).offset();
-            let parent_width = $(obj).width();
+            let parent_width = $(obj).outerWidth();
             let parent_height = $(obj).height();
-            ptakopet.fi.offset({top: parent_offset.top+5, left: parent_offset.left+parent_width-10});
+            ptakopet.fi.offset({top: parent_offset.top+1, left: parent_offset.left+parent_width+7});
             ptakopet.cur_input = $(obj);
-            ptakopet.fi.css('max-width', parent_height-3);
+            ptakopet.fi.css('max-width', parent_height-1);
         })
         
         // focusout handled implicitly

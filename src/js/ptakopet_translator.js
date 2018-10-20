@@ -1,8 +1,9 @@
+var PTAKOPET_TRANSLATOR_LOADED = true;
+
 var ptakopet = ptakopet || {};
-ptakopet.translator = {};
+ptakopet.translator = { engines: {} };
 // ptakopet.translator.selected_engine = "bojar_khresmoi";
 ptakopet.translator.selected_engine = "popel_lindat";
-ptakopet.translator.engines = {};
 
 function ptakopet_translator_ready() {
     ptakopet.translator.translate = function(s, callback) {
