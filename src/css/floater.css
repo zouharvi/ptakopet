@@ -4,7 +4,7 @@ div#ptakopet_floater {
     position: fixed;
     top: 10px;
 
-    background-color: #d6d6d6d5;
+    background-color: #d6d6d6ee;
     border-radius: 10px;
     padding: 10px;
     font-family: 'Roboto', sans-serif;
@@ -42,11 +42,11 @@ div#ptakopet_floater {
 
 #ptakopet_floater textarea /*:first-of-type*/ {
     margin-bottom: 20px;
-    background-color: #ffffffd5;
+    background-color: #ffffffe3;
 }
 
 #ptakopet_floater textarea:last-of-type {
-    background-color: #dfdfdfd5;
+    background-color: #dfdfdfe8;
 }
 
 #ptakopet_floater #bottom_bar {
@@ -61,6 +61,6 @@ div#ptakopet_floater {
     cursor: pointer;
     width: 25px;
     padding: 2px;
-    background-color: #f3f3f3e7;
+    background-color: #f3f3f3ee;
     border-radius: 3px;
 }

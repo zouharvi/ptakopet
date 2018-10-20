@@ -5,6 +5,7 @@ function ptakopet_arch_ready() {
     ptakopet.dir_button = $('#ptakopet_dir');
     ptakopet.ta1 = $('#ptakopet_ta1');
     ptakopet.ta2 = $('#ptakopet_ta2');
+    ptakopet.fi = $('#ptakopet_floater_icon');
     ptakopet.getURL = function(a) { return ($('#ptakopet_base_url_span').html()) + a; }
     
     ptakopet.refresh_floater_pos = function() {
@@ -20,32 +21,22 @@ function ptakopet_arch_ready() {
     
     // atrap text inputs
     $('input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)').each(function(i, obj) {
-        let trigger_id = 'ptakopet_i' + i;
-        $('html').append('<img src="' + ptakopet.getURL('../src/logo_bird_mini.png') + '" class="ptakopet_trigger_bird" id="' + trigger_id + '">');
-        let trigger_obj = $('#' +trigger_id);
-
         // add button with hash id
         $(obj).focusin(function(a, b) {
-            trigger_obj.css('visibility', 'visible');
+            ptakopet.fi.css('visibility', 'visible');
             let parent_offset = $(obj).offset();
             let parent_width = $(obj).width();
-            console.log(parent_width);
-            trigger_obj.offset({top: parent_offset.top+5, left: parent_offset.left+parent_width-10});
+            ptakopet.fi.offset({top: parent_offset.top+5, left: parent_offset.left+parent_width-10});
             ptakopet.cur_input = $(obj);
         })
 
-        $(obj).focusout(function(a, b) {
-            // dirty trick to make the click event fire before the button disappears
-            window.setTimeout(function() {
-                $('#' +trigger_id).css('visibility', 'hidden');
-            }, 1000);
-        })
-
-        trigger_obj.click(function(a, b) {
-            ptakopet.floater.css('visibility', 'visible');
-            // ptakopet.cur_input.focus();
-        })
+        // focusout handled implicitly
     });
+
+    ptakopet.fi.click(function(a, b) {
+        ptakopet.floater.css('visibility', 'visible');
+        // ptakopet.cur_input.focus();
+    })
 
     // atrap ptakopet text areas
     ptakopet.ta1.on('input', function(a, b) {
