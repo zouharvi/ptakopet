@@ -6,8 +6,10 @@
     "author": "Vilém Zouhar",
     "content_scripts": [{
         "matches": ["<all_urls>"],
+        // youtube has some weird progressive app loading system, that conflicts Ptakopět
+        "exclude_matches": ["*://*.youtube.com/*"],
         "js": ["js/ptakopet_init.js"],
-        "run_at": "document_start"
+        "run_at": "document_end"
     }],
     "web_accessible_resources": [
         "html/*",
