@@ -1,7 +1,7 @@
-var ptakopet = {};
+var ptakopet = ptakopet || {};
 
 function defer_loading(method) {
-    if (typeof($) != "undefined" && typeof(PTAKOPET_ARCH_LOADED) != 'undefined' && typeof(PTAKOPET_TRANSLATOR_LOADED != 'undefined'))
+    if ((typeof $ !== "undefined") && (typeof PTAKOPET_ARCH_LOADED != 'undefined') && (typeof PTAKOPET_TRANSLATOR_LOADED != 'undefined'))
         method();
     else
         setTimeout(function() { defer_loading(method) }, 500);

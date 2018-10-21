@@ -10,8 +10,8 @@
 // <script id='ptakopet_init' src='path/to/ptakopet/js/ptakopet_init.js'></script>
 
 // Ptakopět already loaded from other source
-if(typeof(ptakopet) == 'undefined') {
-
+if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
+    var PTAKOPET_INIT_LOADED = true;
     // chrome supports chrome only
     // IE supports browser only
     // Firefox & Opera support both
@@ -26,6 +26,9 @@ if(typeof(ptakopet) == 'undefined') {
             let p = document.getElementById('ptakopet_init').src.replace('ptakopet_init.js','');
             return p+s;
         };
+    console.log("is extension");
+    console.log(is_extension);
+
 
     // store current extension url in html dom, but hide it
     // easier than firing events through different contexts
@@ -47,11 +50,6 @@ if(typeof(ptakopet) == 'undefined') {
                 let text = floater_req.responseText;
                 document.body.innerHTML += text;
 
-                // add jQuery to current contex
-                let jquery = document.createElement("script");
-                jquery.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
-                document.body.appendChild(jquery);
-
                 // scripts
                 let script_objs = document.getElementsByClassName("extension_url_script");
                 // HTMLCollection doesn't have a nice iterator
@@ -59,7 +57,8 @@ if(typeof(ptakopet) == 'undefined') {
                     // spend 2 hours on this - there is no prettier way
                     let item = script_objs.item(i);
                     let item_new = document.createElement("script");
-                    item_new.src = getURL(item.getAttribute("p_src"));
+                    
+                    item_new.src = item.getAttribute('p_src_late') == 'true' ? item.getAttribute("p_src") : getURL(item.getAttribute("p_src"));
                     document.body.appendChild(item_new);
                 }
                 for(var i = 0; i < script_objs.length; i++) {

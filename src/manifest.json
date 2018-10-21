@@ -4,17 +4,21 @@
     "description": "A browser agnostic plugin for agile forward and backward translation",
     "version": "1",
     "author": "Vilém Zouhar",
-    "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "exclude_matches": ["*://*.youtube.com/*", "*://*.google.com/*", "*://*/*pdf"],
-        "js": ["js/ptakopet_init.js"],
-        "run_at": "document_end"
-    }],
     "web_accessible_resources": [
         "html/*",
         "js/*",
         "css/*",
         "src/*"
     ],
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+
+    "background": { 
+        "scripts": ["js/ptakopet_bootstrap.js"]
+    },
+    "browser_action": {
+        "default_icon": "src/logo_bird_mini_icon.png"
+    },
+    "icons": {
+        "16": "src/logo_bird_mini_icon.png"
+    },
+    "permissions": ["activeTab", "contextMenus"]
 }

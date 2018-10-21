@@ -45,6 +45,7 @@ function ptakopet_arch_ready() {
 
     // atrap ptakopet text areas
     ptakopet.ta1.on('input', function(a, b) {
+        console.log(ptakopet);
         ptakopet.translator.translate(
             ptakopet.ta1.val(),
             function(translation) {
