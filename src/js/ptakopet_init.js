@@ -26,8 +26,6 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
             let p = document.getElementById('ptakopet_init').src.replace('ptakopet_init.js','');
             return p+s;
         };
-    console.log("is extension");
-    console.log(is_extension);
 
 
     // store current extension url in html dom, but hide it
