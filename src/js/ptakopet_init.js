@@ -37,7 +37,7 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
     base_url_span.innerHTML = getURL("");
     document.body.appendChild(base_url_span);
 
-    // fetch floater.html content
+    // fetch floater.html content, prepare it and append to dom
     let floater_req = new XMLHttpRequest();
     floater_req.open("GET", getURL("../html/floater.html"));
     floater_req.addEventListener("load", 
@@ -45,11 +45,11 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
             if(floater_req.status != 200) 
                 alert("Something went wrong with Ptakopět (loading floater.html)");
             else {
-                let text = floater_req.responseText;
-                document.body.innerHTML += text;
+                let floater = document.createElement('div');
+                floater.innerHTML = floater_req.responseText;
 
                 // scripts
-                let script_objs = document.getElementsByClassName("extension_url_script");
+                let script_objs = floater.getElementsByClassName("extension_url_script");
                 // HTMLCollection doesn't have a nice iterator
                 for(var i = 0; i < script_objs.length; i++) {
                     // spend 2 hours on this - there is no prettier way
@@ -57,25 +57,27 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
                     let item_new = document.createElement("script");
                     
                     item_new.src = item.getAttribute('p_src_late') == 'true' ? item.getAttribute("p_src") : getURL(item.getAttribute("p_src"));
-                    document.body.appendChild(item_new);
+                    floater.appendChild(item_new);
                 }
                 for(var i = 0; i < script_objs.length; i++) {
                     script_objs.item(i).remove();
                 }
 
                 // images
-                let img_objs = document.getElementsByClassName("extension_url_img");
+                let img_objs = floater.getElementsByClassName("extension_url_img");
                 for(var i = 0; i < img_objs.length; i++) {
                     let item = img_objs.item(i);
                     item.setAttribute("src", getURL(item.getAttribute("p_src")));
                 }
 
                 // styles
-                let style_objs = document.getElementsByClassName("extension_url_style");
+                let style_objs = floater.getElementsByClassName("extension_url_style");
                 for(var i = 0; i < style_objs.length; i++) {
                     let item = style_objs.item(i);
                     item.setAttribute("href", getURL(item.getAttribute("p_href")));
                 }
+
+                document.body.appendChild(floater);
 
             }
         });
