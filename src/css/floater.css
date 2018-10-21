@@ -7,9 +7,9 @@ div#ptakopet_floater {
     background-color: #d6d6d6ee;
     border-radius: 10px;
     padding: 10px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 
-    visibility: hidden;
+    /* visibility: hidden; */
 
     z-index: 120391231;
 }
