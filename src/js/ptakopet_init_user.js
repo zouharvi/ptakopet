@@ -12,5 +12,5 @@ defer_loading(function() {
     ptakopet_arch_ready();
 
     // finished loading
-    ptakopet.floater.css("display", "block");
+    ptakopet_arch_show();
 });

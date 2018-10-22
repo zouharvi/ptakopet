@@ -8,6 +8,9 @@ function ptakopet_arch_ready() {
     ptakopet.ta2 = $('#ptakopet_ta2');
     ptakopet.fi = $('#ptakopet_floater_icon');
     ptakopet.getURL = function(a) { return ($('#ptakopet_base_url_span').html()) + a; }
+    let INPUT_SELECTOR = 'input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)';
+    if($(':focus').is(INPUT_SELECTOR))
+        ptakopet.cur_input = $(':focus');
     
     ptakopet.refresh_floater_pos = function() {
         // change the actuall position
@@ -19,9 +22,8 @@ function ptakopet_arch_ready() {
             ptakopet.dir_button.attr('class', 'fa fa-arrow-right') :
             ptakopet.dir_button.attr('class', 'fa fa-arrow-left');
     }
-    
     // atrap text inputs
-    $('input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)').each(function(i, obj) {
+    $(INPUT_SELECTOR).each(function(i, obj) {
         // set trigger to focusin
         $(obj).focusin(function(a, b) {
             ptakopet.fi.css('visibility', 'visible');
@@ -55,6 +57,7 @@ function ptakopet_arch_ready() {
     });
     
     ptakopet.refresh_floater_pos();
+    
     // bind top bar buttons
     $("#ptakopet_dir").click(function(e) {
         localStorage.ptakopet_position_left = ptakopet.position_left = !ptakopet.position_left;
@@ -64,4 +67,16 @@ function ptakopet_arch_ready() {
         ptakopet.floater.css('visibility', 'hidden');
     });
 
+    // if($('#ptakopet_in_tr_span').length != 0) {
+    //     ptakopet.ta1.val($('#ptakopet_in_tr_span').html());
+    // }
+
+    if(typeof(ptakopet.cur_input) != 'undefined') {
+        ptakopet.ta1.val(ptakopet.cur_input.val());
+    }
+}
+
+function ptakopet_arch_show() {
+    ptakopet.floater.css("display", "block");
+    ptakopet.ta1.focus();
 }

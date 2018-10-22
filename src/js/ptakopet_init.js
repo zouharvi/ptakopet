@@ -27,7 +27,6 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
             return p+s;
         };
 
-
     // store current extension url in html dom, but hide it
     // easier than firing events through different contexts
     let base_url_span = document.createElement("span");
@@ -36,6 +35,19 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
     base_url_span.style.fontSize = 0;
     base_url_span.innerHTML = getURL("");
     document.body.appendChild(base_url_span);
+
+    // silly way of passing values from background scripts
+    // if(is_extension) {
+    //     browser.storage.local.get('PTAKOPET_TR_TEXT', function (items) {
+    //         let in_tr_span = document.createElement("span");
+    //         in_tr_span.id = "ptakopet_in_tr_span";
+    //         in_tr_span.style.display = "none";
+    //         in_tr_span.style.fontSize = 0;
+    //         in_tr_span.innerHTML = items.PTAKOPET_TR_TEXT;
+    //         document.body.appendChild(in_tr_span);
+    //         chrome.storage.local.remove('PTAKOPET_TR_TEXT');
+    //     });
+    // }
 
     // fetch floater.html content, prepare it and append to dom
     let floater_req = new XMLHttpRequest();
@@ -47,7 +59,7 @@ if(typeof(PTAKOPET_INIT_LOADED) == 'undefined') {
             else {
                 let floater = document.createElement('div');
                 floater.innerHTML = floater_req.responseText;
-
+                
                 // scripts
                 let script_objs = floater.getElementsByClassName("extension_url_script");
                 // HTMLCollection doesn't have a nice iterator

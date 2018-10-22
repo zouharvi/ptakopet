@@ -16,7 +16,7 @@
     //     "run_at": "document_end"
     // }],
     "background": { 
-        "scripts": ["js/ptakopet_bootstrap.js"]
+        "scripts": ["js/ptakopet_background_bootstrap.js"]
     },
     "browser_action": {
         "default_icon": "src/logo_bird_icon_25.png"
@@ -26,5 +26,5 @@
         "48": "src/logo_bird_icon_48.png",
         "128": "src/logo_bird_icon_128.png"
     },
-    "permissions": ["activeTab", "contextMenus"]
+    "permissions": ["activeTab", "contextMenus" /*, "storage"*/]
 }
