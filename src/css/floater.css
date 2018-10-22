@@ -41,7 +41,6 @@ div#ptakopet_floater {
 }
 
 #ptakopet_floater textarea /*:first-of-type*/ {
-    margin-bottom: 20px;
     background-color: #ffffffe3;
 }
 
@@ -49,8 +48,18 @@ div#ptakopet_floater {
     background-color: #dfdfdfe8;
 }
 
+#ptakopet_middle_bar {
+    height: 38px;
+}
+
+#ptakopet_middle_bar select {
+    font-size: 18px;
+    height: 30px;
+    width: 50px;
+}
+
 #ptakopet_floater #bottom_bar {
-    height: 40px; 
+    height: 4px; 
     font-size: 20px;
 }
 

@@ -6,6 +6,8 @@ function ptakopet_arch_ready() {
     ptakopet.dir_button = $('#ptakopet_dir');
     ptakopet.ta1 = $('#ptakopet_ta1');
     ptakopet.ta2 = $('#ptakopet_ta2');
+    ptakopet.language_select_1 = $('#ptakopet_language_select_1');
+    ptakopet.language_select_2 = $('#ptakopet_language_select_2');
     ptakopet.fi = $('#ptakopet_floater_icon');
     ptakopet.getURL = function(a) { return ($('#ptakopet_base_url_span').html()) + a; }
     let INPUT_SELECTOR = 'input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)';
@@ -22,6 +24,24 @@ function ptakopet_arch_ready() {
             ptakopet.dir_button.attr('class', 'fa fa-arrow-right') :
             ptakopet.dir_button.attr('class', 'fa fa-arrow-left');
     }
+
+    ptakopet.language_select_1.change(function() {
+        let new_lang = ptakopet.language_select_1.val();
+        if(new_lang == ptakopet.translator.lang_2) {
+            ptakopet.translator.lang_2 = ptakopet.translator.lang_1;
+            ptakopet.language_select_2.val(ptakopet.translator.lang_1);
+        }
+        ptakopet.translator.lang_1 = new_lang;
+    });
+    ptakopet.language_select_2.change(function() {
+        let new_lang = ptakopet.language_select_2.val();
+        if(new_lang == ptakopet.translator.lang_1) {
+            ptakopet.translator.lang_1 = ptakopet.translator.lang_2;
+            ptakopet.language_select_1.val(ptakopet.translator.lang_2);
+        }
+        ptakopet.translator.lang_2 = new_lang;
+    });
+
     // atrap text inputs
     $(INPUT_SELECTOR).each(function(i, obj) {
         // set trigger to focusin
@@ -50,14 +70,21 @@ function ptakopet_arch_ready() {
         ptakopet.translator.translate(
             ptakopet.ta1.val(),
             function(translation) {
+                // backward translation
+                ptakopet.translator.translate(translation, function(translation_rev) {
+                    ptakopet.ta2.val(translation_rev);
+                }, true);
+
+                // set DOM value
                 if(typeof(ptakopet.cur_input) != 'undefined') {
                     ptakopet.cur_input.val(translation);
+                    ptakopet.cur_input.attr('value', translation);
                 }
             });
     });
     
     ptakopet.refresh_floater_pos();
-    
+
     // bind top bar buttons
     $("#ptakopet_dir").click(function(e) {
         localStorage.ptakopet_position_left = ptakopet.position_left = !ptakopet.position_left;
