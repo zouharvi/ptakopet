@@ -81,6 +81,23 @@ function ptakopet_translator_ready() {
         }
     }
 
+    // ptakopet.translator.engines.google_translate = {
+    //     languages: ['cs', 'en', 'de', 'fr', 'pl'],
+    //     name: 'Google Translate',
+    //     translate: function(s, callback) {
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "https://translate.google.com/?source=osdd#" + ptakopet.translator.lang_1 + "/" + ptakopet.translator.lang_2 + "/" + s,
+    //             async: true,
+    //             success: function(data) {
+    //                 // the response is not a valid JSON array (single instead of double quotes)
+    //                 // bunch of more processing
+    //                 callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n"));
+    //             }
+    //         });
+    //     }
+    // }
+
 }
 
 function ptakopet_translator_strap() {
