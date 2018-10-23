@@ -10,6 +10,7 @@ function defer_loading(method) {
 defer_loading(function() {
     ptakopet_translator_ready();
     ptakopet_arch_ready();
+    ptakopet_translator_strap();
 
     // finished loading
     ptakopet_arch_show();

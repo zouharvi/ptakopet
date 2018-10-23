@@ -21,10 +21,24 @@ function ptakopet_translator_ready() {
         }
         return result;
     }
+
+    ptakopet.translator.load_engine = function() {
+        ptakopet.language_select_1.empty();
+        ptakopet.language_select_2.empty();
+        let engine = ptakopet.translator.engines[ptakopet.translator.selected_engine];
+        for(let i in engine.languages) {
+            let lang = engine.languages[i];
+            ptakopet.language_select_1.append('<option value="' + lang + '">' + lang + '</option>')
+            ptakopet.language_select_2.append('<option value="' + lang + '">' + lang + '</option>')
+        }
+        ptakopet.language_select_1.val(engine.languages[0]);
+        ptakopet.language_select_2.val(engine.languages[1]);
+    }
     
     ptakopet.translator.engines.bojar_khresmoi = {
+        languages: ['cs', 'en'],
+        name: 'Khresmoi',
         translate: function(s, callback) {
-            languages: ['cs', 'en'],
             $.ajax({
                 type: "GET",
                 url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
@@ -49,6 +63,7 @@ function ptakopet_translator_ready() {
     }
     ptakopet.translator.engines.popel_lindat = {
         languages: ['cs', 'en'],
+        name: 'Lindat',
         translate: function(s, callback) {
             $.ajax({
                 type: "POST",
@@ -65,4 +80,25 @@ function ptakopet_translator_ready() {
             });
         }
     }
+
+}
+
+function ptakopet_translator_strap() {
+    for(let i in ptakopet.translator.engines) {
+        let engine = ptakopet.translator.engines[i];
+        ptakopet.engine_select.append('<option value="' + i + '">' + engine.name + '</option>')
+    }
+
+    // ptakopet.engine_select.attr('selected', ptakopet.translator.selected_engine);
+    // $('#ptakopet_engine_select[value="' + '"]').prop('selected', true);
+    ptakopet.engine_select.val(ptakopet.translator.selected_engine);
+
+    ptakopet.engine_select.change(function() {
+        ptakopet.translator.selected_engine = ptakopet.engine_select.val();
+        ptakopet.translator.load_engine();
+        ptakopet.ta1.trigger('input');
+    });
+
+    ptakopet.translator.load_engine();
+
 }

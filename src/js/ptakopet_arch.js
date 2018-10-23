@@ -9,6 +9,7 @@ function ptakopet_arch_ready() {
     ptakopet.language_select_1 = $('#ptakopet_language_select_1');
     ptakopet.language_select_2 = $('#ptakopet_language_select_2');
     ptakopet.fi = $('#ptakopet_floater_icon');
+    ptakopet.engine_select = $('#ptakopet_engine_select');
     ptakopet.getURL = function(a) { return ($('#ptakopet_base_url_span').html()) + a; }
     let INPUT_SELECTOR = 'input[type=text], textarea:not(#ptakopet_ta1, #ptakopet_ta2)';
     if($(':focus').is(INPUT_SELECTOR))
@@ -101,6 +102,17 @@ function ptakopet_arch_ready() {
     if(typeof(ptakopet.cur_input) != 'undefined') {
         ptakopet.ta1.val(ptakopet.cur_input.val());
     }
+
+    // settings 
+    $('#ptakopet_settings_small_font').change(function() {
+        if($(this).is(":checked")) {
+            ptakopet.ta1.css('font-size', '11px');
+            ptakopet.ta2.css('font-size', '11px');
+        } else {
+            ptakopet.ta1.css('font-size', '');
+            ptakopet.ta2.css('font-size', '');
+        }
+    })
 }
 
 function ptakopet_arch_show() {

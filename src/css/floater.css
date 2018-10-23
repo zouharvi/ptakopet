@@ -74,6 +74,36 @@ div#ptakopet_floater {
     border-radius: 3px;
 }
 
+#ptakopet_infographics {
+    width: 150px;
+    float: right;
+    margin-right: 2px;
+}
+
 #ptakopet_bottom_hidable {
     margin-top: 10px;
+}
+
+#ptakopet_settings {
+    vertical-align: top;
+}
+
+#ptakopet_engine_select {
+    font-size: 18px;
+    height: 30px;
+    width: 100px;
+    vertical-align: top;
+}
+
+#ptakopet_settings {
+    display: inline-block;
+}
+
+#ptakopet_settings label {
+    margin-top: 10px;
+    display: block;
+}
+
+#ptakopet_settings label input {
+    vertical-align: middle;
 }
