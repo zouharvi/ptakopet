@@ -73,3 +73,7 @@ div#ptakopet_floater {
     background-color: #f3f3f3a4;
     border-radius: 3px;
 }
+
+#ptakopet_bottom_hidable {
+    margin-top: 10px;
+}
