@@ -70,18 +70,26 @@ function ptakopet_arch_ready() {
     ptakopet.ta1.on('input', function(a, b) {
         ptakopet.translator.translate(
             ptakopet.ta1.val(),
-            function(translation) {
+            function(translation, tag) {
+                // focus changed (and is not backwards translation)
+                if(typeof(tag) != 'undefined' && ptakopet.cur_input[0] != tag)
+                    return;
+                     
                 // backward translation
-                ptakopet.translator.translate(translation, function(translation_rev) {
+                ptakopet.translator.translate(translation, function(translation_rev, tag_2) {
+                    // focus changed (and is not backwards translation)
+                    if(typeof(tag_2) != 'undefined' && ptakopet.cur_input[0] != tag_2)
+                        return;
                     ptakopet.ta2.val(translation_rev);
-                }, true);
+                }, ptakopet.cur_input[0], true);
 
                 // set DOM value
                 if(typeof(ptakopet.cur_input) != 'undefined') {
                     ptakopet.cur_input.val(translation);
                     ptakopet.cur_input.attr('value', translation);
                 }
-            });
+            },
+            ptakopet.cur_input[0]);
     });
     
     ptakopet.refresh_floater_pos();

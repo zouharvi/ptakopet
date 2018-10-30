@@ -6,14 +6,14 @@ function ptakopet_translator_ready() {
     // ptakopet.translator.selected_engine = "bojar_khresmoi";
     ptakopet.translator.selected_engine = "popel_lindat";
 
-    ptakopet.translator.translate = function(s, callback, rev=false) {
+    ptakopet.translator.translate = function(s, callback, tag, rev=false) {
         let engine = this.engines[this.selected_engine];
         if(rev) {
             let tmp = ptakopet.translator.lang_1;
             ptakopet.translator.lang_1 = ptakopet.translator.lang_2;
             ptakopet.translator.lang_2 = tmp;
         }
-        let result = engine.translate(s, callback);
+        let result = engine.translate(s, callback, tag);
         if(rev) {
             let tmp = ptakopet.translator.lang_1;
             ptakopet.translator.lang_1 = ptakopet.translator.lang_2;
@@ -28,7 +28,7 @@ function ptakopet_translator_ready() {
         let engine = ptakopet.translator.engines[ptakopet.translator.selected_engine];
         for(let i in engine.languages) {
             let lang = engine.languages[i];
-            ptakopet.language_select_1.append('<option value="' + lang + '">' + lang + '</option>')
+            ptakopet.language_select_1.append('<option value="' + lang + '">' + lang + '</option>') 
             ptakopet.language_select_2.append('<option value="' + lang + '">' + lang + '</option>')
         }
         ptakopet.language_select_1.val(engine.languages[0]);
@@ -38,7 +38,10 @@ function ptakopet_translator_ready() {
     ptakopet.translator.engines.bojar_khresmoi = {
         languages: ['cs', 'en'],
         name: 'Khresmoi',
-        translate: function(s, callback) {
+        msg_index: 0,
+        translate: function(s, callback, cur_input) {
+            this.msg_index += 1;
+            let cur_msg_index = this.msg_index + 1;
             $.ajax({
                 type: "GET",
                 url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
@@ -49,13 +52,16 @@ function ptakopet_translator_ready() {
                 },
                 async: true,
                 success: function(data) {
+                    // late msg
+                    if(cur_msg_index < this.msg_index)
+                        return;
                     let res = JSON.parse(data);
                     if(res.errorCode == 0) {
                         let s = "";
                         for(i in res.translation) {
                             s += res.translation[i].translated[0].text + ' ';
                         }
-                        callback(s);
+                        callback(s, cur_input);
                     }
                 }
             });
@@ -64,7 +70,10 @@ function ptakopet_translator_ready() {
     ptakopet.translator.engines.popel_lindat = {
         languages: ['cs', 'en'],
         name: 'Lindat',
-        translate: function(s, callback) {
+        msg_index: 0,
+        translate: function(s, callback, cur_input) {
+            this.msg_index += 1;
+            let cur_msg_index = this.msg_index + 1;
             $.ajax({
                 type: "POST",
                 url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/models/" + ptakopet.translator.lang_1 + "-" + ptakopet.translator.lang_2,
@@ -73,9 +82,12 @@ function ptakopet_translator_ready() {
                 },
                 async: true,
                 success: function(data) {
+                    // late msg
+                    if(cur_msg_index < this.msg_index)
+                        return;
                     // the response is not a valid JSON array (single instead of double quotes)
                     // bunch of more processing
-                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n"));
+                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n"), cur_input);
                 }
             });
         }
