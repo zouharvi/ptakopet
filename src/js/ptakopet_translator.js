@@ -13,7 +13,7 @@ function ptakopet_translator_ready() {
             ptakopet.translator.lang_1 = ptakopet.translator.lang_2;
             ptakopet.translator.lang_2 = tmp;
         }
-        let result = engine.translate(s, callback, tag);
+        let result = engine.translate(s, callback, tag, rev);
         if(rev) {
             let tmp = ptakopet.translator.lang_1;
             ptakopet.translator.lang_1 = ptakopet.translator.lang_2;
@@ -39,9 +39,15 @@ function ptakopet_translator_ready() {
         languages: ['cs', 'en'],
         name: 'Khresmoi',
         msg_index: 0,
+        rec_msg_index: 0,
         translate: function(s, callback, cur_input) {
-            this.msg_index += 1;
+            let cur_msg_index_rev = this.msg_index_rev + 1;
             let cur_msg_index = this.msg_index + 1;
+            if(rev) {
+                this.msg_index_rev += 1;
+            } else {
+                this.msg_index += 1;
+            }
             $.ajax({
                 type: "GET",
                 url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
@@ -52,9 +58,17 @@ function ptakopet_translator_ready() {
                 },
                 async: true,
                 success: function(data) {
+                    ptakopet.update_open_request(-1);
+
                     // late msg
-                    if(cur_msg_index < this.msg_index)
-                        return;
+                    if(rev) {
+                        if(cur_msg_index_rev < ptakopet.translator.engines.bojar_khresmoi.rec_msg_index_rev) return;
+                        ptakopet.translator.engines.bojar_khresmoi.rec_msg_index_rev = cur_msg_index_rev;
+                    } else {
+                        if(cur_msg_index < ptakopet.translator.engines.bojar_khresmoi.rec_msg_index) return;
+                        ptakopet.translator.engines.bojar_khresmoi.rec_msg_index = cur_msg_index;
+                    }
+                    
                     let res = JSON.parse(data);
                     if(res.errorCode == 0) {
                         let s = "";
@@ -71,9 +85,18 @@ function ptakopet_translator_ready() {
         languages: ['cs', 'en'],
         name: 'Lindat',
         msg_index: 0,
-        translate: function(s, callback, cur_input) {
-            this.msg_index += 1;
+        rec_msg_index: 0,
+        msg_index_rev: 0,
+        rec_msg_index_rev: 0,
+        translate: function(s, callback, cur_input, rev) {
+            let cur_msg_index_rev = this.msg_index_rev + 1;
             let cur_msg_index = this.msg_index + 1;
+            if(rev) {
+                this.msg_index_rev += 1;
+            } else {
+                this.msg_index += 1;
+            }
+            ptakopet.update_open_request(+1);
             $.ajax({
                 type: "POST",
                 url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/models/" + ptakopet.translator.lang_1 + "-" + ptakopet.translator.lang_2,
@@ -82,12 +105,20 @@ function ptakopet_translator_ready() {
                 },
                 async: true,
                 success: function(data) {
+                    ptakopet.update_open_request(-1);
+                    
                     // late msg
-                    if(cur_msg_index < this.msg_index)
-                        return;
+                    if(rev) {
+                        if(cur_msg_index_rev < ptakopet.translator.engines.popel_lindat.rec_msg_index_rev) return;
+                        ptakopet.translator.engines.popel_lindat.rec_msg_index_rev = cur_msg_index_rev;
+                    } else {
+                        if(cur_msg_index < ptakopet.translator.engines.popel_lindat.rec_msg_index) return;
+                        ptakopet.translator.engines.popel_lindat.rec_msg_index = cur_msg_index;
+                    }
                     // the response is not a valid JSON array (single instead of double quotes)
                     // bunch of more processing
-                    callback(data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n"), cur_input);
+                    let text = data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n");
+                    callback(text == '[]' ? '' : text, cur_input);
                 }
             });
         }

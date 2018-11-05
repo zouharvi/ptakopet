@@ -8,6 +8,12 @@ function ptakopet_arch_ready() {
     ptakopet.ta2 = $('#ptakopet_ta2');
     ptakopet.language_select_1 = $('#ptakopet_language_select_1');
     ptakopet.language_select_2 = $('#ptakopet_language_select_2');
+    ptakopet.progress_span = $('#ptakopet_progress_span');
+    ptakopet.open_requests = 0;
+    ptakopet.update_open_request = function(a) {
+        ptakopet.open_requests += a;
+        ptakopet.progress_span.text(ptakopet.open_requests);
+    };
     ptakopet.fi = $('#ptakopet_floater_icon');
     ptakopet.engine_select = $('#ptakopet_engine_select');
     ptakopet.getURL = function(a) { return ($('#ptakopet_base_url_span').html()) + a; }
