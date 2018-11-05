@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Ptakopet",
+    "name": "Ptakopět",
     "description": "A browser agnostic plugin for agile forward and backward translation",
     "version": "1",
     "author": "Vilém Zouhar",
@@ -10,11 +10,6 @@
         "css/*",
         "src/*"
     ],
-    // "content_scripts": [{
-    //     "matches": ["<all_urls>"],
-    //     "js": ["js/ptakopet_init.js"],
-    //     "run_at": "document_end"
-    // }],
     "background": { 
         "scripts": ["js/ptakopet_background_bootstrap.js"]
     },
@@ -26,5 +21,5 @@
         "48": "src/logo_bird_icon_48.png",
         "128": "src/logo_bird_icon_128.png"
     },
-    "permissions": ["activeTab", "contextMenus" /*, "storage"*/]
+    "permissions": ["activeTab", "contextMenus"]
 }
