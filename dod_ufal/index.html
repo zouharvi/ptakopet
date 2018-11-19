@@ -1,0 +1,75 @@
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Ptakopět</title>
+    <link rel="icon" type="image/png" href="icon.png" />
+    <style>
+        h4, h3, h2, p, input, textarea {
+            font-family: Roboto, sans-serif;
+        }
+        textarea {
+            width: 800px;
+            height: 80px;
+            resize: none;
+            font-size: 18px;
+        }
+        h4 {
+            font-size: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body style='background-color: #e9c6af;'>
+    <img src='logo.png' style='size: 800px; display: block; margin-left: auto; margin-right: auto; margin-top: -50px;'>
+    <div style='width: 800px; padding: 10px; display: block; margin-left: auto; margin-right: auto; background-color: #d3ab91;'>
+        <h2>Would you mind answering a few questions? Don't worry if you don't speak English - our plugin will assist you! (+ we'll give you a candy.)</h2>
+        <br>
+        <h4>What's your favourite ice cream flavour (e.g. chocolate)?</h4>
+        <textarea id='ice_cream' placeholder="Please explain your answer.."></textarea>
+        <h4>Do you know any jokes about people studying MFF?</h4>
+        <textarea id='jokes' placeholder="Don't worry - we're used to it.."></textarea>
+        <h4>If you had to become a morning cereal, which would you choose?</h4>
+        <textarea id='cereal' placeholder="Asking the real questions.."></textarea>
+        <h4>If life were a video game, what would some of the cheat codes be?</h4>
+        <textarea id='cheats' placeholder="We won't tell anyone.."></textarea>
+        <input id='submit' type='button' value='Submit' style='width: 800px; height: 40px; font-size: 30px; margin-top: 20px;'>
+    </div>
+
+    <div style='width: 800px; padding: 10px; display: block; margin-left: auto; margin-right: auto; background-color: #d3ab91; margin-top: 10px;'>
+        <h2>What's this all about?</h2>
+        <p>
+            Ptakopět (Překlad Tam A KOntrolně zPĚT) is a browser plugin for translation quality estimation. It tackles the problem of translating to unknown languages when filling in online forms. Right now only English-Czech translation is supported, but that should change soon. This plugin was developed as a semestral project by Vilém Zouhar (with some help by Ondřej Bojar) and uses translation backed by Martin Popel (state of the art translation system). <a href='https://ptakopet.vilda.net' target='_blank'>More info + addon.</a>
+        </p>
+    </div>
+    <script type='text/javascript'>
+        let ice_cream = $('#ice_cream');
+        let jokes = $('#jokes');
+        let cereal = $('#cereal');
+        let cheats = $('#cheats');
+        let submit = $('#submit');
+        submit.click(function() {
+            if(localStorage.getItem('ptakopet_dod') == null)
+                localStorage.setItem('ptakopet_dod', '[]');
+            var saved = JSON.parse(localStorage.getItem('ptakopet_dod'));
+            saved.push({'ice_cream': ice_cream.val(), 'jokes': jokes.val(), 'cereal': cereal.val(), 'cheats': cheats.val()})
+            localStorage.setItem('ptakopet_dod', JSON.stringify(saved));
+
+            ice_cream.val('');
+            jokes.val('');
+            cereal.val('');
+            cheats.val('');
+
+            alert('Thank you for your answers. Have a candy! :-)')
+        });
+    </script>
+    <script id='ptakopet_init' src='/dev/ptakopet/js/ptakopet_init.js'></script>
+</body>
+
+</html>
