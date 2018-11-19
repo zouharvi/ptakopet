@@ -87,7 +87,7 @@ function ptakopet_arch_ready() {
 
     // atrap ptakopet text areas
     ptakopet.ta1.on('input', function(a, b) {
-        let ta_id = ptakopet.ta1.attr('id');
+        let ta_id = ptakopet.cur_input.attr('id');
         let ta_val = ptakopet.ta1.val();
         ptakopet.translator.translate(
             ptakopet.ta1.val(),

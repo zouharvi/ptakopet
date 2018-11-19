@@ -35,17 +35,23 @@ Ptakopět (Překlad Tam A KOntrolně zPĚT) is an agile browser agnostic plugin,
 The issue at hand is known as \textit{Outbound Translation}. Many users use machine translation to verify their own translation, or can at least affirm, that the machine translation is valid. Translation systems are, however, not perfect and despite their great power, they tend to perform poorly on unprecedenced phenomena (unknown words, unexpected word order, etc.). Users translating to languages, which they don't master enough to validate the translation could use Ptakopět to verify (and assure them), that the machine translation output is valid. As many encounters with foreign languages happen on the Internet, Ptakopět is developed as a browser extension.
 
 \section*{Other solutions}
-Backwards translation is only one of the solutions to \textit{Outbound Translation}
+Backwards translation is only one of the solutions to \textit{Outbound Translation}. Other could inlude more autonomous systems, such as text highlighting. Backward translation relies on the ability of the user to asses the differences between texts.
 
 \subsection*{The scope}
-
+Ptakopět aims to provide a backward translation interface to already existing translation engines. It does not do the translation itself in any way. Existing translation backends are provided by the Charles University. The interface is provided in a form of browser agnostic plugin, that can be hardwired to website as a plain script.
 
 \section*{Implementation}
+The plugin itself is written in JavaScript, but injects HTML, CSS and jQuery framework into webpage. Making the plugin indifferent to whether it is run as a background sciprt (browser plugin) or as an user script (included in webpage) posed a substantial obstacle. Resulting implementation works, but is unfortunately affected by web styling. Eg.  website CSS can define the looks of the plugin, which is not intended and can result in usable, but not aesthetically pleasing design. \\
+Ptakopět tries to capture all input events to \textit{textareas} and \textit{inputs}. This is a very robust approach, but about half of the websites (as of 2018) use custom input elements (to provide styling and extra functionaliy). As a result, these elements can't be captured using Ptakopět. This is obviously a radical usability issue, but I didn't find an universal solution to this problem. \\
+Text events are processed and forwarded to translation engine using AJAX requests. This could eventually pose a threat to these backends, if the plugin was used by many people simultaniously. The engines would be glutted by requests, as every keypress invokes one or two translations. They are indistinguishable from legit requests, as the plugin work user-side. This could be solved by postponing requests to some interval of no key press.
+
+% include graphics
+
+\section*{Publishing}
 
 \section*{Evaluation}
 
 \section*{Possible extensions}
-
 
 \section*{Conclusion}
 
