@@ -32,6 +32,19 @@ function ptakopet_arch_ready() {
             ptakopet.dir_button.attr('class', 'fa fa-arrow-left');
     }
 
+    ptakopet.log = function(type, id, tr0, tr1, tr2) {
+        if(localStorage.getItem('ptakopet_log') == null)
+            localStorage.setItem('ptakopet_log', '[]');
+        var saved = JSON.parse(localStorage.getItem('ptakopet_log'));
+
+        if(type=='backward') {
+            saved.push({'dir': 'tr1->tr2', 'element_id': id, 'tr0': tr0, 'tr1': tr1, 'tr2': tr2})
+        } else if(type=='forward') {
+            saved.push({'dir': 'tr0->tr1', 'element_id': id, 'tr0': tr0, 'tr1': tr1})
+        }
+        localStorage.setItem('ptakopet_log', JSON.stringify(saved));
+    }
+
     ptakopet.language_select_1.change(function() {
         let new_lang = ptakopet.language_select_1.val();
         if(new_lang == ptakopet.translator.lang_2) {
@@ -74,19 +87,23 @@ function ptakopet_arch_ready() {
 
     // atrap ptakopet text areas
     ptakopet.ta1.on('input', function(a, b) {
+        let ta_id = ptakopet.ta1.attr('id');
+        let ta_val = ptakopet.ta1.val();
         ptakopet.translator.translate(
             ptakopet.ta1.val(),
             function(translation, tag) {
                 // focus changed (and is not backwards translation)
                 if(typeof(tag) != 'undefined' && ptakopet.cur_input[0] != tag)
                     return;
-                     
+                ptakopet.log('forward', ta_id, ta_val, translation);
+                    
                 // backward translation
                 ptakopet.translator.translate(translation, function(translation_rev, tag_2) {
                     // focus changed (and is not backwards translation)
                     if(typeof(tag_2) != 'undefined' && ptakopet.cur_input[0] != tag_2)
                         return;
                     ptakopet.ta2.val(translation_rev);
+                    ptakopet.log('backward', ta_id, ta_val, translation, translation_rev);
                 }, ptakopet.cur_input[0], true);
 
                 // set DOM value
