@@ -82,7 +82,7 @@ function ptakopet_translator_ready() {
         }
     }
     ptakopet.translator.engines.popel_lindat = {
-        languages: ['cs', 'en'],
+        languages: ['cs', 'en', 'fr'],
         name: 'Lindat',
         msg_index: 0,
         rec_msg_index: 0,
