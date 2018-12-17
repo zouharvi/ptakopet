@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Ptakopět",
     "description": "A browser agnostic plugin for agile forward and backward translation",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": "Vilém Zouhar",
     "web_accessible_resources": [
         "html/*",

@@ -36,11 +36,13 @@ function ptakopet_translator_ready() {
     }
     
     ptakopet.translator.engines.bojar_khresmoi = {
-        languages: ['cs', 'en'],
+        languages: ['cs', 'en', 'de', 'fr', 'es'],
         name: 'Khresmoi',
         msg_index: 0,
         rec_msg_index: 0,
-        translate: function(s, callback, cur_input) {
+        msg_index_rev: 0,
+        rec_msg_index_rev: 0,
+        translate: function(s, callback, cur_input, rev=false) {
             let cur_msg_index_rev = this.msg_index_rev + 1;
             let cur_msg_index = this.msg_index + 1;
             if(rev) {
@@ -48,6 +50,7 @@ function ptakopet_translator_ready() {
             } else {
                 this.msg_index += 1;
             }
+            ptakopet.update_open_request(+1);
             $.ajax({
                 type: "GET",
                 url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
