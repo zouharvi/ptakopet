@@ -4,7 +4,11 @@
 
 ## Version 2
 
-Current version (static page).
+Current version (static page) with word level quality estimation.
+
+### Usage
+
+### Class requirements
 
 ## Version 1
 
@@ -15,9 +19,9 @@ Available in [Chrome](https://chrome.google.com/webstore/detail/ptakop%C4%9Bt/hg
 ```<script id='ptakopet_init' src='dev/ptakopet/js/ptakopet_init.js'></script>```
 
 
-## Usage
+### Usage
 This project can be used as a browser extension, or as a script that webmasters can add to their pages.
 
-## Class requirements
+### Class requirements
 Full implementation of Ptakoět frontend together with distribution (Chrome Web Store, Add-ons for Firefox and Opera addons) and user documentation.
 
