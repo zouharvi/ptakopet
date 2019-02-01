@@ -1,4 +1,4 @@
-[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/logo.png)](https://ptakopet.vilda.net)
+[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
 
 [Ptakopět](https://ptakopet.vilda.net) (Překlad tam a kontrolně zpět) is a browser agnostic (mostly) plugin/page script for agile forward and backward translation. This project was created as a semestral assignment for _Competing in Machine Translation_, a class at Charles University Faculty of Mathematics and Physics in winter semester 2018 (version 1) and _Semestral project_ in summer semester (version 2) with help of Ondřej Bojar.
 
