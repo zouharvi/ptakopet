@@ -13,9 +13,13 @@
     margin-bottom: 20px;
 }
 
-.input_div div span {
+.input_div div span { /* input textarea titles */
     width: 150px;
     display: inline-block;
+}
+
+.input_div div select { /* language selects */
+    width: 90px;
 }
 
 textarea {
