@@ -1,9 +1,25 @@
-// throtle input
-let translate_source_timer;
-function translate_source() {
-    let text = input_source.val();
-    clearTimeout(translate_source_timer);
-    translate_source_timer = setTimeout(function () {
+function translator_ready() {
+    // throtle input
+    translator.translate_source = function () {
+        clearTimeout(translator.source_timer);
+        translator.source_timer = setTimeout(translator.active.translate_source);
+    }
+
+    // throtle input
+    translator.translate_target = function () {
+        clearTimeout(translator.target_timer);
+        translator.target_timer = setTimeout(translator.active.translate_target);
+    }
+
+    // MT Transformer
+
+    translator.transformer = {
+        LANGUAGES: { 'Czech': 'cs', 'English': 'en', 'French': 'fr', 'Hindi': 'hi' }
+    };
+
+
+    translator.transformer.translate_source = function () {
+        let text = input_source.val();
         $.ajax({
             type: "POST",
             url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages?src=" + translator.lang_source + "&tgt=" + translator.lang_target,
@@ -14,20 +30,13 @@ function translate_source() {
                 // bunch of more processing
                 let data_clean = data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n");
                 input_target.val(data_clean == '[]' ? '' : data_clean);
-                translate_target();
+                translator.translate_target();
             }
         });
-    }, 500);
-}
+    }
 
-
-// throtle input
-let translate_target_timer;
-function translate_target() {
-    let text = input_target.val();
-    console.log('translating target')
-    clearTimeout(translate_target_timer);
-    translate_target_timer = setTimeout(function () {
+    translator.transformer.translate_target = function () {
+        let text = input_target.val();
         $.ajax({
             type: "POST",
             url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages?src=" + translator.lang_target + "&tgt=" + translator.lang_source,
@@ -40,5 +49,57 @@ function translate_target() {
                 input_back.val(data_clean == '[]' ? '' : data_clean);
             }
         });
-    }, 500);
+    }
+
+    // Default MT is Transformer
+    translator.active = translator.transformer;
+
+
+    // Khresmoi
+
+    translator.khresmoi = {
+        LANGUAGES: { 'Czech': 'cs', 'English': 'en', 'French': 'fr', 'German': 'de' }
+    };
+
+    translator.khresmoi.translate_source = function () {
+        let text = input_source.val();
+        $.ajax({
+            type: "GET",
+            url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
+            data: {
+                sourceLang: translator.lang_source,
+                targetLang: translator.lang_target,
+                text: text,
+                alignmentInfo: true
+            },
+            success: function (data) {
+                let res = JSON.parse(data);
+                if (res.errorCode == 0) {
+                    input_target.val(res.translation[0].translated[0].text);
+                    translator.translate_target();
+                }
+            }
+        });
+    }
+
+    translator.khresmoi.translate_target = function () {
+        let text = input_target.val();
+        $.ajax({
+            type: "GET",
+            url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
+            data: {
+                targetLang: translator.lang_source,
+                sourceLang: translator.lang_target,
+                text: text,
+                alignmentInfo: true
+            },
+            success: function (data) {
+                let res = JSON.parse(data);
+                if (res.errorCode == 0) {
+                    input_back.val(res.translation[0].translated[0].text);
+                }
+            }
+        });
+    }
+
 }

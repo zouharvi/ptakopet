@@ -14,32 +14,48 @@
 </head>
 
 <body style='margin: 0; background-color: #e9c6af;'>
-    <div style='background-color: #d8bcaa;text-align: center; height: 20px;'>This page is for version 2 only. For version 1 click <a href='https://vilda.net/s/dod_ptakopet' target='blank'>here</a>.</div>
+    <div style='background-color: #d8bcaa;text-align: center; height: 20px;'>This page is for version 2 only. For
+        version 1 click <a href='https://vilda.net/s/dod_ptakopet' target='blank'>here</a>.</div>
     <img src="src/logo.png" style="width: 500px; display: block; margin-top: 50px; margin-bottom: 50px; margin-left: auto; margin-right: auto;">
     <div class='input_div'>
         <div>
             <span>Source language:</span>
-            <select id='language_select_source'>
-            </select>
+            <select id='language_select_source'></select>
         </div>
         <textarea id='input_source'></textarea>
     </div>
     <div class='input_div'>
         <div>
             <span>Target language:</span>
-            <select id='language_select_target'>
-            </select>
+            <select id='language_select_target'></select>
         </div>
         <textarea id='input_target'></textarea>
     </div>
     <div class='input_div'>
         <div>
             <span>Backward language:</span>
-            <select disabled id='language_select_back'>
-            </select>
+            <select disabled id='language_select_back'></select>
         </div>
         <textarea disabled id='input_back'></textarea>
     </div>
+    <div id='option_div' style='margin-top: 20px;'>
+        <div>
+            <span>Translator backend: </span>
+            <select id='translator_backend'>
+                <option value='transformer'>MT Transformer</option>
+                <option value='khresmoi'>Khresmoi (medical)</option>
+            </select>
+        </div>
+        <div>
+            <span>Quality estimator backend: </span>
+            <select id='qe_backend'>
+                <option value='na'>NA</option>
+                <option value='na'>NA</option>
+            </select>
+        </div>
+    </div>
+
     <script src='js/main.js'></script>
 </body>
+
 </html>

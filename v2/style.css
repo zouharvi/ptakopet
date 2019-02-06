@@ -2,11 +2,20 @@
     font-family: Roboto, sans-serif;
 }
 
-.input_div {
+.input_div, #option_div {
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
     width: 800px;
+}
+
+#option_div div {
+    margin-top: 10px;
+    width: 350px;
+}
+
+#option_div div select {
+    float: right;
 }
 
 .input_div div {
