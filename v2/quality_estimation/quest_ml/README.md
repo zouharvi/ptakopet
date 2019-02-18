@@ -1,0 +1,1 @@
+Even though most commens were stripped to produce a minimal working example, this code is mostly still the original QuEst++ and honors the credits and license of the authors (please refer to [their repository](https://github.com/ghpaetzold/questplusplus)).
