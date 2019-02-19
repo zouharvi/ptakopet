@@ -51,7 +51,7 @@ def read_reference_file(path, delim, encoding='utf-8', tostring=False):
     return refs
 
 
-def read_features_file(path, delim, encoding='utf-8', tostring=False):
+def read_features_file(path, delim, encoding='utf-8', tostring=True):
     '''
     Reads the features for each instance and stores it on an numpy array.
     
@@ -78,6 +78,7 @@ def read_features_file(path, delim, encoding='utf-8', tostring=False):
                     else:
                         cols.append(float(t))
                 except ValueError as e:
+		    print("VILDA: `" + t + "`, " + encoding + " " + str(tostring))
                     log.error("%s line %s: %s" % (e, line_num, t))
         
         line_num += 1
