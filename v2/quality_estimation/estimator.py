@@ -44,8 +44,10 @@ if __name__ == "__main__":
     questML = "python2 ./quest_ml/src/learn_model.py ./quest_ml/config/en-es.dev.cfg"
     process = subprocess.Popen(questML.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
-    print(error.decode('utf-8'))
     print("DONE")
+
+    with open('predicted.csv', 'r') as file_result:
+        print(file_result.read())
 
 
     # rm tmp folder
