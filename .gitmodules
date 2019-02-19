@@ -1,3 +1,0 @@
-[submodule "v2/quality_estimation/fast_align"]
-	path = v2/quality_estimation/fast_align
-	url = git@github.com:zouharvi/fast_align.git
