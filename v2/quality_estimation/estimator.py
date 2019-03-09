@@ -14,7 +14,6 @@ en_es_config = {
 
 config = 'en-es.crf.cfg'
 
-
 if __name__ == "__main__":
     # program, source, target
     assert(len(sys.argv) == 3)
