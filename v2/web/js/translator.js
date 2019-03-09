@@ -76,7 +76,11 @@ function translator_ready() {
             success: function (data) {
                 let res = JSON.parse(data);
                 if (res.errorCode == 0) {
-                    input_target.val(res.translation[0].translated[0].text);
+                    let text_all = '';
+                    for (let i in res.translation) {
+                        text_all += res.translation[i].translated[0].text + " ";
+                    }
+                    input_target.val(text_all);
                     input_target.trigger('input');
                 }
             }
@@ -97,7 +101,11 @@ function translator_ready() {
             success: function (data) {
                 let res = JSON.parse(data);
                 if (res.errorCode == 0) {
-                    input_back.val(res.translation[0].translated[0].text);
+                    let text_all = '';
+                    for (let i in res.translation) {
+                        text_all += res.translation[i].translated[0].text + " ";
+                    }
+                    input_back.val(text_all)
                 }
             }
         });
