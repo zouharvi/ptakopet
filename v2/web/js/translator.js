@@ -58,7 +58,7 @@ function translator_ready() {
     // Khresmoi
 
     translator.khresmoi = {
-        LANGUAGES: { 'Czech': 'cs', 'English': 'en', 'French': 'fr', 'German': 'de' }
+        LANGUAGES: { 'Czech': 'cs', 'English': 'en', 'French': 'fr', 'German': 'de', 'Spanish': 'es' }
     };
 
     translator.khresmoi.translate_source = function () {
