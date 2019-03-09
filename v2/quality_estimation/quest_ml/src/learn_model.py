@@ -180,8 +180,10 @@ def fit_predict(config, X_train, y_train, X_test=None, y_test=None):
             v = scorer_func(y_test, y_hat)
             print("%s = %s" % (scorer_name, v))
         with open("predicted.csv", 'w') as _fout:
-            for _x,  _y in zip(y_test, y_hat):
-                _fout.write(str(_x)+'\t'+str(_y)+'\n')
+            # for _x,  _y in zip(y_test, y_hat):
+            #     _fout.write(str(_x)+'\t'+str(_y)+'\n')
+            for _y in y_hat:
+                _fout.write(str(_y) + '\n')
 
 def run(config):
     '''

@@ -2,13 +2,13 @@ function translator_ready() {
     // throtle input
     translator.translate_source = function () {
         clearTimeout(translator.source_timer);
-        translator.source_timer = setTimeout(translator.active.translate_source);
+        translator.source_timer = setTimeout(translator.active.translate_source, 500);
     }
 
     // throtle input
     translator.translate_target = function () {
         clearTimeout(translator.target_timer);
-        translator.target_timer = setTimeout(translator.active.translate_target);
+        translator.target_timer = setTimeout(translator.active.translate_target, 500);
     }
 
     // MT Transformer
@@ -30,7 +30,8 @@ function translator_ready() {
                 // bunch of more processing
                 let data_clean = data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n");
                 input_target.val(data_clean == '[]' ? '' : data_clean);
-                translator.translate_target();
+                input_target.trigger('input');
+                // translator.translate_target();
             }
         });
     }
@@ -76,7 +77,7 @@ function translator_ready() {
                 let res = JSON.parse(data);
                 if (res.errorCode == 0) {
                     input_target.val(res.translation[0].translated[0].text);
-                    translator.translate_target();
+                    input_target.trigger('input');
                 }
             }
         });

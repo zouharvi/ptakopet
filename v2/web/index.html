@@ -6,10 +6,15 @@
     <title>Ptakopět v2</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" href="src/icon.png">
+    
+    <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'>
+    <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script>
+    
     <link rel='stylesheet' type='text/css' href='style.css'>
     <script src='js/arch.js'></script>
     <script src='js/translator.js'></script>
     <script src='js/estimator.js'></script>
+    <script src='js/utils.js'></script>
 
 </head>
 
@@ -22,21 +27,21 @@
             <span>Source language:</span>
             <select id='language_select_source'></select>
         </div>
-        <textarea id='input_source'></textarea>
+        <textarea id='input_source' class='hwt-content'></textarea>
     </div>
     <div class='input_div'>
         <div>
             <span>Target language:</span>
             <select id='language_select_target'></select>
         </div>
-        <textarea id='input_target'></textarea>
+        <textarea id='input_target' class='hwt-content'></textarea>
     </div>
     <div class='input_div'>
         <div>
             <span>Backward language:</span>
             <select disabled id='language_select_back'></select>
         </div>
-        <textarea disabled id='input_back'></textarea>
+        <textarea disabled id='input_back' class='hwt-content'></textarea>
     </div>
     <div id='option_div' style='margin-top: 20px;'>
         <div>

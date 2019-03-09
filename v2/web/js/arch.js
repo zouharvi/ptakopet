@@ -38,6 +38,7 @@ function arch_ready() {
         translator.translate_source();
     });
     input_target.on('input', function () {
+        estimator.estimate_translation_1();
         translator.translate_target();
     });
 
