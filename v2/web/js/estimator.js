@@ -36,18 +36,15 @@ function estimator_ready() {
     }
     
     estimator.color = function(estimation, target) {
-        console.log(estimation);
         let indexes = Utils.get_word_index(target.val());
         let perm = Utils.sorting_permutation(estimation);
-        console.log(perm);
 
         let highlights = [];
         for (let i = 0; i < perm.length; i++) {
             if(perm[i] == perm.length-1) {
-                highlights.push(indexes[i]);
+                highlights.push({highlight: indexes[i], className: 'word_highlight_1'});
             }
         }
-        console.log(highlights);
         target.highlightWithinTextarea({highlight: highlights});
     };
 }

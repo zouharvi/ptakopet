@@ -9,4 +9,6 @@
 | 13 - 02 - 2019 | QuEst++ learning part + feature extractor | 2+4 |
 | 13 - 02 - 2019 | marmot feature extractor| 2 |
 | 18 - 02 - 2019 | QuEst extractor first hit | 5 |
-| 09 - 03 - 2019 | basic server setup for EN->ES | 1 |
+| 09 - 03 - 2019 | basic server setup for EN->ES | 3 |
+| 10 - 03 - 2019 | custom feature extraction according to WMT experiments | 2 |
+| 10 - 03 - 2019 | client highlight | 1.5 |

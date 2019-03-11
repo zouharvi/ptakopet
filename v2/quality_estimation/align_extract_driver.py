@@ -70,7 +70,8 @@ def align_extract(file_source_name, file_target_name, features_filename='feature
 
         process = subprocess.Popen(questCommand.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
-        # print(output.decode('utf-8'))
+        print(output.decode('utf-8'))
+        print(error.decode('utf-8'))
         
         with open('output/test/output.txt', 'r') as features_file:
             features_raw += features_file.read()

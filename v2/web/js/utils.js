@@ -4,7 +4,11 @@ Utils.get_word_index = function(text) {
     sum = 0;
     indicies = [];
     for(i in words) {
-        indicies.push([sum, sum + words[i].length])
+        if(words[i].length == 0) {
+            sum += 1;
+            continue;
+        }
+        indicies.push([sum, sum + words[i].length]);
         sum += 1 + words[i].length;
     }
     return indicies;
