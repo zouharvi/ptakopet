@@ -6,4 +6,4 @@
 	url = https://github.com/lonekorean/highlight-within-textarea
 [submodule "v2/quality_estimation/fast_align"]
 	path = v2/quality_estimation/fast_align
-	url = git@github.com:clab/fast_align.git
+	url = git@github.com:zouharvi/fast_align.git
