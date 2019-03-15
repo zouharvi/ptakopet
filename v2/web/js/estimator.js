@@ -20,7 +20,7 @@ function estimator_ready() {
 
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:8080",
+            url: "http://quest.ms.mff.cuni.cz:80/zouharvi/",
             data: {
                 source: text_source,
                 target: text_target,
