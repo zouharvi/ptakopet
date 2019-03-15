@@ -52,10 +52,6 @@ function translator_ready() {
         });
     }
 
-    // Default MT is Transformer
-    translator.active = translator.transformer;
-
-
     // Khresmoi
 
     translator.khresmoi = {

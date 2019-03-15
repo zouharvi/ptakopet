@@ -1,17 +1,19 @@
 function estimator_ready() {
     // throtle input
-    estimator.estimate_translation_1 = function () {
-        clearTimeout(estimator.estimation_1_timer);
-        estimator.estimation_1_timer = setTimeout(estimator.real.estimate_translation_1, 1000);
+    estimator.estimate = function () {
+        clearTimeout(estimator.timer);
+        estimator.timer = setTimeout(estimator.active.estimate, 1000);
     }
-    estimator.real = {};
 
-    estimator.real.estimate_translation_1 = function() {
+    estimator.active = {};
+
+    estimator.quest = {};
+    estimator.quest.estimate = function () {
         let text_source = input_source.val();
         let text_target = input_target.val();
 
         // blank input event at the beginning
-        if(text_source.length == 0 || text_target.length == 0)
+        if (text_source.length == 0 || text_target.length == 0)
             return;
 
         console.log('starting QE');
@@ -27,24 +29,27 @@ function estimator_ready() {
                 try {
                     data = JSON.parse(data);
                     estimator.color(data, input_target);
-                } catch(e) {
+                } catch (e) {
                     console.log("QE Error");
                     console.log(e);
                 }
             }
         });
     }
-    
-    estimator.color = function(estimation, target) {
+
+    estimator.none = {};
+    estimator.none.estimate = function () { input_target.highlightWithinTextarea({ highlight: [] }); };
+
+    estimator.color = function (estimation, target) {
         let indexes = Utils.get_word_index(target.val());
         let perm = Utils.sorting_permutation(estimation);
 
         let highlights = [];
         for (let i = 0; i < perm.length; i++) {
-            if(perm[i] == perm.length-1) {
-                highlights.push({highlight: indexes[i], className: 'word_highlight_1'});
+            if (perm[i] <= 2) {
+                highlights.push({ highlight: indexes[i], className: ('word_highlight_' + perm[i]) });
             }
         }
-        target.highlightWithinTextarea({highlight: highlights});
+        target.highlightWithinTextarea({ highlight: highlights });
     };
 }

@@ -38,7 +38,7 @@ function arch_ready() {
         translator.translate_source();
     });
     input_target.on('input', function () {
-        estimator.estimate_translation_1();
+        estimator.estimate();
         translator.translate_target();
     });
 
@@ -72,7 +72,14 @@ function arch_ready() {
         translator.translate_source();
     });
 
-    translator_backend.val('transformer');
-    translator_backend.trigger('change');
 
+    estimator_backend.change(function() {
+        estimator.active = estimator[estimator_backend.val()];
+        estimator.estimate();
+    });
+
+    translator_backend.val('khresmoi');
+    translator_backend.trigger('change');
+    estimator_backend.val('quest');
+    estimator_backend.trigger('change');
 }

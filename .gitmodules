@@ -4,3 +4,6 @@
 [submodule "v2/web/highlight-within-textarea"]
 	path = v2/web/highlight-within-textarea
 	url = https://github.com/lonekorean/highlight-within-textarea
+[submodule "v2/quality_estimation/fast_align"]
+	path = v2/quality_estimation/fast_align
+	url = git@github.com:clab/fast_align.git

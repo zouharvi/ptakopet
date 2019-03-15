@@ -1,3 +1,11 @@
+.word_highlight_0 {
+    background-color: #ffa4a4;
+}
+
 .word_highlight_1 {
-    background-color: red;
+    background-color: #ffb5b5;
+}
+
+.word_highlight_2 {
+    background-color: #ffd5d5;
 }
