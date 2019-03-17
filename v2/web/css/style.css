@@ -18,6 +18,11 @@
     float: right;
 }
 
+#option_div #open_indicator_estimator, #option_div #open_indicator_translator {
+    float: right;
+    margin-left: 7px;
+}
+
 .input_div div {
     margin-bottom: 20px;
 }

@@ -13,9 +13,10 @@
     <link rel='stylesheet' type='text/css' href='css/style.css'>
     <link rel='stylesheet' type='text/css' href='css/highlight.css'>
     <script src='js/arch.js'></script>
-    <script src='js/translator.js'></script>
     <script src='js/estimator.js'></script>
+    <script src='js/translator.js'></script>
     <script src='js/utils.js'></script>
+    <script src='js/indicator.js'></script>
 
 </head>
 
@@ -47,6 +48,7 @@
     <div id='option_div' style='margin-top: 20px;'>
         <div>
             <span>Translator backend: </span>
+            <span id='open_indicator_translator'>0</span>
             <select id='translator_backend'>
                 <option value='transformer'>MT Transformer</option>
                 <option value='khresmoi'>Khresmoi (medical)</option>
@@ -54,6 +56,7 @@
         </div>
         <div>
             <span>Quality estimator backend: </span>
+            <span id='open_indicator_estimator'>0</span>
             <select id='estimator_backend'>
                 <option value='quest'>QuEst++ pipeline</option>
                 <option value='none'>None</option>

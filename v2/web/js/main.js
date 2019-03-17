@@ -8,6 +8,7 @@ let translator_backend = $('#translator_backend');
 let estimator_backend = $('#estimator_backend');
 let translator = { lang_source: 'en', lang_target: 'es' };
 let estimator = {};
+let indicator = {};
 
 input_source.highlightWithinTextarea({highlight:[]})
 input_target.highlightWithinTextarea({highlight:[]})
@@ -16,3 +17,4 @@ input_back.highlightWithinTextarea({highlight:[]})
 translator_ready();
 estimator_ready();
 arch_ready();
+indicator_ready();

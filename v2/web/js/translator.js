@@ -20,6 +20,7 @@ function translator_ready() {
 
     translator.transformer.translate_source = function () {
         let text = input_source.val();
+        indicator.translate(1);
         $.ajax({
             type: "POST",
             url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages?src=" + translator.lang_source + "&tgt=" + translator.lang_target,
@@ -32,12 +33,14 @@ function translator_ready() {
                 input_target.val(data_clean == '[]' ? '' : data_clean);
                 input_target.trigger('input');
                 // translator.translate_target();
+                indicator.translate(-1);
             }
         });
     }
 
     translator.transformer.translate_target = function () {
         let text = input_target.val();
+        indicator.translate(1);
         $.ajax({
             type: "POST",
             url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages?src=" + translator.lang_target + "&tgt=" + translator.lang_source,
@@ -48,6 +51,7 @@ function translator_ready() {
                 // bunch of more processing
                 let data_clean = data.replace(/['"], ['"]/g, ' ').replace(/(\[['"]|[\\]*\\n['"]\])/g, '').replace(/\\n ?/g, "\n");
                 input_back.val(data_clean == '[]' ? '' : data_clean);
+                indicator.translate(-1);
             }
         });
     }
@@ -60,6 +64,7 @@ function translator_ready() {
 
     translator.khresmoi.translate_source = function () {
         let text = input_source.val();
+        indicator.translate(1);
         $.ajax({
             type: "GET",
             url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
@@ -79,12 +84,14 @@ function translator_ready() {
                     input_target.val(text_all);
                     input_target.trigger('input');
                 }
+                indicator.translate(-1);
             }
         });
     }
 
     translator.khresmoi.translate_target = function () {
         let text = input_target.val();
+        indicator.translate(1);
         $.ajax({
             type: "GET",
             url: "https://cors.io/?https://ufallab.ms.mff.cuni.cz/~bojar/mt/khresmoi.php?action=translate",
@@ -103,6 +110,7 @@ function translator_ready() {
                     }
                     input_back.val(text_all)
                 }
+                indicator.translate(-1);
             }
         });
     }

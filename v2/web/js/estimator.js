@@ -11,16 +11,17 @@ function estimator_ready() {
     estimator.quest.estimate = function () {
         let text_source = input_source.val();
         let text_target = input_target.val();
-
+        
         // blank input event at the beginning
         if (text_source.length == 0 || text_target.length == 0)
-            return;
-
-        console.log('starting QE');
+        return;
+        
+        indicator.estimate(1);
 
         $.ajax({
             type: "POST",
             url: "http://quest.ms.mff.cuni.cz:80/zouharvi/",
+            // url: "http://localhost:8080",
             data: {
                 source: text_source,
                 target: text_target,
@@ -33,6 +34,7 @@ function estimator_ready() {
                     console.log("QE Error");
                     console.log(e);
                 }
+                indicator.estimate(-1);
             }
         });
     }

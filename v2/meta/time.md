@@ -13,3 +13,4 @@
 | 10 - 03 - 2019 | custom feature extraction according to WMT experiments | 2 |
 | 10 - 03 - 2019 | client highlight | 1.5 |
 | 16 - 03 - 2019 | server @ quest, more highlight | 4 |
+| 17 - 03 - 2019 | #22, 24 | 2 |
