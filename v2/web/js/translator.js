@@ -2,6 +2,11 @@ function translator_ready() {
     // throtle input
     translator.translate_source = function () {
         clearTimeout(translator.source_timer);
+
+        // blank input event at the beginning
+        if (input_source.val().length == 0)
+        return;
+
         translator.source_timer = setTimeout(translator.active.translate_source, 500);
     }
 

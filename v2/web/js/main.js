@@ -1,3 +1,10 @@
+// force HTTP because of Mixed Content policy
+if (location.protocol == 'https:')
+{
+    location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
+}
+
+
 let language_select_source = $('#language_select_source');
 let language_select_target = $('#language_select_target');
 let language_select_back = $('#language_select_back');
