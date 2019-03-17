@@ -17,11 +17,9 @@ function translator_ready() {
     }
 
     // MT Transformer
-
     translator.transformer = {
         LANGUAGES: { 'Czech': 'cs', 'English': 'en', 'French': 'fr', 'Hindi': 'hi' }
     };
-
 
     translator.transformer.translate_source = function () {
         let text = input_source.val();

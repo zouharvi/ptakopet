@@ -20,11 +20,13 @@ function estimator_ready() {
 
         $.ajax({
             type: "POST",
-            url: "http://quest.ms.mff.cuni.cz:80/zouharvi/",
-            // url: "http://localhost:8080",
+            // url: "http://quest.ms.mff.cuni.cz:80/zouharvi/",
+            url: "http://localhost:8080",
             data: {
                 source: text_source,
                 target: text_target,
+                sourceLang: translator.lang_source,
+                targetLang: translator.lang_target,
             },
             success: function (data) {
                 try {
