@@ -19,7 +19,7 @@ def run(text_source, text_target):
 
     try:
         # create tmp folder
-        os.mkdir('.extract_tmp')
+        os.makedirs('.extract_tmp', exist_ok=True)
 
         # save input to file
         with open('.extract_tmp/source', 'w') as file_source:

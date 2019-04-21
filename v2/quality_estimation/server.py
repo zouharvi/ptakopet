@@ -29,7 +29,7 @@ class ServerHandler(BaseHTTPRequestHandler):
                 raise InvalidDataError 
             text_source = request['source'][0]
             text_target = request['target'][0]
-            result = estimator.run(str(text_source), str(text_target))
+            result = estimator.run(str(text_source).replace('\n', ''), str(text_target).replace('\n', ''))
             response = json.dumps(result)
         except InvalidDataError:
             response = '"source" or "target" missing'
