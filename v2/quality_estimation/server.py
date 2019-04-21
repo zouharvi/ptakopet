@@ -37,7 +37,7 @@ class ServerHandler(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write(response.encode('utf-8'))
 
-def run(port=8080):
+def run(port=80):
     httpd = HTTPServer(('', port), ServerHandler)
     print('Starting httpd...')
     try:
