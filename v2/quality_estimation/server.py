@@ -4,6 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
 import estimator
+import sys
 
 class InvalidDataError(Exception):
     pass
@@ -37,7 +38,7 @@ class ServerHandler(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write(response.encode('utf-8'))
 
-def run(port=8080):
+def run(port=80):
     httpd = HTTPServer(('', port), ServerHandler)
     print('Starting httpd...')
     try:
@@ -48,4 +49,7 @@ def run(port=8080):
     print('Stopping httpd...')
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) > 1:
+        run(int(sys.argv[1]))    
+    else:
+        run()

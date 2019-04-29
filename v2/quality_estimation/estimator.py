@@ -39,7 +39,7 @@ def run(text_source, text_target):
                 file_labels.write('1\n')
 
         print("Doing QuEst ML...", end=" ")
-        questML = "python2 ./quest_ml/src/learn_model.py ./quest_ml/config/en-es.dev.cfg"
+        questML = "python2.7 ./quest_ml/src/learn_model.py ./quest_ml/config/en-es.dev.cfg"
         process = subprocess.Popen(questML.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
         print(error.decode('utf-8'))

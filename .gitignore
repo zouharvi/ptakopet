@@ -1,0 +1,4 @@
+.extract_tmp/
+.align_extract_tmp/
+*.pyc
+predicted.csv
