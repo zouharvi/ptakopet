@@ -11,7 +11,7 @@ function estimator_ready() {
     estimator.quest.estimate = function () {
         let text_source = input_source.val();
         let text_target = input_target.val();
-        
+
         // blank input event at the beginning
         if (text_source.length == 0 || text_target.length == 0)
         return;
@@ -49,10 +49,10 @@ function estimator_ready() {
         let perm = Utils.sorting_permutation(estimation);
 
         let highlights = [];
-        for (let i = 0; i < perm.length; i++) {
-            if (perm[i] <= 2) {
-                highlights.push({ highlight: indexes[i], className: ('word_highlight_' + perm[i]) });
-            }
+        for (let i in indexes) {
+            let alpha = (Math.floor(255*(2*Math.abs(estimation[i]-0.6)))).toString(16)
+            let color = '#FF5555' + alpha
+            highlights.push({ highlight: indexes[i], className: color });
         }
         target.highlightWithinTextarea({ highlight: highlights });
     };

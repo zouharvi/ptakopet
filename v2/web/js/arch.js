@@ -40,6 +40,8 @@ function arch_ready() {
     input_target.on('input', function () {
         estimator.estimate();
         translator.translate_target();
+        // clear previous highlighting
+        input_target.highlightWithinTextarea({ highlight: [] });
     });
 
     translator_backend.change(function() {

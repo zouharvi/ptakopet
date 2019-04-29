@@ -15,3 +15,4 @@
 | 16 - 03 - 2019 | server @ quest, more highlight | 4 |
 | 17 - 03 - 2019 | #22, 24 | 2 |
 | 18 - 03 - 2019 | en-de pair, generalization | 3 | 
+| 29 - 04 - 2019 | web styling, rework highlighting | 3 | 
