@@ -1,5 +1,5 @@
 * {
-    font-family: Roboto, sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .input_div, #option_div {
@@ -27,31 +27,46 @@
     margin-bottom: 20px;
 }
 
-.input_div div span { /* input textarea titles */
-    width: 150px;
+.input_div div span { /* input textarea title */
+    width: 200px;
     display: inline-block;
+    font-size: 20px;
 }
 
-.input_div div select { /* language selects */
-    width: 90px;
+.input_div div select { /* language select */
+    width: 120px;
+    float: right;
+    font-size: 20px;
+}
+
+select {
+    background-color: white;
+}
+
+select:focus {
+    outline: none !important;
 }
 
 textarea {
     resize: none;
-    font-size: 18px;
 }
 
-textarea:disabled {
+textarea:disabled { 
     background: #f5f5f5;
 }
-
+    
 .hwt-content {
     width: 800px;
-    height: 80px;
+    height: 100px;
     padding: 2px;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    outline: none !important;
 }
 
 .hwt-container {
+    border-radius: 5px;
     background: white;
 }
 
