@@ -23,6 +23,8 @@ function estimator_ready() {
             // url: "http://quest.ms.mff.cuni.cz:80/zouharvi/",
             url: "http://localhost:8080",
             data: {
+                request: 'quality_estimation',
+                model: 'quest++',
                 source: text_source,
                 target: text_target,
                 sourceLang: translator.lang_source,

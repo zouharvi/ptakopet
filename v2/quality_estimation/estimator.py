@@ -14,7 +14,7 @@ en_es_config = {
 
 config = 'en-es.crf.cfg'
 
-def run(text_source, text_target):
+def run_questpp(text_source, text_target):
     response = []
 
     try:
