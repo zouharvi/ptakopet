@@ -51,11 +51,8 @@ textarea {
     resize: none;
 }
 
-textarea:disabled { 
-    background: #f5f5f5;
-}
     
-.hwt-content {
+.hwt-content, .hwt-content-disabled {
     width: 800px;
     height: 100px;
     padding: 2px;
@@ -68,6 +65,10 @@ textarea:disabled {
 .hwt-container {
     border-radius: 5px;
     background: white;
+}
+
+textarea:disabled { 
+    background: #f1e2d7 !important;
 }
 
 h4 {
