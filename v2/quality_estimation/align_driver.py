@@ -37,13 +37,14 @@ def align(text_source, text_target):
             file_align.write('\n'.join(file_align_txt))
             file_align.write('\n')
 
-        print("Doing fast_align...", end=" ")
-        fastAlignCommand = "./fast_align/build/fast_align -i .align_tmp/align_in.out -d -o -v"
+        # start the process through pipe
+        print('Running fast_align...', end=' ')
+        fastAlignCommand = './fast_align/build/fast_align -i .align_tmp/align_in.out -d -o -v'
         process = subprocess.Popen(fastAlignCommand.split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
         output, _ = process.communicate()
         align_txt = output.decode('utf-8').split('\n')[0]
         os.remove('.align_tmp/align_in.out')
-        print("Done")
+        print('OK')
     finally:
         # rm tmp folder
         os.remove('.align_tmp/source')

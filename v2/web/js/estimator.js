@@ -31,14 +31,14 @@ function estimator_ready() {
                 targetLang: translator.lang_target,
             },
             success: function (data) {
+                indicator.estimate(-1);
                 try {
                     data = JSON.parse(data);
                     estimator.color(data, input_target);
                 } catch (e) {
-                    console.log("QE Error");
                     console.log(e);
+                    console.log(data);
                 }
-                indicator.estimate(-1);
             }
         });
     }
