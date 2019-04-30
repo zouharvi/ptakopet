@@ -40,7 +40,6 @@ class ServerHandler(BaseHTTPRequestHandler):
                     result = estimator.run_questpp(str(text_source).replace('\n', ''), str(text_target).replace('\n', ''))
                     response = json.dumps(result)
             elif request['request'][0] == 'align':
-                print('GOT ALIGN REQUEST')
                 if ('source' not in request.keys()) or ('target' not in request.keys()):
                     raise InvalidDataError 
                 text_source = request['source'][0]

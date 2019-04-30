@@ -35,7 +35,7 @@ def align_extract(file_source_name, file_target_name, features_filename='feature
     output, error = process.communicate()
     align_txt = output.decode('utf-8').split('\n')
     os.remove('.align_extract_tmp/align_in.out')
-    print("DONE")
+    print("Done")
 
     # <= 10 for QuEst feature extractor
     CHUNK_SIZE = 10

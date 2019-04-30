@@ -40,7 +40,7 @@ def align(text_source, text_target):
         print("Doing fast_align...", end=" ")
         fastAlignCommand = "./fast_align/build/fast_align -i .align_tmp/align_in.out -d -o -v"
         process = subprocess.Popen(fastAlignCommand.split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        output, error = process.communicate()
+        output, _ = process.communicate()
         align_txt = output.decode('utf-8').split('\n')[0]
         os.remove('.align_tmp/align_in.out')
         print("Done")
