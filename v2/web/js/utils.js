@@ -1,6 +1,6 @@
 let Utils = {};
 Utils.get_word_index = function(text) {
-    words = text.split(/[ ,\.\?]/);
+    words = text.split(/[ ,\.\?\!]/);
     sum = 0;
     indicies = [];
     for(i in words) {
@@ -12,6 +12,12 @@ Utils.get_word_index = function(text) {
         sum += 1 + words[i].length;
     }
     return indicies;
+}
+
+Utils.tokenize = function(text) {
+    words = text.split(/[ ,\.\?\!]/);
+    words = words.filter(e => e != '')
+    return words
 }
 
 Utils.sorting_permutation = function(test) {

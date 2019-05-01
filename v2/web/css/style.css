@@ -64,11 +64,15 @@ textarea {
 
 .hwt-container {
     border-radius: 5px;
-    background: white;
+    background: #FFFFFF;
+    /* this is probably not necessary */
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
 }
 
 textarea:disabled { 
-    background: #f1e2d7 !important;
+    background: #e4e4e4 !important;
 }
 
 h4 {

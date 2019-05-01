@@ -36,6 +36,8 @@ function arch_ready() {
     // on input triggers
     input_source.on('input', function () {
         translator.translate_source();
+        // clear previous highlighting
+        input_source.highlightWithinTextarea({ highlight: [] });
     });
     input_target.on('input', function () {
         estimator.estimate();
@@ -84,4 +86,7 @@ function arch_ready() {
     translator_backend.trigger('change');
     estimator_backend.val('quest');
     estimator_backend.trigger('change');
+    
+    // set focus on the input source
+    $('#input_source').focus();
 }
