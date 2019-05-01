@@ -37,7 +37,7 @@ function arch_ready() {
     input_source.on('input', function () {
         translator.translate_source();
         // clear previous highlighting
-        input_source.highlightWithinTextarea({ highlight: [] });
+        // input_source.highlightWithinTextarea({ highlight: [] });
     });
     input_target.on('input', function () {
         estimator.estimate();
