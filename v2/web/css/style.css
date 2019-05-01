@@ -9,12 +9,12 @@
     width: 800px;
 }
 
-#option_div div {
+#option_div .option_wrapper_div div {
     margin-top: 10px;
     width: 350px;
 }
 
-#option_div div select {
+#option_div div div select {
     float: right;
 }
 
