@@ -1,3 +1,5 @@
+![Ptakopět logo](logo.png)
+
 # Technical documentation
 
 Ptakopět has two main components:
