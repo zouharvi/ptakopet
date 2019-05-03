@@ -39,7 +39,7 @@ def run_questpp(text_source, text_target):
             responseText = file_result.read()
             for x in responseText.split('\n'):
                 if(len(x) != 0):
-                    response.append(float(x) if float(x) > 0 else 0)
+                    response.append(max(min(float(x), 0.95), 0)
             # print(responseText.split('\n'))
     finally:
         os.remove('.extract_tmp/features.out')
