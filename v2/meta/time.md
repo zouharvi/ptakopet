@@ -18,3 +18,5 @@
 | 29 - 04 - 2019 | web styling, rework highlighting | 4 | 
 | 30 - 04 - 2019 | server refactor & cleanup (#28) | 2 | 
 | 01 - 05 - 2019 | reverse highlight #29, align | 2 | 
+| 02 - 05 - 2019 | deepQuest | 2 | 
+| 03 - 05 - 2019 | deepQuest, documentation | 4 | 

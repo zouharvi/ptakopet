@@ -87,7 +87,6 @@ function estimator_ready() {
     estimator.none.estimate = function () { input_target.highlightWithinTextarea({ highlight: [] }); };
 
     estimator.color = function (estimation, target, underline=[]) {
-        console.log(underline)
         let indicies = Utils.get_word_index(target.val());
         let highlights = [];
         for (let i in indicies) {

@@ -44,8 +44,36 @@ def run_questpp(text_source, text_target):
     finally:
         os.remove('.extract_tmp/features.out')
         os.remove('.extract_tmp/labels_fake.out')
-        os.rmdir('.extract_tmp')
         os.remove('predicted.csv')
+        os.rmdir('.extract_tmp')
+
+    return response
+
+
+def run_deepQuest(text_source, text_target):
+    response = []
+
+    try:
+        # create tmp folder
+        os.makedirs('.qe_tmp', exist_ok=True)
+
+        with open('.qe_tmp/test.src', 'w') as f:
+            print(text_source, file=f)
+        with open('.qe_tmp/test.mt', 'w') as f:
+            print(text_target, file=f)
+        
+        print('Running deepQuest...', end=' ')
+        questML = 'cd deepQuest/quest && ./train-test-sentQEbRNN.sh --task "en-de" --source src --target mt --score hter --activation sigmoid --device cpu'
+        process = subprocess.Popen(questML.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process.communicate()
+        # output, error = process.communicate() # .decode('utf-8')
+        print('OK')
+
+        
+    finally:
+        os.remove('.qe_tmp/test.src')
+        os.remove('.qe_tmp/test.mt')
+        os.rmdir('.qe_tmp')
 
     return response
 

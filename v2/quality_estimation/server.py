@@ -54,6 +54,9 @@ class ServerHandler(BaseHTTPRequestHandler):
                 if self.get_param('model') == 'quest++':
                     result = estimator.run_questpp(text_source, text_target)
                     response = json.dumps(result)
+                elif self.get_param('model') == 'deepQuest':
+                    result = estimator.run_deepQuest(text_source, text_target)
+                    response = json.dumps(result)
             elif self.get_param('request') == 'align':
                 text_source = str(self.get_param('source')).replace('\n', '')
                 text_target = str(self.get_param('target')).replace('\n', '')
