@@ -42,13 +42,15 @@ This is the entrypoint of the backend. It runs `BaseHTTPRequestHandler` and resp
 
 Alignment is necessary per se (for special requests) as well as for QuEst++. Usage of this system is easy, but requires the input files to be stored in a very specific notation (1 tokenized sentence per line, source separated from the translation by `|||`). See [github.com/clab/fast_align](https://github.com/clab/fast_align).
 
+This module has to be build with CMake with the `build.sh` script.
+
 ### QuEst++
 
 The main pipeline of QuEst++ consists of feature extraction and ML prediction. It was not designed for online purposes, so using it is quite cumbersome. The exctractor part is written in Java and the predictor in Python 2. The code is stored in `estimator.py` and `extract_driver.py`. Because of different frameworks, these programs are invoked with system pipes. See [github.com/ghpaetzold/questplusplus](https://github.com/ghpaetzold/questplusplus) and the respective fork at [github.com/zouharvi/questplusplus](https://github.com/zouharvi/questplusplus).
 
 ### deepQuest
 
-deepQuest takes neural approach to quality estimation. See [sheffieldnlp.github.io/deepQuest/](https://sheffieldnlp.github.io/deepQuest/).
+deepQuest takes neural approach to quality estimation. See [sheffieldnlp.github.io/deepQuest/](https://sheffieldnlp.github.io/deepQuest/). After making sure the requirements are fulfilled, copy the contents of `corpora/deepQuest` to `deepQuest`
 
 ### Installation
 

@@ -56,23 +56,37 @@ def run_deepQuest(text_source, text_target):
     try:
         # create tmp folder
         os.makedirs('.qe_tmp', exist_ok=True)
-
-        with open('.qe_tmp/test.src', 'w') as f:
-            print(text_source, file=f)
-        with open('.qe_tmp/test.mt', 'w') as f:
-            print(text_target, file=f)
+        text_source = text_source.replace(',', '').replace('.', '')
+        text_target = text_target.replace(',', '').replace('.', '')
+        tokens_source = text_source.split(' ')
+        tokens_target = text_target.split(' ')
+        with open('deepQuest/quest/examples/word_en_de/test.src', 'w') as f:
+            for i in range(51):
+                print(text_source, file=f)
+        with open('deepQuest/quest/examples/word_en_de/test.mt', 'w') as f:
+            for i in range(51):
+                print(text_target, file=f)
         
         print('Running deepQuest...', end=' ')
-        questML = 'cd deepQuest/quest && ./train-test-sentQEbRNN.sh --task "en-de" --source src --target mt --score hter --activation sigmoid --device cpu'
+        os.chdir('deepQuest/quest')
+        questML = 'bash ./predict-wordQEbRNN.sh --task word_en_de --source src --target mt --score hter --activation sigmoid --device cpu'
         process = subprocess.Popen(questML.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         process.communicate()
+        os.chdir('../../')
         # output, error = process.communicate() # .decode('utf-8')
+        with open('deepQuest/quest/trained_models/word_en_de_srcmt_EncWord/test_epoch_10_threshold_0.3_output_0.pred', 'r') as f:
+            preds = [x.replace('\n', '') for x in f.readlines()[:len(tokens_target)]]
+            for p in preds:
+                if p == 'OK':
+                    response.append(1)
+                else:
+                    response.append(0.1)
+        # print(response)
         print('OK')
-
         
     finally:
-        os.remove('.qe_tmp/test.src')
-        os.remove('.qe_tmp/test.mt')
+        # os.remove('.qe_tmp/test.src')
+        # os.remove('.qe_tmp/test.mt')
         os.rmdir('.qe_tmp')
 
     return response
@@ -80,4 +94,4 @@ def run_deepQuest(text_source, text_target):
 if __name__ == '__main__':
     # program, source, target
     assert(len(sys.argv) == 3)
-    run_questpp(sys.argv[1], sys.argv[2])
+    run_deepQuest(sys.argv[1], sys.argv[2])

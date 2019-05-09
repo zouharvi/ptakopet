@@ -84,7 +84,7 @@ function arch_ready() {
 
     translator_backend.val('khresmoi');
     translator_backend.trigger('change');
-    estimator_backend.val('quest');
+    estimator_backend.val('deepQuest');
     estimator_backend.trigger('change');
     
     // set focus on the input source

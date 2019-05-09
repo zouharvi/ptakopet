@@ -13,7 +13,7 @@ let input_target = $('#input_target');
 let input_back = $('#input_back');
 let translator_backend = $('#translator_backend');
 let estimator_backend = $('#estimator_backend');
-let translator = { lang_source: 'en', lang_target: 'es' };
+let translator = { lang_source: 'en', lang_target: 'de' };
 let estimator = {};
 let indicator = {};
 

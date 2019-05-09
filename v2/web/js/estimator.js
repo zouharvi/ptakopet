@@ -83,6 +83,43 @@ function estimator_ready() {
         });
     }
 
+
+    estimator.deepQuest = {};
+    estimator.deepQuest.estimate = function () {
+        let text_source = input_source.val();
+        let text_target = input_target.val();
+
+        // blank input event at the beginning
+        if (text_source.length == 0 || text_target.length == 0)
+        return;
+        
+        indicator.estimate(1);
+
+        $.ajax({
+            type: "POST",
+            url: (window.location.hostname == 'localhost')? "http://localhost:8080" : "http://quest.ms.mff.cuni.cz:80/zouharvi/",
+            data: {
+                request: 'quality_estimation',
+                model: 'deepQuest',
+                source: text_source,
+                target: text_target,
+                sourceLang: translator.lang_source,
+                targetLang: translator.lang_target,
+            },
+            success: function (data) {
+                indicator.estimate(-1);
+                try {
+                    data = JSON.parse(data)
+                    estimator.color(data, input_target)
+                    estimator.reverse_highlight(data)
+                } catch (e) {
+                    console.log(e);
+                    console.log(data);
+                }
+            }
+        });
+    }
+
     estimator.none = {};
     estimator.none.estimate = function () { input_target.highlightWithinTextarea({ highlight: [] }); };
 
@@ -90,7 +127,8 @@ function estimator_ready() {
         let indicies = Utils.get_word_index(target.val());
         let highlights = [];
         for (let i in indicies) {
-            let alpha = (Math.floor(255*(1.5*Math.abs(estimation[i]-0.6)))).toString(16)
+            let alpha = (Math.floor(200-140*(Math.abs(estimation[i])))).toString(16)
+            if(alpha.length < 2) alpha = '0' + alpha
             let color;
             if (underline.includes(parseInt(i))) {
                 color = '#8844aa' + alpha
