@@ -19,7 +19,7 @@ This file registers events, that happen on the page and translates them to queri
 This file contains mostly minor textual helper functions, such as tokenizer, sorting permutation calculator and word index calculator).
 
 ### translator.js
-This file was to some extend migrated from Ptakopět v1. It contains configs for translator backends (Khresmoi and Lindat MT Transformer supported at the moment) and system for relaying requests.
+This file was to some extend migrated from Ptakopět v1. It contains configs for translator backends (Khresmoi and Lindat MT Transformer supported at the moment) and system for relaying requests. We use redirect through [cors.io](https://cors.io) because of `Access Control Allow Origin` header not present in Khresmoi.
 
 ### indicator.js
 This file only manages the indicators for translation and estimator requests. The former one may take up to several seconds to finish, so this part is vital for comfortable user experience.
@@ -36,21 +36,33 @@ The backends runs at [quest.ms.mff.cuni.cz/zouharvi](http://quest.ms.mff.cuni.cz
 
 ### server.py
 
-This is the entrypoint of the backend. It runs `BaseHTTPRequestHandler` and responds to requests for quality estimation and alignment. It is started with a positional argument specifying the port (80 by default).
+This is the entrypoint of the backend. It runs `BaseHTTPRequestHandler` and responds to requests for quality estimation and alignment. It is started with a positional argument specifying the port (80 by default). Possible requests and respective parameters are:
+- `request=quality_estimation` returns the result of quality estimation model (either `quest++` or `deepQuest`) on values of `source` and `target` (all required)
+- `request=align` returns the result of fast_align on values of `source` and `target` (both required)
 
 ### fast_align
 
 Alignment is necessary per se (for special requests) as well as for QuEst++. Usage of this system is easy, but requires the input files to be stored in a very specific notation (1 tokenized sentence per line, source separated from the translation by `|||`). See [github.com/clab/fast_align](https://github.com/clab/fast_align).
 
-This module has to be build with CMake with the `build.sh` script.
+This module has to be build before using with CMake with the `build.sh` script.
 
 ### QuEst++
 
 The main pipeline of QuEst++ consists of feature extraction and ML prediction. It was not designed for online purposes, so using it is quite cumbersome. The exctractor part is written in Java and the predictor in Python 2. The code is stored in `estimator.py` and `extract_driver.py`. Because of different frameworks, these programs are invoked with system pipes. See [github.com/ghpaetzold/questplusplus](https://github.com/ghpaetzold/questplusplus) and the respective fork at [github.com/zouharvi/questplusplus](https://github.com/zouharvi/questplusplus).
 
+This system first extracts features [WMT12-13-14-17](https://www.quest.dcs.shef.ac.uk/quest_files/features_blackbox_baseline_17) from the input data, such as POS, occurences in a dictionary, length, etc and then runs a standard ML algorithm.
+
+PERFORMANCE NOTE: This system was not designed to provide online results. The consequence is that especially the feature extraction part is not optimized and quite slow. It can also handle only 10 sentences at a time, so larger inputs are split into multiple batches.
+
 ### deepQuest
 
-deepQuest takes neural approach to quality estimation. See [sheffieldnlp.github.io/deepQuest/](https://sheffieldnlp.github.io/deepQuest/). After making sure the requirements are fulfilled, copy the contents of `corpora/deepQuest` to `deepQuest`
+deepQuest takes neural approach to quality estimation. See [sheffieldnlp.github.io/deepQuest/](https://sheffieldnlp.github.io/deepQuest/). After making sure the requirements are fulfilled, copy the contents of `corpora/deepQuest` to `deepQuest`. Generally deepQuest provides much better results than QuEst++, but the output is binary (OK/BAD) and closely tied to the trained language (currently en-de).
+
+DEVELOPMENT: In the first stages of deepQuest integration, the model contained [a bug](https://github.com/sheffieldnlp/deepQuest/issues/7), which prevented word-level inference on unseen data. Thanks to Frederic Blain this has been resolved.
+
+PERFORMANCE NOTE: Because of a bug the inference requires at least two batches of input, so the actual input is duplicated `batch_size+1` times, slowing the whole process.
+
+FUTURE NOTE: In future updates, this wrapper could take the `threshold` value as an argument (currently using 0.2), or return the actual probability (not feature of deepQuest so far).
 
 ### Installation
 
@@ -62,7 +74,7 @@ cd ptakopet
 git submodule update --init --recursive
 ```
 
-should download all of the necessary files. Each subsystem (QuEst++ and deepQuest) have each very specific system requirements, hence see their respective documentation. (Note: QuEst++ requires `scikit-learn` to be version `0.15.2`. Newer versions include some API breaking changes.) The server can be launched as:
+should download all of the necessary files. Each subsystem (QuEst++ and deepQuest) have each very specific system requirements, hence see their respective documentation. (Note: QuEst++ requires `scikit-learn` to be version `0.15.2`. Newer versions include some API breaking changes.) The server can be launched (and subsequently detached) as:
 
 ```
 cd v2/quality_estimation
