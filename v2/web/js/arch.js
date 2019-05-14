@@ -33,6 +33,13 @@ function arch_ready() {
         translator.translate_source();
     });
 
+    input_source.on('keydown', function() {
+        estimator.cur_input = input_source;
+    })
+    input_target.on('keydown', function() {
+        estimator.cur_input = input_target;
+    })
+
     // on input triggers
     input_source.on('input', function () {
         translator.translate_source();
@@ -43,7 +50,7 @@ function arch_ready() {
         estimator.estimate();
         translator.translate_target();
         // clear previous highlighting
-        input_target.highlightWithinTextarea({ highlight: [] });
+        // input_target.highlightWithinTextarea({ highlight: [] });
     });
 
     translator_backend.change(function() {

@@ -72,8 +72,6 @@ function estimator_ready() {
                             identical_words.push(y)
                         }
                     }
-                    console.log(tokens_source, tokens_target)
-                    console.log(parsed)
                     estimator.color(estimation_local, input_source, identical_words)
                 } catch (e) {
                     console.log(e)
@@ -139,5 +137,6 @@ function estimator_ready() {
             highlights.push({ highlight: indicies[i], className: style });
         }
         target.highlightWithinTextarea({ highlight: highlights });
+        estimator.cur_input.focus();
     };
 }
