@@ -6,6 +6,9 @@ Ptakopět has two main components:
 - frontend (defined in `web/`)
 - backend (defined in `quality_estimation/`)
 
+The top-level design and communication between all components is described in the following diagram:
+![Top level design](top_level_design.png)
+
 ## Frontend
 The frontend is written in plain JavaScript with some minor help of jQuery.
 
@@ -43,6 +46,8 @@ This is the entrypoint of the backend. It runs `BaseHTTPRequestHandler` and resp
 ### fast_align
 
 Alignment is necessary per se (for special requests) as well as for QuEst++. Usage of this system is easy, but requires the input files to be stored in a very specific notation (1 tokenized sentence per line, source separated from the translation by `|||`). See [github.com/clab/fast_align](https://github.com/clab/fast_align).
+
+This alignment tool is, however, insufficient and advanced tools, such as mgiza, or GIZA++ should be deployed instead.
 
 This module has to be build before using with CMake with the `build.sh` script.
 

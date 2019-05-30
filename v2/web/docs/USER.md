@@ -17,3 +17,17 @@ In order to perform Outbound Translation, select source and target languages fro
 ## Quality Estimation
 
 You can follow up from the previous use case with more agile workflow and dynamically edit the translated text. What you will see is the quality estimation of your own translation, as well as backward translation.
+
+## Misc
+
+### Available backends
+Currently there are two backends: deepQuest for en-de quality estimatino and QuEst++ for en-es quality estimation. You can select a language pair not compatible with the selected quality estimator, but the result will not be useful.
+
+### Models
+All results (either good or bad) are the consequence of the respective models. That is Ptakopět does not create its own translations and quality estimations.
+
+### Asynchrony
+Ptakopět is completely asynchronous. Active translation and quality estimation requests can be seen next to the respective select boxes.
+
+### Artifacts
+Due to an unresolved bug, you may experience artifacts. This happens after quality estimation is rendered, new translation request is completed and the quality estimation requests has not yet been completed.
