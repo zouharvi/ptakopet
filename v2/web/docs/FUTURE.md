@@ -4,7 +4,7 @@
 
 While Ptakopět passed as a semestral project, there are many improvements, which could be implemented.
 
-## Language pairs
+## More language pairs
 So far Ptakopět supports only _en-es_ (QuEst++) and _en-de_ (deepQuest). Especially the later model can be utilized with more language pairs.
 
 ## Better highlighting
