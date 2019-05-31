@@ -1,4 +1,4 @@
-[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
+[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-v1-v2/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
 
 
 ## Version 2
