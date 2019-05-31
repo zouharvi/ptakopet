@@ -8,6 +8,7 @@ Ptakopět has two main components:
 
 The top-level design and communication between all components is described in the following diagram:
 ![Top level design](top_level_design.png)
+(Typo: text are>>a<<)
 
 ## Frontend
 The frontend is written in plain JavaScript with some minor help of jQuery.
@@ -22,7 +23,7 @@ This file registers events, that happen on the page and translates them to queri
 This file contains mostly minor textual helper functions, such as tokenizer, sorting permutation calculator and word index calculator).
 
 ### translator.js
-This file was to some extend migrated from Ptakopět v1. It contains configs for translator backends (Khresmoi and Lindat MT Transformer supported at the moment) and system for relaying requests. We use redirect through [cors.io](https://cors.io) because of `Access Control Allow Origin` header not present in Khresmoi.
+This file was to some extent migrated from Ptakopět v1. It contains configs for translator backends (Khresmoi and Lindat MT Transformer supported at the moment) and system for relaying requests. We use redirect through [cors.io](https://cors.io) because of `Access Control Allow Origin` header not present in Khresmoi.
 
 ### indicator.js
 This file only manages the indicators for translation and estimator requests. The former one may take up to several seconds to finish, so this part is vital for comfortable user experience.
@@ -45,9 +46,9 @@ This is the entrypoint of the backend. It runs `BaseHTTPRequestHandler` and resp
 
 ### fast_align
 
-Alignment is necessary per se (for special requests) as well as for QuEst++. Usage of this system is easy, but requires the input files to be stored in a very specific notation (1 tokenized sentence per line, source separated from the translation by `|||`). See [github.com/clab/fast_align](https://github.com/clab/fast_align).
+Word alignment between sentences and their translations is necessary for Ptakopět itself as well as for QuEst++. Usage of this system is easy, but requires the input files to be stored in a very specific notation (1 tokenized sentence per line, source separated from the translation by `|||`). See [github.com/clab/fast_align](https://github.com/clab/fast_align).
 
-This alignment tool is, however, insufficient and advanced tools, such as mgiza, or GIZA++ should be deployed instead.
+The current use of fast_align is, however, insufficient, because it applies an unsupervised word-alignment method only to the single input sentence pair given. The model lacks any lexical knowledge and thus essentially provides a simple diagonal alignment. A better solution would be to use e.g. mgiza for applying a pre-trained word-alignment model, or to align a substantial number of sentence pairs along with the input one.
 
 This module has to be build before using with CMake with the `build.sh` script.
 
