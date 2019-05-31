@@ -8,7 +8,6 @@ Ptakopět has two main components:
 
 The top-level design and communication between all components is described in the following diagram:
 ![Top level design](top_level_design.png)
-(Typo: text are>>a<<)
 
 ## Frontend
 The frontend is written in plain JavaScript with some minor help of jQuery.
