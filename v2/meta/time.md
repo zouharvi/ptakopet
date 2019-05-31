@@ -22,3 +22,4 @@
 | 03 - 05 - 2019 | deepQuest, documentation | 4 | 
 | 09 - 06 - 2019 | deepQuest | 6 |
 | 10 - 06 - 2019 | documentation | 1 |
+| 28 - 06 - 2019 | stopped counting | X |
