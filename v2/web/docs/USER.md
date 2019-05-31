@@ -24,10 +24,11 @@ You can follow up from the previous use case with more agile workflow and dynami
 Currently there are two backends: deepQuest for en-de quality estimatino and QuEst++ for en-es quality estimation. You can select a language pair not compatible with the selected quality estimator, but the result will not be useful.
 
 ### Models
-All results (either good or bad) are the consequence of the respective models. That is Ptakopět does not create its own translations and quality estimations.
+All results (either good or bad) are the consequence of the respective models. That is, Ptakopět does not create its own translations and quality estimations.
 
 ### Asynchrony
-Ptakopět is completely asynchronous. Active translation and quality estimation requests can be seen next to the respective select boxes.
+Ptakopět is completely asynchronous.
+XXX: the following sentence is confusing: either you mean "Supported ... models" (and then it belongs to the section Models and should talk about drop down menus), or you mean indeed "Active ... requests", but the I do not see any indication anywhere in the Ptakopet interface about pending requests for translation etc.: Active translation and quality estimation requests can be seen next to the respective select boxes.
 
 ### Artifacts
-Due to an unresolved bug, you may experience artifacts. This happens after quality estimation is rendered, new translation request is completed and the quality estimation requests has not yet been completed.
+Due to an unresolved bug XXXwhereXXX, you may experience artifacts, i.e. a little outdated highlighting of the source text or its translation. XXXplease describe the following in more sentences. It is not fully clear what is the synchronization of the events: user doing one text edit, ptakopet sending it for translation and then for the QE, user doing another text edit, ... Also, please clarify whether the artifact disappears by itself or if one more (dummy) edit is needed, e.g. by adding a space at the end of the sentence. This happens after quality estimation is rendered, new translation request is completed and the quality estimation requests has not yet been completed.
