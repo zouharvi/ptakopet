@@ -1,5 +1,7 @@
 # Ptakopět
-System for translation quality estimation, mostly outbound translation. [http://ptakopet.vilda.net/docs](Check it out.)
+<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/logo.svg' width='200px'>
+
+System for translation quality estimation, mostly outbound translation. [Check it out](http://ptakopet.vilda.net/docs)
 
 This is a parent repository of and contains documentation for the following two submodules:
 - [Ptakopět web frontend](https://github.com/zouharvi/ptakopet-web)
