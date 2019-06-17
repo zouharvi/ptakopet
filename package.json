@@ -12,5 +12,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch=true",
     "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zouharvi/ptakopet"
   }
 }

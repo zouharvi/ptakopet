@@ -1,6 +1,6 @@
-import {TranslatorSource} from './translator'
+import {Translator, TranslatorSource} from './translator'
 
-let translator_source = new TranslatorSource()
+let translator_source : Translator = new TranslatorSource()
 
 let input_source = $('#input_source')
 let input_target = $('#input_target')

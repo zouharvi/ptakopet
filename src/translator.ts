@@ -2,13 +2,17 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { Utils } from "./utils"
 
-interface Translator {
+export interface Translator {
     translate_throttle(): void
 }
 
 export class TranslatorSource extends AsyncMessage implements Translator {
     private throttler = new Throttler(500);
     private backend: TranslatorBackend = TranslatorBackends.ufalTransformer
+
+    constructor() {
+        super($(''))
+    }
 
     public translate_throttle() {
         this.throttler.throttle(this.translate)
