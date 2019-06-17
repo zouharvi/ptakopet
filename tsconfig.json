@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "./web/",
         "noImplicitAny": true,
         "sourceMap": true,
         "strict": true,
