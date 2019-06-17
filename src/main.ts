@@ -1,0 +1,19 @@
+import {TranslatorSource} from './translator'
+
+let translator_source = new TranslatorSource()
+
+let input_source = $('#input_source')
+let input_target = $('#input_target')
+let input_back = $('#input_back')
+let select_source = $('#language_select_source')
+let select_target = $('#language_select_target')
+
+input_source.on('input', function() {
+    translator_source.translate_throttle()
+})
+
+input_target.on('input', function() {
+    // translator_target.translate_throttle()
+})
+
+// $('#main_content').html('<span>hello</span>' + $('#main_content').html())

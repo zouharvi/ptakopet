@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ptakopět</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'> -->
+    <!-- <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script> -->
+    <link rel='stylesheet' type='text/css' href='css/style.css'>
+    <link rel='stylesheet' type='text/css' href='css/loader.css'>
+</head>
+
+<body style='overflow: hidden; margin: 0; background-color: #f4f4f4;'>
+    <div id='title_name'>
+        <img src='img/logo_as_path.svg' style='width: 160px;'>
+        <div style='margin-left: 20px; display: inline-block; position: relative; top: -6px; color: #555555;'>
+            (currently in development)
+        </div>
+    </div>
+
+    <div id='main_content'>
+        <div class='content_block'>
+            <div>
+                <span>Source language:</span>
+                <select id='language_select_source'></select>
+            </div>
+            <textarea id='input_source' class='hwt-content'></textarea>
+        </div>
+        <div class='content_block'>
+            <div>
+                <span>Target language:</span>
+                <select id='language_select_target'></select>
+            </div>
+            <textarea id='input_target' class='hwt-content'></textarea>
+        </div>
+        <div class='content_block'>
+            <div>Backward translation:</div>
+            <textarea disabled id='input_back' class='hwt-content'></textarea>
+        </div>
+
+        <div class='content_block' style='vertical-align: top;'>
+            <div id='settings_block'>
+                <div>
+                    <span>Translator backend: </span>
+                    <div style='float: right;'>
+                        <select id='translator_backend'>
+                            <option value='transformer'>MT Transformer</option>
+                            <option value='khresmoi'>Khresmoi (medical)</option>
+                        </select>
+                        <div class="loader"></div>
+                    </div>
+                </div>
+                <div>
+                    <span>Quality estimator backend: </span>
+                    <div style='float: right;'>
+                        <select id='estimator_backend'>
+                            <option value='quest'>QuEst++ pipeline</option>
+                            <option value='deepQuest'>deepQuest</option>
+                            <option value='none'>None</option>
+                        </select>
+                        <div class="loader"></div>
+                    </div>
+                </div>
+                <div>
+                    <a href='https://github.com/zouharvi/ptakopet'>About Ptakopět</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='ptakopet-web.js'></script>
+</body>
+
+</html>
