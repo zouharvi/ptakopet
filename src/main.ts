@@ -1,6 +1,11 @@
 import {Translator, TranslatorSource} from './translator'
+import { IndicatorManager } from './indicator_manager';
 
 let translator_source : Translator = new TranslatorSource()
+let indicator_translator : IndicatorManager = new IndicatorManager($('#indicator_translator'))
+translator_source.addIndicator(indicator_translator)
+
+
 
 let input_source = $('#input_source')
 let input_target = $('#input_target')

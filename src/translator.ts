@@ -2,24 +2,31 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { Utils } from "./utils"
 
-export interface Translator {
-    translate_throttle(): void
-}
-
-export class TranslatorSource extends AsyncMessage implements Translator {
+export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500);
-    private backend: TranslatorBackend = TranslatorBackends.ufalTransformer
-
-    constructor() {
-        super($(''))
-    }
 
     public translate_throttle() {
         this.throttler.throttle(this.translate)
     }
 
-    private translate() {
-        console.log($('#input_source').val())
+    protected abstract translate(): void
+    protected abstract backend: TranslatorBackend
+}
+
+export class TranslatorSource extends Translator {
+    protected backend: TranslatorBackend = TranslatorBackends.ufalTransformer
+
+    protected translate() {
+        console.log('Dispatching: ', $('#input_source').val())
+        super.dispatch(
+            {
+                type: "POST",
+                url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages",
+                data: { src: 'en', tgt: 'cs', input_text: "hello" },
+                async: true,
+            },
+            () => { console.log('hello jello') }
+        )
     }
 }
 

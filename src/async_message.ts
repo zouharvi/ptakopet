@@ -10,12 +10,8 @@ export class AsyncMessage {
     protected msgNext: number = 1
     public indicatorHandle? : IndicatorManager
 
-    constructor(loadingIndicator?: JQuery<HTMLElement>) {
-        if(loadingIndicator == undefined) {
-            this.indicatorHandle = undefined
-        } else {
-            this.indicatorHandle = new IndicatorManager(loadingIndicator)
-        }
+    public addIndicator(indicatorHandle: IndicatorManager) {
+        this.indicatorHandle = indicatorHandle;
     }
 
     /**
