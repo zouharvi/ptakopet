@@ -21,9 +21,9 @@ export class IndicatorManager {
         this.n += n
 
         if(this.n < 0) {
-            this.indicator.fadeIn()
+            this.indicator.animate({opacity: 1}, 700)
         } else {
-            this.indicator.fadeOut()
+            this.indicator.animate({opacity: 0}, 700)
         }
     }
 }
