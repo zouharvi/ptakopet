@@ -34,7 +34,7 @@ export class AsyncMessage {
      * Sends an AJAX request and if the response lands back before the
      * following one, invoke callback
      */
-    protected dispatch(ajaxParams: JQuery.AjaxSettings<any>, callback: (data: any) => void): void {
+    public dispatch = (ajaxParams: JQuery.AjaxSettings<any>, callback: (data: any) => void): void => {
         let msgCurrent = this.msgNext
         this.msgNext++
 
@@ -46,14 +46,24 @@ export class AsyncMessage {
         // TODO: merge the arguments and use existing callback property
         // Eg. save it and wrap it in custom callback
 
-        ajaxParams.success = ((a: any, b: any, c: any) => {
+        ajaxParams.success = (a: any, b: any, c: any) => {
             console.log(a, b, c)
             callback("as")
+            console.log(this)
             if (this.receiveCheck(msgCurrent)) {
                 callback("")
             }
-        }).bind(this)
+        }
 
         $.ajax(ajaxParams);
     }
+
+
+    // protected dispatch(ajaxParams: JQuery.AjaxSettings<any>): void {
+    //     ajaxParams.success = ((a: any, b: any) => {
+    //         this.receiveCheck(0)
+    //     }).bind(this)
+
+    //     $.ajax(ajaxParams);
+    // }
 }

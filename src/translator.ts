@@ -18,7 +18,7 @@ export class TranslatorSource extends Translator {
 
     protected translate() {
         console.log('Dispatching: ', $('#input_source').val())
-        super.dispatch(
+        this.dispatch(
             {
                 type: "POST",
                 url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages",
