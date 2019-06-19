@@ -34,10 +34,9 @@ export class AsyncMessage {
      * Sends an AJAX request and if the response lands back before the
      * following one, invoke callback
      */
-    public dispatch = (ajaxParams: JQuery.AjaxSettings<any>, callback: (data: any) => void): void => {
+    public dispatch(ajaxParams: JQuery.AjaxSettings<any>, callback: (data: any) => void): void {
         let msgCurrent = this.msgNext
         this.msgNext++
-
 
         if(this.indicatorHandle != undefined) {
             this.indicatorHandle.add(-1)

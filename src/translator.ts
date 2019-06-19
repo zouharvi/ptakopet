@@ -16,9 +16,9 @@ export abstract class Translator extends AsyncMessage {
 export class TranslatorSource extends Translator {
     protected backend: TranslatorBackend = TranslatorBackends.ufalTransformer
 
-    protected translate() {
+    protected translate = () => {
         console.log('Dispatching: ', $('#input_source').val())
-        this.dispatch(
+        super.dispatch(
             {
                 type: "POST",
                 url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages",
