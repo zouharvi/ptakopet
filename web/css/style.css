@@ -14,15 +14,18 @@
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .content_block {
     margin-top: 20px;
-    margin-left: 15px;
+    margin-left: 7px;
+    margin-right: 7px;
     display: inline-block;
     width: 475px;
     height: 180px;
     font-size: 1.1em;
+    text-align: left;
 }
 
 .content_block textarea {
