@@ -22,6 +22,11 @@ export module Utils {
     }
 
     /**
+     * All supported languages have their language code stored here
+     */
+    export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de'
+
+    /**
      * Storage for language code <-> language name relation.
      */
     let _langCodeToName = {
@@ -30,13 +35,13 @@ export module Utils {
         fr: 'French',
         hi: 'Hindi',
         de: 'German',
-    } as {[index: string]: string}
+    } as {[K in LanguageCode]?: string}
     
     /**
      * Returns a name of a language correspoding to given code. Throws an error if code is not recognized.
      * @param code Language code. 
      */
-    export function languageName(code: string) : string | undefined {
+    export function languageName(code: LanguageCode) : string | undefined {
         let a = _langCodeToName[code]
         if(code in _langCodeToName) {
             return _langCodeToName[code]
@@ -45,3 +50,8 @@ export module Utils {
         }
     }
 }
+
+/**
+ * Reexporting LanguageCode type
+ */
+export type LanguageCode = Utils.LanguageCode

@@ -46,23 +46,11 @@ export class AsyncMessage {
         // Eg. save it and wrap it in custom callback
 
         ajaxParams.success = (a: any, b: any, c: any) => {
-            console.log(a, b, c)
-            callback("as")
-            console.log(this)
             if (this.receiveCheck(msgCurrent)) {
-                callback("")
+                callback(a)
             }
         }
 
         $.ajax(ajaxParams);
     }
-
-
-    // protected dispatch(ajaxParams: JQuery.AjaxSettings<any>): void {
-    //     ajaxParams.success = ((a: any, b: any) => {
-    //         this.receiveCheck(0)
-    //     }).bind(this)
-
-    //     $.ajax(ajaxParams);
-    // }
 }

@@ -1,12 +1,20 @@
 import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
-import { Utils } from "./utils"
+import { LanguageCode, Utils } from "./utils"
 
 export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500);
 
     public translate_throttle() {
         this.throttler.throttle(this.translate)
+    }
+
+    protected source : JQuery<HTMLElement>
+    protected target : JQuery<HTMLElement>
+    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
+        super()
+        this.source = source
+        this.target = target
     }
 
     protected abstract translate(): void
@@ -17,29 +25,35 @@ export class TranslatorSource extends Translator {
     protected backend: TranslatorBackend = TranslatorBackends.ufalTransformer
 
     protected translate = () => {
-        console.log('Dispatching: ', $('#input_source').val())
         super.dispatch(
-            {
-                type: "POST",
-                url: "https://lindat.mff.cuni.cz/services/transformer/api/v1/languages",
-                data: { src: 'en', tgt: 'cs', input_text: "hello" },
-                async: true,
-            },
-            () => { console.log('hello jello') }
+            this.backend.composeRequest($(this.source).val() as string, 'en', 'cs'),
+            (data) => {
+                let text = this.backend.sanitizeData(data)
+                $(this.target).text(text)
+            }
         )
     }
 }
 
 type TranslatorBackend = {
-    composeRequest: (text: string, sourceLang: string, targetLang: string) => JQuery.AjaxSettings,
-    languages: Array<[string, string]>,
+    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => JQuery.AjaxSettings,
+    languages: Array<[LanguageCode, string]>,
+    sanitizeData(data: any) : string,
 }
 
-let TranslatorBackends = {
+let TranslatorBackends : {[index: string]: TranslatorBackend} = {
     ufalTransformer: {
-        composeRequest(text: string, sourceLang: string, targetLang: string): JQuery.AjaxSettings {
-            return {}
+        composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
+            return {
+                type: "POST",
+                url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
+                data: { src: sourceLang, tgt: targetLang, input_text: text },
+                async: true,
+            }
         },
-        languages: Utils.generatePairs(['cs', 'en', 'fr', 'hi'], false),
+        sanitizeData(data: any) : string {
+            return data
+        },
+        languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
     }
 }
