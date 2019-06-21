@@ -10,8 +10,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'> -->
     <!-- <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script> -->
-    <link rel='stylesheet' type='text/css' href='css/style.css'>
-    <link rel='stylesheet' type='text/css' href='css/loader.css'>
+    <link rel='stylesheet' type='text/css' href='css/style.css?v=3'>
+    <link rel='stylesheet' type='text/css' href='css/loader.css?v=3'>
 </head>
 
 <body style='overflow: hidden; margin: 0; background-color: #f4f4f4;'>
@@ -47,21 +47,14 @@
                 <div>
                     <span>Translator backend: </span>
                     <div style='float: right;'>
-                        <select id='translator_backend'>
-                            <option value='transformer'>MT Transformer</option>
-                            <option value='khresmoi'>Khresmoi (medical)</option>
-                        </select>
+                        <select id='translator_backend'></select>
                         <div id='indicator_translator' class="loader"></div>
                     </div>
                 </div>
                 <div>
                     <span>Quality estimator backend: </span>
                     <div style='float: right;'>
-                        <select id='estimator_backend'>
-                            <option value='quest'>QuEst++ pipeline</option>
-                            <option value='deepQuest'>deepQuest</option>
-                            <option value='none'>None</option>
-                        </select>
+                        <select id='estimator_backend'></select>
                         <div id='indicator_estimator' class="loader"></div>
                     </div>
                 </div>
