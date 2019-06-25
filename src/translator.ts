@@ -21,25 +21,51 @@ export abstract class Translator extends AsyncMessage {
         this.source = source
         this.target = target
     }
-    
+
     protected abstract translate(): void
-    protected abstract backend: TranslatorBackend
-    protected source : JQuery<HTMLElement>
-    protected target : JQuery<HTMLElement>
-    
+    public abstract backend: TranslatorBackend
+    public language?: LanguageCode
+    protected source: JQuery<HTMLElement>
+    protected target: JQuery<HTMLElement>
 
-    public static instantiateBackends(selectBox: JQuery<HTMLElement>) : void {
-        $(selectBox).on('change', (a) => { console.log($(a.target).val()) })
+    public static backends: { [index: string]: TranslatorBackend } = {
+        ufalTransformer: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
+                return {
+                    type: "POST",
+                    url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
+                    data: { src: sourceLang, tgt: targetLang, input_text: text },
+                    async: true,
+                }
+            },
+            sanitizeData(data: any): string {
+                return data
+            },
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
+            name: 'ÚFAL Transformer',
+        },
 
-        for(let i in TranslatorBackends) {
-            $(selectBox).append($('<option>', {value: i, text: TranslatorBackends[i].name}))
+
+        ufalTransformer2: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
+                return {
+                    type: "POST",
+                    url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
+                    data: { src: sourceLang, tgt: targetLang, input_text: text },
+                    async: true,
+                }
+            },
+            sanitizeData(data: any): string {
+                return data
+            },
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
+            name: 'ÚFAL Transformer 2',
         }
-        $(selectBox).trigger('change')
-    } 
+    }
 }
 
 export class TranslatorSource extends Translator {
-    protected backend: TranslatorBackend = TranslatorBackends.ufalTransformer
+    public backend: TranslatorBackend = Translator.backends.ufalTransformer
 
     protected translate = () => {
         super.dispatch(
@@ -54,42 +80,7 @@ export class TranslatorSource extends Translator {
 
 type TranslatorBackend = {
     composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => JQuery.AjaxSettings,
-    languages: Array<[LanguageCode, string]>,
-    sanitizeData(data: any) : string,
+    languages: Array<[LanguageCode, LanguageCode]>,
+    sanitizeData(data: any): string,
     name: string,
-}
-
-let TranslatorBackends : {[index: string]: TranslatorBackend} = {
-    ufalTransformer: {
-        composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
-            return {
-                type: "POST",
-                url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
-                data: { src: sourceLang, tgt: targetLang, input_text: text },
-                async: true,
-            }
-        },
-        sanitizeData(data: any) : string {
-            return data
-        },
-        languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
-        name: 'ÚFAL Transformer',
-    },
-
-
-    ufalTransformer2: {
-        composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
-            return {
-                type: "POST",
-                url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
-                data: { src: sourceLang, tgt: targetLang, input_text: text },
-                async: true,
-            }
-        },
-        sanitizeData(data: any) : string {
-            return data
-        },
-        languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
-        name: 'ÚFAL Transformer 2',
-    }
 }

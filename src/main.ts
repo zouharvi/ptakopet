@@ -1,5 +1,6 @@
 import {Translator, TranslatorSource} from './translator'
 import { IndicatorManager } from './indicator_manager';
+import { LangSelector } from './lang_selector';
 
 
 let input_source = $('#input_source')
@@ -14,7 +15,8 @@ let translator_source : Translator = new TranslatorSource(input_source, input_ta
 let indicator_translator : IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)
 
-Translator.instantiateBackends(select_translator)
+// TODO: add translator_target to this call
+let lang_selector : LangSelector = new LangSelector(translator_source, translator_source, select_translator, select_source, select_target)
 
 input_source.on('input', function() {
     translator_source.translate_throttle()

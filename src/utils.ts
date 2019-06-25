@@ -22,6 +22,25 @@ export module Utils {
     }
 
     /**
+     * Returns all elements, which appear on the left side of this pair
+     * @param arr Array from which elements are extracted
+     */
+    export function leftUnique<R, T>(arr: Array<[R, T]>) : Array<R> {
+        let left: Array<R> = arr.map((a:[R,T]) => { return a[0]} )
+        return [...new Set(left)]
+    }
+
+    /**
+     * Returns all elements, which appear on the left side of this pair
+     * @param arr Array from which elements are extracted
+     */
+    export function leftDerivative<R, T>(elem: R, arr: Array<[R, T]>) : Array<T> {
+        let ok: Array<[R, T]> = arr.filter((a) => (a[0] == elem))
+        let right: Array<T> = ok.map((a:[R,T]) => { return a[1]} )
+        return right
+    }
+
+    /**
      * All supported languages have their language code stored here
      */
     export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de'
