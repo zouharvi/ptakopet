@@ -12,7 +12,8 @@ export class LangSelector {
     private ts2: Translator
 
     constructor(ts1: Translator, ts2: Translator,
-        backendSelect: JQuery<HTMLElement>, lang1Select: JQuery<HTMLElement>, lang2Select: JQuery<HTMLElement>) {
+        backendSelect: JQuery<HTMLElement>, qeSelect: JQuery<HTMLElement>,
+        lang1Select: JQuery<HTMLElement>, lang2Select: JQuery<HTMLElement>) {
         this.ts1 = ts1
         this.ts2 = ts2
         this.backendSelect = backendSelect

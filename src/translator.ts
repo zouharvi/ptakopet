@@ -2,6 +2,7 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
 
+
 export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500);
 
@@ -22,7 +23,7 @@ export abstract class Translator extends AsyncMessage {
         this.target = target
     }
 
-    protected abstract translate(): void
+    public abstract translate(): void
     public abstract backend: TranslatorBackend
     public language?: LanguageCode
     protected source: JQuery<HTMLElement>
@@ -67,9 +68,30 @@ export abstract class Translator extends AsyncMessage {
 export class TranslatorSource extends Translator {
     public backend: TranslatorBackend = Translator.backends.ufalTransformer
 
-    protected translate = () => {
+    public translate = () => {
         super.dispatch(
-            this.backend.composeRequest($(this.source).val() as string, 'en', 'cs'),
+            this.backend.composeRequest(
+                $(this.source).val() as string,
+                this.language as LanguageCode,
+                translator_target.language as LanguageCode),
+            (data) => {
+                let text = this.backend.sanitizeData(data)
+                $(this.target).text(text)
+                translator_target.translate()
+            }
+        )
+    }
+}
+export class TranslatorTarget extends Translator {
+    public backend: TranslatorBackend = Translator.backends.ufalTransformer
+
+    public translate = () => {
+        console.log('translating')
+        super.dispatch(
+            this.backend.composeRequest(
+                $(this.source).val() as string,
+                this.language as LanguageCode,
+                translator_source.language as LanguageCode),
             (data) => {
                 let text = this.backend.sanitizeData(data)
                 $(this.target).text(text)
@@ -84,3 +106,8 @@ type TranslatorBackend = {
     sanitizeData(data: any): string,
     name: string,
 }
+
+var translator_source : Translator = new TranslatorSource($('#input_source'), $('#input_target'))
+var translator_target : Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
+
+export {translator_source, translator_target}
