@@ -1,4 +1,4 @@
-import { Translator, translator_source } from './translator'
+import { Translator, translator_source, translator_target } from './translator'
 import { Utils, LanguageCode } from './utils'
 
 /**
@@ -40,7 +40,8 @@ export class LangSelector {
                 this.instantiateLanguagesTarget()
             }
 
-            translator_source.translate()
+            if(($(this.ts1.source).val() as string).length > 0)
+                translator_source.translate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -55,6 +56,9 @@ export class LangSelector {
             } else {
                 this.ts2.language = $(a.target).val() as LanguageCode
             }
+
+            if(($(this.ts1.source).val() as string).length > 0)
+                translator_source.translate()
         })
 
         this.instantiateLanguagesSource();
