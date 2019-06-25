@@ -1,6 +1,7 @@
 import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
+import { Settings } from './settings'
 
 
 export abstract class Translator extends AsyncMessage {
@@ -24,8 +25,6 @@ export abstract class Translator extends AsyncMessage {
     }
 
     public abstract translate(): void
-    public abstract backend: TranslatorBackend
-    public language?: LanguageCode
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
 
@@ -69,17 +68,15 @@ export abstract class Translator extends AsyncMessage {
  * Class for translating source to target
  */
 export class TranslatorSource extends Translator {
-    public backend: TranslatorBackend = Translator.backends.ufalTransformer
-
     public translate = () => {
-        let request = this.backend.composeRequest(
+        let request = Settings.backend.composeRequest(
             $(this.source).val() as string,
-            this.language as LanguageCode,
-            translator_target.language as LanguageCode)
+            Settings.language1 as LanguageCode,
+            Settings.language2 as LanguageCode)
         super.dispatch(
             request,
             (data) => {
-                let text = this.backend.sanitizeData(data)
+                let text = Settings.backend.sanitizeData(data)
                 $(this.target).text(text)
                 translator_target.translate()
             }
@@ -91,24 +88,22 @@ export class TranslatorSource extends Translator {
  * Class for translating target to source
  */
 export class TranslatorTarget extends Translator {
-    public backend: TranslatorBackend = Translator.backends.ufalTransformer
-
     public translate = () => {
-        let request = this.backend.composeRequest(
+        let request = Settings.backend.composeRequest(
             $(this.source).val() as string,
-            this.language as LanguageCode,
-            translator_source.language as LanguageCode)
+            Settings.language2 as LanguageCode,
+            Settings.language1 as LanguageCode)
         super.dispatch(
             request,
             (data) => {
-                let text = this.backend.sanitizeData(data)
+                let text = Settings.backend.sanitizeData(data)
                 $(this.target).text(text)
             }
         )
     }
 }
 
-interface TranslatorBackend {
+export interface TranslatorBackend {
     // Return a finished ajax settings object, which can later be used for proper request
     composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => JQuery.AjaxSettings,
     // Array of available languages to this backend
