@@ -45,12 +45,19 @@ export class AsyncMessage {
         // TODO: merge the arguments and use existing callback property
         // Eg. save it and wrap it in custom callback
 
-        ajaxParams.success = (a: any, b: any, c: any) => {
+        if (ajaxParams.type == 'identity') {
+            // Special identity backend
             if (this.receiveCheck(msgCurrent)) {
-                callback(a)
+                callback(ajaxParams.data as string)
             }
+        } else {
+            ajaxParams.success = (a: any) => {
+                if (this.receiveCheck(msgCurrent)) {
+                    callback(a)
+                }
+            }
+    
+            $.ajax(ajaxParams);
         }
-
-        $.ajax(ajaxParams);
     }
 }

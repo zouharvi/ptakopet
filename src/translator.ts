@@ -26,9 +26,10 @@ export abstract class Translator extends AsyncMessage {
     public abstract translate(): void
     public abstract backend: TranslatorBackend
     public language?: LanguageCode
-    protected source: JQuery<HTMLElement>
-    protected target: JQuery<HTMLElement>
+    public source: JQuery<HTMLElement>
+    public target: JQuery<HTMLElement>
 
+    // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
         ufalTransformer: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
@@ -40,40 +41,43 @@ export abstract class Translator extends AsyncMessage {
                 }
             },
             sanitizeData(data: any): string {
-                return data
+                return data.replace(/\n$/, "")
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], true),
+            default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },
 
-
-        ufalTransformer2: {
+        identity: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): JQuery.AjaxSettings {
                 return {
-                    type: "POST",
-                    url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
-                    data: { src: sourceLang, tgt: targetLang, input_text: text },
-                    async: true,
+                    type: "identity",
+                    data: text,
                 }
             },
             sanitizeData(data: any): string {
-                return data
+                return data.replace(/\n$/, "")
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], false),
-            name: 'ÚFAL Transformer 2',
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de'], true),
+            default: ['cs', 'en'],
+            name: 'Identity',
         }
     }
 }
 
+/**
+ * Class for translating source to target
+ */
 export class TranslatorSource extends Translator {
     public backend: TranslatorBackend = Translator.backends.ufalTransformer
 
     public translate = () => {
+        let request = this.backend.composeRequest(
+            $(this.source).val() as string,
+            this.language as LanguageCode,
+            translator_target.language as LanguageCode)
         super.dispatch(
-            this.backend.composeRequest(
-                $(this.source).val() as string,
-                this.language as LanguageCode,
-                translator_target.language as LanguageCode),
+            request,
             (data) => {
                 let text = this.backend.sanitizeData(data)
                 $(this.target).text(text)
@@ -82,16 +86,20 @@ export class TranslatorSource extends Translator {
         )
     }
 }
+
+/**
+ * Class for translating target to source
+ */
 export class TranslatorTarget extends Translator {
     public backend: TranslatorBackend = Translator.backends.ufalTransformer
 
     public translate = () => {
-        console.log('translating')
+        let request = this.backend.composeRequest(
+            $(this.source).val() as string,
+            this.language as LanguageCode,
+            translator_source.language as LanguageCode)
         super.dispatch(
-            this.backend.composeRequest(
-                $(this.source).val() as string,
-                this.language as LanguageCode,
-                translator_source.language as LanguageCode),
+            request,
             (data) => {
                 let text = this.backend.sanitizeData(data)
                 $(this.target).text(text)
@@ -100,14 +108,19 @@ export class TranslatorTarget extends Translator {
     }
 }
 
-type TranslatorBackend = {
+interface TranslatorBackend {
+    // Return a finished ajax settings object, which can later be used for proper request
     composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => JQuery.AjaxSettings,
+    // Array of available languages to this backend
     languages: Array<[LanguageCode, LanguageCode]>,
+    // Default language pair
+    default: [LanguageCode, LanguageCode],
+    // Sanitizes incomming request data
     sanitizeData(data: any): string,
+    // Proper backend name (not key)
     name: string,
 }
 
-var translator_source : Translator = new TranslatorSource($('#input_source'), $('#input_target'))
-var translator_target : Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
-
-export {translator_source, translator_target}
+var translator_source: Translator = new TranslatorSource($('#input_source'), $('#input_target'))
+var translator_target: Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
+export { translator_source, translator_target }

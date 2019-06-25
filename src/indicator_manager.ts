@@ -1,11 +1,7 @@
 /**
- * @TODO
+ * Manages indicator fading
  */
 export class IndicatorManager {
-    /**
-     * @TODO
-     * @param indicator 
-     */
     constructor(indicator: JQuery<HTMLElement>) {
         this.indicator = indicator
     }
@@ -14,7 +10,7 @@ export class IndicatorManager {
     private indicator: JQuery<HTMLElement>
 
     /**
-     * @TODO
+     * Manages indicator fading
      * @param n 
      */
     public add(n: number) {

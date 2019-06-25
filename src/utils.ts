@@ -41,6 +41,15 @@ export module Utils {
     }
 
     /**
+     * Check whether an array of array contains a given array by joining all elements with '-'
+     * @param arr Haystack
+     * @param elem Needle
+     */
+    export function containsArray<R>(arr: Array<Array<R>>, elem : Array<R>) : boolean {
+        return (arr.map((a) => a.join('-')).indexOf(elem.join('-')) > -1)
+    }
+
+    /**
      * All supported languages have their language code stored here
      */
     export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de'

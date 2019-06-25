@@ -1,4 +1,4 @@
-import { Translator } from './translator'
+import { Translator, translator_source } from './translator'
 import { Utils, LanguageCode } from './utils'
 
 /**
@@ -21,24 +21,44 @@ export class LangSelector {
         this.lang2Select = lang2Select
 
         $(this.backendSelect).on('change', (a) => {
-            this.instantiateLanguagesSource();
-            console.log($(a.target).val())
+            this.ts1.backend = this.ts2.backend = Translator.backends[$(a.target).val() as string]
+            this.ts1.translate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
         $(this.lang1Select).on('change', (a) => {
-            this.ts1.language = $(a.target).val() as LanguageCode
-            this.instantiateLanguagesTarget()
+            // Try to swap languages if opposite language is selected and such pair is available
+            if ($(a.target).val() == this.ts2.language &&
+                Utils.containsArray(this.ts1.backend.languages, [this.ts2.language, this.ts1.language])) {
+                let tmp = this.ts1.language as LanguageCode
+                this.ts1.language = this.ts2.language
+                this.ts2.language = tmp
+                this.instantiateLanguagesTarget()
+                $(this.ts1.source).val($(this.ts1.target).val() as string)
+            } else {
+                this.ts1.language = $(a.target).val() as LanguageCode
+                this.instantiateLanguagesTarget()
+            }
+
+            translator_source.translate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
         $(this.lang2Select).on('change', (a) => {
-            this.ts2.language = $(a.target).val() as LanguageCode
+            // Try to swap languages if opposite language is selected and such pair is available
+            if ($(a.target).val() == this.ts1.language &&
+                Utils.containsArray(this.ts2.backend.languages, [this.ts2.language, this.ts1.language])) {
+                let tmp = this.ts1.language as LanguageCode
+                this.ts1.language = this.ts2.language
+                this.ts2.language = tmp
+                this.instantiateLanguagesSource()
+            } else {
+                this.ts2.language = $(a.target).val() as LanguageCode
+            }
         })
 
+        this.instantiateLanguagesSource();
         this.instantiateBackends()
-
-        $(this.backendSelect).trigger('change')
         $(this.lang1Select).trigger('change')
         $(this.lang2Select).trigger('change')
     }
@@ -61,6 +81,14 @@ export class LangSelector {
         if (codeData.length < 1) {
             throw new Error("No languages available")
         }
+
+        // Set default language
+        if (this.ts1.language == undefined) {
+            this.ts1.language = this.ts1.backend.default[0]
+        } else if(codeData.indexOf(this.ts1.language) > -1) {
+            // Try to keep the current language
+            $(this.lang1Select).val(this.ts1.language)
+        }
     }
 
     /**
@@ -77,10 +105,17 @@ export class LangSelector {
         for (let i in arrayData) {
             $(this.lang2Select).append($('<option>', { value: codeData[i], text: arrayData[i] }))
         }
-        $(this.lang2Select).trigger('change')
 
         if (codeData.length < 1) {
             throw new Error("No languages available")
+        }
+
+        // Set default language
+        if (this.ts2.language == undefined) {
+            this.ts2.language = this.ts2.backend.default[1]
+        } else if(codeData.indexOf(this.ts2.language) > -1) {
+            // Try to keep the current language
+            $(this.lang2Select).val(this.ts2.language)
         }
     }
 
