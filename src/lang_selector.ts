@@ -23,6 +23,7 @@ export class LangSelector {
 
         $(this.backendSelect).on('change', (a) => {
             Settings.backend = Translator.backends[$(a.target).val() as string]
+            this.instantiateLanguagesSource();
             this.ts1.translate()
         })
 
@@ -92,6 +93,9 @@ export class LangSelector {
         } else if(codeData.indexOf(Settings.language1) > -1) {
             // Try to keep the current language
             $(this.lang1Select).val(Settings.language1)
+        } else {
+            Settings.language1 = Settings.backend.default[0]
+            Settings.language2 = Settings.backend.default[1]
         }
     }
 
@@ -120,6 +124,9 @@ export class LangSelector {
         } else if(codeData.indexOf(Settings.language2) > -1) {
             // Try to keep the current language
             $(this.lang2Select).val(Settings.language2)
+        } else {
+            Settings.language1 = Settings.backend.default[0]
+            Settings.language2 = Settings.backend.default[1]
         }
     }
 

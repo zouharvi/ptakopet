@@ -52,7 +52,7 @@ export module Utils {
     /**
      * All supported languages have their language code stored here
      */
-    export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de'
+    export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de' | 'pl'
 
     /**
      * Storage for language code <-> language name relation.
@@ -63,7 +63,8 @@ export module Utils {
         fr: 'French',
         hi: 'Hindi',
         de: 'German',
-    } as {[K in LanguageCode]?: string}
+        pl: 'Polish',
+    } as {[K in LanguageCode]: string}
     
     /**
      * Returns a name of a language correspoding to given code. Throws an error if code is not recognized.

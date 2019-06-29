@@ -57,7 +57,7 @@ export abstract class Translator extends AsyncMessage {
             sanitizeData(data: any): string {
                 return data.replace(/\n$/, "")
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de'], true),
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de', 'pl'], true),
             default: ['cs', 'en'],
             name: 'Identity',
         }
