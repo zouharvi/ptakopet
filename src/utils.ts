@@ -52,7 +52,7 @@ export module Utils {
     /**
      * All supported languages have their language code stored here
      */
-    export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de' | 'pl'
+    export type LanguageCode = 'cs' | 'en' | 'fr' | 'hi' | 'de' | 'pl' | 'es'
 
     /**
      * Storage for language code <-> language name relation.
@@ -61,6 +61,7 @@ export module Utils {
         cs: 'Czech',
         en: 'English',
         fr: 'French',
+        es: 'Spanish',
         hi: 'Hindi',
         de: 'German',
         pl: 'Polish',
