@@ -23,11 +23,10 @@ export class Highlighter {
     public highlight(intensities: Array<Number>): void {
         let indicies: Array<[number, number]> = Highlighter.tokenizeIndicies($(this.element).val() as string)
         let highlights: Array<{ highlight: [number, number], className: string}> = []
-        let i: number
-        for(i = 0; i < intensities.length; i++) {
+        for(let i = 0; i < intensities.length; i++) {
             highlights.push({highlight: indicies[i], className: 'style="background-color: red;"'})
         }
-        if(i != indicies.length) {
+        if(intensities.length != indicies.length) {
             console.error("Something bad happened - tokens and quest length doesn't match")
         }
         // @ts-ignore
