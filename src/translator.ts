@@ -2,10 +2,11 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
 import { Settings } from './settings'
-import { Highlighter } from './highlighter'
 
-
-export abstract class Translator extends AsyncMessage {
+/**
+ * Template for forward and backward translators
+ */
+abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500);
 
     /**
@@ -100,7 +101,7 @@ export class TranslatorTarget extends Translator {
 }
 
 export interface TranslatorBackend {
-    // Return a finished ajax settings object, which can later be used for proper request
+    // Return a finished promise settings object, which can later be resolved
     composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<string>,
 
     // Array of available languages to this backend

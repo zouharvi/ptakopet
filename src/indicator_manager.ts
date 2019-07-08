@@ -1,7 +1,7 @@
 /**
  * Manages indicator fading
  */
-export class IndicatorManager {
+class IndicatorManager {
     constructor(indicator: JQuery<HTMLElement>) {
         this.indicator = indicator
     }
@@ -23,3 +23,6 @@ export class IndicatorManager {
         }
     }
 }
+
+var indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
+export { indicator_translator }
