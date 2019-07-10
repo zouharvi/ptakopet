@@ -1,0 +1,3 @@
+[submodule "qe/questplusplus"]
+	path = qe/questplusplus
+	url = https://github.com/zouharvi/questplusplus

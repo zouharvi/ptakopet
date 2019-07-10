@@ -1,2 +1,5 @@
-# ptakopet-qe
-multi-service backend for Ptakopět
+# Ptakopět Server
+Multi-service backend for Ptakopět
+- alignment
+- quality estimation
+- logging
