@@ -57,3 +57,8 @@ unzip "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 echo "Installing QuEst++ machine learning"
 assertPip "scikit-learn" 0.20.0
 assertPip "pyyaml" 0.4.0
+
+
+
+echo "Installing Ptakopět-server"
+assertPip "Flask" 1.0.0
