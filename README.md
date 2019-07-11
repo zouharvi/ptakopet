@@ -2,7 +2,7 @@
 
 System for translation quality estimation, mostly outbound translation. [Check it out](http://ptakopet.vilda.net)
 
-This repository contains documentation, meta files and also the web frontend. There's also an associated repository for [Ptakopět multiservice backend](https://github.com/zouharvi/ptakopet-qe).
+This repository contains documentation, meta files and also the web frontend. There's also an associated repository for [Ptakopět multiservice backend](https://github.com/zouharvi/ptakopet-server).
 
 Documentation can be found [here](http://ptakopet.vilda.net/docs).
 
