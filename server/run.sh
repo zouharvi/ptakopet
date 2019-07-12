@@ -1,6 +1,12 @@
-# run this script from the folder it is located in
-
 export FLASK_ENV=development
-export FLASK_APP=app.py
+export FLASK_APP=src/server.py
 
-python -m flask run
+PREVWD=`pwd`
+TARGETWD=`realpath "$0" | xargs dirname`
+echo "Changing current working directory to the directory of this script"
+cd $TARGETWD
+
+python3 -m flask run
+
+echo "Changing current working directory to the previous state"
+cd $PREVWD
