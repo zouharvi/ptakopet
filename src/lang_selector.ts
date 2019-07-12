@@ -5,7 +5,7 @@ import { Settings } from './settings'
 /**
  * Manages backend and language select boxes
  */
-export class LangSelector {
+export class SettingsSelector {
     private backendSelect: JQuery<HTMLElement>
     private lang1Select: JQuery<HTMLElement>
     private lang2Select: JQuery<HTMLElement>

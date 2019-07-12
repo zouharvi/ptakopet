@@ -5,12 +5,12 @@ if (location.protocol == 'http:') {
 
 import { Translator, translator_source, translator_target } from './translator'
 import { IndicatorManager } from './indicator_manager';
-import { LangSelector } from './lang_selector';
+import { SettingsSelector } from './lang_selector';
 
 let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)
 
-let lang_selector: LangSelector = new LangSelector(
+let lang_selector: SettingsSelector = new SettingsSelector(
     translator_source,
     translator_target,
     $('#translator_backend'),

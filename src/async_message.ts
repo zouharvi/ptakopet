@@ -45,6 +45,7 @@ export class AsyncMessage {
         // TODO: merge the arguments and use existing callback property
         // Eg. save it and wrap it in custom callback
 
+        // TODO: solve this hack properly (better inheritance model)
         if (ajaxParams.type == 'identity') {
             // Special identity backend
             if (this.receiveCheck(msgCurrent)) {
