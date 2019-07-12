@@ -1,3 +1,6 @@
 [submodule "qe/questplusplus"]
 	path = qe/questplusplus
 	url = https://github.com/zouharvi/questplusplus
+[submodule "align/fast_align"]
+	path = align/fast_align
+	url = https://github.com/zouharvi/fast_align
