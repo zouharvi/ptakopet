@@ -1,10 +1,10 @@
 export FLASK_ENV=development
-export FLASK_APP=src/server.py
+export FLASK_APP=server/src/server.py
 
 PREVWD=`pwd`
 TARGETWD=`realpath "$0" | xargs dirname`
-echo "Changing current working directory to the directory of this script"
-cd $TARGETWD
+echo "Changing current working directory to the parent directory of this script (project base dir)"
+cd "$TARGETWD/../"
 
 python3 -m flask run
 
