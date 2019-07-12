@@ -35,6 +35,9 @@ assertPip() {
 
 TMPDIR=`mktemp -d` 
 
+
+export -f die assertCommand verlt verlte assertPip
+
 ./qe/install.sh
 ./align/install.sh
 ./server/install.sh
