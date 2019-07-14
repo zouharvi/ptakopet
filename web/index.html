@@ -2,15 +2,14 @@
 <html lang='en'>
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-control" content="public">
     <meta name="viewport" content="width=device-width,initial-scale=0.9">
     <meta name="description" content="Ptakopět Outbound Translation">
     <meta name="theme-color" content="#efefef">
     <title>Ptakopět</title>
     <link rel="icon" type="image/png" href="img/icon.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'> -->
     <!-- <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script> -->
     <link rel='stylesheet' type='text/css' href='css/style.css?v=4'>
@@ -20,7 +19,8 @@
 <body style='overflow-x: hidden; margin: 0; background-color: #f4f4f4;'>
     <h1 id='title_name'>
         <img src='img/logo_as_path.svg' style='width: 160px;' alt='Ptakopět title logo'>
-        <div style='margin-left: 20px; display: inline-block; position: relative; top: -6px; font-weight: normal; color: #555555; font-size: 0.5em;'>
+        <div
+            style='margin-left: 20px; display: inline-block; position: relative; top: -6px; font-weight: normal; color: #555555; font-size: 0.5em;'>
             (in development)
         </div>
     </h1>
@@ -70,6 +70,20 @@
         </div>
     </div>
     <script src='ptakopet-web.js'></script>
+
+    <!-- Loads Roboto:400 -->
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: ['Roboto:400'] }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })(); </script>
 </body>
 
 </html>
