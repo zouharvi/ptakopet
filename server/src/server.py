@@ -1,13 +1,13 @@
 from flask import Flask, request
 import os
-import quest
+import qe
 
 app = Flask(__name__)
 
 if __name__ == 'server':
   backends = dict()
-  backends['quest'] = {
-    'questplusplus': quest.QuestPlusPlus()
+  backends['qe'] = {
+    'questplusplus': qe.QuestPlusPlus()
   }
 
 @app.route('/')
@@ -25,10 +25,20 @@ def alignment(backend):
 """
 Provides quality estimation backend
 """
-@app.route('/quest/<backend>', methods = ['GET', 'POST'])
-def quest(backend):
-  print(request.args)
-  if not backend in backends['quest'].keys():
-    return "Invalid backend selected"
-  else:
+@app.route('/qe/<backend>', methods = ['GET', 'POST'])
+def qe(backend):
+  try:
+    if not backend in backends['qe'].keys():
+      raise Exception("Invalid backend selected")
+    # assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
+    return backends['qe'][backend].qe(**request.args)
     return "Selected " + backend
+  except Exception as error:
+    return str(error)
+
+def assertArgs(args, assertees):
+  if type(assertees) is not list:
+    assertees = [assertees]
+  for assertee in assertees:
+    if assertee not in args.keys():
+      raise Exception("'{}' is missing".format(assertee))

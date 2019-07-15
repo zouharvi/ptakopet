@@ -5,14 +5,16 @@ Allows child classes to change to their respective folders and then roll back.
 Use crawlIn multiple times, but finally call crawlOut 
 """
 class DirCrawler():
-    basePath = ''
+    def __init__(self, basePath=''):
+        self.basePath = basePath
+        print("doing init")
 
-    def crawlIn(self, path=''):
+    def __enter__(self, path=''):
         # only store the base path if transaction is starting
-        if self.basePath == '':
-            self.basePath = os.getcwd()
-        os.chdir(path)
-
-    def crawlOut(self, path=''):
+        self.prevPath = os.getcwd()
         os.chdir(self.basePath)
-        self.basePath = ''
+        print("doing enter")
+
+    def __exit__(self, type, value, traceback):
+        os.chdir(self.prevPath)
+        print("doing exit")
