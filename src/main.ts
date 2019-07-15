@@ -5,7 +5,7 @@ if (location.protocol == 'http:') {
 
 import { Translator, translator_source, translator_target } from './translator'
 import { IndicatorManager } from './indicator_manager';
-import { SettingsSelector } from './lang_selector';
+import { SettingsSelector } from './settings_selector';
 
 let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)

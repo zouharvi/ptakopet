@@ -1,14 +1,14 @@
-import {IndicatorManager} from './indicator_manager'
+import { IndicatorManager } from './indicator_manager'
 
 /**
- * AsyncMsg sends an AJAX request, but notes message id and if 
+ * AsyncMessage resolves a promise, notes message id and if 
  * the incomming message would drop an increasing sequence,
  * the message is dropped instead.
  */
 export class AsyncMessage {
     protected msgRec: number = 0
     protected msgNext: number = 1
-    public indicatorHandle? : IndicatorManager
+    public indicatorHandle?: IndicatorManager
 
     public addIndicator(indicatorHandle: IndicatorManager) {
         this.indicatorHandle = indicatorHandle;
@@ -22,7 +22,7 @@ export class AsyncMessage {
         if (this.msgRec > msgIndex) {
             return false;
         } else {
-            if(this.indicatorHandle != undefined) {
+            if (this.indicatorHandle != undefined) {
                 this.indicatorHandle.add(msgIndex - this.msgRec)
             }
             this.msgRec = msgIndex;
@@ -31,34 +31,26 @@ export class AsyncMessage {
     }
 
     /**
-     * Sends an AJAX request and if the response lands back before the
-     * following one, invoke callback
+     * Resolves a promise and if the response lands back before the
+     * following one, invokes callback
      */
-    public dispatch(ajaxParams: JQuery.AjaxSettings<any>, callback: (data: any) => void): void {
+    public dispatch(message: Promise<string>, callback: (data: string) => void): void {
         let msgCurrent = this.msgNext
         this.msgNext++
 
-        if(this.indicatorHandle != undefined) {
+        if (this.indicatorHandle != undefined) {
             this.indicatorHandle.add(-1)
         }
 
-        // TODO: merge the arguments and use existing callback property
-        // Eg. save it and wrap it in custom callback
-
-        // TODO: solve this hack properly (better inheritance model)
-        if (ajaxParams.type == 'identity') {
-            // Special identity backend
+        message.then((text) => {
+            // If in an increasing sequence invoke callback
             if (this.receiveCheck(msgCurrent)) {
-                callback(ajaxParams.data as string)
+                callback(text)
             }
-        } else {
-            ajaxParams.success = (a: any) => {
-                if (this.receiveCheck(msgCurrent)) {
-                    callback(a)
-                }
-            }
-    
-            $.ajax(ajaxParams);
-        }
+        },
+        (JQueryXHR) => {
+            // Do nothing except for fix the message id
+            this.receiveCheck(msgCurrent)
+        })
     }
 }

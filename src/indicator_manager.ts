@@ -17,9 +17,9 @@ export class IndicatorManager {
         this.n += n
 
         if(this.n < 0) {
-            this.indicator.animate({opacity: 1}, 700)
+            this.indicator.animate({opacity: 1}, 500)
         } else {
-            this.indicator.animate({opacity: 0}, 700)
+            this.indicator.animate({opacity: 0}, 500)
         }
     }
 }
