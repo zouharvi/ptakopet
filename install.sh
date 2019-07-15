@@ -33,7 +33,7 @@ assertPip() {
     fi
 }
 
-TMPDIR=`mktemp -d` 
+export TMPDIR=`mktemp -d` 
 
 
 export -f die assertCommand verlt verlte assertPip
