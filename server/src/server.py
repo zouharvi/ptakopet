@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import os
 import qe
 
@@ -12,27 +12,26 @@ if __name__ == 'server':
 
 @app.route('/')
 def index():
-  return 'Server Works!'
+  return 'This is the Ptakopět server. For info about this project or the API please see the <a href="http://ptakopet.vilda.net/docs">documentation</a>.'
   
-"""
-Provides word alignment backend
-"""
 @app.route('/align/<backend>', methods = ['GET', 'POST'])
-def alignment(backend):
-  return "Requested: " + backend
+def alignService(backend):
+  """
+  Provides word alignment backend
+  """
+  return jsonify("")
 
 
-"""
-Provides quality estimation backend
-"""
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
-def qe(backend):
+def qeService(backend):
+  """
+  Provides quality estimation backend
+  """
   try:
     if not backend in backends['qe'].keys():
       raise Exception("Invalid backend selected")
-    # assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
-    return backends['qe'][backend].qe(**request.args)
-    return "Selected " + backend
+    assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
+    return jsonify(backends['qe'][backend].qe(**request.args))
   except Exception as error:
     return str(error)
 
@@ -41,4 +40,4 @@ def assertArgs(args, assertees):
     assertees = [assertees]
   for assertee in assertees:
     if assertee not in args.keys():
-      raise Exception("'{}' is missing".format(assertee))
+      raise Exception("Parameter '{}' is missing".format(assertee))
