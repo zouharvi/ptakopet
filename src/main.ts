@@ -4,8 +4,9 @@ if (location.protocol == 'http:') {
 }
 
 import { Translator, translator_source, translator_target } from './translator'
-import { IndicatorManager } from './indicator_manager';
-import { SettingsSelector } from './settings_selector';
+import { IndicatorManager } from './indicator_manager'
+import { SettingsSelector } from './settings_selector'
+import { Highlighter } from './highlighter'
 
 let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)
@@ -25,3 +26,5 @@ $('#input_source').on('input', function () {
 $('#input_target').on('input', function () {
     translator_target.translate_throttle()
 })
+
+let testblock = new Highlighter('#testblock')

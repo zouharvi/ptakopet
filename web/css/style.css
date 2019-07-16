@@ -37,8 +37,9 @@ element {
     text-align: left;
 }
 
-.content_block textarea {
+.content_block textarea, #testblock {
     width: 100%;
+    max-width: 100%;
     height: 150px;
     margin-top: 10px;
     resize: none;
@@ -47,6 +48,8 @@ element {
     border-radius: 3px;
     border: none;
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25);
+    text-align: left;
+    overflow-y: auto;
 }
 
 #settings_block {
@@ -58,7 +61,7 @@ element {
 }
 
 /* remove blue glow on focus */
-textarea, select, input, button { outline: none; }
+textarea, #testblock, select, input, button { outline: none; }
 
 a {
     text-decoration: none;
