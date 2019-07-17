@@ -2,6 +2,7 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
 import { Settings } from './settings'
+import { Highlighter } from './highlighter'
 
 
 export abstract class Translator extends AsyncMessage {
@@ -22,12 +23,16 @@ export abstract class Translator extends AsyncMessage {
         super()
         this.source = source
         this.target = target
+        this.highlighter_source = new Highlighter(source)
+        console.log('running highlighter')
     }
 
     public abstract translate(): void
     // Target HTML elements or something with `text` function
     public source: JQuery<HTMLElement> | { text(_: string): void }
     public target: JQuery<HTMLElement> | { text(_: string): void }
+
+    private highlighter_source: Highlighter
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
