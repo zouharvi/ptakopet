@@ -11,9 +11,9 @@ export class Highlighter {
         // initialize 
         // @ts-ignore
         element.highlightWithinTextarea({highlight: []})
-        element.on('input', (e) => {
-            this.highlight([0.5, 0.1])
-        });
+        // element.on('input', (e) => {
+            // this.highlight([0.5, 0.1])
+        // });
     }
 
     /**

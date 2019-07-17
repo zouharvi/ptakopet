@@ -34,7 +34,7 @@ export class AsyncMessage {
      * Resolves a promise and if the response lands back before the
      * following one, invokes callback
      */
-    public dispatch(message: Promise<string>, callback: (data: string) => void): void {
+    public dispatch<T>(message: Promise<T>, callback: (data: T) => void): void {
         let msgCurrent = this.msgNext
         this.msgNext++
 

@@ -11,21 +11,21 @@ export class Estimator extends AsyncMessage {
      */
     public estimate(): void {
         // Check whether the backend supports this language pair
-        if (Settings.backendTranslator.languages.indexOf([Settings.language1 as LanguageCode, Settings.language2 as LanguageCode]) != -1) {
-            let request = Settings.backendTranslator.composeRequest(
+        if (Utils.containsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+            let request = Settings.backendEstimator.composeRequest(
                 $(this.source).val() as string,
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode)
             super.dispatch(
                 request,
-                (estimation) => {
+                (estimation: Array<number>) => {
+                    this.highlighter_target.highlight(estimation)
                     console.log(estimation)
-                    // $(this.target).text(text)
-                    // translator_target.translate()
                 }
             )
         } else {
             // The estimator does not support this language pair, skipping
+            console.warn("The estimator does not support this language pair, skipping")
         }
     }
 
@@ -39,7 +39,7 @@ export class Estimator extends AsyncMessage {
         this.target = target
         this.highlighter_source = new Highlighter(source)
         this.highlighter_target = new Highlighter(target)
-        console.log('running highlighter')
+        console.log('creating highlighter')
     }
 
     // Target HTML elements or something with `text` function
@@ -55,8 +55,16 @@ export class Estimator extends AsyncMessage {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<Array<number>> {
                 return new Promise<Array<number>>((resolve, rejext) => resolve([0.1, 0.2, 0.6, 0.3]))
             },
-            languages: [['en', 'es']],
+            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
             name: 'Random',
+        },
+
+        questplusplus: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<Array<number>> {
+                return new Promise<Array<number>>((resolve, rejext) => resolve([0.1, 0.2, 0.6, 0.3]))
+            },
+            languages: [['en', 'es']],
+            name: 'QuEst++',
         }
     }
 }

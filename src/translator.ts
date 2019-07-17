@@ -2,6 +2,7 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
 import { Settings } from './settings'
+import { estimator, Estimator } from './estimator'
 
 /**
  * Template for forward and backward translators
@@ -24,7 +25,6 @@ export abstract class Translator extends AsyncMessage {
         super()
         this.source = source
         this.target = target
-        console.log('running highlighter')
     }
 
     public abstract translate(): void
@@ -74,7 +74,7 @@ export class TranslatorSource extends Translator {
             Settings.language2 as LanguageCode)
         super.dispatch(
             request,
-            (text) => {
+            (text: string) => {
                 $(this.target).text(text)
                 translator_target.translate()
             }
@@ -95,6 +95,7 @@ export class TranslatorTarget extends Translator {
             request,
             (text) => {
                 $(this.target).text(text)
+                estimator.estimate()
             }
         )
     }

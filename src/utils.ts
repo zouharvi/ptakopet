@@ -66,6 +66,12 @@ export module Utils {
         de: 'German',
         pl: 'Polish',
     } as {[K in LanguageCode]: string}
+
+    /**
+     * All available languages
+     */
+    export let Languages: Array<LanguageCode> = Object.keys(_langCodeToName) as Array<LanguageCode>
+
     
     /**
      * Returns a name of a language correspoding to given code. Throws an error if code is not recognized.
