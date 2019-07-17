@@ -1,27 +1,32 @@
 import { AsyncMessage } from "./async_message"
-import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "./utils"
 import { Settings } from './settings'
 import { Highlighter } from './highlighter'
 
 
 // @TODO: pair each estimator request with a specific translator return?
-class Estimator extends AsyncMessage {
+export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
      */
     public estimate(): void {
-        let request = Settings.backend.composeRequest(
-            $(this.source).val() as string,
-            Settings.language1 as LanguageCode,
-            Settings.language2 as LanguageCode)
-        super.dispatch(
-            request,
-            (text) => {
-                $(this.target).text(text)
-                translator_target.translate()
-            }
-        )
+        // Check whether the backend supports this language pair
+        if (Settings.backendTranslator.languages.indexOf([Settings.language1 as LanguageCode, Settings.language2 as LanguageCode]) != -1) {
+            let request = Settings.backendTranslator.composeRequest(
+                $(this.source).val() as string,
+                Settings.language1 as LanguageCode,
+                Settings.language2 as LanguageCode)
+            super.dispatch(
+                request,
+                (estimation) => {
+                    console.log(estimation)
+                    // $(this.target).text(text)
+                    // translator_target.translate()
+                }
+            )
+        } else {
+            // The estimator does not support this language pair, skipping
+        }
     }
 
     /**
@@ -33,6 +38,7 @@ class Estimator extends AsyncMessage {
         this.source = source
         this.target = target
         this.highlighter_source = new Highlighter(source)
+        this.highlighter_target = new Highlighter(target)
         console.log('running highlighter')
     }
 
@@ -41,12 +47,13 @@ class Estimator extends AsyncMessage {
     public target: JQuery<HTMLElement> | { text(_: string): void }
 
     private highlighter_source: Highlighter
+    private highlighter_target: Highlighter
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
         random: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, rejext) => resolve(text))
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<Array<number>> {
+                return new Promise<Array<number>>((resolve, rejext) => resolve([0.1, 0.2, 0.6, 0.3]))
             },
             languages: [['en', 'es']],
             name: 'Random',
@@ -55,8 +62,8 @@ class Estimator extends AsyncMessage {
 }
 
 export interface EstimatorBackend {
-    // Return a finished ajax settings object, which can later be used for proper request
-    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<string>,
+    // Return a finished promise object, which can later be resolved
+    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<Array<number>>,
 
     // Array of available languages to this backend
     languages: Array<[LanguageCode, LanguageCode]>,

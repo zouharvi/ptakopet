@@ -6,7 +6,7 @@ import { Settings } from './settings'
 /**
  * Template for forward and backward translators
  */
-abstract class Translator extends AsyncMessage {
+export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500);
 
     /**
@@ -68,7 +68,7 @@ abstract class Translator extends AsyncMessage {
  */
 export class TranslatorSource extends Translator {
     public translate = () => {
-        let request = Settings.backend.composeRequest(
+        let request = Settings.backendTranslator.composeRequest(
             $(this.source).val() as string,
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
@@ -87,7 +87,7 @@ export class TranslatorSource extends Translator {
  */
 export class TranslatorTarget extends Translator {
     public translate = () => {
-        let request = Settings.backend.composeRequest(
+        let request = Settings.backendTranslator.composeRequest(
             $(this.source).val() as string,
             Settings.language2 as LanguageCode,
             Settings.language1 as LanguageCode)
