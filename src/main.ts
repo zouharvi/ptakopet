@@ -5,20 +5,13 @@ if (location.protocol == 'http:') {
 
 import { translator_source, translator_target } from './messages/translator'
 import { estimator } from './messages/estimator'
-import { IndicatorManager } from './page/indicator_manager'
 import { SettingsSelector } from './page/settings_selector'
-
-let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
-translator_source.addIndicator(indicator_translator)
-translator_target.addIndicator(indicator_translator)
-
-let indicator_estimator: IndicatorManager = new IndicatorManager($('#indicator_estimator'))
-estimator.addIndicator(indicator_estimator)
 
 let lang_selector: SettingsSelector = new SettingsSelector(
     translator_source,
     translator_target,
     $('#backend_translator'),
+    estimator,
     $('#backend_estimator'),
     $('#language_select_source'),
     $('#language_select_target'))

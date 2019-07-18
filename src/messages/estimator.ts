@@ -3,6 +3,7 @@ import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { Highlighter } from '../page/highlighter'
 import { TextUtils } from "../misc/text_utils";
+import { IndicatorManager } from "../page/indicator_manager";
 
 
 export class Estimator extends AsyncMessage {
@@ -86,5 +87,8 @@ export interface EstimatorBackend {
     name: string,
 }
 
-var estimator: Estimator = new Estimator($('#input_source'), $('#input_target'))
+let estimator: Estimator = new Estimator($('#input_source'), $('#input_target'))
+let indicator_estimator: IndicatorManager = new IndicatorManager($('#indicator_estimator'))
+estimator.addIndicator(indicator_estimator)
+
 export { estimator }

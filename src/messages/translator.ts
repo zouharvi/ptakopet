@@ -3,6 +3,7 @@ import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { estimator, Estimator } from './estimator'
+import { IndicatorManager } from "../page/indicator_manager";
 
 /**
  * Template for forward and backward translators
@@ -115,6 +116,11 @@ export interface TranslatorBackend {
     name: string,
 }
 
-var translator_source: Translator = new TranslatorSource($('#input_source'), $('#input_target'))
-var translator_target: Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
-export { translator_source, translator_target }
+let translator_source: Translator = new TranslatorSource($('#input_source'), $('#input_target'))
+let translator_target: Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
+
+let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
+translator_source.addIndicator(indicator_translator)
+translator_target.addIndicator(indicator_translator)
+
+export { translator_source, translator_target, indicator_translator }

@@ -13,21 +13,31 @@ export class SettingsSelector {
     private lang2Select: JQuery<HTMLElement>
     private ts1: Translator
     private ts2: Translator
+    private estimator: Estimator
 
-    constructor(ts1: Translator, ts2: Translator,
-        backendTranslatorSelect: JQuery<HTMLElement>, backendEstimatorSelect: JQuery<HTMLElement>,
+    constructor(ts1: Translator, ts2: Translator, backendTranslatorSelect: JQuery<HTMLElement>,
+        estimator: Estimator, backendEstimatorSelect: JQuery<HTMLElement>,
         lang1Select: JQuery<HTMLElement>, lang2Select: JQuery<HTMLElement>) {
         this.ts1 = ts1
         this.ts2 = ts2
+        this.estimator = estimator
         this.backendTranslatorSelect = backendTranslatorSelect
         this.backendEstimatorSelect = backendEstimatorSelect
         this.lang1Select = lang1Select
         this.lang2Select = lang2Select
 
+        // setup translator backend change callback
         $(this.backendTranslatorSelect).on('change', (a) => {
             Settings.backendTranslator = Translator.backends[$(a.target).val() as string]
             this.instantiateLanguagesSource();
             this.ts1.translate()
+        })
+        
+        // setup estimator backend change callback
+        $(this.backendEstimatorSelect).on('change', (a) => {
+            Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
+            this.instantiateLanguagesSource();
+            this.estimator.estimate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
