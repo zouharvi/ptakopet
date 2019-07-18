@@ -42,9 +42,9 @@ export class Estimator extends AsyncMessage {
         this.highlighter_target = new Highlighter(target)
     }
 
-    // Target HTML elements or something with `text` function
-    public source: JQuery<HTMLElement> | { text(_: string): void }
-    public target: JQuery<HTMLElement> | { text(_: string): void }
+    // Target HTML elements or something with `val` function
+    public source: JQuery<HTMLElement> | { val(_: string): void }
+    public target: JQuery<HTMLElement> | { val(_: string): void }
 
     private highlighter_source: Highlighter
     private highlighter_target: Highlighter
