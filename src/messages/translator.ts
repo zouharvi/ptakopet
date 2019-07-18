@@ -1,7 +1,7 @@
 import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
-import { LanguageCode, Utils } from "./utils"
-import { Settings } from './settings'
+import { LanguageCode, Utils } from "../misc/utils"
+import { Settings } from '../misc/settings'
 import { estimator, Estimator } from './estimator'
 
 /**

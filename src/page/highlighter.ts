@@ -8,12 +8,10 @@ export class Highlighter {
      */
     public constructor(element: JQuery<HTMLElement>) {
         this.element = element
+
         // initialize 
         // @ts-ignore
         element.highlightWithinTextarea({highlight: []})
-        // element.on('input', (e) => {
-            // this.highlight([0.5, 0.1])
-        // });
     }
 
     /**
@@ -29,10 +27,15 @@ export class Highlighter {
         if(intensities.length != indicies.length) {
             console.error("Something bad happened - tokens and quest length doesn't match")
         }
+        let isFocused = $(this.element).is(":focus")
+
         // @ts-ignore
         $(this.element).highlightWithinTextarea({highlight: highlights})
-        // @TODO: focus only if it was focused before
-        $(this.element).focus()
+
+        // If the element had focus before, return it
+        if(isFocused) {
+            $(this.element).focus()
+        }
     }
 
     /**

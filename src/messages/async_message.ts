@@ -1,4 +1,4 @@
-import { IndicatorManager } from './indicator_manager'
+import { IndicatorManager } from '../page/indicator_manager'
 
 /**
  * AsyncMessage resolves a promise, notes message id and if 

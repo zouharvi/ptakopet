@@ -1,7 +1,7 @@
 import { AsyncMessage } from "./async_message"
-import { LanguageCode, Utils } from "./utils"
-import { Settings } from './settings'
-import { Highlighter } from './highlighter'
+import { LanguageCode, Utils } from "../misc/utils"
+import { Settings } from '../misc/settings'
+import { Highlighter } from '../page/highlighter'
 
 
 // @TODO: pair each estimator request with a specific translator return?

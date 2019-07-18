@@ -3,9 +3,9 @@ if (location.protocol == 'http:') {
     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
 
-import { translator_source, translator_target } from './translator'
-import { IndicatorManager } from './indicator_manager'
-import { SettingsSelector } from './settings_selector'
+import { translator_source, translator_target } from './messages/translator'
+import { IndicatorManager } from './page/indicator_manager'
+import { SettingsSelector } from './page/settings_selector'
 
 var indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)

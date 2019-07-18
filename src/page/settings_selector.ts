@@ -1,7 +1,7 @@
-import { Translator } from './translator'
-import { Estimator } from './estimator'
-import { Utils, LanguageCode } from './utils'
-import { Settings } from './settings'
+import { Translator } from '../messages/translator'
+import { Estimator } from '../messages/estimator'
+import { Utils, LanguageCode } from '../misc/utils'
+import { Settings } from '../misc/settings'
 
 /**
  * Manages backend and language select boxes

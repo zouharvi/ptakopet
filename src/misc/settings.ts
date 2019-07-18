@@ -1,6 +1,6 @@
-import { TranslatorBackend } from './messages/translator'
-import { EstimatorBackend } from './messages/estimator'
-import { LanguageCode } from "./misc/utils"
+import { TranslatorBackend } from '../messages/translator'
+import { EstimatorBackend } from '../messages/estimator'
+import { LanguageCode } from "./utils"
 
 /**
  * Settings contains miscellaneous generic functions, but mostly a shared object of current settings.
