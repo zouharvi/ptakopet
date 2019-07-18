@@ -36,6 +36,11 @@ element {
     text-align: left;
 }
 
+textarea {
+    /* This is just to avoid FOUC before higlighter loads */
+    background: #FFFFFF
+}
+
 .hwt-content,
 .hwt-content-disabled {
     font-size: 1.15em;
