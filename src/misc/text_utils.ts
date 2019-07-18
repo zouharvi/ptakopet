@@ -9,6 +9,11 @@ export module TextUtils {
      */
     export function tokenize(raw: string): Array<string> {
         let res: Array<string> = TextUtils.clean(raw).split(' ').join('\n').split('\n')
+        
+        // special case for empty string
+        if (res.length == 1 && res[0] == "") {
+            return []
+        }
         return res
     }
 
@@ -41,13 +46,13 @@ export module TextUtils {
         let spaceBuffer: number = 0
         for (let i = 0; i < raw.length; i++) {
             if (raw.substring(i).indexOf(words[wordIndex]) == 0) {
-                if(skipSpaces) {
+                if (skipSpaces) {
                     arr.push([i, i + words[wordIndex].length])
                 } else {
                     // if we want to add spaces to the next word, subtract the spaceBuffer from the left index
                     arr.push([i - spaceBuffer, i + words[wordIndex].length])
                 }
-                i += words[wordIndex].length -1
+                i += words[wordIndex].length - 1
                 wordIndex++
                 // reset space buffer
                 spaceBuffer = 0

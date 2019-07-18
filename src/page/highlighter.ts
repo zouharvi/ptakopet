@@ -28,7 +28,10 @@ export class Highlighter {
             highlights.push({highlight: indices[i], className: `style='background-color: ${styleColor};'`})
         }
         if(intensities.length != indices.length) {
-            console.error("Something bad happened - tokens and quest length doesn't match")
+            console.log(intensities)
+            console.log(indices)
+            console.log(TextUtils.tokenize($(this.element).val() as string))
+            console.error("Something went wrong - tokens and quest length doesn't match")
         }
         let isFocused = $(this.element).is(":focus")
 
