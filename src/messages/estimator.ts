@@ -12,6 +12,9 @@ export class Estimator extends AsyncMessage {
      * Make an estimator request
      */
     public estimate(): void {
+        // Clean the previous highlight
+        highlighter_target.highlight([])
+
         // Check whether the backend supports this language pair
         if (Utils.containsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendEstimator.composeRequest(
@@ -61,6 +64,7 @@ export class Estimator extends AsyncMessage {
                     estimation.push(Math.random())
                 }
                 return new Promise<Estimation>((resolve, reject) => {
+                    // Fake loading time
                     setTimeout(() => resolve(estimation), 500)
                 })
             },

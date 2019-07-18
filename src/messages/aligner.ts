@@ -23,7 +23,7 @@ export class Aligner extends AsyncMessage {
                 request,
                 (alignment: Alignment) => {
                     let intensities: Array<number> = []
-                    for(let i in alignment) {
+                    for (let i in alignment) {
                         intensities.push(estimation[alignment[i][1]])
                     }
                     highlighter_source.highlight(intensities)
@@ -55,12 +55,13 @@ export class Aligner extends AsyncMessage {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
                     let alignment: Alignment = []
-                    let tokens1:Array<string> = TextUtils.tokenize(sourceText)
-                    let tokens2:Array<string> = TextUtils.tokenize(targetText)
-                    for(let i:number = 0; i < tokens1.length; i++) {
-                        alignment.push([i, Math.min(i, tokens2.length-1)])
+                    let tokens1: Array<string> = TextUtils.tokenize(sourceText)
+                    let tokens2: Array<string> = TextUtils.tokenize(targetText)
+                    for (let i: number = 0; i < tokens1.length; i++) {
+                        alignment.push([i, Math.min(i, tokens2.length - 1)])
                     }
-                    resolve(alignment)
+                    // Fake loading time
+                    setTimeout(() => resolve(alignment), 1000)
                 })
             },
             languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
