@@ -59,20 +59,22 @@ export class Estimator extends AsyncMessage {
                     estimation.push(Math.random())
                 }
                 return new Promise<Array<number>>((resolve, reject) => {
-                    setTimeout(() => resolve(estimation), 1000)
+                    setTimeout(() => resolve(estimation), 500)
                 })
             },
             languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
             name: 'Random',
         },
 
-        questplusplus: {
+        none: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Array<number>> {
-                    throw 'QuEst++ estimation backend is not setup!'
+                return new Promise<Array<number>>((resolve, reject) => {
+                    resolve([])
+                })
             },
-            languages: [['en', 'es']],
-            name: 'QuEst++',
-        }
+            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
+            name: 'None',
+        },
     }
 }
 

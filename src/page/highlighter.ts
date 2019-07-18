@@ -12,8 +12,7 @@ export class Highlighter {
         this.element = element
 
         // initialize 
-        // @ts-ignore
-        element.highlightWithinTextarea({highlight: []})
+        this.highlightFocus([])
     }
 
     /**
@@ -22,24 +21,37 @@ export class Highlighter {
      */
     public highlight(intensities: Array<number>): void {
         let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, false)
-        let highlights: Array<{ highlight: [number, number], className: string}> = []
-        for(let i = 0; i < intensities.length; i++) {
-            let styleColor: string = `rgba(255, 0, 0, ${intensities[i]/2})` 
-            highlights.push({highlight: indices[i], className: `style='background-color: ${styleColor};'`})
+        /**
+         * Instead of pairing estimator and translator requests the highlighting job is dropped if these lengths
+         * don't match. This is a hack, but works great for cases such as None estimation. 
+         */
+        if (intensities.length != indices.length) {
+            this.highlightFocus([])
+            return;
+            // console.error("Something went wrong - tokens and quest length doesn't match")
         }
-        if(intensities.length != indices.length) {
-            console.log(intensities)
-            console.log(indices)
-            console.log(TextUtils.tokenize($(this.element).val() as string))
-            console.error("Something went wrong - tokens and quest length doesn't match")
+
+        let highlights: Array<{ highlight: [number, number], className: string }> = []
+        for (let i = 0; i < intensities.length; i++) {
+            let styleColor: string = `rgba(255, 0, 0, ${intensities[i] / 2})`
+            highlights.push({ highlight: indices[i], className: `style='background-color: ${styleColor};'` })
         }
+
+        this.highlightFocus(highlights)
+    }
+
+    /**
+     * Wrapper around highlightWithinTextarea, so that focus is preserved
+     * @param highlights Highlight data passed to highlightWithinTextarea
+     */
+    private highlightFocus(highlights: Array<{ highlight: [number, number], className: string }> = []): void {
         let isFocused = $(this.element).is(":focus")
 
         // @ts-ignore
-        $(this.element).highlightWithinTextarea({highlight: highlights})
+        $(this.element).highlightWithinTextarea({ highlight: highlights })
 
         // If the element had focus before, return it
-        if(isFocused) {
+        if (isFocused) {
             $(this.element).focus()
         }
     }
