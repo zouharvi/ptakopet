@@ -54,7 +54,7 @@ export abstract class Translator extends AsyncMessage {
 
         identity: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, rejext) => resolve(text))
+                return new Promise<string>((resolve, reject) => resolve(text))
             },
             languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de', 'pl'], true),
             default: ['cs', 'en'],

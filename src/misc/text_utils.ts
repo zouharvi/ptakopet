@@ -29,22 +29,22 @@ export module TextUtils {
     }
 
     /**
-     * Returns indicies (beginning and end character position) of tokenized output.
+     * Returns indices (beginning and end character position) of tokenized output.
      * @param raw Raw input string.
      */
-    export function tokenizeIndicies(raw: string, skipSpaces: boolean = true): Array<[number, number]> {
+    export function tokenizeIndices(raw: string, skipSpaces: boolean = true): Array<[number, number]> {
         let arr: Array<[number, number]> = []
         let words: Array<string> = TextUtils.tokenize(raw)
         // counts the number of all words
         let wordIndex: number = 0
-        // count the number of spaces which to eventually substract
+        // count the number of spaces which to eventually subtract
         let spaceBuffer: number = 0
         for (let i = 0; i < raw.length; i++) {
             if (raw.substring(i).indexOf(words[wordIndex]) == 0) {
                 if(skipSpaces) {
                     arr.push([i, i + words[wordIndex].length])
                 } else {
-                    // if we want to add spaces to the next word, substract the spaceBuffer from the left index
+                    // if we want to add spaces to the next word, subtract the spaceBuffer from the left index
                     arr.push([i - spaceBuffer, i + words[wordIndex].length])
                 }
                 i += words[wordIndex].length -1

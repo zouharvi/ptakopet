@@ -1,5 +1,5 @@
 /**
- * Utils contains miscellaneous generic functions, mostly for data strucutres manipulation and text processing.
+ * Utils contains miscellaneous generic functions, mostly for data structures manipulation and text processing.
  * It has a role of a static class.
  */
 export module Utils {
@@ -74,7 +74,7 @@ export module Utils {
 
     
     /**
-     * Returns a name of a language correspoding to given code. Throws an error if code is not recognized.
+     * Returns a name of a language corresponding to given code. Throws an error if code is not recognized.
      * @param code Language code. 
      */
     export function languageName(code: LanguageCode) : string | undefined {

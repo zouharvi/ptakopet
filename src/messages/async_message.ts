@@ -2,7 +2,7 @@ import { IndicatorManager } from '../page/indicator_manager'
 
 /**
  * AsyncMessage resolves a promise, notes message id and if 
- * the incomming message would drop an increasing sequence,
+ * the incoming message would drop an increasing sequence,
  * the message is dropped instead.
  */
 export class AsyncMessage {
@@ -15,7 +15,7 @@ export class AsyncMessage {
     }
 
     /**
-     * Compares the incomming message index to the latest received ID
+     * Compares the incoming message index to the latest received ID
      * and possibly increase the latter
      */
     private receiveCheck(msgIndex: number): boolean {

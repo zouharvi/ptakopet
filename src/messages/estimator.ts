@@ -5,7 +5,6 @@ import { Highlighter } from '../page/highlighter'
 import { TextUtils } from "../misc/text_utils";
 
 
-// @TODO: pair each estimator request with a specific translator return?
 export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
@@ -58,7 +57,7 @@ export class Estimator extends AsyncMessage {
                 for(let i in tokens) {
                     estimation.push(Math.random())
                 }
-                return new Promise<Array<number>>((resolve, rejext) => resolve(estimation))
+                return new Promise<Array<number>>((resolve, reject) => resolve(estimation))
             },
             languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
             name: 'Random',

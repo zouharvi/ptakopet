@@ -1,7 +1,7 @@
 import { TextUtils } from "../misc/text_utils";
 
 /**
- * This class manages highlighting of textarea element based on numberic values.
+ * This class manages highlighting of textarea element based on numeric values.
  */
 export class Highlighter {
     private element: JQuery<HTMLElement>
@@ -21,13 +21,13 @@ export class Highlighter {
      * @param intensities Numeric [0, 1] intensities of target words. The length must match the number of tokenized words.
      */
     public highlight(intensities: Array<number>): void {
-        let indicies: Array<[number, number]> = TextUtils.tokenizeIndicies($(this.element).val() as string, false)
+        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, false)
         let highlights: Array<{ highlight: [number, number], className: string}> = []
         for(let i = 0; i < intensities.length; i++) {
             let styleColor: string = `rgba(255, 0, 0, ${intensities[i]/2})` 
-            highlights.push({highlight: indicies[i], className: `style='background-color: ${styleColor};'`})
+            highlights.push({highlight: indices[i], className: `style='background-color: ${styleColor};'`})
         }
-        if(intensities.length != indicies.length) {
+        if(intensities.length != indices.length) {
             console.error("Something bad happened - tokens and quest length doesn't match")
         }
         let isFocused = $(this.element).is(":focus")
