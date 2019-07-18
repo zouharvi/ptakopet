@@ -1,3 +1,5 @@
+import { TextUtils } from "../misc/text_utils";
+
 /**
  * This class manages highlighting of textarea element based on numberic values.
  */
@@ -44,7 +46,7 @@ export class Highlighter {
      */
     private static tokenizeIndicies(raw: string): Array<[number, number]> {
         let arr: Array<[number, number]> = []
-        let words: Array<string> = Highlighter.tokenize(raw)
+        let words: Array<string> = TextUtils.tokenize(raw)
         let wordIndex: number = 0
 
         for (let i = 0; i < raw.length; i++) {
@@ -58,30 +60,5 @@ export class Highlighter {
             }
         }
         return arr
-    }
-
-    /**
-     * Tokenize input string according to some basic rules (collapse whitespace, newlines etc)
-     * @param raw Raw input string
-     */
-    private static tokenize(raw: string): Array<string> {
-        let res: Array<string> = Highlighter.clean(raw).split(' ').join('\n').split('\n')
-        return res
-    }
-
-    /**
-     * Cleans up `contenteditable` div styling, applies some basic rules (collapse whitespace, newlines etc)
-     * @deprecated
-     * @param raw Input HTML string 
-     */
-    private static clean(raw: string): string {
-        let res: string = raw
-            .replace(new RegExp('<p>', 'g'), '') // clean leading tags
-            .replace(new RegExp('(<br>|\n|</p>)+', 'g'), '\n') // collapse multiple newlines into one
-            .replace(new RegExp('( |&nbsp;)+', 'g'), ' ') // collapse multiple spaces into one
-            .replace(new RegExp('( |&nbsp;)\n', 'g'), '\n') // collapse trailing space with newline to newline
-            .replace(new RegExp('( |\n)$', 'g'), '') // remove trailing newline/space
-            .replace(new RegExp('<span[^>]*>|<\/span>', 'g'), '') // remove styling tags
-        return res
     }
 }
