@@ -15,7 +15,7 @@ assertCommand() {
 
 # dot separated version less than equal
 verlte() {
-    [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+    [  "$1" = '`echo -e "$1\n$2" | sort -V | head -n1`' ]
 }
 
 # dot separated version less than
