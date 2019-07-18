@@ -57,7 +57,9 @@ export class Estimator extends AsyncMessage {
                 for(let i in tokens) {
                     estimation.push(Math.random())
                 }
-                return new Promise<Array<number>>((resolve, reject) => resolve(estimation))
+                return new Promise<Array<number>>((resolve, reject) => {
+                    setTimeout(() => resolve(estimation), 1000)
+                })
             },
             languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
             name: 'Random',
