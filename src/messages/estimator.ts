@@ -1,11 +1,12 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
-import { Highlighter } from '../page/highlighter'
+import { highlighter_target } from '../page/highlighter'
 import { TextUtils } from "../misc/text_utils";
 import { IndicatorManager } from "../page/indicator_manager";
+import { aligner } from "./aligner";
 
-
+export type Estimation = Array<number>
 export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
@@ -20,8 +21,14 @@ export class Estimator extends AsyncMessage {
                 $(this.target).val() as string)
             super.dispatch(
                 request,
-                (estimation: Array<number>) => {
-                    this.highlighter_target.highlight(estimation)
+                (estimation: Estimation) => {
+                    highlighter_target.highlight(estimation)
+                    aligner.align(estimation)
+                    /**
+                     * @TODO: Passing estimation to aligner is probably not a good idea and there should be a spearate
+                     * driver class that wraps this. The aligner uses the estimation to instruct the highlighter the intensities
+                     * with which to highlight the source textarea.
+                     */
                 }
             )
         } else {
@@ -38,27 +45,22 @@ export class Estimator extends AsyncMessage {
         super()
         this.source = source
         this.target = target
-        this.highlighter_source = new Highlighter(source)
-        this.highlighter_target = new Highlighter(target)
     }
 
-    // Target HTML elements or something with `val` function
-    public source: JQuery<HTMLElement> | { val(_: string): void }
-    public target: JQuery<HTMLElement> | { val(_: string): void }
-
-    private highlighter_source: Highlighter
-    private highlighter_target: Highlighter
+    // Target HTML elements
+    public source: JQuery<HTMLElement>
+    public target: JQuery<HTMLElement>
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
         random: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Array<number>> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 let tokens = TextUtils.tokenize(targetText)
-                let estimation: Array<number> = []
+                let estimation: Estimation = []
                 for(let i in tokens) {
                     estimation.push(Math.random())
                 }
-                return new Promise<Array<number>>((resolve, reject) => {
+                return new Promise<Estimation>((resolve, reject) => {
                     setTimeout(() => resolve(estimation), 500)
                 })
             },
@@ -67,8 +69,8 @@ export class Estimator extends AsyncMessage {
         },
 
         none: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Array<number>> {
-                return new Promise<Array<number>>((resolve, reject) => {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
                     resolve([])
                 })
             },
@@ -80,7 +82,7 @@ export class Estimator extends AsyncMessage {
 
 export interface EstimatorBackend {
     // Return a finished promise object, which can later be resolved
-    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Array<number>>,
+    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Estimation>,
 
     // Array of available languages to this backend
     languages: Array<[LanguageCode, LanguageCode]>,

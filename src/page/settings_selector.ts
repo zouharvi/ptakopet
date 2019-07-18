@@ -1,7 +1,8 @@
-import { Translator } from '../messages/translator'
-import { Estimator } from '../messages/estimator'
+import { translator_source, translator_target, Translator } from '../messages/translator'
+import { estimator, Estimator } from '../messages/estimator'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
+import { Aligner } from '../messages/aligner';
 
 /**
  * Manages backend and language select boxes
@@ -9,20 +10,18 @@ import { Settings } from '../misc/settings'
 export class SettingsSelector {
     private backendTranslatorSelect: JQuery<HTMLElement>
     private backendEstimatorSelect: JQuery<HTMLElement>
+    private backendAlignerSelect: JQuery<HTMLElement>
     private lang1Select: JQuery<HTMLElement>
     private lang2Select: JQuery<HTMLElement>
-    private ts1: Translator
-    private ts2: Translator
-    private estimator: Estimator
 
-    constructor(ts1: Translator, ts2: Translator, backendTranslatorSelect: JQuery<HTMLElement>,
-        estimator: Estimator, backendEstimatorSelect: JQuery<HTMLElement>,
+    constructor(
+        backendTranslatorSelect: JQuery<HTMLElement>,
+        backendEstimatorSelect: JQuery<HTMLElement>,
+        backendAlignerSelect: JQuery<HTMLElement>,
         lang1Select: JQuery<HTMLElement>, lang2Select: JQuery<HTMLElement>) {
-        this.ts1 = ts1
-        this.ts2 = ts2
-        this.estimator = estimator
         this.backendTranslatorSelect = backendTranslatorSelect
         this.backendEstimatorSelect = backendEstimatorSelect
+        this.backendAlignerSelect = backendAlignerSelect
         this.lang1Select = lang1Select
         this.lang2Select = lang2Select
 
@@ -30,14 +29,17 @@ export class SettingsSelector {
         $(this.backendTranslatorSelect).on('change', (a) => {
             Settings.backendTranslator = Translator.backends[$(a.target).val() as string]
             this.instantiateLanguagesSource();
-            this.ts1.translate()
+            translator_source.translate()
         })
         
         // setup estimator backend change callback
         $(this.backendEstimatorSelect).on('change', (a) => {
             Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
-            this.instantiateLanguagesSource();
-            this.estimator.estimate()
+        })
+        
+        // setup aligner backend change callback
+        $(this.backendEstimatorSelect).on('change', (a) => {
+            Settings.backendAligner = Aligner.backends[$(a.target).val() as string]
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -49,14 +51,14 @@ export class SettingsSelector {
                 Settings.language1 = Settings.language2
                 Settings.language2 = tmp
                 this.instantiateLanguagesTarget()
-                $(this.ts1.source).val($(this.ts1.target).val() as string)
+                $(translator_source.source).val($(translator_source.target).val() as string)
             } else {
                 Settings.language1 = $(a.target).val() as LanguageCode
                 this.instantiateLanguagesTarget()
             }
 
-            if(($(this.ts1.source).val() as string).length > 0)
-                this.ts1.translate()
+            if(($(translator_source.source).val() as string).length > 0)
+                translator_source.translate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -72,8 +74,8 @@ export class SettingsSelector {
                 Settings.language2 = $(a.target).val() as LanguageCode
             }
 
-            if(($(this.ts1.source).val() as string).length > 0)
-                this.ts1.translate()
+            if(($(translator_source.source).val() as string).length > 0)
+                translator_source.translate()
         })
         this.instantiateBackends()
         this.instantiateLanguagesSource();
@@ -148,14 +150,22 @@ export class SettingsSelector {
      * Invokes instantiation of language select boxes
      */
     private instantiateBackends(): void {
+        // translator backends
         for (let i in Translator.backends) {
             $(this.backendTranslatorSelect).append($('<option>', { value: i, text: Translator.backends[i].name }))
         }
         Settings.backendTranslator = Translator.backends.ufalTransformer
 
+        // estimator backends
         for (let i in Estimator.backends) {
             $(this.backendEstimatorSelect).append($('<option>', { value: i, text: Estimator.backends[i].name }))
         }
         Settings.backendEstimator = Estimator.backends.random
+
+        // alignment backends
+        for (let i in Aligner.backends) {
+            $(this.backendAlignerSelect).append($('<option>', { value: i, text: Aligner.backends[i].name }))
+        }
+        Settings.backendAligner = Aligner.backends.identity
     }
 }

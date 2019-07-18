@@ -8,11 +8,9 @@ import { estimator } from './messages/estimator'
 import { SettingsSelector } from './page/settings_selector'
 
 let lang_selector: SettingsSelector = new SettingsSelector(
-    translator_source,
-    translator_target,
     $('#backend_translator'),
-    estimator,
     $('#backend_estimator'),
+    $('#backend_aligner'),
     $('#language_select_source'),
     $('#language_select_target'))
 

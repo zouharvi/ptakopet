@@ -29,9 +29,10 @@ export abstract class Translator extends AsyncMessage {
     }
 
     public abstract translate(): void
-    // Target HTML elements or something with `val` function
-    public source: JQuery<HTMLElement> | { val(_: string): void }
-    public target: JQuery<HTMLElement> | { val(_: string): void }
+    
+    // Target HTML elements
+    public source: JQuery<HTMLElement>
+    public target: JQuery<HTMLElement>
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
