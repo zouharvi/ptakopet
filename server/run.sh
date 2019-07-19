@@ -6,7 +6,7 @@ TARGETWD=`realpath "$0" | xargs dirname`
 echo "Changing current working directory to the parent directory of this script (project base dir)"
 cd "$TARGETWD/../"
 
-python3 -m flask run
+python3 -m flask run --port 8080
 
 echo "Changing current working directory to the previous state"
 cd $PREVWD

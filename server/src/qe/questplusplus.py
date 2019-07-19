@@ -6,6 +6,10 @@ QuestPlusPlus driver
 """
 class QuestPlusPlus():
     def qe(self, sourceLang, targetLang, sourceText, targetText):
+        """
+        @TODO: documentation
+        It's ok to raise Exceptions here. They are handled upstream.
+        """
         import os
         with DirCrawler('qe/questplusplus'):
             print("Extracting features")
@@ -36,4 +40,4 @@ class QuestPlusPlus():
                 
             print(output)
             print(error)
-            return str(features)
+            return {'status': 'FAIL', 'error': 'Not implemented' }

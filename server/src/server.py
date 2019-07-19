@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import os
 import qe
+import align
 
 app = Flask(__name__)
 
@@ -8,6 +9,9 @@ if __name__ == 'server':
   backends = dict()
   backends['qe'] = {
     'questplusplus': qe.QuestPlusPlus()
+  }
+  backends['align'] = {
+    'fast_align': align.FastAlign()
   }
 
 @app.route('/')
@@ -19,7 +23,13 @@ def alignService(backend):
   """
   Provides word alignment backend
   """
-  return jsonify("")
+  try:
+    if not backend in backends['align'].keys():
+      raise Exception("Invalid backend selected")
+    assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
+    return jsonify(backends['align'][backend].align(**request.args))
+  except Exception as error:
+    return {'status': 'FAIL', 'error': str(error) }
 
 
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
@@ -33,7 +43,7 @@ def qeService(backend):
     assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
     return jsonify(backends['qe'][backend].qe(**request.args))
   except Exception as error:
-    return str(error)
+    return {'status': 'FAIL', 'error': str(error) }
 
 def assertArgs(args, assertees):
   if type(assertees) is not list:
