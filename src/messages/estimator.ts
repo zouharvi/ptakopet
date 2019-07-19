@@ -1,7 +1,7 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
-import { highlighter_target } from '../page/highlighter'
+import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { TextUtils } from "../misc/text_utils";
 import { IndicatorManager } from "../page/indicator_manager";
 import { aligner } from "./aligner";
@@ -14,6 +14,7 @@ export class Estimator extends AsyncMessage {
     public estimate(): void {
         // Clean the previous highlight
         highlighter_target.highlight([])
+        highlighter_source.highlight([])
 
         // Check whether the backend supports this language pair
         if (Utils.containsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {

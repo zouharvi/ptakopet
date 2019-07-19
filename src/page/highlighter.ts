@@ -20,7 +20,7 @@ export class Highlighter {
      * @param intensities Numeric [0, 1] intensities of target words. The length must match the number of tokenized words.
      */
     public highlight(intensities: Array<number>): void {
-        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, false)
+        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, true)
         /**
          * Instead of pairing estimator and translator requests the highlighting job is dropped if these lengths
          * don't match. This is a hack, but works great for cases such as None estimation. 
