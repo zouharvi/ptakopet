@@ -3,7 +3,6 @@ echo "Installing QuEst++ feature extractor"
 assertCommand "java"
 assertCommand "perl -v"
 assertCommand "unzip"
-assertCommand "pip"
 git submodule update --init --recursive qe/questplusplus 
 
 echo "Fetching Stanford Core NLP 3.5.1 models"
