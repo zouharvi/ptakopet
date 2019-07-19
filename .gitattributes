@@ -1,2 +1,1 @@
-data/parallel/* linguist-vendored
-data/alignment/aligned/* linguist-vendored
+data/raw/* linguist-vendored
