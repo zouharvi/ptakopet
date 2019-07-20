@@ -23,11 +23,15 @@ export class Aligner extends AsyncMessage {
             super.dispatch(
                 request,
                 (alignment: Alignment) => {
-                    let intensities: Array<number> = Array<number>(estimation.length).fill(1)
-                    for (let i in alignment) {
-                        intensities[alignment[i][0]] = estimation[alignment[i][1]]
+                    if(estimation.length == 0) {
+                        highlighter_source.highlight([])
+                    } else {
+                        let intensities: Array<number> = Array<number>(estimation.length).fill(1)
+                        for (let i in alignment) {
+                            intensities[alignment[i][0]] = estimation[alignment[i][1]]
+                        }
+                        highlighter_source.highlight(intensities)
                     }
-                    highlighter_source.highlight(intensities)
                 }
             )
         } else {
