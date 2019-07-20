@@ -156,18 +156,19 @@ export class SettingsSelector {
         for (let i in Translator.backends) {
             $(this.backendTranslatorSelect).append($('<option>', { value: i, text: Translator.backends[i].name }))
         }
-        Settings.backendTranslator = Translator.backends.ufalTransformer
 
         // estimator backends
         for (let i in Estimator.backends) {
             $(this.backendEstimatorSelect).append($('<option>', { value: i, text: Estimator.backends[i].name }))
         }
-        Settings.backendEstimator = Estimator.backends.random
 
         // alignment backends
         for (let i in Aligner.backends) {
             $(this.backendAlignerSelect).append($('<option>', { value: i, text: Aligner.backends[i].name }))
         }
-        Settings.backendAligner = Aligner.backends.diagonal
+
+        Settings.backendTranslator = Translator.backends[$(this.backendTranslatorSelect).val() as string]
+        Settings.backendEstimator = Estimator.backends[$(this.backendEstimatorSelect).val() as string]
+        Settings.backendAligner = Aligner.backends[$(this.backendAlignerSelect).val() as string]
     }
 }

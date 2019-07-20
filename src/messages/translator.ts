@@ -2,7 +2,8 @@ import { AsyncMessage } from "./async_message"
 import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
-import { estimator, Estimator } from './estimator'
+import { estimator } from './estimator'
+import { highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager";
 
 /**
@@ -98,6 +99,8 @@ export class TranslatorTarget extends Translator {
             (text) => {
                 $(this.target).text(text)
                 estimator.estimate()
+                // Clean the previous highlight
+                highlighter_target.highlight([])
             }
         )
     }

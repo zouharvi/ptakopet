@@ -8,6 +8,7 @@ import { highlighter_source } from "../page/highlighter";
 
 
 export type Alignment = Array<[number, number]>
+export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'message': string | undefined }
 export class Aligner extends AsyncMessage {
     /**
      * Make an alignment request
@@ -22,9 +23,9 @@ export class Aligner extends AsyncMessage {
             super.dispatch(
                 request,
                 (alignment: Alignment) => {
-                    let intensities: Array<number> = []
+                    let intensities: Array<number> = Array<number>(estimation.length).fill(1)
                     for (let i in alignment) {
-                        intensities.push(estimation[alignment[i][1]])
+                        intensities[alignment[i][0]] = estimation[alignment[i][1]]
                     }
                     highlighter_source.highlight(intensities)
                 }
@@ -45,12 +46,49 @@ export class Aligner extends AsyncMessage {
         this.target = target
     }
 
+    /**
+     * 
+     * @param raw String in the widely used Pharaoh alignment format
+     */
+    private static pharaohToObject(raw: string): Alignment {
+        return raw
+            .split(' ')
+            .map((tok: string) => {
+                return tok.split('-').map((a:string) => Number.parseInt(a)) as [number, number]
+            })
+    }
+
+
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: AlignerBackend } = {
+        fastAlign: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
+                return new Promise<Alignment>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/align/fast_align",
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText, targetText: targetText },
+                        async: true,
+                    })
+                        .done((data: AlignmentResponse) => {
+                            if (data['status'] == 'OK') {
+                                resolve(Aligner.pharaohToObject(data['alignment'] as string))
+                            } else {
+                                console.error('REJECT')
+                                reject(data['message'] as string)
+                            }
+                        })
+                        .fail(reject)
+                })
+            },
+            languages: [['en', 'cs'], ['cs', 'en']],
+            name: 'fast_align',
+        },
+
         diagonal: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
