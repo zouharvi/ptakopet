@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import qe
 import align
 
+# create new Flask app
 app = Flask(__name__)
+# allow CORS access
+CORS(app)
 
 if __name__ == 'server':
   backends = dict()
