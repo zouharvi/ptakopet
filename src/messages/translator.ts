@@ -51,7 +51,7 @@ export abstract class Translator extends AsyncMessage {
                 })
             },
             languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], true),
-            default: ['cs', 'en'],
+            default: ['en', 'cs'],
             name: 'ÚFAL Transformer',
         },
 
@@ -60,7 +60,7 @@ export abstract class Translator extends AsyncMessage {
                 return new Promise<string>((resolve, reject) => resolve(text))
             },
             languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de', 'pl'], true),
-            default: ['cs', 'en'],
+            default: ['en', 'cs'],
             name: 'Identity',
         }
     }
@@ -111,7 +111,7 @@ export interface TranslatorBackend {
     composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<string>,
 
     // Array of available languages to this backend
-    languages: Array<[LanguageCode, LanguageCode]>,
+    languages: Set<[LanguageCode, LanguageCode]>,
 
     // Default language pair
     default: [LanguageCode, LanguageCode],

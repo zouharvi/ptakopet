@@ -13,7 +13,7 @@ export class Estimator extends AsyncMessage {
      */
     public estimate(): void {
         // Check whether the backend supports this language pair
-        if (Utils.containsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendEstimator.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
@@ -57,7 +57,7 @@ export class Estimator extends AsyncMessage {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 let tokens = TextUtils.tokenize(targetText)
                 let estimation: Estimation = []
-                for(let i in tokens) {
+                for (let i in tokens) {
                     estimation.push(Math.random())
                 }
                 return new Promise<Estimation>((resolve, reject) => {
@@ -86,7 +86,7 @@ export interface EstimatorBackend {
     composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Estimation>,
 
     // Array of available languages to this backend
-    languages: Array<[LanguageCode, LanguageCode]>,
+    languages: Set<[LanguageCode, LanguageCode]>,
 
     // Proper backend name (not key)
     name: string,

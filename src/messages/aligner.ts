@@ -14,7 +14,7 @@ export class Aligner extends AsyncMessage {
      * Make an alignment request
      */
     public align(estimation: Estimation): void {
-        if (Utils.containsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendAligner.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
@@ -85,7 +85,7 @@ export class Aligner extends AsyncMessage {
                         .fail(reject)
                 })
             },
-            languages: [['en', 'cs'], ['cs', 'en']],
+            languages: new Set<[LanguageCode, LanguageCode]>([['en', 'cs'], ['cs', 'en']]),
             name: 'fast_align',
         },
 
@@ -123,7 +123,7 @@ export interface AlignerBackend {
     composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Alignment>,
 
     // Array of available languages to this backend
-    languages: Array<[LanguageCode, LanguageCode]>,
+    languages: Set<[LanguageCode, LanguageCode]>,
 
     // Proper backend name (not key)
     name: string,
