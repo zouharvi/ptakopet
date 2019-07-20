@@ -51,7 +51,7 @@ export class Aligner extends AsyncMessage {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: AlignerBackend } = {
-        identity: {
+        diagonal: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
                     let alignment: Alignment = []
@@ -66,7 +66,7 @@ export class Aligner extends AsyncMessage {
                 })
             },
             languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
-            name: 'Identity',
+            name: 'Diagonal',
         },
         none: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {

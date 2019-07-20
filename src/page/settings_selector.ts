@@ -35,11 +35,13 @@ export class SettingsSelector {
         // setup estimator backend change callback
         $(this.backendEstimatorSelect).on('change', (a) => {
             Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
+            translator_source.translate()
         })
         
         // setup aligner backend change callback
-        $(this.backendEstimatorSelect).on('change', (a) => {
+        $(this.backendAlignerSelect).on('change', (a) => {
             Settings.backendAligner = Aligner.backends[$(a.target).val() as string]
+            translator_source.translate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -166,6 +168,6 @@ export class SettingsSelector {
         for (let i in Aligner.backends) {
             $(this.backendAlignerSelect).append($('<option>', { value: i, text: Aligner.backends[i].name }))
         }
-        Settings.backendAligner = Aligner.backends.identity
+        Settings.backendAligner = Aligner.backends.diagonal
     }
 }
