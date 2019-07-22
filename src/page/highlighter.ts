@@ -5,6 +5,8 @@ import { TextUtils } from "../misc/text_utils";
  */
 export class Highlighter {
     private element: JQuery<HTMLElement>
+    private dirty: boolean = false
+    
     /**
      * @param element Target textarea element
      */
@@ -25,10 +27,15 @@ export class Highlighter {
          * Instead of pairing estimator and translator requests the highlighting job is dropped if these lengths
          * don't match. This is a hack, but works great for cases such as None estimation. 
          */
-        if (intensities.length != indices.length) {
-            this.highlightFocus([])
+        if (intensities.length != indices.length || intensities.length == 0) {
+            // Only clean if it is dirty. Otherwise this worsens the mobile performance
+            if(this.dirty) {
+                this.highlightFocus([])
+                this.dirty = false
+            }
             return;
-            // console.error("Something went wrong - tokens and quest length doesn't match")
+        } else {
+            this.dirty = true
         }
 
         let highlights: Array<{ highlight: [number, number], className: string }> = []
