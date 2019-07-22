@@ -24,7 +24,7 @@ class QuestPlusPlus():
             # print(error)
             outputFile = 'output/test/output.txt'
             if not os.path.isfile(outputFile):
-                return { 'message': 'Server Processing Error' }
+                raise Exception('Server Processing Error')
             with open(outputFile, 'r') as outputFileR:
                 features = outputFileR.readlines()
 
@@ -40,4 +40,8 @@ class QuestPlusPlus():
                 
             print(output)
             print(error)
-            return {'status': 'FAIL', 'error': 'Not implemented' }
+            with open('predicted.csv', 'r') as predictedFile:
+                output = predictedFile.readlines()
+            os.remove('predicted.csv')
+            
+            return {'status': 'OK', 'qe': output }

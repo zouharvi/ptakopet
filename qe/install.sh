@@ -29,5 +29,5 @@ fi
 unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
 echo "Installing QuEst++ machine learning"
-assertPip "scikit-learn" 0.20.0
-assertPip "pyyaml" 0.4.0
+assertPip2 "scikit-learn" 0.20.0
+assertPip2 "pyyaml" 0.4.0

@@ -18,8 +18,7 @@ class FastAlign():
               os.path.isfile(fileTemplate(targetLang, sourceLang, targetLang))):
             return fileTemplate(targetLang, sourceLang, sourceLang), fileTemplate(targetLang, sourceLang, targetLang)
 
-        raise "Relevant raw data for {}, {} not found".format(
-            sourceLang, targetLang)
+        raise Exception("Relevant raw data for {}, {} not found".format(sourceLang, targetLang))
 
     def align(self, sourceLang, targetLang, sourceText, targetText):
         """
@@ -27,14 +26,14 @@ class FastAlign():
         It's ok to raise Exceptions here. They are handled upstream.
         """
         import os
-        file1, file2 = self.findRawData(sourceLang, targetLang)
-        out = formatParallel(file1, file2)
+        file1, file2=self.findRawData(sourceLang, targetLang)
+        out=formatParallel(file1, file2)
         # print(out)
-        out = ["{} ||| {}".format(sourceText, targetText)] + out
+        out=["{} ||| {}".format(sourceText, targetText)] + out
         print("Files found: {}, {}".format(file1, file2))
         with open('tmp.parallel', 'w') as tmpFile:
-            print('\n'.join(out), file=tmpFile)
-        (output, _) = bash("align/fast_align/build/fast_align -d -o -v -i tmp.parallel")
+            print('\n'.join(out), file = tmpFile)
+        (output, _)=bash("align/fast_align/build/fast_align -d -o -v -i tmp.parallel")
         os.remove('tmp.parallel')
-        # @TODO: Check all went OK 
-        return { 'status': 'OK', 'alignment': output.split('\n')[0] }
+        # @TODO: Check all went OK
+        return {'status': 'OK', 'alignment': output.split('\n')[0]}

@@ -24,7 +24,19 @@ verlt() {
 }
 
 # check a package is installed in at least a given version number
-assertPip() {
+assertPip2() {
+    version=`pip2 show $1 2> /dev/null | grep "Version" | sed -e "s/Version: //"`
+    if [ -z "$version" ]; then
+        die "$1 is not installed" 
+    elif verlt $version $2; then
+        die "$1 has to be at least $2 (currently $version)" 
+    else
+        echo "$1 OK"
+    fi
+}
+
+# check a package is installed in at least a given version number
+assertPip3() {
     version=`pip3 show $1 2> /dev/null | grep "Version" | sed -e "s/Version: //"`
     if [ -z "$version" ]; then
         die "$1 is not installed" 
@@ -40,6 +52,7 @@ export TMPDIR=`mktemp -d`
 
 export -f die assertCommand verlt verlte assertPip
 
+assertCommand "pip2"
 assertCommand "pip3"
 
 ./qe/install.sh
