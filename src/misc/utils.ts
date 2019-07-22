@@ -66,6 +66,30 @@ export module Utils {
     }
 
     /**
+     * @TODO: documentation
+     * @param set 
+     * @param toRemove 
+     */
+    export function removeSetFromSet<R>(set: Set<R>, toRemove: Set<R>): Set<R> {
+        toRemove.forEach((a: R) => {
+            set.delete(a)
+        })
+        return set
+    }
+
+    /**
+     * @TODO: documentation
+     * @param set 
+     * @param toAdd 
+     */
+    export function addSetToSet<R>(set: Set<R>, toAdd: Set<R>): Set<R> {
+        toAdd.forEach((a: R) => {
+            set.add(a)
+        })
+        return set
+    }
+
+    /**
      * Check whether an array of array contains a given array by joining all elements with '-'
      * @param arr Haystack
      * @param elem Needle

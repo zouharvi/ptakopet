@@ -30,7 +30,7 @@ export abstract class Translator extends AsyncMessage {
     }
 
     public abstract translate(): void
-    
+
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
@@ -50,7 +50,7 @@ export abstract class Translator extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi'], true),
+            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr'], true),
             default: ['en', 'cs'],
             name: 'ÚFAL Transformer',
         },
