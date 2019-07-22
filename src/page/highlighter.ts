@@ -39,6 +39,7 @@ export class Highlighter {
         }
 
         let highlights: Array<{ highlight: [number, number], className: string }> = []
+        console.warn(intensities)
         for (let i = 0; i < intensities.length; i++) {
             let styleColor: string = `rgba(255, 0, 0, ${0.5 - intensities[i] / 2})`
             highlights.push({ highlight: indices[i], className: `style='background-color: ${styleColor};'` })

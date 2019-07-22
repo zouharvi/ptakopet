@@ -101,4 +101,5 @@ select {
 
 .hwt-highlights mark {
     border-radius: 3px;
+    background-color: transparent;
 }

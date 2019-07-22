@@ -8,13 +8,13 @@ import { highlighter_source } from "../page/highlighter";
 
 
 export type Alignment = Array<[number, number]>
-export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'message': string | undefined }
+export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'error': string | undefined }
 export class Aligner extends AsyncMessage {
     /**
      * Make an alignment request
      */
     public align(estimation: Estimation): void {
-        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+        if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendAligner.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
@@ -26,7 +26,10 @@ export class Aligner extends AsyncMessage {
                     if(estimation.length == 0) {
                         highlighter_source.highlight([])
                     } else {
-                        let intensities: Array<number> = Array<number>(estimation.length).fill(1)
+                        // This exctracts the max from the left side
+                        let max = Math.max(...alignment.map((a: [number, number]) => a[0])) 
+
+                        let intensities: Array<number> = Array<number>(max).fill(1)
                         for (let i in alignment) {
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]
                         }
@@ -82,14 +85,14 @@ export class Aligner extends AsyncMessage {
                             if (data['status'] == 'OK') {
                                 resolve(Aligner.pharaohToObject(data['alignment'] as string))
                             } else {
-                                console.error('REJECT')
-                                reject(data['message'] as string)
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
                             }
                         })
                         .fail(reject)
                 })
             },
-            languages: new Set<[LanguageCode, LanguageCode]>([['en', 'cs'], ['cs', 'en']]),
+            languages: Utils.generatePairs(['en', 'cs', 'fr']),
             name: 'fast_align',
         },
 
