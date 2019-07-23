@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>Ptakopět</ShortName>
+    <Description>Translate with Ptakopět.</Description>
+    <Url template="https://ptakopet.vilda.net/?q={searchTerms}" type="text/html" method="get"/>
+    <Image width="16" height="16">/img/icon.png</Image>
+</OpenSearchDescription>
