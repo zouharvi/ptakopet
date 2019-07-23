@@ -28,6 +28,8 @@ class QuestPlusPlus():
             with open(outputFile, 'r') as outputFileR:
                 features = outputFileR.readlines()
 
+            features = [[x.split('=')[1] for x in line.rstrip('\n').rstrip('\t').split('\t')] for line in features]
+            
             print("Removing output directory structure for feature extractor")
             os.remove(outputFile)
             os.rmdir('output/test')
@@ -38,10 +40,10 @@ class QuestPlusPlus():
                 python learning/src/learn_model.py ../questplusplus-config/svr.cfg
                 """)
                 
-            print(output)
-            print(error)
+            # print(output)
+            # print(error)
             with open('predicted.csv', 'r') as predictedFile:
-                output = predictedFile.readlines()
+                output = [float(x.rstrip('\n').split('\t')[1]) for x in predictedFile.readlines()]
             os.remove('predicted.csv')
             
-            return {'status': 'OK', 'qe': output }
+            return {'status': 'OK', 'qe': output, 'features': features }
