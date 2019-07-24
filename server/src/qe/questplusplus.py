@@ -14,6 +14,8 @@ class QuestPlusPlus():
         @TODO: documentation
         It's ok to raise Exceptions here. They are handled upstream.
         """
+        os.makedirs('data/tmp', exist_ok=True)
+
         alignments = fast_align.FastAlign().align(sourceLang, targetLang, sourceText, targetText)['alignment']
         with open('data/tmp/alignments', 'w') as fileAlignments:
             fileAlignments.write(alignments)
@@ -24,7 +26,7 @@ class QuestPlusPlus():
         with open('data/tmp/target', 'w') as fileTarget:
             fileTarget.write(targetText)
 
-        import os
+
         with DirCrawler('qe/questplusplus'):
             print("Extracting features")
             (output, error) = bash("""
