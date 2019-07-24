@@ -60,7 +60,7 @@ export class Estimator extends AsyncMessage {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText, targetText: targetText },
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
                         async: true,
                     })
                         .done((data: EstimationResponse) => resolve(data['qe']))
