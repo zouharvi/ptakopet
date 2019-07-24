@@ -34,8 +34,7 @@ def feature_extract(fileS, fileT, fileA):
     with open(fileA) as fileA:
         alignmentLines = fileA.readlines()
 
-    # for i in range(len(targetLines)//10):
-    for i in range(1):
+    for i in range(len(targetLines)//10+1):
         snapS = sourceLines[10*i:10*(i+1)]
         snapT = targetLines[10*i:10*(i+1)]
         snapA = alignmentLines[10*i:10*(i+1)]
@@ -54,13 +53,17 @@ def feature_extract(fileS, fileT, fileA):
                                                 -alignments ../../data/tmp/snap.alignments
                                                 -config ../questplusplus-config/config.word-level.properties
                                 """)
-        # print(output)
-        # print(error)
+        print(output)
+        print(error)
         with open('output/test/output.txt', 'r') as fileOutput:
             outLines = fileOutput.readlines()
         os.chdir('../../data')
         with open('outputAll.features', 'a+') as fileOutput:
             fileOutput.write(''.join(outLines))
+    os.remove('tmp/snap.en')
+    os.remove('tmp/snap.cs')
+    os.remove('tmp/snap.alignments')
+    os.rmdir('tmp')
 
 
 def collapse_labels(fileIn, fileOut):
@@ -76,6 +79,7 @@ def collapse_labels(fileIn, fileOut):
         fileOut.write(labels)
 
 if __name__ == "__main__":
-    # strip_tags('outputAll.features', 'outputAll.clean')
     feature_extract('qe/WMT18.en-cs.train.en', 'qe/WMT18.en-cs.train.cs', 'qe/WMT18.en-cs.train.alignments')
-    # collapse_labels('qe2/train.tags', 'qe2/train.tags.collapsed')
+    # feature_extract('qe2/dev.src', 'qe2/dev.mt', 'qe2/dev.src-mt.alignments')
+    strip_tags('outputAll.features', 'outputAll.clean')
+    # collapse_labels('qe2/dev.tags', 'qe2/dev.tags.collapsed')
