@@ -46,7 +46,7 @@ export abstract class Translator extends AsyncMessage {
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
-                        .done((data: string) => resolve(data.replace(/\n$/, "")))
+                        .done((data: Array<string>) => resolve(data.join('\n').replace(/\n$/, " ")))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
@@ -78,8 +78,11 @@ export class TranslatorSource extends Translator {
         super.dispatch(
             request,
             (text: string) => {
+                // Clean the previous highlight
+                highlighter_target.highlight([])
                 $(this.target).text(text)
                 translator_target.translate()
+                estimator.estimate()
             }
         )
     }
@@ -98,9 +101,6 @@ export class TranslatorTarget extends Translator {
             request,
             (text) => {
                 $(this.target).text(text)
-                estimator.estimate()
-                // Clean the previous highlight
-                highlighter_target.highlight([])
             }
         )
     }

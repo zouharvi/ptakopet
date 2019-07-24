@@ -3,7 +3,7 @@ import { estimator, Estimator } from '../messages/estimator'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { Aligner } from '../messages/aligner';
-import { highlighter_source } from './highlighter';
+import { highlighter_source, highlighter_target } from './highlighter';
 
 /**
  * Manages backend and language select boxes
@@ -55,6 +55,9 @@ export class SettingsSelector {
                 Settings.language2 = tmp
                 this.instantiateLanguagesTarget()
                 $(translator_source.source).val($(translator_source.target).val() as string)
+                // Clean the current highlight
+                highlighter_source.highlight([])
+                highlighter_target.highlight([])
             } else {
                 Settings.language1 = $(a.target).val() as LanguageCode
                 this.instantiateLanguagesTarget()
@@ -73,6 +76,10 @@ export class SettingsSelector {
                 Settings.language1 = Settings.language2
                 Settings.language2 = tmp
                 this.instantiateLanguagesSource()
+                $(translator_source.source).val($(translator_source.target).val() as string)
+                // Clean the current highlight
+                highlighter_source.highlight([])
+                highlighter_target.highlight([])
             } else {
                 Settings.language2 = $(a.target).val() as LanguageCode
             }

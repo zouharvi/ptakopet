@@ -7,6 +7,7 @@ import { IndicatorManager } from "../page/indicator_manager";
 import { aligner } from "./aligner";
 
 export type Estimation = Array<number>
+export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
 export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
@@ -53,6 +54,23 @@ export class Estimator extends AsyncMessage {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
+        questplusplus: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText, targetText: targetText },
+                        async: true,
+                    })
+                        .done((data: EstimationResponse) => resolve(data['qe']))
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: new Set([['en','cs']]),
+            name: 'QuEst++',
+        },
+
         random: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 let tokens = TextUtils.tokenize(targetText)
