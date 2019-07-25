@@ -1,8 +1,5 @@
 echo "Installing Quality Estimation"
 echo "Installing QuEst++ feature extractor"
-assertCommand "java"
-assertCommand "perl -v"
-assertCommand "unzip"
 git submodule update --init --recursive qe/questplusplus 
 
 echo "Fetching Stanford Core NLP 3.5.1 models"
@@ -29,5 +26,3 @@ fi
 unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
 echo "Installing QuEst++ machine learning"
-assertPip2 "scikit-learn" 0.20.0
-assertPip2 "pyyaml" 0.4.0
