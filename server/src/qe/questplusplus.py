@@ -9,12 +9,16 @@ from align import fast_align
 QuestPlusPlus driver
 """
 class QuestPlusPlus():
+    supportedPairs = [['en','cs']]
     def qe(self, sourceLang, targetLang, sourceText, targetText):
         """
         @TODO: documentation
         It's ok to raise Exceptions here. They are handled upstream.
         """
         os.makedirs('data/tmp', exist_ok=True)
+
+        if not [sourceLang, targetLang] in self.supportedPairs:
+            raise Exception("{}-{} language pair not supported".format(sourceLang, targetLang))
 
         alignments = fast_align.FastAlign().align(sourceLang, targetLang, sourceText, targetText)['alignment']
         with open('data/tmp/alignments', 'w') as fileAlignments:
