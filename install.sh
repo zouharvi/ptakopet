@@ -1,6 +1,10 @@
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NCOL='\033[0m'
+
 # PHP-like die function
 die() {
-    echo "$*" 1>&2 ;
+    echo -e "${RED}$*${NCOL}" 1>&2 ;
     exit 1;
 }
 
@@ -9,7 +13,7 @@ assertCommand() {
     if ! command -v "$1" > /dev/null; then
         die "$1 not installed or not in path"
     else
-        echo "$1 OK"
+        echo -e "$1 ${GREEN}OK${NCOL}"
     fi
 }
 
@@ -31,7 +35,7 @@ assertPip2() {
     elif verlt $version $2; then
         die "$1 has to be at least $2 (currently $version)" 
     else
-        echo "$1 OK"
+        echo -e "$1 ${GREEN}OK${NCOL}"
     fi
 }
 
@@ -43,7 +47,7 @@ assertPip3() {
     elif verlt $version $2; then
         die "$1 has to be at least $2 (currently $version)" 
     else
-        echo "$1 OK"
+        echo -e "$1 ${GREEN}OK${NCOL}"
     fi
 }
 
@@ -57,6 +61,7 @@ assertCommand "pip3"
 # align
 assertCommand "cmake"
 assertCommand "gcc"
+assertCommand "g++"
 
 # quality estimation
 assertCommand "java"
