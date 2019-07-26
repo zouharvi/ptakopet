@@ -24,6 +24,6 @@ to rebuild the code each time one of the source files changes.
 
 The following diagram describes the overall object structure of the project.
 
-<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/web_object_design.svg?sanitize=true' style='width: 100%px;'>
+<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/web_object_design.svg?sanitize=true' style='width: 100%;'>
 
 The entry point is `main.ts`, but many classes are self-instantiated, as they follow the singleton pattern. Hence the file `messages/translator.ts`, which contains the class definition `TranslatorSource` also contains an object `translator_source`, which can be imported from other modules.
