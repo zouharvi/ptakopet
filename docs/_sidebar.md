@@ -5,5 +5,5 @@
 * [Technical documentation](tech.md "Technical documentation for Ptakopět")
 * * [Web frontend](web.md "Web frontend")
 * * [Multiservice backend](backend.md "Multiservice backend")
-* [User documentation](user.md "Technical documentation for Ptakopět")
+* [User documentation](user.md "User documentation for Ptakopět")
 * [License](license.md "License")

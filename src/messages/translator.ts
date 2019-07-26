@@ -20,7 +20,7 @@ export abstract class Translator extends AsyncMessage {
     }
 
     /**
-     * @param source Source textarea
+     * @param source Source textareat
      * @param target Target textarea
      */
     constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
