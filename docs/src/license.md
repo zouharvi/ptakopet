@@ -5,6 +5,7 @@ Ptakopět-web depends on the following projects:
 - [highlight-within-textarea](https://github.com/zouharvi/highlight-within-textarea)
 - [ÚFAL Transformer](https://lindat.mff.cuni.cz/services/transformer/)
 - [Roboto font](https://fonts.google.com/specimen/Roboto)
+- [Docsify](https://docsify.js.org/)
 
 Ptakopět-server depends on the following projects:
 - [Flask](https://palletsprojects.com/p/flask/)

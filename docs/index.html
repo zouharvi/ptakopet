@@ -15,7 +15,12 @@
   <script>
     window.$docsify = {
       loadSidebar: true,
-      subMaxLevel: 5
+      subMaxLevel: 5,
+      relativePath: true,
+      alias: {
+        '/_sidebar.md': 'src/_sidebar.md',
+        '.*/(.*)': 'src/$1',
+      }
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
