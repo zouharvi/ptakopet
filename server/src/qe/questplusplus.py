@@ -1,26 +1,30 @@
+from align import fast_align
 import os
 from utils import DirCrawler, bash
 
 import sys
-sys.path.append("..") # Adds higher directory to python modules path.
-from align import fast_align
+sys.path.append("..")  # Adds higher directory to python modules path.
 
-"""
-QuestPlusPlus driver
-"""
+
 class QuestPlusPlus():
-    supportedPairs = [['en','cs']]
+    """
+    QuEst++ driver
+    """
+    supportedPairs = [['en', 'cs']]
+
     def qe(self, sourceLang, targetLang, sourceText, targetText):
         """
-        @TODO: documentation
+        Performs translation quality estimation on sourceText to targetText using QuEst++ and fast_align
         It's ok to raise Exceptions here. They are handled upstream.
         """
         os.makedirs('data/tmp', exist_ok=True)
 
         if not [sourceLang, targetLang] in self.supportedPairs:
-            raise Exception("{}-{} language pair not supported".format(sourceLang, targetLang))
+            raise Exception(
+                "{}-{} language pair not supported".format(sourceLang, targetLang))
 
-        alignments = fast_align.FastAlign().align(sourceLang, targetLang, sourceText, targetText)['alignment']
+        alignments = fast_align.FastAlign().align(
+            sourceLang, targetLang, sourceText, targetText)['alignment']
         with open('data/tmp/alignments', 'w') as fileAlignments:
             fileAlignments.write(alignments)
 
@@ -29,7 +33,6 @@ class QuestPlusPlus():
 
         with open('data/tmp/target', 'w') as fileTarget:
             fileTarget.write(targetText)
-
 
         with DirCrawler('qe/questplusplus'):
             print("Extracting features")
@@ -51,7 +54,8 @@ class QuestPlusPlus():
         os.remove('data/tmp/source')
         os.remove('data/tmp/target')
 
-        features = [[x.split('=')[1] for x in line.rstrip('\n').rstrip('\t').split('\t')] for line in features]
+        features = [[x.split('=')[1] for x in line.rstrip(
+            '\n').rstrip('\t').split('\t')] for line in features]
         with open('data/tmp/features', 'w') as fileFeatures:
             fileFeatures.write('\n'.join(['\t'.join(x) for x in features]))
         with open('data/tmp/labels', 'w') as fileLabels:
@@ -67,12 +71,13 @@ class QuestPlusPlus():
             (output, error) = bash("""
                 python learning/src/learn_model.py ../questplusplus-config/svr.cfg
                 """)
-                
+
             with open('predicted.csv', 'r') as predictedFile:
-                output = [float(x.rstrip('\n').split('\t')[1]) for x in predictedFile.readlines()]
+                output = [float(x.rstrip('\n').split('\t')[1])
+                          for x in predictedFile.readlines()]
             os.remove('predicted.csv')
 
         os.remove('data/tmp/features')
         os.remove('data/tmp/labels')
         os.rmdir('data/tmp')
-        return {'status': 'OK', 'qe': output }
+        return {'status': 'OK', 'qe': output}

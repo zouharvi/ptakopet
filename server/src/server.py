@@ -6,7 +6,7 @@ import align
 
 # create new Flask app
 app = Flask(__name__)
-# allow CORS access
+# allow Cross-origin resource sharing access
 CORS(app)
 
 if __name__ == 'server':
@@ -50,6 +50,9 @@ def qeService(backend):
     return {'status': 'FAIL', 'error': str(error) }
 
 def assertArgs(args, assertees):
+  """
+  Throws an exception if assertees are not a subset of args
+  """
   if type(assertees) is not list:
     assertees = [assertees]
   for assertee in assertees:

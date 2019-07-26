@@ -31,7 +31,7 @@ def bash(bashCommand=""):
 
 def formatParallel(fileSource, fileTarget):
     """
-    @TODO: documentation
+    Takes two files and returns a joined list of lines separated by |||
     """
     with open(fileSource, 'r') as fileSource:
         with open(fileTarget, 'r') as fileTarget:
@@ -40,9 +40,10 @@ def formatParallel(fileSource, fileTarget):
             out = ["{} ||| {}".format(x, y) for (x, y) in zip(lines1, lines2)]
             return out
 
+
 def formatParallelFile(fileSource, fileTarget, fileOut):
     """
-    @TODO: documentation
+    Takes the output of formatParallel and stores it into a file
     """
     with open(fileOut, 'w') as fileOut:
         out = formatParallel(fileSource, fileTarget)
