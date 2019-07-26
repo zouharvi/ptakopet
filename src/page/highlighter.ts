@@ -68,4 +68,5 @@ export class Highlighter {
 let highlighter_source: Highlighter = new Highlighter($('#input_source'))
 let highlighter_target: Highlighter = new Highlighter($('#input_target'))
 
+// export highlighter singletons
 export {highlighter_source, highlighter_target}

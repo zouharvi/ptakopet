@@ -127,4 +127,5 @@ let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_
 translator_source.addIndicator(indicator_translator)
 translator_target.addIndicator(indicator_translator)
 
+// export translation singletons
 export { translator_source, translator_target, indicator_translator }

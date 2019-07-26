@@ -102,7 +102,7 @@ export class Aligner extends AsyncMessage {
                     let alignment: Alignment = []
                     let tokens1: Array<string> = TextUtils.tokenize(sourceText)
                     let tokens2: Array<string> = TextUtils.tokenize(targetText)
-                    // @TODO: this is COMPLETELY wrong and has to be redone
+
                     for (let i: number = 0; i < tokens1.length; i++) {
                         alignment.push([i, Math.min(i, tokens2.length - 1)])
                     }
@@ -140,4 +140,5 @@ let aligner: Aligner = new Aligner($('#input_source'), $('#input_target'))
 let indicator_aligner: IndicatorManager = new IndicatorManager($('#indicator_aligner'))
 aligner.addIndicator(indicator_aligner)
 
+// export the aligner singleton
 export { aligner }

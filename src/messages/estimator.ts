@@ -114,4 +114,5 @@ let estimator: Estimator = new Estimator($('#input_source'), $('#input_target'))
 let indicator_estimator: IndicatorManager = new IndicatorManager($('#indicator_estimator'))
 estimator.addIndicator(indicator_estimator)
 
+// export the estimator singleton
 export { estimator }

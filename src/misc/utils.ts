@@ -66,11 +66,11 @@ export module Utils {
     }
 
     /**
-     * @TODO: documentation
-     * @param set 
-     * @param toRemove 
+     * Performs set difference
+     * @param set Set from which elements are removed 
+     * @param toRemove Set of removees
      */
-    export function removeSetFromSet<R>(set: Set<R>, toRemove: Set<R>): Set<R> {
+    export function setDifference<R>(set: Set<R>, toRemove: Set<R>): Set<R> {
         toRemove.forEach((a: R) => {
             set.delete(a)
         })
@@ -78,15 +78,15 @@ export module Utils {
     }
 
     /**
-     * @TODO: documentation
-     * @param set 
-     * @param toAdd 
+     * Performs set union
+     * @param setA 
+     * @param setB 
      */
-    export function addSetToSet<R>(set: Set<R>, toAdd: Set<R>): Set<R> {
-        toAdd.forEach((a: R) => {
-            set.add(a)
+    export function setUnion<R>(setA: Set<R>, setB: Set<R>): Set<R> {
+        setB.forEach((a: R) => {
+            setA.add(a)
         })
-        return set
+        return setA
     }
 
     /**
