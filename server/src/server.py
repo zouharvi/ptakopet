@@ -12,10 +12,11 @@ CORS(app)
 if __name__ == 'server':
   backends = dict()
   backends['qe'] = {
-    'questplusplus': qe.QuestPlusPlus()
+    'questplusplus': qe.QuestPlusPlus(),
+    'deepquest': qe.DeepQuest(),
   }
   backends['align'] = {
-    'fast_align': align.FastAlign()
+    'fast_align': align.FastAlign(),
   }
 
 @app.route('/')
