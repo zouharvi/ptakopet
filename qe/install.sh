@@ -26,3 +26,8 @@ fi
 unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
 echo "Installing QuEst++ machine learning"
+echo "Done"
+
+echo "Installing deepQuest"
+git submodule update --init --recursive qe/deepQuest
+pip2 install --user -r qe/deepQuest/requirements.txt

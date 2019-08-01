@@ -4,3 +4,6 @@
 [submodule "align/fast_align"]
 	path = align/fast_align
 	url = https://github.com/zouharvi/fast_align
+[submodule "qe/deepQuest"]
+	path = qe/deepQuest
+	url = https://github.com/zouharvi/deepQuest
