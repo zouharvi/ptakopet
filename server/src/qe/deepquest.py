@@ -23,8 +23,7 @@ class DeepQuest():
             raise Exception(
                 "{}-{} language pair not supported".format(sourceLang, targetLang))
 
-        def repeatText(text, times=100):
-            return '\n'.join([text]*times)
+        repeatText = lambda text, times=100: '\n'.join([text]*times)
 
         # @TODO: documentation
         sourceText.replace('.', ' . ').replace(',', ' , ')
@@ -46,7 +45,9 @@ class DeepQuest():
                 bash ../../deepQuest-config/estimate-wordQEbRNN.sh
                  """)
 
-            filename = lambda threshold: f'../../deepQuest-config/saved_models/val_epoch_7_threshold_0.{threshold}_output_0.pred'
+            store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}/'
+            store_path = store_path('en_de')
+            filename = lambda threshold: f'{store_path}/val_epoch_7_threshold_0.{threshold}_output_0.pred'
 
             features = []
             for i in range(10):
