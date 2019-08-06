@@ -63,11 +63,18 @@ export class Estimator extends AsyncMessage {
                         data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
                         async: true,
                     })
-                        .done((data: EstimationResponse) => resolve(data['qe']))
+                        .done((data: EstimationResponse) => {
+                            if (data['status'] == 'OK') {
+                                resolve(data['qe'])
+                            } else {
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
+                            }
+                        })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: new Set([['en','cs']]),
+            languages: new Set([['en', 'cs']]),
             name: 'QuEst++',
         },
 
@@ -80,11 +87,18 @@ export class Estimator extends AsyncMessage {
                         data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
                         async: true,
                     })
-                        .done((data: EstimationResponse) => resolve(data['qe']))
+                        .done((data: EstimationResponse) => {
+                            if (data['status'] == 'OK') {
+                                resolve(data['qe'])
+                            } else {
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
+                            }
+                        })
                         .fail((xhr: JQueryXHR) => reject(xhr))
-                    })
+                })
             },
-            languages: new Set([['en','de']]),
+            languages: new Set([['en', 'de']]),
             name: 'deepQuest',
         },
 

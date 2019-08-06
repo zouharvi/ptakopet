@@ -16,15 +16,16 @@
     <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script>
 
     <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto&display=swap'>
     <link rel='stylesheet' type='text/css' href='css/style.css?v=4'>
-    <link rel='stylesheet' type='text/css' href='css/loader.css?v=4'>
+    <link rel='stylesheet' type='text/css' href='css/extra.css?v=4'>
 </head>
 
 <body style='overflow-x: hidden; margin: 0; background-color: #f4f4f4;'>
     <h1 id='title_name'>
         <img src='img/logo_as_path.svg' style='width: 160px;' alt='Ptakopět title logo'>
-        <div style='margin-left: 11px; display: inline-block; position: relative; top: -6px; font-weight: normal; color: #555555; font-size: 0.5em;'>
+        <div
+            style='margin-left: 11px; display: inline-block; position: relative; top: -6px; font-weight: normal; color: #555555; font-size: 0.5em;'>
             (in development)
         </div>
     </h1>
@@ -61,16 +62,18 @@
                 <div>
                     <span>Quality estimator backend: </span>
                     <div style='float: right;'>
-                        <select id='backend_estimator'>
-                        </select>
+                        <img id='warning_estimator' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                            title='Backend does not support this language pair.'>
+                        <select id='backend_estimator'> </select>
                         <div id='indicator_estimator' class="loader"></div>
                     </div>
                 </div>
                 <div>
                     <span>Alignment backend: </span>
                     <div style='float: right;'>
-                        <select id='backend_aligner'>
-                        </select>
+                        <img id='warning_aligner' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                            title='Backend does not support this language pair.'>
+                        <select id='backend_aligner'></select>
                         <div id='indicator_aligner' class="loader"></div>
                     </div>
                 </div>
@@ -89,7 +92,7 @@
                 families: ['Roboto:400']
             }
         };
-        (function() {
+        (function () {
             var wf = document.createElement('script');
             wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
             wf.type = 'text/javascript';

@@ -1,0 +1,32 @@
+.loader {
+  display: inline-block;
+  margin-top: -5px;
+  margin-bottom: -2px;
+  margin-left: 10px;
+  margin-right: 2px;
+  border: 2px solid #ffffff00;
+  border-top: 2px solid #555555;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.settings_warning {
+  height: 17px;
+  margin-right: 4px;
+  position: relative;
+  top: 2px;
+  /* start hidden */
+  display: none;
+}

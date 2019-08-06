@@ -1,5 +1,5 @@
 import { translator_source, translator_target, Translator } from '../messages/translator'
-import { estimator, Estimator } from '../messages/estimator'
+import { Estimator } from '../messages/estimator'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { Aligner } from '../messages/aligner';
@@ -14,34 +14,44 @@ export class SettingsSelector {
     private backendAlignerSelect: JQuery<HTMLElement>
     private lang1Select: JQuery<HTMLElement>
     private lang2Select: JQuery<HTMLElement>
+    private warningEstimator: JQuery<HTMLElement>
+    private warningAligner: JQuery<HTMLElement>
 
     constructor(
         backendTranslatorSelect: JQuery<HTMLElement>,
         backendEstimatorSelect: JQuery<HTMLElement>,
         backendAlignerSelect: JQuery<HTMLElement>,
-        lang1Select: JQuery<HTMLElement>, lang2Select: JQuery<HTMLElement>) {
+        lang1Select: JQuery<HTMLElement>,
+        lang2Select: JQuery<HTMLElement>,
+        warningEstimator: JQuery<HTMLElement>,
+        warningAligner: JQuery<HTMLElement>) {
         this.backendTranslatorSelect = backendTranslatorSelect
         this.backendEstimatorSelect = backendEstimatorSelect
         this.backendAlignerSelect = backendAlignerSelect
         this.lang1Select = lang1Select
         this.lang2Select = lang2Select
+        this.warningEstimator = warningEstimator
+        this.warningAligner = warningAligner
 
         // setup translator backend change callback
         $(this.backendTranslatorSelect).on('change', (a) => {
             Settings.backendTranslator = Translator.backends[$(a.target).val() as string]
-            this.instantiateLanguagesSource();
+            this.instantiateLanguagesSource()
+            this.refreshWarning()
             translator_source.translate()
         })
 
         // setup estimator backend change callback
         $(this.backendEstimatorSelect).on('change', (a) => {
             Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
+            this.refreshWarning()
             translator_source.translate()
         })
 
         // setup aligner backend change callback
         $(this.backendAlignerSelect).on('change', (a) => {
             Settings.backendAligner = Aligner.backends[$(a.target).val() as string]
+            this.refreshWarning()
             translator_source.translate()
         })
 
@@ -65,6 +75,7 @@ export class SettingsSelector {
 
             if (($(translator_source.source).val() as string).length > 0)
                 translator_source.translate()
+            this.refreshWarning()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -86,11 +97,31 @@ export class SettingsSelector {
 
             if (($(translator_source.source).val() as string).length > 0)
                 translator_source.translate()
+            this.refreshWarning()
         })
+
         this.instantiateBackends()
         this.instantiateLanguagesSource();
         $(this.lang1Select).trigger('change')
         $(this.lang2Select).trigger('change')
+        this.refreshWarning()
+    }
+
+    /**
+     * 
+     */
+    private refreshWarning(): void {
+        if(Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
+            $(this.warningEstimator).fadeOut()
+        } else {
+            $(this.warningEstimator).fadeIn()
+        }
+
+        if(Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
+            $(this.warningAligner).fadeOut()
+        } else {
+            $(this.warningAligner).fadeIn()
+        }
     }
 
     /**

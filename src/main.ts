@@ -12,7 +12,9 @@ let lang_selector: SettingsSelector = new SettingsSelector(
     $('#backend_estimator'),
     $('#backend_aligner'),
     $('#language_select_source'),
-    $('#language_select_target'))
+    $('#language_select_target'),
+    $('#warning_estimator'),
+    $('#warning_aligner'))
 
 $('#input_source').on('input', function () {
     translator_source.translate_throttle()
