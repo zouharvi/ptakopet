@@ -11,7 +11,7 @@ Ptakopět-server depends on the following projects:
 - [Flask](https://palletsprojects.com/p/flask/)
 - [deepQuest](https://github.com/sheffieldnlp/deepQuest/)
 - [fast_align](https://github.com/zouharvi/fast_align)
-- [QuEst++](http://github.com/zouharvi/questplusplus)
+- [QuEst++](https://github.com/zouharvi/questplusplus)
 - [scikit-learn](https://scikit-learn.org/stable/)
 
 with the data by:

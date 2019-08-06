@@ -77,7 +77,7 @@ The valid responses is always in this JSON Schema (either `qe` or `alignment` is
     },
     "status": {
       "type": "string",
-      "emum": [
+      "enum": [
         "OK", "FAIL"
       ],
     }
