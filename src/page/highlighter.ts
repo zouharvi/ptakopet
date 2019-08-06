@@ -27,7 +27,8 @@ export class Highlighter {
          * Instead of pairing estimator and translator requests the highlighting job is dropped if these lengths
          * don't match. This is a hack, but works great for cases such as None estimation. 
          */
-        if (intensities.length != indices.length || intensities.length == 0) {
+        // @TODO: deepQuest considers sentence punctuation separate tokens
+        if (intensities.length < indices.length || intensities.length == 0) {
             // Only clean if it is dirty. Otherwise this worsens the mobile performance
             if(this.dirty) {
                 this.highlightFocus([])
@@ -40,7 +41,7 @@ export class Highlighter {
 
         let highlights: Array<{ highlight: [number, number], className: string }> = []
 
-        for (let i = 0; i < intensities.length; i++) {
+        for (let i = 0; i < indices.length; i++) {
             let styleColor: string = `rgba(255, 0, 0, ${0.5 - intensities[i] / 2})`
             highlights.push({ highlight: indices[i], className: `style='background-color: ${styleColor};'` })
         }

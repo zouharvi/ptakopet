@@ -71,6 +71,23 @@ export class Estimator extends AsyncMessage {
             name: 'QuEst++',
         },
 
+        deepquest: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/deepquest",
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        async: true,
+                    })
+                        .done((data: EstimationResponse) => resolve(data['qe']))
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                    })
+            },
+            languages: new Set([['en','de']]),
+            name: 'deepQuest',
+        },
+
         random: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 let tokens = TextUtils.tokenize(targetText)
