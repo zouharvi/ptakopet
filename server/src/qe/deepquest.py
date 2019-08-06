@@ -40,18 +40,18 @@ class DeepQuest():
         tokensTarget = targetText.split(' ')
 
         with DirCrawler('qe/deepQuest/quest'):
-            print("Running deepQuest")
             (output, error) = bash("""
                 bash ../../deepQuest-config/estimate-wordQEbRNN.sh
                  """)
 
-            store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}/'
+            store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}'
             store_path = store_path('en_de')
             filename = lambda threshold: f'{store_path}/val_epoch_7_threshold_0.{threshold}_output_0.pred'
 
             features = []
             for i in range(10):
                 outputFile = filename(i)
+                print(outputFile)
                 if not os.path.isfile(outputFile):
                     raise Exception('Server Processing Error')
                 with open(outputFile, 'r') as outputFile:
@@ -68,7 +68,7 @@ class DeepQuest():
             os.remove('log-keras-error.txt')
             shutil.rmtree('datasets')
             to_remove = ['val.qe_metrics', 'val_epoch_7_output_0.pred'] + ['val_epoch_7_threshold_0.' + str(x) + '_output_0.pred' for x in range(10)]
-            [os.remove('../../deepQuest-config/saved_models/'+x) for x in to_remove]
+            [os.remove(f'{store_path}/'+x) for x in to_remove]
 
         os.remove(fileSource)
         os.remove(fileTarget)
