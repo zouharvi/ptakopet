@@ -8,7 +8,7 @@ export module Utils {
      * @param arr Array from which pairs are created.
      * @param reflexive If false, pairs in the form (a, a) are omitted.
      */
-    export function generatePairs<R>(arr: Array<R>, reflexive: boolean = true): Set<[R, R]> {
+    export function generatePairsArray<R>(arr: Array<R>, reflexive: boolean = true): Set<[R, R]> {
         let out: Set<[R, R]> = new Set<[R, R]>()
         for (let i in arr) {
             for (let j in arr) {
@@ -18,6 +18,23 @@ export module Utils {
                 out.add([arr[i], arr[j]])
             }
         }
+        return out
+    }
+
+    /**
+     * Generates pair tuples from single set.
+     * @param set Set from which pairs are created.
+     * @param reflexive If false, pairs in the form (a, a) are omitted.
+     */
+    export function generatePairsSet<R>(set: Set<R>, reflexive: boolean = true): Set<[R, R]> {
+        let out: Set<[R, R]> = new Set<[R, R]>()
+        set.forEach((a) => {
+            set.forEach((b) => {
+                if (a != b || reflexive) {
+                    out.add([a, b])
+                }
+            })
+        })
         return out
     }
 
@@ -133,7 +150,7 @@ export module Utils {
     /**
      * All available languages
      */
-    export let Languages: Array<LanguageCode> = Object.keys(_langCodeToName) as Array<LanguageCode>
+    export let Languages: Set<LanguageCode> = new Set<LanguageCode>(Object.keys(_langCodeToName) as Array<LanguageCode>)
 
 
     /**

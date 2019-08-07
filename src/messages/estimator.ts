@@ -114,7 +114,7 @@ export class Estimator extends AsyncMessage {
                     setTimeout(() => resolve(estimation), 500)
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'Random',
         },
 
@@ -124,7 +124,7 @@ export class Estimator extends AsyncMessage {
                     resolve([])
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'None',
         },
     }

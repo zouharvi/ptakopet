@@ -92,7 +92,7 @@ export class Aligner extends AsyncMessage {
                         .fail(reject)
                 })
             },
-            languages: Utils.generatePairs(['en', 'cs', 'fr']),
+            languages: Utils.generatePairsArray(['en', 'cs', 'fr']),
             name: 'fast_align',
         },
 
@@ -110,7 +110,7 @@ export class Aligner extends AsyncMessage {
                     setTimeout(() => resolve(alignment), 1000)
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'Diagonal',
         },
         none: {
@@ -119,7 +119,7 @@ export class Aligner extends AsyncMessage {
                     resolve([])
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'None',
         },
     }

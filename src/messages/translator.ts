@@ -46,11 +46,11 @@ export abstract class Translator extends AsyncMessage {
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
-                        .done((data: Array<string>) => resolve(data.join('\n').replace(/\n/, " ")))
+                        .done((data: Array<string>) => resolve(data.join('').replace(/\n$/, '')))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr'], true),
+            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr'], true),
             default: ['en', 'cs'],
             name: 'ÚFAL Transformer',
         },
@@ -59,7 +59,7 @@ export abstract class Translator extends AsyncMessage {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
                 return new Promise<string>((resolve, reject) => resolve(text))
             },
-            languages: Utils.generatePairs<LanguageCode>(['cs', 'en', 'fr', 'hi', 'de', 'pl'], true),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
             default: ['en', 'cs'],
             name: 'Identity',
         }
