@@ -1,6 +1,6 @@
 # This script assumes the data is stored in examples/estimate/test.(mt|src|)
 
-export KERAS_BACKEND=theano
+export KERAS_BACKEND=tensorflow
 
 echo "Analysing input parameters"
 
