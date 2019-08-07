@@ -39,6 +39,13 @@ export class Highlighter {
             this.dirty = true
         }
 
+        // Attempt at least some normalization
+        let max = Math.max(...intensities)
+        let min = Math.min(...intensities)
+        for(let i in intensities) {
+           intensities[i] = (intensities[i] - min)/(max-min)
+        }
+
         let highlights: Array<{ highlight: [number, number], className: string }> = []
 
         for (let i = 0; i < indices.length; i++) {
