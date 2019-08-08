@@ -3,8 +3,8 @@ import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { estimator } from './estimator'
-import { highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager";
+import { highlighter_source, highlighter_target } from '../page/highlighter'
 
 /**
  * Template for forward and backward translators
@@ -17,6 +17,9 @@ export abstract class Translator extends AsyncMessage {
      */
     public translate_throttle() {
         this.throttler.throttle(this.translate)
+        // Clean the previous highlight
+        highlighter_source.highlight([])
+        highlighter_target.highlight([])
     }
 
     /**
