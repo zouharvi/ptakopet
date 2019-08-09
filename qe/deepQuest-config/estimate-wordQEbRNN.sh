@@ -1,4 +1,5 @@
 # This script assumes the data is stored in examples/estimate/test.(mt|src|)
+# First positional argument is the number of the best poech
 
 export KERAS_BACKEND=tensorflow
 
@@ -10,6 +11,7 @@ trg="mt"
 score="hter"
 out_activation="sigmoid"
 device="cpu"
+best_epoch=$1
 
 model_type=EncWord
 model_name=${task_name}_${src}${trg}_${model_type}
@@ -19,8 +21,6 @@ rnd_seed=8
 # we copy the base config
 rm -rf config.*
 ln -s ../../deepQuest-config/config-wordQEbRNN.py ./config.py
-
-best_epoch=7
 
 # pre-trained Weights + Vocab to use for scoring
 pred_vocab=../../deepQuest-config/saved_models/${task_name}/dataset.pkl

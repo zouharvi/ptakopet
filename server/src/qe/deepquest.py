@@ -39,14 +39,15 @@ class DeepQuest():
 
         tokensTarget = targetText.split(' ')
 
-        with DirCrawler('qe/deepQuest/quest'):
-            (output, error) = bash("""
-                bash ../../deepQuest-config/estimate-wordQEbRNN.sh
-                 """)
+        best_epoch = 100
+        store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}'
+        store_path = store_path('en_de')
+        filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
-            store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}'
-            store_path = store_path('en_de')
-            filename = lambda threshold: f'{store_path}/val_epoch_7_threshold_0.{threshold}_output_0.pred'
+        with DirCrawler('qe/deepQuest/quest'):
+            (_output, _error) = bash(f"""
+                bash ../../deepQuest-config/estimate-wordQEbRNN.sh {best_epoch}
+                 """)
 
             features = []
             for i in range(10):
@@ -57,17 +58,19 @@ class DeepQuest():
                 with open(outputFile, 'r') as outputFile:
                     features.append([1*(x == 'OK\n') for x in outputFile.readlines()])
             
-            # transpose
+            # Transpose
             features = [[features[j][i] for j in range(len(features))] for i in range(len(features[0]))] 
-            # average lines
+            # Average lines
             features = [sum(x)/len(x) for x in features]
-
+            # Take only relevant number of tokens (TODO: verify this)
             features = features[:len(tokensTarget)]
 
             os.remove('log-keras.txt')
             os.remove('log-keras-error.txt')
             shutil.rmtree('datasets')
-            to_remove = ['val.qe_metrics', 'val_epoch_7_output_0.pred'] + ['val_epoch_7_threshold_0.' + str(x) + '_output_0.pred' for x in range(10)]
+            to_remove = \
+                ['val.qe_metrics', f'val_epoch_{best_epoch}_output_0.pred'] + \
+                [f'val_epoch_{best_epoch}_threshold_0.{str(x)}_output_0.pred' for x in range(10)]
             [os.remove(f'{store_path}/'+x) for x in to_remove]
 
         os.remove(fileSource)
