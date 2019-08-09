@@ -37,6 +37,8 @@ export class SettingsSelector {
         $(this.backendTranslatorSelect).on('change', (a) => {
             Settings.backendTranslator = Translator.backends[$(a.target).val() as string]
             this.instantiateLanguagesSource()
+            $(this.lang1Select).trigger('change')
+            $(this.lang2Select).trigger('change')
             this.refreshWarning()
             translator_source.translate()
         })
@@ -101,7 +103,7 @@ export class SettingsSelector {
         })
 
         this.instantiateBackends()
-        this.instantiateLanguagesSource();
+        this.instantiateLanguagesSource()
         $(this.lang1Select).trigger('change')
         $(this.lang2Select).trigger('change')
         this.refreshWarning()
