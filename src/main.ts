@@ -22,5 +22,6 @@ $('#input_source').on('input', function () {
 
 $('#input_target').on('input', function () {
     translator_target.translate_throttle()
-    estimator.estimate()
+    estimator.estimate_throttle()
+    console.warn('invoking estimator from target input')
 })

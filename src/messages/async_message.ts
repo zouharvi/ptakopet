@@ -42,15 +42,17 @@ export class AsyncMessage {
             this.indicatorHandle.add(-1)
         }
 
-        message.then((text) => {
-            // If in an increasing sequence invoke callback
-            if (this.receiveCheck(msgCurrent)) {
-                callback(text)
+        message.then(
+            (text) => {
+                // If in an increasing sequence invoke callback
+                if (this.receiveCheck(msgCurrent)) {
+                    callback(text)
+                }
+            },
+            (_:any) => {
+                // Do nothing except for fix the message id
+                this.receiveCheck(msgCurrent)
             }
-        },
-        (JQueryXHR) => {
-            // Do nothing except for fix the message id
-            this.receiveCheck(msgCurrent)
-        })
+        )
     }
 }

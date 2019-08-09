@@ -65,7 +65,17 @@ export abstract class Translator extends AsyncMessage {
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
             default: ['en', 'cs'],
             name: 'Identity',
-        }
+        },
+
+
+        none: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
+                return new Promise<string>((resolve, reject) => resolve(''))
+            },
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
+            default: ['en', 'cs'],
+            name: 'None/Manual',
+        },
     }
 }
 
@@ -86,6 +96,7 @@ export class TranslatorSource extends Translator {
                 $(this.target).text(text)
                 translator_target.translate()
                 estimator.estimate()
+                console.warn('invoking estimator from translator source')
             }
         )
     }

@@ -5,14 +5,24 @@ import { highlighter_target } from '../page/highlighter'
 import { TextUtils } from "../misc/text_utils";
 import { IndicatorManager } from "../page/indicator_manager";
 import { aligner } from "./aligner";
+import { Throttler } from "./throttler";
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
 export class Estimator extends AsyncMessage {
+    private throttler = new Throttler(500);
+
+    /**
+     * Make a estimator request, which can be later interrupted. 
+     */
+    public estimate_throttle() {
+        this.throttler.throttle(this.estimate)
+    }
+
     /**
      * Make an estimator request
      */
-    public estimate(): void {
+    public estimate = () => {
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendEstimator.composeRequest(
