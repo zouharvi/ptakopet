@@ -46,7 +46,7 @@ def qeService(backend):
     if not backend in backends['qe'].keys():
       raise Exception("Invalid backend selected")
     assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
-    if len(request.args.sourceLang) == 0 or len(request.args.targetText) == 0:
+    if len(request.args['sourceLang']) == 0 or len(request.args['targetText']) == 0:
       return jsonify({'status': 'OK', 'qe': []}) 
     return jsonify(backends['qe'][backend].qe(**request.args))
   except Exception as error:
