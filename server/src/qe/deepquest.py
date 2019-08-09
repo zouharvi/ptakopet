@@ -26,8 +26,8 @@ class DeepQuest():
         repeatText = lambda text, times=100: '\n'.join([text]*times)
 
         # @TODO: documentation
-        sourceText.replace('.', ' . ').replace(',', ' , ')
-        targetText.replace('.', ' . ').replace(',', ' , ')
+        sourceText = sourceText.replace('.', ' . ').replace(',', ' , ')
+        targetText = targetText.replace('.', ' . ').replace(',', ' , ')
 
         fileSource = 'qe/deepQuest-config/data_input/test.src'
         with open(fileSource, 'w') as fileSourceW:
@@ -39,7 +39,7 @@ class DeepQuest():
 
         tokensTarget = targetText.split(' ')
 
-        best_epoch = 100
+        best_epoch = 7
         store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}'
         store_path = store_path('en_de')
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
