@@ -71,6 +71,8 @@ assertPip2 "scikit-learn" 0.20.0
 assertPip2 "pyyaml" 0.4.0
 
 assertPip2 "theano"
+assertPip2 "tensorflow"
+assertCommand "tar"
 assertCommand "bash"
 echo "Checking python2-devel"
 INCLUDE_PY=$(python2 -c "from distutils import sysconfig as s; print s.get_config_vars()['INCLUDEPY']")
