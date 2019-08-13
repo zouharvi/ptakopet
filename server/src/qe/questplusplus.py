@@ -1,6 +1,6 @@
 from align import fast_align
 import os
-from utils import DirCrawler, bash
+from utils import DirCrawler, bash, multiReplace
 
 import sys
 sys.path.append("..")  # Adds higher directory to python modules path.
@@ -23,6 +23,11 @@ class QuestPlusPlus():
             raise Exception(
                 "{}-{} language pair not supported".format(sourceLang, targetLang))
 
+        # Sanitize input
+        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', ' \1 '), (r'\ +', ' ')])
+        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', ' \1 '), (r'\ +', ' ')])
+        print(f"-{sourceText}-")
+
         alignments = fast_align.FastAlign().align(
             sourceLang, targetLang, sourceText, targetText)['alignment']
         with open('data/tmp/alignments', 'w') as fileAlignments:
@@ -36,7 +41,7 @@ class QuestPlusPlus():
 
         with DirCrawler('qe/questplusplus'):
             print("Extracting features")
-            (output, error) = bash("""
+            (_output, _error) = bash("""
                  java -cp QuEst++.jar:lib/* shef.mt.WordLevelFeatureExtractor
                  -lang english spanish
                  -input ../../data/tmp/source ../../data/tmp/target

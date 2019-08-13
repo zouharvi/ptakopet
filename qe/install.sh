@@ -27,6 +27,8 @@ unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
 echo "Installing QuEst++ machine learning"
 echo "Done"
+echo "Don't forget to rebuild the QuEst++ jar file if it hasn't been patched yet."
+echo "Use the command: ant \"-Dplatforms.JDK_1.8.home=/usr/lib/jvm/java-1.8.0\""
 
 echo "Installing deepQuest"
 git submodule update --init --recursive qe/deepQuest

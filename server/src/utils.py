@@ -1,5 +1,6 @@
 import os
 import subprocess
+import re
 
 
 class DirCrawler():
@@ -56,4 +57,4 @@ def multiReplace(text, replacement):
     if not replacement:
         return text
     else:
-        return multiReplace(text.replace(replacement[0][0], replacement[0][1]), replacement[1:])
+        return multiReplace(re.sub(replacement[0][0], replacement[0][1], text), replacement[1:])
