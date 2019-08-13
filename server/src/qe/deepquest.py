@@ -1,6 +1,6 @@
 from align import fast_align
 import os
-from utils import DirCrawler, bash
+from utils import DirCrawler, bash, multiReplace
 
 import sys
 sys.path.append("..")  # Adds higher directory to python modules path.
@@ -26,8 +26,9 @@ class DeepQuest():
         repeatText = lambda text, times=100: '\n'.join([text]*times)
 
         # @TODO: documentation
-        sourceText = sourceText.replace('.', ' . ').replace(',', ' , ')
-        targetText = targetText.replace('.', ' . ').replace(',', ' , ')
+        # Ignore newlines for now, since they require matching number of source & target sentences
+        sourceText = multiReplace(sourceText, [('\n', ' '), ('?', ' ? '), ('.', ' . '), (',', ' , ')])
+        targetText = multiReplace(targetText, [('\n', ' '), ('?', ' ? '), ('.', ' . '), (',', ' , ')])
 
         fileSource = 'qe/deepQuest-config/data_input/test.src'
         with open(fileSource, 'w') as fileSourceW:
@@ -52,7 +53,6 @@ class DeepQuest():
             features = []
             for i in range(10):
                 outputFile = filename(i)
-                print(outputFile)
                 if not os.path.isfile(outputFile):
                     raise Exception('Server Processing Error')
                 with open(outputFile, 'r') as outputFile:

@@ -48,3 +48,12 @@ def formatParallelFile(fileSource, fileTarget, fileOut):
     with open(fileOut, 'w') as fileOut:
         out = formatParallel(fileSource, fileTarget)
         print('\n'.join(out), file=fileOut)
+
+def multiReplace(text, replacement):
+    """
+    @TODO
+    """
+    if not replacement:
+        return text
+    else:
+        return multiReplace(text.replace(replacement[0][0], replacement[0][1]), replacement[1:])
