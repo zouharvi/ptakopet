@@ -15,6 +15,9 @@ def bash(bashCommand=""):
 
 
 def strip_tags(fileIn, fileOut):
+    """
+    Remove feature names (output of QuEst++ feature extractor)
+    """
     with open(fileIn, 'r') as fileIn:
         features = fileIn.readlines()
     features = [[x.split('=')[1] for x in line.rstrip('\n').rstrip('\t').split('\t')] for line in features]
@@ -22,7 +25,7 @@ def strip_tags(fileIn, fileOut):
         fileOut.write('\n'.join(['\t'.join(x) for x in features]))
 
 
-def feature_extract(fileS, fileT, fileA):
+def feature_extract(fileS, fileT, fileA, fileOut):
     """
     Run from qe/questplusplus
     """
@@ -58,8 +61,8 @@ def feature_extract(fileS, fileT, fileA):
         with open('output/test/output.txt', 'r') as fileOutput:
             outLines = fileOutput.readlines()
         os.chdir('../../data')
-        with open('outputAll.features', 'a+') as fileOutput:
-            fileOutput.write(''.join(outLines))
+        with open(fileOut, 'a+') as fileOutObj:
+            fileOutObj.write(''.join(outLines))
     os.remove('tmp/snap.en')
     os.remove('tmp/snap.cs')
     os.remove('tmp/snap.alignments')
@@ -67,6 +70,13 @@ def feature_extract(fileS, fileT, fileA):
 
 
 def collapse_labels(fileIn, fileOut):
+    """
+    This function drops informatioun about missing tokens, renames form labels format to numbers and separates everything with newlines.
+    > Missing tokens in the machine translations, as indicated by the TER tool are annotated as follows:
+    > After each token in the sentence and at sentence start, a gap tag is placed.
+    > This tag will be set to 'BAD' if in that position there should be one or more tokens, and OK otherwise.
+    > Note that number of tags for each target sentence is 2*N+1, where N is the number of tokens in the sentence. 
+    """
     with open(fileIn, 'r') as fileIn:
         labels =  fileIn.readlines()
     
@@ -79,7 +89,6 @@ def collapse_labels(fileIn, fileOut):
         fileOut.write(labels)
 
 if __name__ == "__main__":
-    feature_extract('qe/WMT18.en-cs.train.en', 'qe/WMT18.en-cs.train.cs', 'qe/WMT18.en-cs.train.alignments')
-    # feature_extract('qe2/dev.src', 'qe2/dev.mt', 'qe2/dev.src-mt.alignments')
-    strip_tags('outputAll.features', 'outputAll.clean')
-    # collapse_labels('qe2/dev.tags', 'qe2/dev.tags.collapsed')
+    collapse_labels('qe/WMT18.en-cs.train.tags', 'qe/WMT18.en-cs.train.tags.collapsed')
+    feature_extract('qe/WMT18.en-cs.train.en', 'qe/WMT18.en-cs.train.cs', 'qe/WMT18.en-cs.train.alignments', 'qe/WMT18.en-cs.train.features')
+    strip_tags('qe/WMT18.en-cs.train.features', 'qe/WMT18.en-cs.train.clean')
