@@ -89,6 +89,8 @@ def collapse_labels(fileIn, fileOut):
         fileOut.write(labels)
 
 if __name__ == "__main__":
-    collapse_labels('qe/WMT18.en-cs.train.tags', 'qe/WMT18.en-cs.train.tags.collapsed')
-    feature_extract('qe/WMT18.en-cs.train.en', 'qe/WMT18.en-cs.train.cs', 'qe/WMT18.en-cs.train.alignments', 'qe/WMT18.en-cs.train.features')
-    strip_tags('qe/WMT18.en-cs.train.features', 'qe/WMT18.en-cs.train.features.clean')
+    #rootFileName = 'qe/train'
+    rootFileName = 'qe/WMT18.en-cs.train'
+    collapse_labels(f'{rootFileName}.tags', f'{rootFileName}.tags.collapsed')
+    feature_extract(f'{rootFileName}.en', f'{rootFileName}.es', f'{rootFileName}.alignments', f'{rootFileName}.features')
+    strip_tags(f'{rootFileName}.features', f'{rootFileName}.features.clean')

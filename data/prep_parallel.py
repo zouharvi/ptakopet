@@ -28,10 +28,10 @@ def fast_align(fileCorpus, fileOut):
 
 if __name__ == "__main__":
     parser=argparse.ArgumentParser()
-    parser.add_argument('-a', '--all', help='Process all files in the raw/ folder', action="store_true")
-    parser.add_argument('-f1', '--file1', help='Process file1 located in raw/')
-    parser.add_argument('-f2', '--file2', help='Process file2 located in raw/')
-    parser.add_argument('-o', '--out', help='Output to raw/out.align')
+    parser.add_argument('-a', '--all', help='Process all files in the ./ folder', action="store_true")
+    parser.add_argument('-f1', '--file1', help='Process file1 located in ./')
+    parser.add_argument('-f2', '--file2', help='Process file2 located in ./')
+    parser.add_argument('-o', '--out', help='Output to ./out.align')
     args=parser.parse_args()
     
     if args.all:

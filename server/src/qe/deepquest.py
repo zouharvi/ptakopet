@@ -27,8 +27,8 @@ class DeepQuest():
 
         # @TODO: documentation
         # Ignore newlines for now, since they require matching number of source & target sentences
-        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', ' \1 ')])
-        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', ' \1 ')])
+        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', r' \1 ')])
+        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', r' \1 ')])
 
         fileSource = 'qe/deepQuest-config/data_input/test.src'
         with open(fileSource, 'w') as fileSourceW:

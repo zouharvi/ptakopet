@@ -24,9 +24,10 @@ class QuestPlusPlus():
                 "{}-{} language pair not supported".format(sourceLang, targetLang))
 
         # Sanitize input
-        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', ' \1 '), (r'\ +', ' ')])
-        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', ' \1 '), (r'\ +', ' ')])
-        print(f"-{sourceText}-")
+        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
+        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
+        print(f'-{sourceText}-')
+        print(f'-{targetText}-')
 
         alignments = fast_align.FastAlign().align(
             sourceLang, targetLang, sourceText, targetText)['alignment']
