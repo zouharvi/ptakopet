@@ -91,4 +91,4 @@ def collapse_labels(fileIn, fileOut):
 if __name__ == "__main__":
     collapse_labels('qe/WMT18.en-cs.train.tags', 'qe/WMT18.en-cs.train.tags.collapsed')
     feature_extract('qe/WMT18.en-cs.train.en', 'qe/WMT18.en-cs.train.cs', 'qe/WMT18.en-cs.train.alignments', 'qe/WMT18.en-cs.train.features')
-    strip_tags('qe/WMT18.en-cs.train.features', 'qe/WMT18.en-cs.train.clean')
+    strip_tags('qe/WMT18.en-cs.train.features', 'qe/WMT18.en-cs.train.features.clean')

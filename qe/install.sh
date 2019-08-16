@@ -25,6 +25,14 @@ if ! `wget -q --show-progress "http://resources.mpi-inf.mpg.de/yago-naga/uwn/uwn
 fi
 unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
+
+echo "Fetching WMT18 preprocessed data"
+if ! `wget -q --show-progress "https://ptakopet.vilda.net/s/WMT18.en-cs.train.tar.xz" -P "$TMPDIR"` ; then
+    die "Error while downloading"
+fi
+mkdir -p "data/qe"
+tar -C "data/qe" -xf "$TMPDIR/WMT18.en-cs.train.tar.xz"
+
 echo "Installing QuEst++ machine learning"
 echo "Done"
 echo "Don't forget to rebuild the QuEst++ jar file if it hasn't been patched yet."
