@@ -6,7 +6,7 @@ export KERAS_BACKEND=tensorflow
 echo "Analysing input parameters"
 
 src="src"
-trg="mt"
+trg="trg"
 score="hter"
 out_activation="sigmoid"
 device="cpu"
@@ -14,7 +14,7 @@ best_epoch=$2
 task_name=$1
 
 model_type=EncWord
-model_name=${task_name}_${src}${trg}_${model_type}
+model_name=${task_name}_${model_type}
 store_path=../../deepQuest-config/saved_models/${task_name}/
 rnd_seed=8
 

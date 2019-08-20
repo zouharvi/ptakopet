@@ -27,7 +27,7 @@ unzip -o -q "$TMPDIR/uwn.zip" -d "qe/questplusplus/lang_resources/uwn"
 
 
 echo "Fetching WMT18 preprocessed data"
-if ! `wget -q --show-progress "https://ptakopet.vilda.net/s/WMT18.en-cs.train.tar.xz" -P "$TMPDIR"` ; then
+if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/WMT18.en-cs.train.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
 mkdir -p "data/qe"
@@ -50,7 +50,7 @@ echo "Removing coco-caption dirty install directory (potentially dangerous)"
 rm -rf src/
 
 echo "Fetching deepQuest trained models"
-if ! `wget -q --show-progress "https://ptakopet.vilda.net/s/deepquest_en_de.tar.xz" -P "$TMPDIR"` ; then
+if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/deepquest_en_de.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
 mkdir -p "qe/deepQuest-config/saved_models"

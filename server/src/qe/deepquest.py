@@ -34,14 +34,14 @@ class DeepQuest():
         with open(fileSource, 'w') as fileSourceW:
             fileSourceW.write(repeatText(sourceText) + '\n')
 
-        fileTarget = 'qe/deepQuest-config/data_input/test.mt'
+        fileTarget = 'qe/deepQuest-config/data_input/test.trg'
         with open(fileTarget, 'w') as fileTargetW:
             fileTargetW.write(repeatText(targetText) + '\n')
 
         tokensTarget = targetText.split(' ')
 
         best_epoch = 16
-        task_name = 'en_de_proper'
+        task_name = 'en_de'
         store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
