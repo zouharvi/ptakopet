@@ -26,8 +26,6 @@ class QuestPlusPlus():
         # Sanitize input
         sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
         targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
-        print(f'-{sourceText}-')
-        print(f'-{targetText}-')
 
         alignments = fast_align.FastAlign().align(
             sourceLang, targetLang, sourceText, targetText)['alignment']
