@@ -1,17 +1,17 @@
-# This script assumes the data is stored in examples/estimate/test.(mt|src|)
-# First positional argument is the number of the best poech
+# This script assumes the data is stored in ../../deepQuest-config/saved_models/task_name/
+# First positional argument is the task name
+# Second positional argument is the number of the best epoch
 
 export KERAS_BACKEND=tensorflow
-
 echo "Analysing input parameters"
 
-task_name="en_de"
 src="src"
 trg="mt"
 score="hter"
 out_activation="sigmoid"
 device="cpu"
-best_epoch=$1
+best_epoch=$2
+task_name=$1
 
 model_type=EncWord
 model_name=${task_name}_${src}${trg}_${model_type}

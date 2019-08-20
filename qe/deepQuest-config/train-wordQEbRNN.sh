@@ -1,27 +1,28 @@
-export KERAS_BACKEND=theano
+#
+#
 
+export KERAS_BACKEND=theano
 echo "Analysing input parameters"
 
-task_name="word_en_de"
-src="src"
-trg="mt"
-score="hter"
+task_name="en_de"
+src="en"
+trg="de"
+score="tags"
 out_activation="sigmoid"
 device="cpu"
 
-# we copy the base config
-conf=config-wordQEbRNN.py
-model_type=EncWord
-model_name=${task_name}_${src}${trg}_${model_type}
-store_path=trained_models/${model_name}/
 patience=10
+model_type=EncWord
+model_name=${task_name}_${model_type}
+store_path=trained_models/${model_name}/
 rnd_seed=8
 
+# we copy the base config
 rm -rf config.*
-ln -s ../configs/$conf ./config.py
+ln -s ../../deepQuest-config/config-train-wordQEbRNN.py ./config.py
 
 echo "Traning the model "${model_name}
-THEANO_FLAGS=device=$device python2 main.py TASK_NAME=$task_name DATASET_NAME=$task_name DATA_ROOT_PATH=examples/${task_name} SRC_LAN=${src} TRG_LAN=${trg} PRED_SCORE=$score OUT_ACTIVATION=$out_activation MODEL_TYPE=$model_type MODEL_NAME=$model_name STORE_PATH=$store_path NEW_EVAL_ON_SETS=val PATIENCE=$patience SAVE_EACH_EVALUATION=True RND_SEED=$rnd_seed > log-${model_name}-prep.txt 2> log-${model_name}-prep-error.txt
+THEANO_FLAGS=device=$device python2 main.py TASK_NAME=$task_name DATASET_NAME=$task_name DATA_ROOT_PATH="../../../data/$task_name" SRC_LAN=${src} TRG_LAN=${trg} PRED_SCORE=$score OUT_ACTIVATION=$out_activation MODEL_TYPE=$model_type MODEL_NAME=$model_name STORE_PATH=$store_path NEW_EVAL_ON_SETS=val PATIENCE=$patience SAVE_EACH_EVALUATION=True RND_SEED=$rnd_seed > log-${model_name}-prep.txt 2> log-${model_name}-prep-error.txt
 
 awk '/^$/ {nlstack=nlstack "\n";next;} {printf "%s",nlstack; nlstack=""; print;}' log-${model_name}-prep-error.txt > log-${model_name}-error.txt
 best_epoch=$(tail -1 log-${model_name}-error.txt | tr ':' '\n' | tr ' ' '\n' | tail -5 | head -1)

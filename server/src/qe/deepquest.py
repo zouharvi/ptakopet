@@ -40,15 +40,17 @@ class DeepQuest():
 
         tokensTarget = targetText.split(' ')
 
-        best_epoch = 7
-        store_path = lambda task_name: f'../../deepQuest-config/saved_models/{task_name}'
-        store_path = store_path('en_de')
+        best_epoch = 16
+        task_name = 'en_de_proper'
+        store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
         with DirCrawler('qe/deepQuest/quest'):
             (_output, _error) = bash(f"""
-                bash ../../deepQuest-config/estimate-wordQEbRNN.sh {best_epoch}
+                bash ../../deepQuest-config/estimate-wordQEbRNN.sh {task_name} {best_epoch}
                  """)
+            print(_output)
+            print(_error)
 
             features = []
             for i in range(10):
