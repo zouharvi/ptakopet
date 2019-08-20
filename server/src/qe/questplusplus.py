@@ -74,7 +74,7 @@ class QuestPlusPlus():
             os.rmdir('output')
 
             print("Machine Learning")
-            (output, error) = bash("""
+            (_output, _error) = bash("""
                 python learning/src/learn_model.py ../questplusplus-config/svr.cfg
                 """)
 
