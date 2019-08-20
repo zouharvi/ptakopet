@@ -7,7 +7,7 @@ echo "Analysing input parameters"
 
 src="src"
 trg="trg"
-score="hter"
+score="tags"
 out_activation="sigmoid"
 device="cpu"
 best_epoch=$2
