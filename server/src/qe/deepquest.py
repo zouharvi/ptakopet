@@ -27,8 +27,9 @@ class DeepQuest():
 
         # @TODO: documentation
         # Ignore newlines for now, since they require matching number of source & target sentences
-        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', r' \1 ')])
-        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', r' \1 ')])
+        formatArgs = [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' '), (r' +$', '')]
+        sourceText = multiReplace(sourceText, formatArgs)
+        targetText = multiReplace(targetText, formatArgs) 
 
         fileSource = 'qe/deepQuest-config/data_input/test.src'
         with open(fileSource, 'w') as fileSourceW:
@@ -66,6 +67,9 @@ class DeepQuest():
             features = [sum(x)/len(x) for x in features]
             # Take only relevant number of tokens (TODO: verify this)
             features = features[:len(tokensTarget)]
+
+            print(f'tokensTarget {tokensTarget}')
+            print(f'all features: {features}')
 
             os.remove('log-keras.txt')
             os.remove('log-keras-error.txt')
