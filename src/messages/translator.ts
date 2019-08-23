@@ -5,6 +5,7 @@ import { Settings } from '../misc/settings'
 import { estimator } from './estimator'
 import { IndicatorManager } from "../page/indicator_manager";
 import { highlighter_source, highlighter_target } from '../page/highlighter'
+import { logger } from '../study/logger'
 
 /**
  * Template for forward and backward translators
@@ -84,19 +85,20 @@ export abstract class Translator extends AsyncMessage {
  */
 export class TranslatorSource extends Translator {
     public translate = () => {
+        let sourceText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
-            $(this.source).val() as string,
+            sourceText,
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
         super.dispatch(
             request,
             (text: string) => {
+                logger.log(logger.Action.TRANSLATE1, { text1: text, text2: sourceText })
                 // Clean the previous highlight
                 highlighter_target.highlight([])
                 $(this.target).text(text)
                 translator_target.translate()
                 estimator.estimate()
-                console.warn('invoking estimator from translator source')
             }
         )
     }
@@ -107,6 +109,7 @@ export class TranslatorSource extends Translator {
  */
 export class TranslatorTarget extends Translator {
     public translate = () => {
+        let targetText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
             $(this.source).val() as string,
             Settings.language2 as LanguageCode,
@@ -114,6 +117,7 @@ export class TranslatorTarget extends Translator {
         super.dispatch(
             request,
             (text) => {
+                logger.log(logger.Action.TRANSLATE2, { text1 : text, text2: targetText })
                 $(this.target).text(text)
             }
         )

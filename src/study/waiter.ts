@@ -1,9 +1,11 @@
+import { logger } from './logger'
+
 export class Waiter {
     private studyData: Array<string> = [
         "To learn about using tag codes, export text with tags from a formatted document.",
         "Controls the range of tones in the shadows or highlights that are modified.",
     ]
-    private studyDataIndex: number = 0
+    public studyDataIndex: number = 0
     
 
     private textContainer: JQuery<HTMLElement>
@@ -26,6 +28,7 @@ export class Waiter {
 
         $(joinButton).click(() => {
             $(studyBlock).show()
+            logger.on()
             $(joinButton).hide()
         })
         
@@ -33,11 +36,21 @@ export class Waiter {
         $(okButton).click(() => this.next())
         $(skipButton).click(() => this.next())
 
-        $(studyBlock).show() // for temporary debug purposes
+        $(joinButton).trigger('click') // for temporary debug purposes
     }
 
     private next(): void {
         this.studyDataIndex = (this.studyDataIndex + 1) % this.studyData.length
         $(this.textContainer).text(this.studyData[this.studyDataIndex]) 
+        logger.log(logger.Action.NEXT, { question: waiter.studyDataIndex})
     }
 }
+
+let waiter: Waiter = new Waiter(
+    $('#study_text'),
+    $('#study_ok_button'),
+    $('#study_skip_button'),
+    $('#join_study_button'),
+    $('#study_content_block'),
+)
+export { waiter }

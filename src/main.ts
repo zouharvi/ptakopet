@@ -7,7 +7,15 @@
 import { translator_source, translator_target } from './messages/translator'
 import { SettingsSelector } from './page/settings_selector'
 import { estimator } from './messages/estimator'
-import { Waiter } from './study/waiter'
+import { waiter } from './study/waiter'
+import { logger } from './study/logger'
+
+// Force files to execute
+translator_source
+translator_target
+estimator
+waiter
+logger
 
 let lang_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
@@ -27,10 +35,3 @@ $('#input_target').on('input', function () {
     estimator.estimate_throttle()
 })
 
-let waiter = new Waiter(
-    $('#study_text'),
-    $('#study_ok_button'),
-    $('#study_skip_button'),
-    $('#join_study_button'),
-    $('#study_content_block'),
-)

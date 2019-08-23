@@ -6,6 +6,7 @@ import { TextUtils } from "../misc/text_utils";
 import { IndicatorManager } from "../page/indicator_manager";
 import { aligner } from "./aligner";
 import { Throttler } from "./throttler";
+import { logger } from '../study/logger'
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
@@ -33,12 +34,16 @@ export class Estimator extends AsyncMessage {
             super.dispatch(
                 request,
                 (estimation: Estimation) => {
-                    highlighter_target.highlight(estimation)
+                    logger.log(logger.Action.ESTIMATE, { estimation : estimation.join('-') })
                     aligner.align(estimation)
+                    // Beware that highlighter mutates the data, so it goes last
+                    highlighter_target.highlight(estimation)
+                    
                     /**
                      * @TODO: Passing estimation to aligner is probably not a good idea and there should be a spearate
                      * driver class that wraps this. The aligner uses the estimation to instruct the highlighter the intensities
                      * with which to highlight the source textarea.
+                     * - zouharvi 15 Aug 2019
                      */
                 }
             )

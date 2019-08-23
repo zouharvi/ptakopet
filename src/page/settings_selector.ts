@@ -4,6 +4,7 @@ import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { Aligner } from '../messages/aligner';
 import { highlighter_source, highlighter_target } from './highlighter';
+import { logger } from '../study/logger'
 
 /**
  * Manages backend and language select boxes
@@ -63,6 +64,7 @@ export class SettingsSelector {
                 Utils.setContainsArray(Settings.backendTranslator.languages, [Settings.language2 as LanguageCode, Settings.language1 as LanguageCode])) {
                 let tmp = Settings.language1 as LanguageCode
                 Settings.language1 = Settings.language2
+                
                 Settings.language2 = tmp
                 this.instantiateLanguagesTarget()
                 $(translator_source.source).val($(translator_source.target).val() as string)
@@ -77,6 +79,9 @@ export class SettingsSelector {
             if (($(translator_source.source).val() as string).length > 0)
                 translator_source.translate()
             this.refreshWarning()
+
+            // Log by the end so that everything is already resolved
+            logger.log(logger.Action.LANG_CHANGE, { lang1: Settings.language1, lang2: Settings.language2 })
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -99,6 +104,9 @@ export class SettingsSelector {
             if (($(translator_source.source).val() as string).length > 0)
                 translator_source.translate()
             this.refreshWarning()
+            
+            // Log by the end so that everything is already resolved
+            logger.log(logger.Action.LANG_CHANGE, { lang1: Settings.language1, lang2: Settings.language2 })
         })
 
         this.instantiateBackends()

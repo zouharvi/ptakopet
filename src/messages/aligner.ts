@@ -5,6 +5,7 @@ import { Settings } from "../misc/settings";
 import { TextUtils } from "../misc/text_utils";
 import { Estimation } from "./estimator";
 import { highlighter_source } from "../page/highlighter";
+import { logger } from '../study/logger'
 
 
 export type Alignment = Array<[number, number]>
@@ -25,6 +26,7 @@ export class Aligner extends AsyncMessage {
                 (alignment: Alignment) => {
                     if(estimation.length == 0) {
                         highlighter_source.highlight([])
+                        logger.log(logger.Action.ALIGN, { alignment: '' })
                     } else {
                         // This exctracts the max from the left side
                         let max = Math.max(...alignment.map((a: [number, number]) => a[0])) 
@@ -33,6 +35,7 @@ export class Aligner extends AsyncMessage {
                         for (let i in alignment) {
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]
                         }
+                        logger.log(logger.Action.ALIGN, { alignment: intensities.join('-') })
                         highlighter_source.highlight(intensities)
                     }
                 }
