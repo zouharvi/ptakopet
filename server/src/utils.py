@@ -52,7 +52,7 @@ def formatParallelFile(fileSource, fileTarget, fileOut):
 
 def multiReplace(text, replacement):
     """
-    @TODO
+    Apply each tuple (patter, replace) in input replacement array to input text
     """
     if not replacement:
         return text

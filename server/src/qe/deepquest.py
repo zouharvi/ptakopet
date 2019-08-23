@@ -25,7 +25,6 @@ class DeepQuest():
 
         repeatText = lambda text, times=100: '\n'.join([text]*times)
 
-        # @TODO: documentation
         # Ignore newlines for now, since they require matching number of source & target sentences
         formatArgs = [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' '), (r' +$', '')]
         sourceText = multiReplace(sourceText, formatArgs)
@@ -65,7 +64,7 @@ class DeepQuest():
             features = [[features[j][i] for j in range(len(features))] for i in range(len(features[0]))] 
             # Average lines
             features = [sum(x)/len(x) for x in features]
-            # Take only relevant number of tokens (TODO: verify this)
+            # Take only relevant number of tokens
             features = features[:len(tokensTarget)]
 
             print(f'tokensTarget {tokensTarget}')
@@ -81,4 +80,6 @@ class DeepQuest():
 
         os.remove(fileSource)
         os.remove(fileTarget)
+
+
         return {'status': 'OK', 'qe': features}
