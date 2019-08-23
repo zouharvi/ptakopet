@@ -9,7 +9,7 @@ if __name__ == 'logger':
 def log(sessionId, action, **request):
     logFile = f'logs/{sessionId}.log'
     with open(logFile, 'a') as logFile:
-        # @TODO: verify that join is stable
+        # @TODO: verify that join/values are stable
         line = f'{action},{",".join(request.values())}\n'
         print(line, end='')
         logFile.write(line)
