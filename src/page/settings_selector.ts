@@ -1,5 +1,5 @@
 import { translator_source, translator_target, Translator } from '../messages/translator'
-import { Estimator } from '../messages/estimator'
+import { Estimator, estimator } from '../messages/estimator'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { Aligner } from '../messages/aligner';
@@ -46,14 +46,14 @@ export class SettingsSelector {
         $(this.backendEstimatorSelect).on('change', (a) => {
             Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
             this.refreshWarning()
-            translator_source.translate()
+            estimator.estimate()
         })
 
         // setup aligner backend change callback
         $(this.backendAlignerSelect).on('change', (a) => {
             Settings.backendAligner = Aligner.backends[$(a.target).val() as string]
             this.refreshWarning()
-            translator_source.translate()
+            estimator.estimate()
         })
 
         // At the beginning this sets the current language on the one on the top of the list
@@ -109,7 +109,7 @@ export class SettingsSelector {
     }
 
     /**
-     * 
+     * Manage visibility of warning icons next to backends
      */
     private refreshWarning(): void {
         if(Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {

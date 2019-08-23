@@ -2,10 +2,12 @@
 // if (location.protocol == 'http:') {
 //    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 // }
+// This was replaced by server-side .htaccess file
 
 import { translator_source, translator_target } from './messages/translator'
 import { SettingsSelector } from './page/settings_selector'
-import { estimator } from './messages/estimator';
+import { estimator } from './messages/estimator'
+import { Waiter } from './study/waiter'
 
 let lang_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
@@ -23,5 +25,12 @@ $('#input_source').on('input', function () {
 $('#input_target').on('input', function () {
     translator_target.translate_throttle()
     estimator.estimate_throttle()
-    console.warn('invoking estimator from target input')
 })
+
+let waiter = new Waiter(
+    $('#study_text'),
+    $('#study_ok_button'),
+    $('#study_skip_button'),
+    $('#join_study_button'),
+    $('#study_content_block'),
+)

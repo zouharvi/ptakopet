@@ -31,7 +31,19 @@
     </h1>
 
     <div id='main_content'>
-        <div class='content_block'>
+        <div id='study_content_block' style='display: none;'>
+            <div style='margin-bottom: 20px; height: 20px;'>
+                <div style='display: inline-block; float: left;'>
+                    Translate the following text:
+                </div>
+                <div style='display: inline-block; float: right;'>
+                    <input id='study_ok_button' type='button' value='OK'>
+                    <input id='study_skip_button' type='button' value='SKIP'>
+                </div>
+            </div>
+            <div id='study_text'></div>
+        </div>
+	    <div class='content_block'>
             <div>
                 <span>Source language:</span>
                 <select id='language_select_source'></select>
@@ -79,7 +91,10 @@
                 </div>
                 <div>
                     <a href='https://github.com/zouharvi/ptakopet'>About Ptakopět</a>
+			        <input id='join_study_button' type='button' style='float: right; margin-right: 32px;' value='Join study'>
                 </div>
+		<div>
+		</div>
             </div>
         </div>
     </div>
