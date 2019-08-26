@@ -27,7 +27,10 @@ export abstract class Translator extends AsyncMessage {
      * @param source Source textareat
      * @param target Target textarea
      */
-    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
+    constructor(
+        source: JQuery<HTMLElement>,
+        target: JQuery<HTMLElement>,
+    ) {
         super()
         this.source = source
         this.target = target
@@ -84,19 +87,23 @@ export abstract class Translator extends AsyncMessage {
  * Class for translating source to target
  */
 export class TranslatorSource extends Translator {
+    public curSource : string = ''
+    public curTranslation : string = ''
     public translate = () => {
-        let sourceText = $(this.source).val() as string
+        this.curSource = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
-            sourceText,
+            this.curSource,
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
         super.dispatch(
             request,
             (text: string) => {
-                logger.log(logger.Action.TRANSLATE1, { text1: text, text2: sourceText })
+                logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
+                this.curTranslation = text
+
                 // Clean the previous highlight
                 highlighter_target.highlight([])
-                $(this.target).text(text)
+                $(this.target).val(text)
                 translator_target.translate()
                 estimator.estimate()
             }
@@ -117,8 +124,8 @@ export class TranslatorTarget extends Translator {
         super.dispatch(
             request,
             (text) => {
-                logger.log(logger.Action.TRANSLATE2, { text1 : text, text2: targetText })
-                $(this.target).text(text)
+                logger.log(logger.Action.TRANSLATE2, { text1 : targetText, text2: text })
+                $(this.target).val(text)
             }
         )
     }
@@ -138,8 +145,8 @@ export interface TranslatorBackend {
     name: string,
 }
 
-let translator_source: Translator = new TranslatorSource($('#input_source'), $('#input_target'))
-let translator_target: Translator = new TranslatorTarget($('#input_target'), $('#input_back'))
+let translator_source: TranslatorSource = new TranslatorSource($('#input_source'), $('#input_target'))
+let translator_target: TranslatorTarget = new TranslatorTarget($('#input_target'), $('#input_back'))
 
 let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
 translator_source.addIndicator(indicator_translator)

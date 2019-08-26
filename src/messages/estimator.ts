@@ -11,6 +11,8 @@ import { logger } from '../study/logger'
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
 export class Estimator extends AsyncMessage {
+    public curEstimation : Estimation = []
+
     private throttler = new Throttler(500);
 
     /**
@@ -34,6 +36,7 @@ export class Estimator extends AsyncMessage {
             super.dispatch(
                 request,
                 (estimation: Estimation) => {
+                    this.curEstimation = estimation
                     logger.log(logger.Action.ESTIMATE, { estimation : estimation.join('-') })
                     aligner.align(estimation)
                     // Beware that highlighter mutates the data, so it goes last

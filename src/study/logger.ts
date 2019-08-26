@@ -2,7 +2,7 @@
  * @TODO: Documentation
  */
 
-export enum LogAction { NEXT, TRANSLATE1, TRANSLATE2, ESTIMATE, ALIGN, LANG_CHANGE }
+export enum LogAction { NEXT, CONFIRM, TRANSLATE1, TRANSLATE2, ESTIMATE, ALIGN, LANG_CHANGE }
 export class Logger {
     questionIndex: number = 0
     private sessionId: string
@@ -41,7 +41,7 @@ export class Logger {
             url: 'https://quest.ms.mff.cuni.cz/zouharvi/log',
             data: data,
         }).done((data: any) => {
-            console.log(data)
+            console.log('LOG', LogAction[action], data)
         })
     }
 }
