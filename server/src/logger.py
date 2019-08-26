@@ -6,11 +6,21 @@ if __name__ == 'logger':
         os.makedirs('logs/')
         print(f'Creating logs dir at {os.getcwd()}/logs')
 
-def log(sessionId, action, **request):
+def organizeData(request):
+    order = ['lang1', 'lang2', 'questionKey', 'text1', 'text2', 'estimation', 'alignment']
+    result = []
+    for o in order:
+        if o in request.keys():
+            result.append(request.pop(o)) 
+    for k in request:
+        result.append(f'EXTRA({k}:{request[k]})')
+    return result
+    
+
+def log(sessionId, action, time, **request):
     logFile = f'logs/{sessionId}.log'
     with open(logFile, 'a') as logFile:
-        # @TODO: verify that join/values are stable
-        line = f'{action},{",".join(request.values())}\n'
+        line = f'{action},{time},{",".join(organizeData(request))}\n'
         print(line, end='')
         logFile.write(line)
     return {'status': 'OK'} 
