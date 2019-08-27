@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-import qe
-import align
+import qe, align, logger
 
 # create new Flask app
 app = Flask(__name__)
@@ -23,6 +22,17 @@ if __name__ == 'server':
 def index():
   return 'This is the Ptakopět server. For info about this project or the API please see the <a href="http://ptakopet.vilda.net/docs">documentation</a>.'
   
+@app.route('/log', methods = ['GET', 'POST'])
+def logService():
+  """
+  Provides logging service
+  """
+  try:
+    return logger.log(**request.values)
+  except Exception as error:
+    return {'status': 'FAIL', 'error': str(error) }
+
+
 @app.route('/align/<backend>', methods = ['GET', 'POST'])
 def alignService(backend):
   """
@@ -37,6 +47,7 @@ def alignService(backend):
     return {'status': 'FAIL', 'error': str(error) }
 
 
+
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
 def qeService(backend):
   """
@@ -45,10 +56,10 @@ def qeService(backend):
   try:
     if not backend in backends['qe'].keys():
       raise Exception("Invalid backend selected")
-    assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
-    if len(request.args['sourceLang']) == 0 or len(request.args['targetText']) == 0:
+    assertArgs(request.values, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
+    if len(request.values['sourceLang']) == 0 or len(request.values['targetText']) == 0:
       return jsonify({'status': 'OK', 'qe': []}) 
-    return jsonify(backends['qe'][backend].qe(**request.args))
+    return jsonify(backends['qe'][backend].qe(**request.values))
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
