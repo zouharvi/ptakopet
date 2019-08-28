@@ -24,7 +24,8 @@ class DeepQuest():
         task_name = f'{sourceLan}_{targetLan}'
         if not task_name in self.pairsEpochs.keys():
             raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
-        if not os.path.isdir(f'data/{task_name}'):
+        #if not os.path.isdir(f'data/{task_name}'):
+        if not os.path.isdir(f'qe/deepQuest-config/saved_models/{task_name}'):
             raise Exception(f'data/{task_name} does not exits')
 
         os.makedirs('data/tmp', exist_ok=True)
