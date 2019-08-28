@@ -22,7 +22,7 @@ def process_file(in_file, out_file):
             # save partial work every 100 requests and at the end
             print(f'SAVING: {index+1}/{len(lines)}')
             with open(out_file, 'w', encoding='UTF-8') as out_file_obj:
-                out_file_obj.write('\n'.join(translated))
+                out_file_obj.write('\n'.join(translated) + '\n')
 
 
 if __name__ == '__main__':
