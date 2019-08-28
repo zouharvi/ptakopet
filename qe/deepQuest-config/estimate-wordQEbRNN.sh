@@ -1,4 +1,4 @@
-# This script assumes the data is stored in ../../deepQuest-config/saved_models/task_name/
+# This script assumes the data is stored in ../../deepQuest-config/saved_models/${task_name}/
 # First positional argument is the task name
 # Second positional argument is the number of the best epoch
 

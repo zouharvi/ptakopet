@@ -10,19 +10,26 @@ class DeepQuest():
     """
     deepQuest driver
     """
-    supportedPairs = [['en', 'de']]
+    pairsEpochs = {
+        'en_de': 16,
+        'cs_de': 45,
+    }
 
     def qe(self, sourceLang, targetLang, sourceText, targetText):
         """
         Performs translation quality estimation on sourceText to targetText using deepQuest
         It's ok to raise Exceptions here. They are handled upstream.
         """
+
+        task_name = f'{sourceLan}_{targetLan}'
+        if not task_name in self.pairsEpochs.keys():
+            raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
+        if not os.path.isdir(f'data/{task_name}'):
+            raise Exception(f'data/{task_name} does not exits')
+
         os.makedirs('data/tmp', exist_ok=True)
 
-        if not [sourceLang, targetLang] in self.supportedPairs:
-            raise Exception(
-                "{}-{} language pair not supported".format(sourceLang, targetLang))
-
+        # TODO: split sentences to newlines
         repeatText = lambda text, times=100: '\n'.join([text]*times)
 
         # Ignore newlines for now, since they require matching number of source & target sentences
@@ -40,8 +47,7 @@ class DeepQuest():
 
         tokensTarget = targetText.split(' ')
 
-        best_epoch = 16
-        task_name = 'en_de'
+        best_epoch = pairsEpochs[task_name]
         store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
