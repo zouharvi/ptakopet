@@ -4,9 +4,9 @@
 export KERAS_BACKEND=theano
 echo "Analysing input parameters"
 
-task_name="en_de"
-src="en"
+src="cs"
 trg="de"
+task_name="${src}_${trg}"
 score="tags"
 out_activation="sigmoid"
 device="cpu"

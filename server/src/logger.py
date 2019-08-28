@@ -7,7 +7,7 @@ if __name__ == 'logger':
         print(f'Creating logs dir at {os.getcwd()}/logs')
 
 def organizeData(request):
-    order = ['lang1', 'lang2', 'questionKey', 'text1', 'text2', 'estimation', 'alignment']
+    order = ['lang1', 'lang2', 'questionKey', 'reason', 'text1', 'text2', 'estimation', 'alignment']
     result = []
     for o in order:
         if o in request.keys():
