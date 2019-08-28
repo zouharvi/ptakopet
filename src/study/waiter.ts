@@ -7,7 +7,8 @@ export class Waiter {
         ['k1', "To learn about using tag codes, export text with tags from a formatted document."],
         ['k2', "Controls the range of tones in the shadows or highlights that are modified."],
     ]
-    public studyDataIndex: number = 0
+    public studyDataIndex : number = 0
+    public userId : string | null = null
 
     private textContainer: JQuery<HTMLElement>
     private okButton: JQuery<HTMLElement>
@@ -28,18 +29,24 @@ export class Waiter {
         this.joinButton = joinButton
 
         $(joinButton).click(() => {
+            let userId : string | null = prompt('UserID:', '')
+            if (userId == null) {
+                return
+            }
+
+            this.userId = userId
             $(studyBlock).show()
             logger.on()
             $(joinButton).hide()
 
             // reset question index
             this.studyDataIndex = -1
-            waiter.skip()
+            waiter.nextSkip(false)
         })
         
         // lambda is used here to capture 'this' context
         $(okButton).click(() => this.nextOk())
-        $(skipButton).click(() => this.skip())
+        $(skipButton).click(() => this.nextSkip())
     }
 
     public nextOk(): void {
@@ -60,12 +67,20 @@ export class Waiter {
         )
     }
     
-    public skip(): void {
+    public nextSkip(promptUser: boolean = true): void {
+        let reason : string | null = ''
+        if (promptUser) {
+            reason = prompt('Důvod:', '')
+            if (reason == null) {
+                return
+            }
+        }
         this.studyDataIndex = (this.studyDataIndex + 1) % this.studyData.length
         $(this.textContainer).text(this.studyData[this.studyDataIndex][1]) 
         logger.log(logger.Action.NEXT, 
             {
                 questionKey: this.studyData[this.studyDataIndex][0],
+                reason: reason as string,
             }
         )
     }

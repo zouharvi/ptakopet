@@ -1,3 +1,4 @@
+import { waiter } from './waiter.ts'
 /*
  * @TODO: Documentation
  */
@@ -32,6 +33,7 @@ export class Logger {
         // Reverse enum mapping is not guaranteed!
         let data = {
             sessionId: this.sessionId,
+            userId: waiter.userId,
             action: LogAction[action],
             time: Date.now(),
             ...extra,
