@@ -12,11 +12,17 @@ export class Logger {
     public Action = LogAction
 
     constructor() {
-        this.sessionId = this.randomString(7)
+        this.sessionId = this.randomString(10)
     }
     
     private randomString(length: number): string {
-        return Math.random().toString(36).substring(length);
+        let result = '';
+        let characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
     }
    
     public on(running: boolean = true) {
