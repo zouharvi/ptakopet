@@ -17,8 +17,8 @@ def organizeData(request):
     return result
     
 
-def log(sessionId, action, time, **request):
-    logFile = f'logs/{sessionId}.log'
+def log(sessionId, userId, action, time, **request):
+    logFile = f'logs/{userId}-{sessionId}.log'
     with open(logFile, 'a') as logFile:
         line = f'{action},{time},{",".join(organizeData(request))}\n'
         print(line, end='')
