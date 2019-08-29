@@ -53,6 +53,7 @@ assertPip3() {
 
 export TMPDIR=`mktemp -d` 
 export -f die assertCommand verlt verlte assertPip2 assertPip3
+export RED GREEN NCOL
 
 # general
 assertCommand "pip2"
