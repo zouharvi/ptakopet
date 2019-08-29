@@ -12,7 +12,7 @@ class DeepQuest():
     """
     pairsEpochs = {
         'en_de': 16,
-        'cs_de': 45,
+        'cs_de': 42,
     }
 
     def qe(self, sourceLang, targetLang, sourceText, targetText):
@@ -21,7 +21,7 @@ class DeepQuest():
         It's ok to raise Exceptions here. They are handled upstream.
         """
 
-        task_name = f'{sourceLan}_{targetLan}'
+        task_name = f'{sourceLang}_{targetLang}'
         if not task_name in self.pairsEpochs.keys():
             raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
         #if not os.path.isdir(f'data/{task_name}'):
@@ -48,7 +48,7 @@ class DeepQuest():
 
         tokensTarget = targetText.split(' ')
 
-        best_epoch = pairsEpochs[task_name]
+        best_epoch = self.pairsEpochs[task_name]
         store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 

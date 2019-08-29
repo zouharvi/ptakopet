@@ -50,8 +50,8 @@ echo "Removing coco-caption dirty install directory (potentially dangerous)"
 rm -rf src/
 
 echo "Fetching deepQuest trained models"
-if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/deepquest_en_de.tar.xz" -P "$TMPDIR"` ; then
+if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/deepquest_models.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
 mkdir -p "qe/deepQuest-config/saved_models"
-tar -C "qe/deepQuest-config/saved_models" -xf "$TMPDIR/deepquest_en_de.tar.xz"
+tar -C "qe/deepQuest-config/saved_models" -xf "$TMPDIR/deepquest_models.tar.xz"
