@@ -1,6 +1,7 @@
 import { waiter } from './waiter.ts'
 /*
- * @TODO: Documentation
+ * Logger proxies log actions to server with AJAX. It also contains some rudimentary
+ * session id generation which is used to separate data between instances.
  */
 
 export enum LogAction { NEXT, CONFIRM, TRANSLATE1, TRANSLATE2, ESTIMATE, ALIGN, LANG_CHANGE }
