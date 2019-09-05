@@ -116,7 +116,7 @@ export class Estimator extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: new Set([['en', 'de']]),
+            languages: new Set([['en', 'de'], ['cs', 'de']]),
             name: 'deepQuest',
         },
 

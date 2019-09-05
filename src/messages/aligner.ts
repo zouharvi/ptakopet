@@ -95,7 +95,8 @@ export class Aligner extends AsyncMessage {
                         .fail(reject)
                 })
             },
-            languages: Utils.generatePairsArray(['en', 'cs', 'fr']),
+            languages: new Set([...Utils.generatePairsArray<LanguageCode>(['en', 'cs', 'fr']),
+                                ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs'])]),
             name: 'fast_align',
         },
 
