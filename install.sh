@@ -87,6 +87,7 @@ assertCommand "python3"
 assertCommand "python2"
 assertPip3 "flask" 1.0.0
 assertPip3 "flask-cors" 3.0.0
+assertPip3 "openkiwi" 0.1.2
 
 ./qe/install.sh
 ./align/install.sh

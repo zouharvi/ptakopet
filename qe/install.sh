@@ -1,3 +1,4 @@
+die ""
 echo "Installing Quality Estimation"
 echo "Installing QuEst++ feature extractor"
 git submodule update --init --recursive qe/questplusplus 
@@ -30,8 +31,8 @@ echo "Fetching WMT18 preprocessed data"
 if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/WMT18.en-cs.train.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
-mkdir -p "data/qe"
-tar -C "data/qe" -xf "$TMPDIR/WMT18.en-cs.train.tar.xz"
+mkdir -p "data/questplusplus"
+tar -C "data/questplusplus" -xf "$TMPDIR/WMT18.en-cs.train.tar.xz"
 
 echo "Installing QuEst++ machine learning"
 echo "Done"

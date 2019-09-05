@@ -9,7 +9,7 @@ class FastAlign():
 
     def findRawData(self, sourceLang, targetLang):
         def fileTemplate(a, b, c):
-            return "data/raw/Ubuntu.{}-{}.{}".format(a, b, c)
+            return "data/align/Ubuntu.{}-{}.{}".format(a, b, c)
 
         if (os.path.isfile(fileTemplate(sourceLang, targetLang, sourceLang)) and
                 os.path.isfile(fileTemplate(sourceLang, targetLang, targetLang))):

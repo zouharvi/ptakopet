@@ -10,7 +10,7 @@ class QuestPlusPlus():
     """
     QuEst++ driver
     """
-    supportedPairs = [['en', 'cs']]
+    supportedPairs = [['en', 'cs'], ['en', 'es']]
 
     def qe(self, sourceLang, targetLang, sourceText, targetText):
         """
@@ -72,8 +72,8 @@ class QuestPlusPlus():
             os.rmdir('output')
 
             print("Machine Learning")
-            (_output, _error) = bash("""
-                python learning/src/learn_model.py ../questplusplus-config/svr.cfg
+            (_output, _error) = bash(f"""
+                python learning/src/learn_model.py ../questplusplus-config/svr_{sourceLang}_{targetLang}.cfg
                 """)
 
             with open('predicted.csv', 'r') as predictedFile:

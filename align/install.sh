@@ -10,10 +10,11 @@ make
 cd ../../..
 
 echo "Fetching Ubuntu 14.04 parallel data"
-if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/raw_ubuntu.tar.xz" -P "$TMPDIR"` ; then
+if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/align_ubuntu.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
-tar -C "data" -xf "$TMPDIR/raw_ubuntu.tar.xz"
+mkdir -p "data/align"
+tar -C "data/align" -xf "$TMPDIR/align_ubuntu.tar.xz"
 
 #echo "Installing eflomal"
 # mkdir ./build
