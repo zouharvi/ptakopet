@@ -1,4 +1,4 @@
-<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/logo.svg?sanitize=true' width='200px'>
+<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/logo/logo.svg?sanitize=true' width='200px'>
 
 System for translation quality estimation, mostly outbound translation. [Check it out](http://ptakopet.vilda.net)
 
