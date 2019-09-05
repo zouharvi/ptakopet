@@ -1,4 +1,3 @@
-die ""
 echo "Installing Quality Estimation"
 echo "Installing QuEst++ feature extractor"
 git submodule update --init --recursive qe/questplusplus 
