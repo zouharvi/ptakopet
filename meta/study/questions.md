@@ -1,5 +1,8 @@
+Deprecated. Moved to `questions.json`
+
 # in domain
 Popis problému technické podpoře.
+
 
 - Po výběru souboru 3D CAD, který jste chtěli převést, se však v Trackeru zobrazí pouze položky, které jste předtím uložili.
 - V programu se kurzor skrývá za kreslícím plátnem, ale stále zůstává aktivní a lze s ním např. provádět výběr a vytvářet okna.
