@@ -29,6 +29,7 @@ class FastAlign():
         """
         file1, file2 = self.findRawData(sourceLang, targetLang)
         out = formatParallel(file1, file2)
+        # TODO: Tokenize properly, so that this data makes sense to QE models.
         out = ["{} ||| {}".format(sourceText, targetText)] + out
         # Found relevant parallel corpus
         print("Files found: {}, {}".format(file1, file2))
@@ -39,4 +40,5 @@ class FastAlign():
         os.remove('tmp.parallel')
         
         # @TODO: Check all went OK
+        # If tokens will be used, check number of resulting tokens
         return {'status': 'OK', 'alignment': output.split('\n')[0]}
