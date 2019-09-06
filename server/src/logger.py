@@ -7,7 +7,7 @@ if __name__ == 'logger':
         print(f'Creating logs dir at {os.getcwd()}/logs')
 
 def organizeData(request):
-    order = ['lang1', 'lang2', 'questionKey', 'reason', 'text1', 'text2', 'estimation', 'alignment']
+    order = ['lang1', 'lang2', 'questionKey', 'reason', 'text1', 'text2', 'estimation', 'alignment', 'queue']
     result = []
     for o in order:
         if o in request.keys():
@@ -17,8 +17,8 @@ def organizeData(request):
     return result
     
 
-def log(sessionId, userId, action, time, **request):
-    logFile = f'logs/{userId}-{sessionId}.log'
+def log(sessionID, userID, action, time, **request):
+    logFile = f'logs/{userID}.log'
     with open(logFile, 'a') as logFile:
         line = f'{action},{time},{",".join(organizeData(request))}\n'
         print(line, end='')
