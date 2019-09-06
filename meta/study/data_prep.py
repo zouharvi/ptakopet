@@ -139,6 +139,22 @@ elif len(sys.argv) == 3 and sys.argv[1] == 'rip_random':
             'qaTextOrg': qaTextOrg,
             'qaTextZil': qaTextZil,
         })
-    
+elif len(sys.argv) == 4 and sys.argv[1] == 'add_keys':
+    """
+    Adds stable keys to all questions. This normalization is necessary for presentation purposes.
+    """
+    with open(sys.argv[2], 'r') as f:
+        questions = json.loads(f.read())
+    obj = {} 
+    for i, q in enumerate(questions['tech_issues']):
+        obj[f't{i:02d}'] = q
+    for i, q in enumerate(questions['praha_6']):
+        obj[f'p{i:02d}'] = q
+    for i, q in enumerate(questions['squad']):
+        obj[f's{i:02d}'] = q['org']
+        obj[f'z{i:02d}'] = q['zil']
+    with open(sys.argv[3], 'w') as f:
+        f.write(json.dumps(obj, ensure_ascii=False))
+        
 else:
     print("Wrong arguments, see code")
