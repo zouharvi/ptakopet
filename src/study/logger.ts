@@ -4,16 +4,23 @@ import { waiter } from './waiter.ts'
  * session id generation which is used to separate data between instances.
  */
 
-export enum LogAction { NEXT, CONFIRM, TRANSLATE1, TRANSLATE2, ESTIMATE, ALIGN, LANG_CHANGE }
+export enum LogAction { 
+    START, END,
+    NEXT, CONFIRM,
+    TRANSLATE1, TRANSLATE2,
+    ESTIMATE, ALIGN,
+    LANG_CHANGE
+}
+
 export class Logger {
     questionIndex: number = 0
-    private sessionId: string
+    private sessionID: string
     private running: boolean = false
     // Reexport LogAction enum
     public Action = LogAction
 
     constructor() {
-        this.sessionId = this.randomString(10)
+        this.sessionID = this.randomString(10)
     }
     
     private randomString(length: number): string {
@@ -39,8 +46,8 @@ export class Logger {
     private dispatch(action: LogAction, extra: object) : void {
         // Reverse enum mapping is not guaranteed!
         let data = {
-            sessionId: this.sessionId,
-            userId: waiter.userId,
+            sessionID: this.sessionID,
+            userID: waiter.userID,
             action: LogAction[action],
             time: Date.now(),
             ...extra,
