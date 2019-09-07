@@ -45,7 +45,7 @@ export class Highlighter {
         let max = Math.max(...intensities)
         let min = Math.min(...intensities)
         for(let i in intensities) {
-           intensities[i] = (intensities[i] - min)/(max-min)
+        //   intensities[i] = (intensities[i] - min)/(max-min)
         }
 
         let highlights: Array<{ highlight: [number, number], className: string }> = []

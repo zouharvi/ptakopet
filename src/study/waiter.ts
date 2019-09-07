@@ -12,18 +12,21 @@ export class Waiter {
     private localStorageID: string | null = null
 
     private textContainer: JQuery<HTMLElement>
+    private instructionsContainer: JQuery<HTMLElement>
     private okButton: JQuery<HTMLElement>
     private skipButton: JQuery<HTMLElement>
     public  joinButton: JQuery<HTMLElement>
     
     constructor(
         textContainer: JQuery<HTMLElement>,
+        instructionsContainer: JQuery<HTMLElement>,
         okButton: JQuery<HTMLElement>,
         skipButton: JQuery<HTMLElement>,
         joinButton: JQuery<HTMLElement>,
         studyBlock: JQuery<HTMLElement>,
     ) {
         this.textContainer = textContainer
+        this.instructionsContainer = instructionsContainer
         this.okButton = okButton
         this.skipButton = skipButton
         this.textContainer = textContainer
@@ -44,6 +47,8 @@ export class Waiter {
             let keys = BAKED_QUEUE['unknown']
             if (BAKED_QUEUE.hasOwnProperty(this.userID)) {
                 keys = BAKED_QUEUE[this.userID]
+            } else {
+                alert('Unknown user ID, falling back to default baked queue.')
             } 
             for(let key in keys) {
                 let qID = keys[key]
@@ -106,13 +111,7 @@ export class Waiter {
             }
         )
         this.advanceIndex()
-        $(this.textContainer).text(this.bakedQueue[this.bakedIndex][1]) 
-        logger.log(logger.Action.NEXT, 
-            {
-                questionKey: this.bakedQueue[this.bakedIndex][0],
-            }
-        )
-        window.localStorage.setItem(this.localStorageID as string, this.bakedIndex.toString())
+        this.serveQuestion()
     }
     
     public nextSkip(promptUser: boolean = true, advance: boolean = true): void {
@@ -126,19 +125,53 @@ export class Waiter {
         if(advance) {
             this.advanceIndex()
         }
-        $(this.textContainer).text(this.bakedQueue[this.bakedIndex][1]) 
-        logger.log(logger.Action.NEXT, 
-            {
-                questionKey: this.bakedQueue[this.bakedIndex][0],
-                reason: reason as string,
-            }
-        )
+        this.serveQuestion(reason)
+    }
+
+    private serveQuestion(reason: string | null = null): void {
+        let question : [string, string] = this.bakedQueue[this.bakedIndex] 
+        let qID: string = question[0]
+        let formattedText : string = question[1]
+
+        // first occurence
+        formattedText = formattedText.replace(/\*/, '<mark>')
+        // next occurence
+        formattedText = formattedText.replace(/\*/, '</mark>')
+        $(this.textContainer).html(formattedText)
+
+        let instructions : string = ''
+        if(qID.startsWith('t')) {
+            instructions = 'Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší.'
+        } else if(qID.startsWith('s')) {
+            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
+        } else if(qID.startsWith('z')) {
+            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
+        } else {
+            console.error('Invalid qID: ' + qID)
+        }
+        $(this.instructionsContainer).text(instructions)
+
+        if (reason != null) {
+            logger.log(logger.Action.NEXT, 
+                {
+                    questionKey: this.bakedQueue[this.bakedIndex][0],
+                    reason: reason as string,
+                }
+            )
+        } else {
+            logger.log(logger.Action.NEXT, 
+                {
+                    questionKey: this.bakedQueue[this.bakedIndex][0],
+                }
+            )
+        }
         window.localStorage.setItem(this.localStorageID as string, this.bakedIndex.toString())
     }
 }
 
 let waiter: Waiter = new Waiter(
     $('#study_text'),
+    $('#study_instructions'),
     $('#study_ok_button'),
     $('#study_skip_button'),
     $('#join_study_button'),
