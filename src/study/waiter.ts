@@ -58,7 +58,7 @@ export class Waiter {
 
             logger.log(logger.Action.START, 
                 {
-                    queue: this.bakedQueue.join('-'),
+                    queue: this.bakedQueue.map((x) => x[0]).join('-'),
                 }
             )
             
