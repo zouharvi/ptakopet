@@ -1,8 +1,8 @@
-import { translator_source, translator_target, Translator } from '../messages/translator'
-import { Estimator, estimator } from '../messages/estimator'
+import { translator_source, translator_target, Translator, TranslatorBackend } from '../messages/translator'
+import { estimator, Estimator, EstimatorBackend } from '../messages/estimator'
+import { aligner, Aligner, AlignerBackend } from '../messages/aligner';
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
-import { Aligner } from '../messages/aligner';
 import { highlighter_source, highlighter_target } from './highlighter';
 import { logger } from '../study/logger'
 
@@ -194,6 +194,65 @@ export class SettingsSelector {
             Settings.language1 = Settings.backendTranslator.default[0]
             Settings.language2 = Settings.backendTranslator.default[1]
         }
+    }
+
+    /**
+     * TODO-DOC
+     */
+    public forceSettings(
+        backendTranslator?: string,
+        backendEstimator?: string,
+        backendAligner?: string,
+        language1?: string,
+        language2?: string,
+    ): void {
+        /**
+         * This may not be the best way to handle settings manipulation from code
+         * since it creates unnecesary calls to the server via triggers.
+         */
+        // mute
+        translator_source.on(false)
+        translator_target.on(false)
+        estimator.on(false)
+        aligner.on(false)
+        logger.on(false)
+
+        if (backendTranslator) {
+            $(this.backendTranslatorSelect).val(backendTranslator)
+        }
+        if (backendEstimator) {
+            $(this.backendEstimatorSelect).val(backendEstimator)
+        }
+        if (backendAligner) {
+            $(this.backendAlignerSelect).val(backendAligner)
+        }
+        $(this.backendTranslatorSelect).trigger('change')
+        $(this.backendAlignerSelect).trigger('change')
+        $(this.backendEstimatorSelect).trigger('change')
+        if (language1) {
+            $(this.lang1Select).val(language1)
+        }
+        $(this.lang1Select).trigger('change')
+        if (language2) {
+            $(this.lang2Select).val(language2)
+        }
+        $(this.lang2Select).trigger('change')
+        
+        // unmute
+        translator_source.on(true)
+        translator_target.on(true)
+        estimator.on(true)
+        aligner.on(true)
+        logger.on(true)
+
+        // disable UI elements
+        this.hide()
+        $(this.lang1Select).prop('disabled', true)
+        $(this.lang2Select).prop('disabled', true)
+    }
+
+    private hide(): void {
+        $('#settings_block').hide()
     }
 
     /**

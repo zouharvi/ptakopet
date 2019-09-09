@@ -41,6 +41,11 @@ export abstract class Translator extends AsyncMessage {
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
+    
+    protected running: boolean = true
+    public on(running: boolean = true) {
+        this.running = running
+    }
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
@@ -90,6 +95,9 @@ export class TranslatorSource extends Translator {
     public curSource : string = ''
     public curTranslation : string = ''
     public translate = () => {
+        if(!this.running) {
+            return
+        }
         this.curSource = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
             this.curSource,
@@ -116,6 +124,9 @@ export class TranslatorSource extends Translator {
  */
 export class TranslatorTarget extends Translator {
     public translate = () => {
+        if(!this.running) {
+            return
+        }
         let targetText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
             $(this.source).val() as string,

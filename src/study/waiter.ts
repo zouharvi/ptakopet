@@ -2,6 +2,7 @@ import { logger } from './logger.ts'
 import { estimator } from '../messages/estimator.ts'
 import { translator_source } from '../messages/translator.ts'
 import { BAKED_QUEUE } from './baked.ts'
+import { settings_selector } from '../main.ts'
 
 export class Waiter {
     public bakedQueue : Array<[string, string]> = [] 
@@ -63,7 +64,8 @@ export class Waiter {
             
             $(studyBlock).show()
             $(joinButton).hide()
-
+            // force settings
+            settings_selector.forceSettings('identity', 'deepquest', 'fastAlign', 'cs', 'de')
             
             let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)
             if(tmpDataIndex == null) { 

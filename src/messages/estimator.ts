@@ -26,6 +26,9 @@ export class Estimator extends AsyncMessage {
      * Make an estimator request
      */
     public estimate = () => {
+        if(!this.running) {
+            return
+        }
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendEstimator.composeRequest(
@@ -64,6 +67,11 @@ export class Estimator extends AsyncMessage {
         super()
         this.source = source
         this.target = target
+    }
+    
+    private running: boolean = true
+    public on(running: boolean = true) {
+        this.running = running
     }
 
     // Target HTML elements

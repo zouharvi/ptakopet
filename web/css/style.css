@@ -111,6 +111,7 @@ input {
 
 #study_content_block {
     max-width: calc(475px + 475px + 18px);
+    min-widht: 475px;
     margin-left: 10px;
 }
 
@@ -119,8 +120,13 @@ input {
     color: black;
     height: fit-content;
     max-width: 100%;
-    width: calc(100% - 2 * 20px);
+    width: calc(100% - 2 * 18px);
     padding: 20px;
+
+    /* this is hacky, but float of the div above messes everything up */
+    margin-bottom: 10px;
+    position: relative;
+    top: 10px;
 }
 
 #study_text mark {

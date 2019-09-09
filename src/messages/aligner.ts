@@ -15,6 +15,9 @@ export class Aligner extends AsyncMessage {
      * Make an alignment request
      */
     public align(estimation: Estimation): void {
+        if(!this.running) {
+            return
+        }
         if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             let request = Settings.backendAligner.composeRequest(
                 Settings.language1 as LanguageCode,
@@ -54,6 +57,11 @@ export class Aligner extends AsyncMessage {
         super()
         this.source = source
         this.target = target
+    }
+    
+    private running: boolean = true
+    public on(running: boolean = true) {
+        this.running = running
     }
 
     /**
