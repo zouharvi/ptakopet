@@ -5,8 +5,10 @@
 Current version (static page) with word level quality estimation. [Ptakopět v2](https://ptakopet.vilda.net) (Překlad tam a kontrolně zpět) is a system for agile forward and backward translation. This project was created as a semestral assignment for _Semestral project_, a class at Charles University Faculty of Mathematics and Physics in summer semester (version 2) with help of Ondřej Bojar.
 
 ### Usage
+The frontend contains three windows (input, translation, backward translation). On user input rudimentary form of translation quality estimation is shown.
 
 ### Class requirements
+Full deployment of both server and frontend parts with robust translation interface.
 
 ## Version 1
 
