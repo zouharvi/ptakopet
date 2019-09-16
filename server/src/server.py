@@ -13,6 +13,7 @@ if __name__ == 'server':
   backends['qe'] = {
     'questplusplus': qe.QuestPlusPlus(),
     'deepquest': qe.DeepQuest(),
+    'openkiwi': qe.OpenKiwi(),
   }
   backends['align'] = {
     'fast_align': align.FastAlign(),
