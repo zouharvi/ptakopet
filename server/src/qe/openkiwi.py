@@ -17,7 +17,7 @@ class OpenKiwi():
         It's ok to raise Exceptions here. They are handled upstream.
         """
         
-        if not [sourceLang, targetLang] in [['cs','de']]:
+        if not [sourceLang, targetLang] in [['cs','de'], ['en', 'de']]:
             raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
 
         # Ignore newlines for now, since they require matching number of source & target sentences
@@ -35,7 +35,7 @@ class OpenKiwi():
                 fileTargetW.write(targetText)
 
             (_output, _error) = bash(f"""
-                kiwi predict --config experiments/predict_estimator.yaml
+                kiwi predict --config experiments/predict_estimator_{sourceLang}_{targetLang}.yaml
                  """)
             print(_output)
             print(_error)
