@@ -25,7 +25,7 @@ export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
      */
-    public estimate = () => {
+     estimate = () => {
         if(!this.running) {
             return
         }
@@ -102,6 +102,30 @@ export class Estimator extends AsyncMessage {
             },
             languages: new Set([['en', 'cs']]),
             name: 'QuEst++',
+        },
+        
+        openkiwi: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/openkiwi",
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        async: true,
+                    })
+                        .done((data: EstimationResponse) => {
+                            if (data['status'] == 'OK') {
+                                resolve(data['qe'])
+                            } else {
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
+                            }
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: new Set([['cs', 'de'], ['en', 'de']]),
+            name: 'OpenKiwi',
         },
 
         deepquest: {
