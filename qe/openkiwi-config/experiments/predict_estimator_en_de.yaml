@@ -1,0 +1,25 @@
+#MAIN OPTIONS (running args)
+
+experiment-name: predict-predest-cs-de
+
+output-dir: data/
+
+# GENERAL OPTIONS
+
+# random
+seed: 42
+
+# gpu
+#gpu-id: 0
+
+model: estimator
+
+# save and load
+load-model: models/best_model_en_de.torch
+
+# DATA OPTIONS
+
+wmt18-format: False
+test-source: data/input.src
+test-target: data/input.trg
+valid-batch-size: 16
