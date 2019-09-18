@@ -33,6 +33,7 @@ class DeepQuest():
         # TODO: split sentences to newlines
         repeatText = lambda text, times=100: '\n'.join([text]*times)
         
+        # Sanitize input
         sourceText = tokenize(sourceText, sourceLang)
         targetText = tokenize(targetText, targetLang)
         formatArgs = [('\n', ' ')]
