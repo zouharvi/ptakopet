@@ -1,6 +1,6 @@
 from align import fast_align
 import os
-from utils import DirCrawler, bash, multiReplace
+from utils import DirCrawler, bash, multiReplace, tokenize
 
 import sys
 sys.path.append("..")  # Adds higher directory to python modules path.
