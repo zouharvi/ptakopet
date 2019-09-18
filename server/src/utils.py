@@ -1,7 +1,7 @@
 import os
 import subprocess
 import re
-
+import mosestokenizer
 
 class DirCrawler():
     """
@@ -25,7 +25,8 @@ def bash(bashCommand=""):
     Creates a new process and returns its result in UTF-8 (synchronously)
     """
     process = subprocess.Popen(
-        bashCommand.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        bashCommand.split(),
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
     return (output.decode('utf-8'), error.decode('utf-8'))
 
@@ -58,3 +59,14 @@ def multiReplace(text, replacement):
         return text
     else:
         return multiReplace(re.sub(replacement[0][0], replacement[0][1], text), replacement[1:])
+
+def tokenize(text, language):
+    """
+    Tokenize text with mosestokenizer 
+    """
+    tokenize = mosestokenizer.MosesTokenizer(language)
+    tokens = tokenize(text)
+    tokenize.close()
+    tokens = ' '.join(tokens)
+    print(tokens)
+    return tokens

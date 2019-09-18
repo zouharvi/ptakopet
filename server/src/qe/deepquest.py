@@ -1,6 +1,6 @@
 from align import fast_align
 import os
-from utils import DirCrawler, bash, multiReplace
+from utils import DirCrawler, bash, multiReplace, tokenize
 
 import sys
 sys.path.append("..")  # Adds higher directory to python modules path.
@@ -32,9 +32,10 @@ class DeepQuest():
 
         # TODO: split sentences to newlines
         repeatText = lambda text, times=100: '\n'.join([text]*times)
-
-        # Ignore newlines for now, since they require matching number of source & target sentences
-        formatArgs = [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' '), (r' +$', '')]
+        
+        sourceText = tokenize(sourceText, sourceLang)
+        targetText = tokenize(targetText, targetLang)
+        formatArgs = [('\n', ' ')]
         sourceText = multiReplace(sourceText, formatArgs)
         targetText = multiReplace(targetText, formatArgs) 
 
@@ -47,12 +48,13 @@ class DeepQuest():
             fileTargetW.write(repeatText(targetText) + '\n')
 
         tokensTarget = targetText.split(' ')
-
+        
         best_epoch = self.pairsEpochs[task_name]
         store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
         with DirCrawler('qe/deepQuest/quest'):
+            print("C")
             (_output, _error) = bash(f"""
                 bash ../../deepQuest-config/estimate-wordQEbRNN.sh {task_name} {best_epoch}
                  """)
@@ -87,6 +89,5 @@ class DeepQuest():
 
         os.remove(fileSource)
         os.remove(fileTarget)
-
 
         return {'status': 'OK', 'qe': features}
