@@ -1,6 +1,5 @@
 import os
-from utils import DirCrawler, bash, formatParallel
-
+from utils import DirCrawler, bash, formatParallel, tokenize
 
 class FastAlign():
     """
@@ -29,7 +28,10 @@ class FastAlign():
         """
         file1, file2 = self.findRawData(sourceLang, targetLang)
         out = formatParallel(file1, file2)
-        # TODO: Tokenize properly, so that this data makes sense to QE models.
+
+        sourceText = tokenize(sourceText, sourceLang)
+        targetText = tokenize(targetText, targetLang)
+
         out = ["{} ||| {}".format(sourceText, targetText)] + out
         # Found relevant parallel corpus
         print("Files found: {}, {}".format(file1, file2))

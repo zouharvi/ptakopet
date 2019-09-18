@@ -1,6 +1,6 @@
 from align import fast_align
 import os
-from utils import DirCrawler, bash, multiReplace
+from utils import DirCrawler, bash, multiReplace, tokenize
 
 import sys
 sys.path.append("..")  # Adds higher directory to python modules path.
@@ -24,8 +24,8 @@ class QuestPlusPlus():
                 "{}-{} language pair not supported".format(sourceLang, targetLang))
 
         # Sanitize input
-        sourceText = multiReplace(sourceText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
-        targetText = multiReplace(targetText, [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' ')])
+        sourceText = tokenize(sourceText, sourceLang)
+        targetText = tokenize(targetText, targetLang)
 
         alignments = fast_align.FastAlign().align(
             sourceLang, targetLang, sourceText, targetText)['alignment']

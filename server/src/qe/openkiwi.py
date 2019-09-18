@@ -20,10 +20,9 @@ class OpenKiwi():
         if not [sourceLang, targetLang] in [['cs','de'], ['en', 'de']]:
             raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
 
-        # Ignore newlines for now, since they require matching number of source & target sentences
-        formatArgs = [('\n', ' '), (r'([\?\.,])', r' \1 '), (r'\ +', ' '), (r' +$', '')]
-        sourceText = multiReplace(sourceText, formatArgs)
-        targetText = multiReplace(targetText, formatArgs) 
+        # Sanitize input
+        sourceText = tokenize(sourceText, sourceLang)
+        targetText = tokenize(targetText, targetLang)
 
         with DirCrawler('qe/openkiwi-config'):
             fileSource = 'data/input.src'
