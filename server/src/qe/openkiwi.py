@@ -44,7 +44,5 @@ class OpenKiwi():
         
             fileOut = 'data/tags'
             with open(fileOut, 'r') as f:
-                # TODO: check behavior on multisentence
                 out = [1-float(x.rstrip('\n')) for x in ' '.join(f.readlines()).split(' ')]
-        print(out)
         return {'status': 'OK', 'qe': out}
