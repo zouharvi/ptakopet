@@ -1,4 +1,4 @@
-from align import fast_align
+from align import fast_align, hunalign
 import os
 from utils import DirCrawler, bash, multiReplace, tokenize
 
@@ -21,27 +21,30 @@ class OpenKiwi():
             raise Exception(f'{sourceLang}-{targetLang} language pair not supported')
 
         # Sanitize input
-        sourceText = tokenize(sourceText, sourceLang)
-        targetText = tokenize(targetText, targetLang)
+        aligned = hunalign(sourceText, targetText)
+        sourceText = [tokenize(x[0], sourceLang, False) for x in aligned]
+        targetText = [tokenize(x[1], sourceLang, False) for x in aligned]
+        sourceTextPlain = '\n'.join([' '.join(x) for x in sourceText])
+        targetTextPlain = '\n'.join([' '.join(x) for x in targetText])
 
         with DirCrawler('qe/openkiwi-config'):
             fileSource = 'data/input.src'
             with open(fileSource, 'w') as fileSourceW:
-                fileSourceW.write(sourceText)
+                fileSourceW.write(sourceTextPlain)
 
             fileTarget = 'data/input.trg'
             with open(fileTarget, 'w') as fileTargetW:
-                fileTargetW.write(targetText)
+                fileTargetW.write(targetTextplain)
 
             (_output, _error) = bash(f"""
                 kiwi predict --config experiments/predict_estimator_{sourceLang}_{targetLang}.yaml
                  """)
-            print(_output)
-            print(_error)
+            #print(_output)
+            #print(_error)
         
             fileOut = 'data/tags'
             with open(fileOut, 'r') as f:
                 # TODO: check behavior on multisentence
-                out = [1-float(x.rstrip('\n')) for x in f.readlines()[0].split(' ')]
+                out = [1-float(x.rstrip('\n')) for x in ' '.join(f.readlines()).split(' ')]
         print(out)
         return {'status': 'OK', 'qe': out}

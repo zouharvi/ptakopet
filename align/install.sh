@@ -16,9 +16,8 @@ fi
 mkdir -p "data/align"
 tar -C "data/align" -xf "$TMPDIR/align_ubuntu.tar.xz"
 
-#echo "Installing eflomal"
-# mkdir ./build
-# make
-# make install -e INSTALLDIR=./build
-# python3 setup.py install --user
-# python3 ./align.py --help
+echo "Installing Hunalign"
+git submodule update --init --recursive align/hunalign/hunalign
+cd align/hunalign/hunalign/src/hunalign
+make
+cd ../../../../..

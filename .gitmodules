@@ -7,3 +7,6 @@
 [submodule "qe/deepQuest"]
 	path = qe/deepQuest
 	url = https://github.com/zouharvi/deepQuest
+[submodule "align/hunalign/hunalign"]
+	path = align/hunalign/hunalign
+	url = https://github.com/zouharvi/hunalign

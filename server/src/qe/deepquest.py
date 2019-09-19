@@ -1,4 +1,4 @@
-from align import fast_align
+from align import hunalign
 import os
 from utils import DirCrawler, bash, multiReplace, tokenize
 
@@ -29,38 +29,37 @@ class DeepQuest():
             raise Exception(f'data/{task_name} does not exits')
 
         os.makedirs('data/tmp', exist_ok=True)
+        
+        aligned = hunalign(sourceText, targetText)
 
-        # TODO: split sentences to newlines
         repeatText = lambda text, times=100: '\n'.join([text]*times)
         
         # Sanitize input
-        sourceText = tokenize(sourceText, sourceLang)
-        targetText = tokenize(targetText, targetLang)
-        formatArgs = [('\n', ' ')]
-        sourceText = multiReplace(sourceText, formatArgs)
-        targetText = multiReplace(targetText, formatArgs) 
+        sourceText = [tokenize(x[0], sourceLang, False) for x in aligned]
+        targetText = [tokenize(x[1], sourceLang, False) for x in aligned]
+        sourceTextPlain = '\n'.join([' '.join(x) for x in sourceText])
+        targetTextPlain = '\n'.join([' '.join(x) for x in targetText])
 
         fileSource = 'qe/deepQuest-config/data_input/test.src'
-        with open(fileSource, 'w') as fileSourceW:
-            fileSourceW.write(repeatText(sourceText) + '\n')
+        with open(fileSource, 'w') as f:
+            f.write(repeatText(sourceTextPlain) + '\n')
 
         fileTarget = 'qe/deepQuest-config/data_input/test.trg'
-        with open(fileTarget, 'w') as fileTargetW:
-            fileTargetW.write(repeatText(targetText) + '\n')
+        with open(fileTarget, 'w') as f:
+            f.write(repeatText(targetTextPlain) + '\n')
 
-        tokensTarget = targetText.split(' ')
+        tokensTarget = [item for sublist in targetText for item in sublist]
         
         best_epoch = self.pairsEpochs[task_name]
         store_path = f'../../deepQuest-config/saved_models/{task_name}'
         filename = lambda threshold: f'{store_path}/val_epoch_{best_epoch}_threshold_0.{threshold}_output_0.pred'
 
         with DirCrawler('qe/deepQuest/quest'):
-            print("C")
             (_output, _error) = bash(f"""
                 bash ../../deepQuest-config/estimate-wordQEbRNN.sh {task_name} {best_epoch}
                  """)
-            print(_output)
-            print(_error)
+            #print(_output)
+            #print(_error)
 
             features = []
             for i in range(10):
@@ -71,14 +70,11 @@ class DeepQuest():
                     features.append([1*(x == 'OK\n') for x in outputFile.readlines()])
             
             # Transpose
-            features = [[features[j][i] for j in range(len(features))] for i in range(len(features[0]))] 
+            features = [[features[j][i] for j in range(len(features))] for i in range(len(features[0]))]
             # Average lines
             features = [sum(x)/len(x) for x in features]
             # Take only relevant number of tokens
             features = features[:len(tokensTarget)]
-
-            print(f'tokensTarget {tokensTarget}')
-            print(f'all features: {features}')
 
             os.remove('log-keras.txt')
             os.remove('log-keras-error.txt')
