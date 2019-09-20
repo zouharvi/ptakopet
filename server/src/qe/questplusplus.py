@@ -1,4 +1,4 @@
-from align import fast_align
+from align import fast_align, hunalign
 import os
 from utils import DirCrawler, bash, multiReplace, tokenize
 
@@ -24,19 +24,22 @@ class QuestPlusPlus():
                 "{}-{} language pair not supported".format(sourceLang, targetLang))
 
         # Sanitize input
-        sourceText = tokenize(sourceText, sourceLang)
-        targetText = tokenize(targetText, targetLang)
+        aligned = hunalign(sourceText, targetText)
+        sourceText = [tokenize(x[0], sourceLang, False) for x in aligned]
+        targetText = [tokenize(x[1], sourceLang, False) for x in aligned]
+        sourceTextPlain = '\n'.join([' '.join(x) for x in sourceText])
+        targetTextPlain = '\n'.join([' '.join(x) for x in targetText])
 
         alignments = fast_align.FastAlign().align(
-            sourceLang, targetLang, sourceText, targetText)['alignment']
+            sourceLang, targetLang, sourceTextPlain, targetTextPlain)['alignment']
         with open('data/tmp/alignments', 'w') as fileAlignments:
             fileAlignments.write(alignments)
 
         with open('data/tmp/source', 'w') as fileSource:
-            fileSource.write(sourceText)
+            fileSource.write(sourceTextPlain)
 
         with open('data/tmp/target', 'w') as fileTarget:
-            fileTarget.write(targetText)
+            fileTarget.write(targetTextPlain)
 
         with DirCrawler('qe/questplusplus'):
             print("Extracting features")

@@ -41,6 +41,4 @@ class FastAlign():
         (output, _) = bash("align/fast_align/build/fast_align -d -o -v -i tmp.parallel")
         os.remove('tmp.parallel')
         
-        # @TODO: Check all went OK
-        # If tokens will be used, check number of resulting tokens
-        return {'status': 'OK', 'alignment': output.split('\n')[0]}
+        return {'status': 'OK', 'alignment': '\n'.join(output.split('\n')[:(targetText.count('\n')+1)])}
