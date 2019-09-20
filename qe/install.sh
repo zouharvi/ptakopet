@@ -56,7 +56,6 @@ fi
 mkdir -p "qe/deepQuest-config/saved_models"
 tar -C "qe/deepQuest-config/saved_models" -xf "$TMPDIR/deepquest_models.tar.xz"
 
-
 echo "Installing OpenKiwi"
 # for input output piping
 mkdir -p "qe/openkiwi-config/data"
@@ -64,4 +63,4 @@ echo "Fetching openkiwi trained models"
 if ! `wget -q --show-progress "https://ptakopet.vilda.net/data/openkiwi_models.tar.xz" -P "$TMPDIR"` ; then
     die "Error while downloading"
 fi
-tar -C "qe/openkiwi-configs" -xf "$TMPDIR/openkiwi_models.tar.xz"
+tar -C "qe/openkiwi-config" -xf "$TMPDIR/openkiwi_models.tar.xz"
