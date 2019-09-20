@@ -16,6 +16,7 @@ export class Waiter {
     private instructionsContainer: JQuery<HTMLElement>
     private okButton: JQuery<HTMLElement>
     private skipButton: JQuery<HTMLElement>
+    private studyBlock: JQuery<HTMLElement>
     public  joinButton: JQuery<HTMLElement>
     
     constructor(
@@ -32,51 +33,9 @@ export class Waiter {
         this.skipButton = skipButton
         this.textContainer = textContainer
         this.joinButton = joinButton
+        this.studyBlock = studyBlock
 
-        $(joinButton).click(() => {
-            let userID : string | null = prompt('UserID:', '')
-            if (userID == null) {
-                return
-            }
-
-
-            this.userID = userID
-            this.localStorageID = 'ptakopet_progress_' + (this.userID as string)
-            
-            logger.on()
-    
-            let keys = BAKED_QUEUE['unknown']
-            if (BAKED_QUEUE.hasOwnProperty(this.userID)) {
-                keys = BAKED_QUEUE[this.userID]
-            } else {
-                alert('Unknown user ID, falling back to default baked queue.')
-            } 
-            for(let key in keys) {
-                let qID = keys[key]
-                this.bakedQueue.push([qID, this.studyDB[qID]])
-            } 
-
-            logger.log(logger.Action.START, 
-                {
-                    queue: this.bakedQueue.map((x) => x[0]).join('-'),
-                }
-            )
-            
-            $(studyBlock).show()
-            $(joinButton).hide()
-            // force settings
-            settings_selector.forceSettings('identity', 'deepquest', 'fastAlign', 'cs', 'de')
-            
-            let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)
-            if(tmpDataIndex == null) { 
-                window.localStorage.setItem(this.localStorageID, this.bakedIndex.toString())
-            } else {
-                this.bakedIndex = parseInt(tmpDataIndex)
-            }
-
-            // reset question index
-            waiter.nextSkip(false, false)
-        })
+        $(joinButton).click(this.joinStudy)
         
         // lambda is used here to capture 'this' context
         $(okButton).click(() => this.nextOk())
@@ -94,6 +53,56 @@ export class Waiter {
         
     }
 
+    /**
+     * Prepares the interface after the users joins the study
+     */
+    private joinStudy(): void {
+        let userID : string | null = prompt('UserID:', '')
+        if (userID == null) {
+            return
+        }
+
+        this.userID = userID
+        this.localStorageID = 'ptakopet_progress_' + (this.userID as string)
+        
+        logger.on()
+
+        let keys = BAKED_QUEUE['unknown']
+        if (BAKED_QUEUE.hasOwnProperty(this.userID)) {
+            keys = BAKED_QUEUE[this.userID]
+        } else {
+            alert('Unknown user ID, falling back to default baked queue.')
+        } 
+        for(let key in keys) {
+            let qID = keys[key]
+            this.bakedQueue.push([qID, this.studyDB[qID]])
+        } 
+
+        logger.log(logger.Action.START, 
+            {
+                queue: this.bakedQueue.map((x) => x[0]).join('-'),
+            }
+        )
+        
+        $(this.studyBlock).show()
+        $(this.joinButton).hide()
+        // force settings
+        settings_selector.forceSettings('identity', 'openkiwi', 'fastAlign', 'cs', 'de')
+        
+        let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)
+        if(tmpDataIndex == null) { 
+            window.localStorage.setItem(this.localStorageID, this.bakedIndex.toString())
+        } else {
+            this.bakedIndex = parseInt(tmpDataIndex)
+        }
+
+        // reset question index
+        waiter.nextSkip(false, false)
+    }
+
+    /**
+     * Tries to advance the question index 
+     */
     private advanceIndex(): void {
         this.bakedIndex += 1
         if(this.bakedIndex == this.bakedQueue.length) {
@@ -103,6 +112,9 @@ export class Waiter {
         }
     }
 
+    /**
+     * Work done, send to logger and go to the next question
+     */
     public nextOk(): void {
         logger.log(logger.Action.CONFIRM, 
             {
@@ -116,6 +128,9 @@ export class Waiter {
         this.serveQuestion()
     }
     
+    /**
+     * User tries to skip the current question
+     */
     public nextSkip(promptUser: boolean = true, advance: boolean = true): void {
         let reason : string | null = ''
         if (promptUser) {
@@ -130,6 +145,9 @@ export class Waiter {
         this.serveQuestion(reason)
     }
 
+    /**
+     * Display the current question
+     */
     private serveQuestion(reason: string | null = null): void {
         let question : [string, string] = this.bakedQueue[this.bakedIndex] 
         let qID: string = question[0]

@@ -13,9 +13,10 @@ export enum LogAction {
 }
 
 export class Logger {
-    questionIndex: number = 0
+    public questionIndex: number = 0
     private sessionID: string
     private running: boolean = false
+
     // Reexport LogAction enum
     public Action = LogAction
 
@@ -23,6 +24,10 @@ export class Logger {
         this.sessionID = this.randomString(10)
     }
     
+    /**
+     * Generate random alphanumeric string
+     * TODO: move to Utils
+     */
     private randomString(length: number): string {
         let result = '';
         let characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,16 +38,25 @@ export class Logger {
         return result;
     }
    
+    /**
+     * Switch Logger globally on or off
+     */
     public on(running: boolean = true) {
         this.running = running
     }
 
+    /**
+     * Log extra
+     */
     public log(action: LogAction, extra: object = {}) : void {
         if (this.running) {
             this.dispatch(action, extra)
         }
     }
 
+    /**
+     * Send logged data to the loggin server
+     */
     private dispatch(action: LogAction, extra: object) : void {
         // Reverse enum mapping is not guaranteed!
         let data = {

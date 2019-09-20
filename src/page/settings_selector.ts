@@ -251,6 +251,9 @@ export class SettingsSelector {
         $(this.lang2Select).prop('disabled', true)
     }
 
+    /**
+     * Hides the settings block in DOM
+     */
     private hide(): void {
         $('#settings_block').hide()
     }
