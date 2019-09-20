@@ -34,7 +34,7 @@ class OpenKiwi():
 
             fileTarget = 'data/input.trg'
             with open(fileTarget, 'w') as fileTargetW:
-                fileTargetW.write(targetTextplain)
+                fileTargetW.write(targetTextPlain)
 
             (_output, _error) = bash(f"""
                 kiwi predict --config experiments/predict_estimator_{sourceLang}_{targetLang}.yaml
