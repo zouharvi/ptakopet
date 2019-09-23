@@ -66,6 +66,24 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'cs'],
             name: 'ÚFAL Transformer',
         },
+        
+        ufalTranslationDev: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
+                return new Promise<string>((resolve, reject) => {
+                    $.ajax({
+                        type: "POST",
+                        url: "https://lindat.mff.cuni.cz/services/translation-dev/api/v2/languages/",
+                        data: { src: sourceLang, tgt: targetLang, input_text: text },
+                        async: true,
+                    })
+                        .done((data: string) => resolve(data.replace(/\n$/, '')))
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'de'], true),
+            default: ['cs', 'de'],
+            name: 'ÚFAL Translation Dev',
+        },
 
         identity: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
