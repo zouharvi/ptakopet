@@ -155,15 +155,11 @@ export class Waiter {
         let formattedText : string = question[1]
 
         // clear artifacts
-        translator_source.on(false)
-        translator_target.on(false)
         $(translator_source.source).val('')
         $(translator_target.source).val('')
         $(translator_target.target).val('')
         highlighter_source.highlight([])
         highlighter_target.highlight([])
-        translator_source.on(true)
-        translator_target.on(true)
 
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')

@@ -8,7 +8,7 @@ export module TextUtils {
      * @param raw Raw input string
      */
     export function tokenize(raw: string): Array<string> {
-        let res: Array<string> = TextUtils.clean(raw).split(/[\n\'\"]+/)
+        let res: Array<string> = TextUtils.clean(raw).split(/[\s\n\'\"]+/)
         
         // special case for empty string
         if (res.length == 1 && res[0] == "") {

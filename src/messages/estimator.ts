@@ -79,30 +79,6 @@ export class Estimator extends AsyncMessage {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
-        questplusplus: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
-                return new Promise<Estimation>((resolve, reject) => {
-                    $.ajax({
-                        type: "GET",
-                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
-                        async: true,
-                    })
-                        .done((data: EstimationResponse) => {
-                            if (data['status'] == 'OK') {
-                                resolve(data['qe'])
-                            } else {
-                                console.warn(data['error'])
-                                reject(data['error'] as string)
-                            }
-                        })
-                        .fail((xhr: JQueryXHR) => reject(xhr))
-                })
-            },
-            languages: new Set([['en', 'cs']]),
-            name: 'QuEst++',
-        },
-        
         openkiwi: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
@@ -127,6 +103,30 @@ export class Estimator extends AsyncMessage {
             name: 'OpenKiwi',
         },
 
+        questplusplus: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
+                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        async: true,
+                    })
+                        .done((data: EstimationResponse) => {
+                            if (data['status'] == 'OK') {
+                                resolve(data['qe'])
+                            } else {
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
+                            }
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: new Set([['en', 'cs']]),
+            name: 'QuEst++',
+        },
+        
         deepquest: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {

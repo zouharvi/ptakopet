@@ -9,6 +9,7 @@ import { SettingsSelector } from './page/settings_selector'
 import { estimator } from './messages/estimator'
 import { waiter } from './study/waiter'
 import { logger } from './study/logger'
+import { Utils } from './misc/utils'
 
 // Force files to execute
 translator_source
@@ -37,3 +38,9 @@ $('#input_target').on('input', function () {
     estimator.estimate_throttle()
 })
 
+// Try to do omnibox search
+let params = Utils.parseGETParams()
+if ('q' in params) {
+    $(translator_source.source).val(params['q'])
+    $(translator_source.source).trigger('input')
+}

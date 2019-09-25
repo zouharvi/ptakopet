@@ -165,6 +165,25 @@ export module Utils {
             throw new Error('Unknown language code: `' + code + '`')
         }
     }
+
+    /**
+     * Returns associative array of GET parameters
+     **/
+    export function parseGETParams(): {[key: string]: string} {
+        let queryString : string = window.location.search.substring(1)
+
+        let params : {[key: string]: string} = {}
+        let queries = queryString.split("&")
+
+        queries.forEach((indexQuery: string) => {
+            let indexPair = indexQuery.split("=")
+            let queryKey = decodeURIComponent(indexPair[0])
+            let queryValue = decodeURIComponent(indexPair.length > 1 ? indexPair[1] : "")
+            params[queryKey] = queryValue
+        })
+
+        return params
+    }
 }
 
 /**
