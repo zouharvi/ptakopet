@@ -14,9 +14,9 @@ def organizeData(request):
             result.append(request.pop(o)) 
     for k in request:
         result.append(f'EXTRA({k}:{request[k]})')
+    result = list(map(lambda x: x.replace(',', '&#44;'), result))
     result = list(map(lambda x: x.replace('\n', '<br>'), result))
     return result
-    
 
 def log(sessionID, userID, action, time, **request):
     logFile = f'logs/{userID}.log'
