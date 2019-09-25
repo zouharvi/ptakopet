@@ -55,6 +55,9 @@ export abstract class Translator extends AsyncMessage {
                     $.ajax({
                         type: "POST",
                         url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
+                        headers: { 
+                           Accept: "application/json",
+                        },    
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
@@ -74,9 +77,12 @@ export abstract class Translator extends AsyncMessage {
                         type: "POST",
                         url: "https://lindat.mff.cuni.cz/services/translation-dev/api/v2/languages/",
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
+                        headers: { 
+                           Accept: "application/json",
+                        },    
                         async: true,
                     })
-                        .done((data: string) => resolve(data.replace(/\n$/, '')))
+                        .done((data: Array<string>) => resolve(data.join('').replace(/\n$/, '')))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },

@@ -1,6 +1,7 @@
 import { logger } from './logger.ts'
 import { estimator } from '../messages/estimator.ts'
-import { translator_source } from '../messages/translator.ts'
+import { translator_source, translator_target } from '../messages/translator.ts'
+import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { BAKED_QUEUE } from './baked.ts'
 import { settings_selector } from '../main.ts'
 
@@ -152,6 +153,17 @@ export class Waiter {
         let question : [string, string] = this.bakedQueue[this.bakedIndex] 
         let qID: string = question[0]
         let formattedText : string = question[1]
+
+        // clear artifacts
+        translator_source.on(false)
+        translator_target.on(false)
+        $(translator_source.source).val('')
+        $(translator_target.source).val('')
+        $(translator_target.target).val('')
+        highlighter_source.highlight([])
+        highlighter_target.highlight([])
+        translator_source.on(true)
+        translator_target.on(true)
 
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')
