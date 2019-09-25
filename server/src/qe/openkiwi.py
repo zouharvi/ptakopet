@@ -45,4 +45,12 @@ class OpenKiwi():
             fileOut = 'data/tags'
             with open(fileOut, 'r') as f:
                 out = [1-float(x.rstrip('\n')) for x in ' '.join(f.readlines()).split(' ')]
+
+        # map the estimation from an interval to discrete values:
+        # >= 0.5 -> 1.0
+        # >= 0.4 -> 0.7
+        # >= 0.1 -> 0.3
+        # <= 0.1 -> 0.1
+        out = map(lambda x: 1 if x >= 0.5 else 0.7 if x >= 0.4 else 0.3 if x >= 1 else 0.1, out)
+        out = list(out)
         return {'status': 'OK', 'qe': out}
