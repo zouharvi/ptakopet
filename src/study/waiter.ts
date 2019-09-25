@@ -35,7 +35,7 @@ export class Waiter {
         this.joinButton = joinButton
         this.studyBlock = studyBlock
 
-        $(joinButton).click(this.joinStudy)
+        $(joinButton).click(() => this.joinStudy())
         
         // lambda is used here to capture 'this' context
         $(okButton).click(() => this.nextOk())
@@ -87,7 +87,7 @@ export class Waiter {
         $(this.studyBlock).show()
         $(this.joinButton).hide()
         // force settings
-        settings_selector.forceSettings('identity', 'openkiwi', 'fastAlign', 'cs', 'de')
+        settings_selector.forceSettings('ufalTranslationDev', 'openkiwi', 'fastAlign', 'cs', 'de')
         
         let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)
         if(tmpDataIndex == null) { 
@@ -153,6 +153,9 @@ export class Waiter {
         let qID: string = question[0]
         let formattedText : string = question[1]
 
+        // disable estimation on out of domain questions
+        estimator.on(qID[0] == 't')
+
         // first occurence
         formattedText = formattedText.replace(/\*/, '<mark>')
         // next occurence
@@ -165,6 +168,8 @@ export class Waiter {
         } else if(qID.startsWith('s')) {
             instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
         } else if(qID.startsWith('z')) {
+            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
+        } else if(qID.startsWith('p')) {
             instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
         } else {
             console.error('Invalid qID: ' + qID)
