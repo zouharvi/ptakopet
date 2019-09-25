@@ -14,6 +14,7 @@ def organizeData(request):
             result.append(request.pop(o)) 
     for k in request:
         result.append(f'EXTRA({k}:{request[k]})')
+    result = list(map(lambda x: x.replace('\n', '<br>'), result))
     return result
     
 
