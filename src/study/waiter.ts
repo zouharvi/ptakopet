@@ -2,7 +2,8 @@ import { logger } from './logger.ts'
 import { estimator } from '../messages/estimator.ts'
 import { translator_source, translator_target } from '../messages/translator.ts'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { BAKED_QUEUE } from './baked.ts'
+import { BAKED_QUEUE } from './baked_queue.ts'
+import { QUESTIONS_FLAT } from './questions_flat.ts'
 import { settings_selector } from '../main.ts'
 
 export class Waiter {
@@ -41,17 +42,6 @@ export class Waiter {
         // lambda is used here to capture 'this' context
         $(okButton).click(() => this.nextOk())
         $(skipButton).click(() => this.nextSkip())
-        
-        // the questions URL may be moved in the future
-        jQuery.getJSON(
-            'https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/study/questions_flat.json',
-            (data) => {
-                this.studyDB = data
-                // TODO: log number of loaded questions
-                // console.log('Loaded ' + this.studyData.length + ' questions')
-            }
-        )
-        
     }
 
     /**
@@ -76,7 +66,7 @@ export class Waiter {
         } 
         for(let key in keys) {
             let qID = keys[key]
-            this.bakedQueue.push([qID, this.studyDB[qID]])
+            this.bakedQueue.push([qID, QUESTIONS_FLAT[qID]])
         } 
 
         logger.log(logger.Action.START, 
