@@ -24,7 +24,10 @@ export module TextUtils {
      */
     export function clean(raw: string): string {
         let res: string = raw
+            .replace(new RegExp('\\.', 'g'), ' . ') // add space around .
+            .replace(new RegExp(',', 'g'), ' , ') // add space around ,
             .replace(new RegExp('<p>', 'g'), '') // clean leading tags
+            .replace(new RegExp('^\\s+', 'g'), '') // clean leading space
             .replace(new RegExp('(<br>|\n|</p>)+', 'g'), '\n') // collapse multiple newlines into one
             .replace(new RegExp('( |&nbsp;)+', 'g'), ' ') // collapse multiple spaces into one
             .replace(new RegExp('( |&nbsp;)\n', 'g'), '\n') // collapse trailing space with newline to newline
@@ -40,6 +43,7 @@ export module TextUtils {
     export function tokenizeIndices(raw: string, skipSpaces: boolean = true): Array<[number, number]> {
         let arr: Array<[number, number]> = []
         let words: Array<string> = TextUtils.tokenize(raw)
+
         // counts the number of all words
         let wordIndex: number = 0
         // count the number of spaces which to eventually subtract

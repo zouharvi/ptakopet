@@ -27,7 +27,6 @@ export class Highlighter {
          * Instead of pairing estimator and translator requests the highlighting job is dropped if these lengths
          * don't match. This is a hack, but works great for cases such as None estimation. 
          */
-        // TODO: deepQuest considers sentence punctuation separate tokens
         // This could be fixed with upstream alignment tokenization and thus the inequality
         // would be replaced with equality.
         if (intensities.length < indices.length || intensities.length == 0) {
@@ -40,13 +39,13 @@ export class Highlighter {
         } else {
             this.dirty = true
         }
-
+        
         // Attempt at least some normalization
-        let max = Math.max(...intensities)
-        let min = Math.min(...intensities)
-        for(let i in intensities) {
+        // let max = Math.max(...intensities)
+        // let min = Math.min(...intensities)
+        // for(let i in intensities) {
         //   intensities[i] = (intensities[i] - min)/(max-min)
-        }
+        // }
 
         let highlights: Array<{ highlight: [number, number], className: string }> = []
 
