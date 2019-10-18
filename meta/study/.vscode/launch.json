@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-2/*.log"],
+            "args": ["./logs-backup-2/*.log", "-j", "./logs-backup-2/merged.blog"],
         },
     ]
 }
