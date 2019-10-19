@@ -87,7 +87,7 @@ export abstract class Translator extends AsyncMessage {
                 })
             },
             languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr'], true),
-            default: ['en', 'cs'],
+            default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },
         
