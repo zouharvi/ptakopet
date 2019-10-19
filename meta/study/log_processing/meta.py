@@ -60,7 +60,7 @@ def cleanSegments(segments):
             line[1] = int(line[1]) - base
     return segments
 
-all = []
+allSegments = []
 # Process every file
 for logfile in args.logfile:
     name = os.path.basename(logfile).rstrip('.log')
@@ -72,14 +72,13 @@ for logfile in args.logfile:
     print(f'Processing {name}:')
     userTime(logs)
     averageTime(logs)
-    # withoutBacktracking(logs)
     if args.join is not None:
         segments = confirmSplit(logs)
         segments = cleanSegments(segments)
         segments = [[[name]+line for line in s] for s in segments]
-        all += segments
+        allSegments += segments
     print()
 
 if args.join is not None:
     with open(args.join, 'wb') as f:
-        pickle.dump(all, f)
+        pickle.dump(allSegments, f)

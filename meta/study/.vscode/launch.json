@@ -9,5 +9,21 @@
             "console": "integratedTerminal",
             "args": ["./logs-backup-2/*.log", "-j", "./logs-backup-2/merged.blog"],
         },
+        {
+            "name": "Python: Segments R1",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["./logs-backup-2/merged.blog", "-sr1", "./logs-backup-2/merged.sr1"],
+        },
+        {
+            "name": "Python: Segments R2",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["./logs-backup-2/merged.blog", "-sr2", "./logs-backup-2/merged.sr2"],
+        },
     ]
 }
