@@ -8,13 +8,15 @@ parser.add_argument('-sr1', '--segments_r1',
                     help='Path to file for segments readable 1 output')
 parser.add_argument('-sr2', '--segments_r2',
                     help='Path to file for segments readable 2 output')
+parser.add_argument('-sr3', '--segments_r3',
+                    help='Path to file for segments readable 3 output')
 args = parser.parse_args()
 
 
 def prefixMap(logs, prefix, func=lambda x: x):
     return list(map(func, filter(lambda x: x[1] == prefix, logs)))
 
-
+# TODO: documentation
 def withoutBacktracking(segments):
     out = []
     for segment in segments:
@@ -38,6 +40,7 @@ def withoutBacktracking(segments):
 def flatten(l):
     return [item for sublist in l for item in sublist]
 
+# TODO: documentation
 def segmentR1(segment):
     out = ''
     l1, l2, l3 = '-', '-', '-'
@@ -54,6 +57,7 @@ def segmentR1(segment):
             out += f'{l1}\n{l2}\n{l3}\n--\n'
     return out + '\n###\n'
 
+# TODO: documentation
 def segmentR2(segment):
     out = ''
     for line in segment:
@@ -61,6 +65,17 @@ def segmentR2(segment):
             out += f'{line[3]}\n'
     return out + '\n###\n'
 
+# TODO: documentation
+def segmentR3(segment):
+    l1, l3 = '-', '-'
+    for line in segment:
+        if line[1] == 'TRANSLATE1':
+            l1 = line[3] # source
+        if line[1] == 'TRANSLATE2':
+            l3 = line[4] # back
+    return f'{l1}\n{l3}\n###'
+
+# TODO: documentation
 def outputSegmentsR(segments, func, outfile):
     out = [func(s) for s in segments]
     with open(outfile, 'w') as f:
@@ -74,3 +89,5 @@ if args.segments_r1 is not None:
     outputSegmentsR(segments, segmentR1, args.segments_r1)
 if args.segments_r2 is not None:
     outputSegmentsR(segments, segmentR2, args.segments_r2)
+if args.segments_r3 is not None:
+    outputSegmentsR(segments, segmentR3, args.segments_r3)

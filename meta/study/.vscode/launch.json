@@ -25,5 +25,13 @@
             "console": "integratedTerminal",
             "args": ["./logs-backup-2/merged.blog", "-sr2", "./logs-backup-2/merged.sr2"],
         },
+        {
+            "name": "Python: Segments R3",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["./logs-backup-2/merged.blog", "-sr3", "./logs-backup-2/merged.sr3"],
+        },
     ]
 }
