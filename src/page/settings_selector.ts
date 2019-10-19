@@ -155,8 +155,9 @@ export class SettingsSelector {
         if (Settings.language1 == undefined) {
             Settings.language1 = Settings.backendTranslator.default[0]
         }
+
+        // Try to keep the current language
         if (codeData.indexOf(Settings.language1) > -1) {
-            // Try to keep the current language
             $(this.lang1Select).val(Settings.language1)
         } else {
             Settings.language1 = Settings.backendTranslator.default[0]
@@ -187,8 +188,9 @@ export class SettingsSelector {
         if (Settings.language2 == undefined) {
             Settings.language2 = Settings.backendTranslator.default[1]
         }
+
+        // Try to keep the current language
         if (codeData.indexOf(Settings.language2) > -1) {
-            // Try to keep the current language
             $(this.lang2Select).val(Settings.language2)
         } else {
             Settings.language1 = Settings.backendTranslator.default[0]

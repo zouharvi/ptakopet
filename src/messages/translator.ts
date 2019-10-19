@@ -65,7 +65,7 @@ export abstract class Translator extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'de'], true),
+            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'de'], false),
             default: ['cs', 'de'],
             name: 'ÚFAL Translation Dev',
         },
@@ -86,7 +86,7 @@ export abstract class Translator extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr'], true),
+            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr'], false),
             default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },
