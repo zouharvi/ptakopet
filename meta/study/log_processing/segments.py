@@ -2,7 +2,7 @@
 import argparse
 import pickle
 
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 parser.add_argument('-sr1', '--segments_r1',
                     help='Path to file for segments readable 1 output')

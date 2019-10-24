@@ -9,7 +9,7 @@ import os, argparse, pickle
 # Input must be Ptakopět log files each of single person (more precisely
 # the file must be sorted by time tags).
 
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='')
 parser.add_argument('logfile', nargs='+',
                     help='Path to the log file in question')
 parser.add_argument('-j', '--join',
