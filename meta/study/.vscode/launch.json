@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-2/*.log", "-j", "./logs-backup-2/merged.blog"],
+            "args": ["./logs-backup-3/*.log", "-j", "./logs-backup-3/merged.blog"],
         },
         {
             "name": "Python: Segments R1",
@@ -15,7 +15,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-2/merged.blog", "-sr1", "./logs-backup-2/merged.sr1"],
+            "args": ["./logs-backup-3/merged.blog", "-sr1", "./logs-backup-3/merged.sr1"],
         },
         {
             "name": "Python: Segments R2",
@@ -23,7 +23,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-2/merged.blog", "-sr2", "./logs-backup-2/merged.sr2"],
+            "args": ["./logs-backup-3/merged.blog", "-sr2", "./logs-backup-3/merged.sr2"],
         },
         {
             "name": "Python: Segments R3",
@@ -31,7 +31,15 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-2/merged.blog", "-sr3", "./logs-backup-2/merged.sr3"],
+            "args": ["./logs-backup-3/merged.blog", "-sr3", "./logs-backup-3/merged.sr3"],
+        },
+        {
+            "name": "Python: Segments R4",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["./logs-backup-3/merged.blog", "-sr4", "./logs-backup-3/merged.sr4"],
         },
     ]
 }

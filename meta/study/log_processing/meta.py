@@ -16,6 +16,7 @@ parser.add_argument('-j', '--join',
                     help='Clean and join to one output file')
 args = parser.parse_args()
 
+# Estimate total user time
 def userTime(logs, maxrest=60):
     timestamps = [int(x[1]) for x in logs]
     # assuming it's not empty
@@ -28,12 +29,14 @@ def userTime(logs, maxrest=60):
     print(f'User time: {total}s, {total/60:.1f}m, {total/(60*60):.1f}h')
     return total
 
+# Filter actions, then perform func
 def prefixMap(logs, prefix, func=lambda x: x):
     return list(map(func, filter(lambda x: x[0] == prefix, logs)))
 
 def nJoin(l):
     return '\n'.join(l)
 
+# Computes the average time per task
 def averageTime(logs, maxduration=500):
     segments = confirmSplit(logs)
     segments = filter(lambda x: len(x) > 1, segments)
@@ -43,6 +46,8 @@ def averageTime(logs, maxduration=500):
     print(f'Average time per task: {time:.0f}s')
     return time
 
+# Split by CONFIRM actions
+# An alternative would be to chunk by SIDs
 def confirmSplit(logs):
     segments = []
     curSegment = []
@@ -53,6 +58,7 @@ def confirmSplit(logs):
             curSegment = []
     return segments
 
+# Timestamps are recomputed to be with respect to segment start
 def cleanSegments(segments):
     for s in segments:
         base = int(s[0][1])
@@ -79,6 +85,7 @@ for logfile in args.logfile:
         allSegments += segments
     print()
 
+# Dump the segments object
 if args.join is not None:
     with open(args.join, 'wb') as f:
         pickle.dump(allSegments, f)
