@@ -43,9 +43,6 @@ def withoutBacktracking(segments):
     print('Number of segments without backtracking:', len(out))
     return out
 
-def flatten(l):
-    return [item for sublist in l for item in sublist]
-
 # SR1
 # Each segment progression is turned into the sequence: `<src>, <target>, <back>`.
 def segmentR1(segment):
@@ -111,7 +108,7 @@ def tokenize(raw):
 def segmentR4(segment):
     viable = firstViableSrc(segment)
     if not viable:
-        return ''
+        return '<None>|<Linear>\n'
     sm = SequenceMatcher(None, tokenize(viable), tokenize(segment[-1][4]))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))

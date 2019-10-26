@@ -37,3 +37,6 @@ Similarity: 80.00%
 Similarity: 80.00%
 Equals/Replace/Insert/Delete: 8/1/0/2
 ```
+
+## DR1
+Domain statistics.

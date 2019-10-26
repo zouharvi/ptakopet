@@ -51,11 +51,27 @@ def averageTime(logs, maxduration=500):
 def confirmSplit(logs):
     segments = []
     curSegment = []
-    for log in logs:
+    skipNext = False
+    for i in range(len(logs)):
+        if skipNext:
+            skipNext = False
+            continue
+        log = logs[i]
         curSegment.append(log)
-        if log[0] == 'CONFIRM':
-            segments.append(curSegment)
-            curSegment = []
+        # NEXT is relevant to both segments
+        if log[0] == 'NEXT':
+            # In case this get swapped
+            if i < len(logs) -1 and logs[i+1][0] == 'CONFIRM':
+                curSegment.pop()
+                curSegment.append(logs[i+1])
+                curSegment.append(log)
+                segments.append(curSegment)
+                curSegment = [log]
+                skipNext = True
+            else:
+                segments.append(curSegment)
+                curSegment = [log]
+                
     return segments
 
 # Timestamps are recomputed to be with respect to segment start
@@ -64,6 +80,8 @@ def cleanSegments(segments):
         base = int(s[0][1])
         for line in s:
             line[1] = int(line[1]) - base
+    segments = list(filter(lambda seg: len(seg) > 1 and len(prefixMap(seg, 'START')) == 0, segments))
+    segments = list(filter(lambda seg: len(prefixMap(seg, 'NEXT')) > 0, segments))
     return segments
 
 allSegments = []
