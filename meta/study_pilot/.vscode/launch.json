@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/meta.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/*.log", "-j", "./logs-backup-3/merged.blog"],
+            "args": ["./logs/*.log", "-j", "./logs/merged.blog"],
         },
         {
             "name": "Python: Segments R1",
@@ -15,7 +15,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/sequences.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/merged.blog", "-sr1", "./logs-backup-3/merged.sr1"],
+            "args": ["./logs/merged.blog", "-sr1", "./logs/merged.sr1"],
         },
         {
             "name": "Python: Segments R2",
@@ -23,7 +23,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/sequences.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/merged.blog", "-sr2", "./logs-backup-3/merged.sr2"],
+            "args": ["./logs/merged.blog", "-sr2", "./logs/merged.sr2"],
         },
         {
             "name": "Python: Segments R3",
@@ -31,7 +31,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/sequences.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/merged.blog", "-sr3", "./logs-backup-3/merged.sr3"],
+            "args": ["./logs/merged.blog", "-sr3", "./logs/merged.sr3"],
         },
         {
             "name": "Python: Segments R4",
@@ -39,7 +39,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/sequences.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/merged.blog", "-sr4", "./logs-backup-3/merged.sr4"],
+            "args": ["./logs/merged.blog", "-sr4", "./logs/merged.sr4"],
         },
         {
             "name": "Python: Domains",
@@ -47,7 +47,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/log_processing/domains.py",
             "console": "integratedTerminal",
-            "args": ["./logs-backup-3/merged.blog"],
+            "args": ["./logs/merged.blog"],
         },
     ]
 }

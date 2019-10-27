@@ -1,0 +1,4 @@
+*.log
+*.blog
+*.[sd]r[0-9]
+study_pilot/*.json
