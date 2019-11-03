@@ -24,6 +24,18 @@ def domainKeyMap(logs, key, func=lambda x: x):
             out.append(seg)
     return out
 
+
+# Estimate duration of each segment
+def segmentTime(segments, maxtime=600):
+    total = 0
+    faulty = 0
+    for seg in segments:
+        if seg[-1][2] > maxtime:
+            faulty += 1
+        else:
+            total += seg[-1][2]
+    return total/(len(segments)-faulty)
+
 # TODO: doc
 def isLinear(seg):
     translates = prefixMap(seg, 'TRANSLATE1', lambda x: x[3])
@@ -106,12 +118,13 @@ for domain, domainName in domainNames.items():
     avgSimilarity = sum(map(lambda x: x[0], sEdits))/len(sEdits)
     avgDistribution = reduce(lambda x, y: (x[0]+y[0], x[1]+y[1], x[2]+y[2], x[3]+y[3], x[4]+y[4]), sEdits)
 
-    print(f'{domainName} {len(dSegments)}')
+    print(f'{domainName} {len(dSegments)} ({segmentTime(dSegments):.0f}s)')
+    
     print(f'- skipped: {len(sSkipped[True])}')
     print(f'- finished: {len(sSkipped[False])}')
     print(f'- - linear: {len(sLinear[True])}')
     print(f'- - with edits: {len(sLinear[False])}')
-    print(f'- - - avg similarity: {avgSimilarity*100:.2f}%s')
+    print(f'- - - avg similarity: {avgSimilarity*100:.2f}%')
     print(f'- - - equal: {avgDistribution[1]/len(sEdits)*100:.2f}%')
     print(f'- - - replace: {avgDistribution[2]/len(sEdits)*100:.2f}%')
     print(f'- - - insert: {avgDistribution[3]/len(sEdits)*100:.2f}%')

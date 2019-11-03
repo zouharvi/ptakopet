@@ -13,7 +13,7 @@ ALIGN,<timestamp>,<dash separated quality estimation for source>
 CONFIRM,<timestamp>,<source sentence>,<target sentence>
 ```
 
-## blog
+## .blog
 Pickled binary log. The logs are split into segments (corresponds to one stimuli) and the timestamps are normalized with respect to the segment's beginning. Furthemore the lines are prefixed by a new column - the annotator's id.
 
 ## SR1
@@ -26,7 +26,10 @@ Each segment progression is turned into the sequence: `<src>`.
 Each segment progression is turned into the last two available values for: `<src>,<back>`.
 
 ## SR4
-Each segment progression is turned into: `<viable>, <src final>, <target final>, <similarity>, <edit types>`
+Each segment progression is turned into: `<viable>, <src final>, <target final>, <similarity>, <edit types>`.
+
+## DR5
+Each stimuli is turned into a sequence of `<src final>, <target final>`.
 
 An example:
 ```
@@ -39,4 +42,4 @@ Equals/Replace/Insert/Delete: 8/1/0/2
 ```
 
 ## DR1
-Domain statistics.
+Per domain statistics.
