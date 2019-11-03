@@ -16,6 +16,8 @@ parser.add_argument('-sr3', '--segments_r3',
                     help='Path to file for segments readable 3 output')
 parser.add_argument('-sr4', '--segments_r4',
                     help='Path to file for segments readable 4 output')
+parser.add_argument('-sr5', '--segments_r5',
+                    help='Path to file for segments readable 5 output')
 args = parser.parse_args()
 
 # Filter actions, then perform func
@@ -128,6 +130,25 @@ Similarity: {sm.ratio()*100:.2f}%
 Equals/Replace/Insert/Delete: {sum_equals}/{sum_replace}/{sum_insert}/{sum_delete}
 """
 
+# TODO
+def segmentR5(segments):
+    out = dict()
+    for seg in segments:
+        for i in range(len(seg)-1, -1, -1):
+            confirm = seg[i]
+            if confirm[1] == 'CONFIRM':
+                break
+        if confirm[1] != 'CONFIRM':
+            continue
+        out.setdefault(confirm[3], []).append((confirm[4], confirm[5]))
+    outStr = ''
+    for k, tups in out.items():
+        outStr += f'# {k}\n'
+        for tup in tups:
+            outStr += f'{tup[0]}\n-{tup[1]}\n'
+        outStr += '\n'
+    return outStr
+
 # Store output given segments list, function func: segment -> string and a filename
 # Used for SR[0-9]+ outputs
 def outputSegmentsR(segments, func, outfile):
@@ -153,3 +174,7 @@ if args.segments_r3 is not None:
     outputSegmentsR(segments, segmentR3, args.segments_r3)
 if args.segments_r4 is not None:
     outputSegmentsR(segments, segmentR4, args.segments_r4)
+if args.segments_r5 is not None:
+    with open(args.segments_r5, 'w') as f:
+        f.write(segmentR5(segments))
+    # outputSegmentsR(segments, segmentR4, args.segments_r5)
