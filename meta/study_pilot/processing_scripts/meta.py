@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, argparse, pickle
+import os, argparse, pickle, copy
 
 # This script does some basic time metrics and then cleans the data and
 # dumps them into a pickle file by segments. Each line is prefixed by the
@@ -12,10 +12,11 @@ import os, argparse, pickle
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('logfile', nargs='+',
                     help='Path to the log file in question')
-parser.add_argument('-j', '--join',
+parser.add_argument('-b', '--blog',
                     help='Clean and join to one output file')
 args = parser.parse_args()
 
+# Estimate total user time
 def userTime(logs, maxrest=60):
     timestamps = [int(x[1]) for x in logs]
     # assuming it's not empty
@@ -28,12 +29,14 @@ def userTime(logs, maxrest=60):
     print(f'User time: {total}s, {total/60:.1f}m, {total/(60*60):.1f}h')
     return total
 
+# Filter actions, then perform func
 def prefixMap(logs, prefix, func=lambda x: x):
     return list(map(func, filter(lambda x: x[0] == prefix, logs)))
 
 def nJoin(l):
     return '\n'.join(l)
 
+# Computes the average time per task
 def averageTime(logs, maxduration=500):
     segments = confirmSplit(logs)
     segments = filter(lambda x: len(x) > 1, segments)
@@ -43,21 +46,43 @@ def averageTime(logs, maxduration=500):
     print(f'Average time per task: {time:.0f}s')
     return time
 
+# Split by CONFIRM actions
+# An alternative would be to chunk by SIDs
 def confirmSplit(logs):
     segments = []
     curSegment = []
-    for log in logs:
+    skipNext = False
+    for i in range(len(logs)):
+        if skipNext:
+            skipNext = False
+            continue
+        log = logs[i]
         curSegment.append(log)
-        if log[0] == 'CONFIRM':
-            segments.append(curSegment)
-            curSegment = []
+        # NEXT is relevant to both segments
+        if log[0] == 'NEXT':
+            # In case this get swapped
+            if i < len(logs) -1 and logs[i+1][0] == 'CONFIRM':
+                curSegment.pop()
+                curSegment.append(logs[i+1])
+                curSegment.append(log)
+                segments.append(curSegment)
+                curSegment = [log]
+                skipNext = True
+            else:
+                segments.append(curSegment)
+                curSegment = [copy.deepcopy(log)]
+                
     return segments
 
+# TODO: doc
 def cleanSegments(segments):
-    for s in segments:
-        base = int(s[0][1])
-        for line in s:
-            line[1] = int(line[1]) - base
+    # Timestamps are recomputed to be with respect to segment start
+    segments = list(filter(lambda seg: len(seg) > 1 and len(prefixMap(seg, 'START')) == 0, segments))
+    segments = list(filter(lambda seg: len(prefixMap(seg, 'NEXT')) > 0, segments))
+    for seg in segments:
+        base = int(seg[0][1])
+        for line in seg:
+            line[1] = int(line[1])-base
     return segments
 
 allSegments = []
@@ -72,13 +97,14 @@ for logfile in args.logfile:
     print(f'Processing {name}:')
     userTime(logs)
     averageTime(logs)
-    if args.join is not None:
+    if args.blog is not None:
         segments = confirmSplit(logs)
         segments = cleanSegments(segments)
         segments = [[[name]+line for line in s] for s in segments]
         allSegments += segments
     print()
 
-if args.join is not None:
-    with open(args.join, 'wb') as f:
+# Dump the segments object
+if args.blog is not None:
+    with open(args.blog, 'wb') as f:
         pickle.dump(allSegments, f)
