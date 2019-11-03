@@ -1,10 +1,10 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
-import { IndicatorManager } from "../page/indicator_manager";
-import { Settings } from "../misc/settings";
-import { TextUtils } from "../misc/text_utils";
-import { Estimation } from "./estimator";
-import { highlighter_source } from "../page/highlighter";
+import { IndicatorManager } from "../page/indicator_manager"
+import { Settings } from "../misc/settings"
+import { TextUtils } from "../misc/text_utils"
+import { Estimation } from "./estimator"
+import { highlighter_source } from "../page/highlighter"
 import { logger } from '../study/logger'
 
 
@@ -31,9 +31,9 @@ export class Aligner extends AsyncMessage {
                         highlighter_source.highlight([])
                         logger.log(logger.Action.ALIGN, { alignment: '' })
                     } else {
-                        // This exctracts the max from the left side
+                        // This extracts the max from the left side
                         let max = Math.max(...alignment.map((a: [number, number]) => a[0])) 
-
+                        
                         let intensities: Array<number> = Array<number>(max).fill(1)
                         for (let i in alignment) {
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]

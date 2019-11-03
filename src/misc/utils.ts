@@ -13,7 +13,7 @@ export module Utils {
         for (let i in arr) {
             for (let j in arr) {
                 if (i == j && !reflexive) {
-                    continue;
+                    continue
                 }
                 out.add([arr[i], arr[j]])
             }

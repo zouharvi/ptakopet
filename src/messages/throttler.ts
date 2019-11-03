@@ -19,8 +19,8 @@ export class Throttler {
      */
     public throttle(func: () => any) {
         if(this.timeoutId != undefined) {
-            clearTimeout(this.timeoutId);
+            clearTimeout(this.timeoutId)
         }
-        this.timeoutId = setTimeout(func, this.activationDelay);   
+        this.timeoutId = setTimeout(func, this.activationDelay)
     }
 }

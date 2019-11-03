@@ -1,9 +1,9 @@
 import { translator_source, translator_target, Translator, TranslatorBackend } from '../messages/translator'
 import { estimator, Estimator, EstimatorBackend } from '../messages/estimator'
-import { aligner, Aligner, AlignerBackend } from '../messages/aligner';
+import { aligner, Aligner, AlignerBackend } from '../messages/aligner'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
-import { highlighter_source, highlighter_target } from './highlighter';
+import { highlighter_source, highlighter_target } from './highlighter'
 import { logger } from '../study/logger'
 
 /**

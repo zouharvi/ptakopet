@@ -1,6 +1,6 @@
 // Force HTTPS using TS
 // if (location.protocol == 'http:') {
-//    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+//    location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
 // }
 // This was replaced by server-side .htaccess file
 
@@ -10,6 +10,7 @@ import { estimator } from './messages/estimator'
 import { waiter } from './study/waiter'
 import { logger } from './study/logger'
 import { Utils } from './misc/utils'
+import { Tester } from './misc/tester'
 
 // Force files to execute
 translator_source

@@ -3,7 +3,7 @@ import { Throttler } from "./throttler"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { estimator } from './estimator'
-import { IndicatorManager } from "../page/indicator_manager";
+import { IndicatorManager } from "../page/indicator_manager"
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { logger } from '../study/logger'
 
@@ -11,7 +11,7 @@ import { logger } from '../study/logger'
  * Template for forward and backward translators
  */
 export abstract class Translator extends AsyncMessage {
-    private throttler = new Throttler(500);
+    private throttler = new Throttler(500)
 
     /**
      * Make a translator request, which can be later interrupted. 

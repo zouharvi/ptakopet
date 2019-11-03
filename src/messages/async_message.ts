@@ -11,7 +11,7 @@ export class AsyncMessage {
     public indicatorHandle?: IndicatorManager
 
     public addIndicator(indicatorHandle: IndicatorManager) {
-        this.indicatorHandle = indicatorHandle;
+        this.indicatorHandle = indicatorHandle
     }
 
     /**
@@ -20,13 +20,13 @@ export class AsyncMessage {
      */
     private receiveCheck(msgIndex: number): boolean {
         if (this.msgRec > msgIndex) {
-            return false;
+            return false
         } else {
             if (this.indicatorHandle != undefined) {
                 this.indicatorHandle.add(msgIndex - this.msgRec)
             }
-            this.msgRec = msgIndex;
-            return true;
+            this.msgRec = msgIndex
+            return true
         }
     }
 

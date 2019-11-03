@@ -1,6 +1,6 @@
 import { TranslatorBackend } from '../messages/translator'
 import { EstimatorBackend } from '../messages/estimator'
-import { AlignerBackend } from '../messages/aligner';
+import { AlignerBackend } from '../messages/aligner'
 import { LanguageCode } from "./utils"
 
 /**

@@ -1,4 +1,4 @@
-import { TextUtils } from "../misc/text_utils";
+import { TextUtils } from "../misc/text_utils"
 
 /**
  * This class manages highlighting of textarea element based on numeric values.
@@ -6,6 +6,7 @@ import { TextUtils } from "../misc/text_utils";
 export class Highlighter {
     private element: JQuery<HTMLElement>
     private dirty: boolean = false
+    private wasHighlighted: boolean = false
     
     /**
      * @param element Target textarea element
@@ -35,7 +36,7 @@ export class Highlighter {
                 this.highlightFocus([])
                 this.dirty = false
             }
-            return;
+            return
         } else {
             this.dirty = true
         }
@@ -63,13 +64,27 @@ export class Highlighter {
      */
     private highlightFocus(highlights: Array<{ highlight: [number, number], className: string }> = []): void {
         let isFocused = $(this.element).is(":focus")
+        
+        this.destroyHighlight()
 
         // @ts-ignore
         $(this.element).highlightWithinTextarea({ highlight: highlights })
+        this.wasHighlighted = true
 
         // If the element had focus before, return it
         if (isFocused) {
             $(this.element).focus()
+        }
+    }
+
+    /**
+     * Remove the binded HighlightWithinTextarea object. This is necessary
+     * for performance purposes.
+     */
+    private destroyHighlight(): void {
+        if(this.wasHighlighted) {
+            // @ts-ignore
+            $(this.element).highlightWithinTextarea('destroy');
         }
     }
 }

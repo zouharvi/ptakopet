@@ -2,17 +2,17 @@ import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { highlighter_target } from '../page/highlighter'
-import { TextUtils } from "../misc/text_utils";
-import { IndicatorManager } from "../page/indicator_manager";
-import { aligner } from "./aligner";
-import { Throttler } from "./throttler";
+import { TextUtils } from "../misc/text_utils"
+import { IndicatorManager } from "../page/indicator_manager"
+import { aligner } from "./aligner"
+import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
 export class Estimator extends AsyncMessage {
     public curEstimation : Estimation = []
-    private throttler = new Throttler(500);
+    private throttler = new Throttler(500)
 
     /**
      * Make a estimator request, which can be later interrupted. 
