@@ -2,6 +2,8 @@
 import argparse
 import pickle
 
+# This script is used only to load the blog file into interactive sessions
+
 # run ./log_processing/load.py ./logs-backup-2/merged.blog 
 
 parser = argparse.ArgumentParser(description='')

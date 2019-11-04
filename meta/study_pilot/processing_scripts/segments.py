@@ -4,7 +4,8 @@ import pickle
 from difflib import SequenceMatcher
 import re
 
-# TODO: documentation
+# This script processes and outputs Segment Readable and Domain Readable outputs from
+# segments blogfile.
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
@@ -130,7 +131,8 @@ Similarity: {sm.ratio()*100:.2f}%
 Equals/Replace/Insert/Delete: {sum_equals}/{sum_replace}/{sum_insert}/{sum_delete}
 """
 
-# TODO
+# SR5
+# For each stimuli output the set of all final sources and targets 
 def segmentR5(segments):
     out = dict()
     for seg in segments:
@@ -177,4 +179,3 @@ if args.segments_r4 is not None:
 if args.segments_r5 is not None:
     with open(args.segments_r5, 'w') as f:
         f.write(segmentR5(segments))
-    # outputSegmentsR(segments, segmentR4, args.segments_r5)

@@ -74,11 +74,11 @@ def confirmSplit(logs):
                 
     return segments
 
-# TODO: doc
+# Clean segments of misc logs, which are not relevant to the annotator work
 def cleanSegments(segments):
-    # Timestamps are recomputed to be with respect to segment start
     segments = list(filter(lambda seg: len(seg) > 1 and len(prefixMap(seg, 'START')) == 0, segments))
     segments = list(filter(lambda seg: len(prefixMap(seg, 'NEXT')) > 0, segments))
+    # Timestamps are recomputed to be with respect to segment start
     for seg in segments:
         base = int(seg[0][1])
         for line in seg:

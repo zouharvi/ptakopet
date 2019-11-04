@@ -42,7 +42,6 @@ export class Estimator extends AsyncMessage {
                     this.curEstimation = estimation
                     logger.log(logger.Action.ESTIMATE, { estimation : estimation.join('-') })
                     aligner.align(estimation)
-                    // Beware that highlighter mutates the data, so it goes last
                     highlighter_target.highlight(estimation)
                     
                     /**

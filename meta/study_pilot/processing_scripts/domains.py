@@ -5,7 +5,8 @@ from difflib import SequenceMatcher
 import re
 from functools import reduce
 
-# TODO: documentation
+# This script serves to explore phenomena in segments accross domains.
+# Phenomena include: distribution of skipped/finished/written linearly/edit types.
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
@@ -15,7 +16,7 @@ args = parser.parse_args()
 def prefixMap(logs, prefix, func=lambda x: x):
     return list(map(func, filter(lambda x: x[1] == prefix, logs)))
 
-# TODO: doc
+# Return list of segments, which correspond to a given domain regex
 def domainKeyMap(logs, key, func=lambda x: x):
     out = []
     for seg in logs:
@@ -23,7 +24,6 @@ def domainKeyMap(logs, key, func=lambda x: x):
         if re.match(key, firstNext):
             out.append(seg)
     return out
-
 
 # Estimate duration of each segment
 def segmentTime(segments, maxtime=600):
@@ -36,24 +36,23 @@ def segmentTime(segments, maxtime=600):
             total += seg[-1][2]
     return total/(len(segments)-faulty)
 
-# TODO: doc
+# Check whether a given segment was written linearly
 def isLinear(seg):
     translates = prefixMap(seg, 'TRANSLATE1', lambda x: x[3])
     prev = ''
-    ok = True
     for line in translates:
         if line.startswith(prev):
             prev = line
         else:
-            ok = False
-            break
-    return ok
+            return False 
+    return True
 
-# TODO: doc
+# Check whether a given segment resulted in a skip
 def isSkipped(segment):
     return len(prefixMap(segment, 'CONFIRM')) == 0
 
-# TODO: documentation
+# Split to buckets according to func
+# \forall x: x in out[func(x)]
 def split(segments, func):
     out = {}
     for seg in segments:
@@ -61,7 +60,7 @@ def split(segments, func):
         out.setdefault(val, []).append(seg)
     return out
 
-    # Try to extract the first viable source sentence using some rudimentary heuristics
+# Try to extract the first viable source sentence using some rudimentary heuristics
 def firstViableSrc(segment):
     srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x[3])
     if len(srcs) == 0:
@@ -84,8 +83,10 @@ def tokenize(raw):
     out = list(filter(lambda x: len(x) != 0, out))
     return out
 
-# TODO: doc
-def editsDistribution(segment):
+# Return quintuples of edit distributions between the first viable and the confirmed output.
+# (similarity ratio, % of equals, % of replaces, % of inserts, % of deletions)
+# None if first viable is not found
+def firstViableEditsDistribution(segment):
     viable = firstViableSrc(segment)
     if not viable:
         return None
@@ -108,12 +109,13 @@ with open(args.blogfile, 'rb') as f:
 
 domainNames = {'s': 'SQuAD', 'z': 'SQuAD-cs', 't': 'Tech issues', 'p': 'Administrative issues', '.': 'All'}
 
+# Main cycle (entry poitn)
 for domain, domainName in domainNames.items():
     domainReg = domain + r'\d\d'
     dSegments = domainKeyMap(segments, domainReg)
     sSkipped = split(dSegments, isSkipped) 
     sLinear = split(sSkipped[False], isLinear) 
-    sEdits = map(editsDistribution, sLinear[False])
+    sEdits = map(firstViableEditsDistribution, sLinear[False])
     sEdits = list(filter(lambda x: x, sEdits))
     avgSimilarity = sum(map(lambda x: x[0], sEdits))/len(sEdits)
     avgDistribution = reduce(lambda x, y: (x[0]+y[0], x[1]+y[1], x[2]+y[2], x[3]+y[3], x[4]+y[4]), sEdits)

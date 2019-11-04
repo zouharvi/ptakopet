@@ -2,6 +2,8 @@
 from itertools import takewhile
 from statistics import mean
 
+# This script compares confusion matricies for two annotators of QE data
+
 file1 = 'train.head50.tags.gold'
 file2 = 'train.head50.tags'
 
