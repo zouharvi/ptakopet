@@ -18,6 +18,7 @@ export abstract class Translator extends AsyncMessage {
      */
     public translate_throttle() {
         this.throttler.throttle(this.translate)
+
         // Clean the previous highlight
         highlighter_source.highlight([])
         highlighter_target.highlight([])
@@ -41,7 +42,7 @@ export abstract class Translator extends AsyncMessage {
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
-    
+
     protected running: boolean = true
     public on(running: boolean = true) {
         this.running = running
@@ -56,9 +57,9 @@ export abstract class Translator extends AsyncMessage {
                         type: "POST",
                         url: "https://lindat.mff.cuni.cz/services/translation-dev/api/v2/languages/",
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
-                        headers: { 
-                           Accept: "application/json",
-                        },    
+                        headers: {
+                            Accept: "application/json",
+                        },
                         async: true,
                     })
                         .done((data: Array<string>) => resolve(data.join('').replace(/\n$/, '')))
@@ -76,9 +77,9 @@ export abstract class Translator extends AsyncMessage {
                     $.ajax({
                         type: "POST",
                         url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
-                        headers: { 
-                           Accept: "application/json",
-                        },    
+                        headers: {
+                            Accept: "application/json",
+                        },
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
@@ -90,7 +91,7 @@ export abstract class Translator extends AsyncMessage {
             default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },
-        
+
         identity: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
                 return new Promise<string>((resolve, reject) => resolve(text))
@@ -115,17 +116,18 @@ export abstract class Translator extends AsyncMessage {
  * Class for translating source to target
  */
 export class TranslatorSource extends Translator {
-    public curSource : string = ''
-    public curTranslation : string = ''
+    public curSource: string = ''
+    public curTranslation: string = ''
     public translate = () => {
-        if(!this.running) {
+        if (!this.running)
             return
-        }
         this.curSource = $(this.source).val() as string
+
         let request = Settings.backendTranslator.composeRequest(
             this.curSource,
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
+
         super.dispatch(
             request,
             (text: string) => {
@@ -134,6 +136,7 @@ export class TranslatorSource extends Translator {
 
                 // Clean the previous highlight
                 highlighter_target.highlight([])
+                
                 $(this.target).val(text)
                 translator_target.translate()
                 estimator.estimate()
@@ -147,7 +150,7 @@ export class TranslatorSource extends Translator {
  */
 export class TranslatorTarget extends Translator {
     public translate = () => {
-        if(!this.running) {
+        if (!this.running) {
             return
         }
         let targetText = $(this.source).val() as string
@@ -158,7 +161,7 @@ export class TranslatorTarget extends Translator {
         super.dispatch(
             request,
             (text) => {
-                logger.log(logger.Action.TRANSLATE2, { text1 : targetText, text2: text })
+                logger.log(logger.Action.TRANSLATE2, { text1: targetText, text2: text })
                 $(this.target).val(text)
             }
         )

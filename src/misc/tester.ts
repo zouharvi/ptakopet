@@ -1,3 +1,6 @@
+/**
+ * Small static class for testing the system
+ */
 export class Tester {
     /**
      * Put heavy workload on changing the input field with interval.

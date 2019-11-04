@@ -64,7 +64,7 @@ export class SettingsSelector {
                 Utils.setContainsArray(Settings.backendTranslator.languages, [Settings.language2 as LanguageCode, Settings.language1 as LanguageCode])) {
                 let tmp = Settings.language1 as LanguageCode
                 Settings.language1 = Settings.language2
-                
+
                 Settings.language2 = tmp
                 this.instantiateLanguagesTarget()
                 $(translator_source.source).val($(translator_source.target).val() as string)
@@ -104,7 +104,7 @@ export class SettingsSelector {
             if (($(translator_source.source).val() as string).length > 0)
                 translator_source.translate()
             this.refreshWarning()
-            
+
             // Log by the end so that everything is already resolved
             logger.log(logger.Action.LANG_CHANGE, { lang1: Settings.language1, lang2: Settings.language2 })
         })
@@ -120,13 +120,13 @@ export class SettingsSelector {
      * Manage visibility of warning icons next to backends
      */
     private refreshWarning(): void {
-        if(Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
+        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
             $(this.warningEstimator).fadeOut()
         } else {
             $(this.warningEstimator).fadeIn()
         }
 
-        if(Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
+        if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
             $(this.warningAligner).fadeOut()
         } else {
             $(this.warningAligner).fadeIn()
@@ -199,7 +199,7 @@ export class SettingsSelector {
     }
 
     /**
-     * TODO-DOC
+     * Set settings and locck the corresponding UI elements
      */
     public forceSettings(
         backendTranslator?: string,
@@ -239,7 +239,7 @@ export class SettingsSelector {
             $(this.lang2Select).val(language2)
         }
         $(this.lang2Select).trigger('change')
-        
+
         // unmute
         translator_source.on(true)
         translator_target.on(true)

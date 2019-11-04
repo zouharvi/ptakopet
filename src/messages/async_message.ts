@@ -10,6 +10,9 @@ export class AsyncMessage {
     protected msgNext: number = 1
     public indicatorHandle?: IndicatorManager
 
+    /**
+     * Add indicator to distinguish msgRec <= msgNext-1
+     */
     public addIndicator(indicatorHandle: IndicatorManager) {
         this.indicatorHandle = indicatorHandle
     }

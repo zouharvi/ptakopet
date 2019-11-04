@@ -1,4 +1,5 @@
-import { waiter } from './waiter.ts'
+import { waiter } from './waiter'
+import { Utils } from '../misc/utils'
 /*
  * Logger proxies log actions to server with AJAX. It also contains some rudimentary
  * session id generation which is used to separate data between instances.
@@ -21,21 +22,7 @@ export class Logger {
     public Action = LogAction
 
     constructor() {
-        this.sessionID = this.randomString(10)
-    }
-    
-    /**
-     * Generate random alphanumeric string
-     * TODO: move to Utils
-     */
-    private randomString(length: number): string {
-        let result = ''
-        let characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        let charactersLength = characters.length
-        for (let i = 0; i < length; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength))
-        }
-        return result
+        this.sessionID = Utils.randomString(10)
     }
    
     /**

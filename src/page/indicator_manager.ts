@@ -16,10 +16,10 @@ export class IndicatorManager {
     public add(n: number) {
         this.n += n
 
-        if(this.n < 0) {
-            this.indicator.animate({opacity: 1}, 300)
+        if (this.n < 0) {
+            this.indicator.animate({ opacity: 1 }, 300)
         } else {
-            this.indicator.animate({opacity: 0}, 300)
+            this.indicator.animate({ opacity: 0 }, 300)
         }
     }
 }

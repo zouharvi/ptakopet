@@ -1,23 +1,20 @@
-import { logger } from './logger.ts'
-import { estimator } from '../messages/estimator.ts'
-import { translator_source, translator_target } from '../messages/translator.ts'
+import { logger } from './logger'
+import { estimator } from '../messages/estimator'
+import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { BAKED_QUEUE } from './baked_queue.ts'
-import { QUESTIONS_FLAT } from './questions_flat.ts'
-import { settings_selector } from '../main.ts'
+import { BAKED_QUEUE } from './baked_queue'
+import { QUESTIONS_FLAT } from './questions_flat'
+import { settings_selector } from '../main'
 
 export class Waiter {
     public bakedQueue : Array<[string, string]> = [] 
     public bakedIndex : number = 0
     public userID : string | null = null
 
-    private studyDB : any
     private localStorageID: string | null = null
 
     private textContainer: JQuery<HTMLElement>
     private instructionsContainer: JQuery<HTMLElement>
-    private okButton: JQuery<HTMLElement>
-    private skipButton: JQuery<HTMLElement>
     private studyBlock: JQuery<HTMLElement>
     public  joinButton: JQuery<HTMLElement>
     
@@ -31,8 +28,6 @@ export class Waiter {
     ) {
         this.textContainer = textContainer
         this.instructionsContainer = instructionsContainer
-        this.okButton = okButton
-        this.skipButton = skipButton
         this.textContainer = textContainer
         this.joinButton = joinButton
         this.studyBlock = studyBlock
@@ -77,7 +72,7 @@ export class Waiter {
         
         $(this.studyBlock).show()
         $(this.joinButton).hide()
-        // force settings
+        
         settings_selector.forceSettings('ufalTranslationDev', 'openkiwi', 'fastAlign', 'cs', 'de')
         
         let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)

@@ -7,7 +7,6 @@ import { Estimation } from "./estimator"
 import { highlighter_source } from "../page/highlighter"
 import { logger } from '../study/logger'
 
-
 export type Alignment = Array<[number, number]>
 export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'error': string | undefined }
 export class Aligner extends AsyncMessage {
@@ -15,7 +14,7 @@ export class Aligner extends AsyncMessage {
      * Make an alignment request
      */
     public align(estimation: Estimation): void {
-        if(!this.running) {
+        if (!this.running) {
             return
         }
         if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
@@ -27,13 +26,13 @@ export class Aligner extends AsyncMessage {
             super.dispatch(
                 request,
                 (alignment: Alignment) => {
-                    if(estimation.length == 0) {
+                    if (estimation.length == 0) {
                         highlighter_source.highlight([])
                         logger.log(logger.Action.ALIGN, { alignment: '' })
                     } else {
                         // This extracts the max from the left side
-                        let max = Math.max(...alignment.map((a: [number, number]) => a[0])) 
-                        
+                        let max = Math.max(...alignment.map((a: [number, number]) => a[0]))
+
                         let intensities: Array<number> = Array<number>(max).fill(1)
                         for (let i in alignment) {
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]
@@ -44,7 +43,6 @@ export class Aligner extends AsyncMessage {
                 }
             )
         } else {
-            // The aligner does not support this language pair, skipping
             console.warn("The aligner does not support this language pair, skipping")
         }
     }
@@ -58,7 +56,7 @@ export class Aligner extends AsyncMessage {
         this.source = source
         this.target = target
     }
-    
+
     private running: boolean = true
     public on(running: boolean = true) {
         this.running = running
@@ -72,7 +70,7 @@ export class Aligner extends AsyncMessage {
         return raw
             .split(' ')
             .map((tok: string) => {
-                return tok.split('-').map((a:string) => Number.parseInt(a)) as [number, number]
+                return tok.split('-').map((a: string) => Number.parseInt(a)) as [number, number]
             })
     }
 
@@ -103,8 +101,10 @@ export class Aligner extends AsyncMessage {
                         .fail(reject)
                 })
             },
-            languages: new Set([...Utils.generatePairsArray<LanguageCode>(['en', 'cs', 'fr']),
-                                ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs'])]),
+            languages: new Set([
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'cs', 'fr']),
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs'])
+            ]),
             name: 'fast_align',
         },
 
@@ -118,13 +118,15 @@ export class Aligner extends AsyncMessage {
                     for (let i: number = 0; i < tokens1.length; i++) {
                         alignment.push([i, Math.min(i, tokens2.length - 1)])
                     }
+
                     // Fake loading time
-                    setTimeout(() => resolve(alignment), 1000)
+                    setTimeout(() => resolve(alignment), 500)
                 })
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'Diagonal',
         },
+
         none: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
