@@ -14,13 +14,13 @@ args = parser.parse_args()
 
 # Filter actions, then perform func
 def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x[1] == prefix, logs)))
+    return list(map(func, filter(lambda x: x['type'] == prefix, logs)))
 
 # Return list of segments, which correspond to a given domain regex
 def domainKeyMap(logs, key, func=lambda x: x):
     out = []
     for seg in logs:
-        firstNext = prefixMap(seg, 'NEXT', lambda x: x[3])[0]
+        firstNext = prefixMap(seg, 'NEXT', lambda x: x['sid'])[0]
         if re.match(key, firstNext):
             out.append(seg)
     return out
@@ -30,15 +30,15 @@ def segmentTime(segments, maxtime=600):
     total = 0
     faulty = 0
     for seg in segments:
-        if seg[-1][2] > maxtime:
+        if seg[-1]['timestamp'] > maxtime:
             faulty += 1
         else:
-            total += seg[-1][2]
+            total += seg[-1]['timestamp']
     return total/(len(segments)-faulty)
 
 # Check whether a given segment was written linearly
 def isLinear(seg):
-    translates = prefixMap(seg, 'TRANSLATE1', lambda x: x[3])
+    translates = prefixMap(seg, 'TRANSLATE1', lambda x: x['text1'])
     prev = ''
     for line in translates:
         if line.startswith(prev):
@@ -62,7 +62,7 @@ def split(segments, func):
 
 # Try to extract the first viable source sentence using some rudimentary heuristics
 def firstViableSrc(segment):
-    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x[3])
+    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
     if len(srcs) == 0:
         return None
     longest = sorted(srcs, key=lambda x: len(x), reverse=True)
@@ -70,7 +70,7 @@ def firstViableSrc(segment):
     for src in longest:
         if len(src) == 0:
             return None
-        lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x[4])[-1]
+        lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text1'])[-1]
         if src == lastConfirmSrc:
             continue
         if src[-1] in ".?" or (len(src) > 1 and src[-2] in ".?"):
@@ -90,7 +90,7 @@ def firstViableEditsDistribution(segment):
     viable = firstViableSrc(segment)
     if not viable:
         return None
-    lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x[4])[-1]
+    lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text1'])[-1]
     sm = SequenceMatcher(None, tokenize(viable), tokenize(lastConfirmSrc))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))

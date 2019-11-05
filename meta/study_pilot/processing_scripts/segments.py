@@ -23,13 +23,13 @@ args = parser.parse_args()
 
 # Filter actions, then perform func
 def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x[1] == prefix, logs)))
+    return list(map(func, filter(lambda x: x['type'] == prefix, logs)))
 
 # Rudimentary statistics for segments, which were completed left to right
 def withoutBacktracking(segments):
     out = []
     for segment in segments:
-        translates = prefixMap(segment, 'TRANSLATE1', lambda x: x[3])
+        translates = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
         if len(translates) == 0:
             continue
         prev = ''
@@ -53,12 +53,12 @@ def segmentR1(segment):
     l1, l2, l3 = '-', '-', '-'
     for line in segment:
         write = False
-        if line[1] == 'TRANSLATE1':
-            l1 = line[3] # source
-            l2 = line[4] # target
+        if line['type'] == 'TRANSLATE1':
+            l1 = line['text1'] # source
+            l2 = line['text2'] # target
             write = True
-        if line[1] == 'TRANSLATE2':
-            l3 = line[4] # back
+        if line['type'] == 'TRANSLATE2':
+            l3 = line['text3'] # back
             # write = True
         if write:
             out += f'{l1}\n{l2}\n{l3}\n--\n'
@@ -70,7 +70,7 @@ def segmentR2(segment):
     out = ''
     for line in segment:
         if line[1] == 'TRANSLATE1':
-            out += f'{line[3]}\n'
+            out += f'{line["text1"]}\n'
     return out + '\n###\n'
 
 # SR3
@@ -79,14 +79,14 @@ def segmentR3(segment):
     l1, l3 = '-', '-'
     for line in segment:
         if line[1] == 'TRANSLATE1':
-            l1 = line[3] # source
+            l1 = line['text1'] # source
         if line[1] == 'TRANSLATE2':
-            l3 = line[4] # back
+            l3 = line['text3'] # back
     return f'{l1}\n{l3}\n###'
 
 # Try to extract the first viable source sentence using some rudimentary heuristics
 def firstViableSrc(segment):
-    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x[3])
+    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
     if len(srcs) == 0:
         return None
     longest = sorted(srcs, key=lambda x: len(x), reverse=True)
@@ -94,7 +94,7 @@ def firstViableSrc(segment):
     for src in longest:
         if len(src) == 0:
             return None
-        if src == segment[-1][4]:
+        if src == segment[-1]['text1']: # CONFIRM
             continue
         if src[-1] in ".?" or (len(src) > 1 and src[-2] in ".?"):
             return src
@@ -112,7 +112,7 @@ def segmentR4(segment):
     viable = firstViableSrc(segment)
     if not viable:
         return '<None>|<Linear>\n'
-    sm = SequenceMatcher(None, tokenize(viable), tokenize(segment[-1][4]))
+    sm = SequenceMatcher(None, tokenize(viable), tokenize(segment[-1]['text1']))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))
     opcodes_replace = list(filter(lambda x: x[0] == 'replace', opcodes))
@@ -125,8 +125,8 @@ def segmentR4(segment):
     return \
 f"""\
 First: {viable}
-Final: {segment[-1][4]}
-Translation: {segment[-1][5]}
+Final: {segment[-1]['text1']}
+Translation: {segment[-1]['text2']}
 Similarity: {sm.ratio()*100:.2f}%
 Equals/Replace/Insert/Delete: {sum_equals}/{sum_replace}/{sum_insert}/{sum_delete}
 """
@@ -142,7 +142,7 @@ def segmentR5(segments):
                 break
         if confirm[1] != 'CONFIRM':
             continue
-        out.setdefault(confirm[3], []).append((confirm[4], confirm[5]))
+        out.setdefault(confirm[3], []).append((confirm['text1'], confirm['text2']))
     outStr = ''
     for k, tups in out.items():
         outStr += f'# {k}\n'

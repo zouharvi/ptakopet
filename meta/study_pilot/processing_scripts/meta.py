@@ -85,6 +85,45 @@ def cleanSegments(segments):
             line[1] = int(line[1])-base
     return segments
 
+# Change the segment from array structure to dictionary one
+def segmentArrToDic(segments, name):
+    out = []
+    for segment in segments:
+        new = dict()
+        new['timestamp'] = segment[1]
+        new['type'] = segment[0]
+        new['name'] = name
+        if new['type'] == 'START':
+            new['queue'] = segment[2]
+        elif new['type'] == 'NEXT':
+            new['sid'] = segment[2]
+            new['problem'] = segment[3] if len(segment) > 3 else ''
+        elif new['type'] == 'TRANSLATE1':
+            new['text1'] = segment[2]
+            new['text2'] = segment[3]
+        elif new['type'] == 'TRANSLATE2':
+            new['text2'] = segment[2]
+            new['text3'] = segment[3]
+        elif new['type'] == 'ESTIMATE':
+            new['estimation'] = segment[2]
+        elif new['type'] == 'ALIGN':
+            new['align_estimation'] = segment[2]
+        elif new['type'] == 'CONFIRM':
+            new['sid'] = segment[2]
+            new['text1'] = segment[3]
+            new['text2'] = segment[4]
+        out.append(new)
+    return out
+
+# Add unique stimuli ids to all segments
+def addUSIDs(segments):
+    i = 0
+    for seg in segments:
+        for line in seg:
+            line['usid'] = i
+            i += 1
+    return segments
+
 allSegments = []
 # Process every file
 for logfile in args.logfile:
@@ -100,9 +139,11 @@ for logfile in args.logfile:
     if args.blog is not None:
         segments = confirmSplit(logs)
         segments = cleanSegments(segments)
-        segments = [[[name]+line for line in s] for s in segments]
-        allSegments += segments
+        allSegments += [segmentArrToDic(seg, name) for seg in segments]
     print()
+
+# Add USIDs to all segments
+addUSIDs(allSegments)
 
 # Dump the segments object
 if args.blog is not None:
