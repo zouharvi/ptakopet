@@ -3,8 +3,7 @@ import argparse
 import pickle
 import json
 
-# Prepare quality estimation
-# TODO
+# Prepare quality estimation text
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
@@ -34,7 +33,8 @@ def firstViableSrc(segment):
             return src
     return None
 
-# TODO
+# Prepare the A0 format for quality annotation
+# (group by SID, add flavor text)
 def prepareA0(segments, questions):
     out = dict()
     for seg in segments:

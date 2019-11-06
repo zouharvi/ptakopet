@@ -121,7 +121,8 @@ def addUSIDs(segments):
     for seg in segments:
         for line in seg:
             line['usid'] = i
-            i += 1
+            # The i += 1 was in the inner loop before the fix
+        i += 1
     return segments
 
 allSegments = []
