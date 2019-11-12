@@ -4,6 +4,7 @@ import pickle
 from difflib import SequenceMatcher
 import re
 from functools import reduce
+from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViable, tokenize
 
 # This script serves to explore phenomena in segments accross domains.
 # Phenomena include: distribution of skipped/finished/written linearly/edit types.
@@ -11,10 +12,6 @@ from functools import reduce
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 args = parser.parse_args()
-
-# Filter actions, then perform func
-def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x['type'] == prefix, logs)))
 
 # Return list of segments, which correspond to a given domain regex
 def domainKeyMap(logs, key, func=lambda x: x):
@@ -36,20 +33,6 @@ def segmentTime(segments, maxtime=600):
             total += seg[-1]['timestamp']
     return total/(len(segments)-faulty)
 
-# Check whether a given segment was written linearly
-def isLinear(seg):
-    translates = prefixMap(seg, 'TRANSLATE1', lambda x: x['text1'])
-    prev = ''
-    for line in translates:
-        if line.startswith(prev):
-            prev = line
-        else:
-            return False 
-    return True
-
-# Check whether a given segment resulted in a skip
-def isSkipped(segment):
-    return len(prefixMap(segment, 'CONFIRM')) == 0
 
 # Split to buckets according to func
 # \forall x: x in out[func(x)]
@@ -60,36 +43,15 @@ def split(segments, func):
         out.setdefault(val, []).append(seg)
     return out
 
-# Try to extract the first viable source sentence using some rudimentary heuristics
-def firstViableSrc(segment):
-    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
-    if len(srcs) == 0:
-        return None
-    longest = sorted(srcs, key=lambda x: len(x), reverse=True)
-
-    for src in longest:
-        if len(src) == 0:
-            return None
-        lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text1'])[-1]
-        if src == lastConfirmSrc:
-            continue
-        if src[-1] in ".?" or (len(src) > 1 and src[-2] in ".?"):
-            return src
-    return None
-
-# Very simple tokenization scheme
-def tokenize(raw):
-    out = re.split('\?|\.|,|\s+',raw)
-    out = list(filter(lambda x: len(x) != 0, out))
-    return out
-
 # Return quintuples of edit distributions between the first viable and the confirmed output.
 # (similarity ratio, % of equals, % of replaces, % of inserts, % of deletions)
 # None if first viable is not found
 def firstViableEditsDistribution(segment):
-    viable = firstViableSrc(segment)
-    if not viable:
+    viable = firstViable(segment)
+    if viable is None:
         return None
+    else:
+        viable = viable['text1']
     lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text1'])[-1]
     sm = SequenceMatcher(None, tokenize(viable), tokenize(lastConfirmSrc))
     opcodes = sm.get_opcodes()
@@ -114,7 +76,7 @@ for domain, domainName in domainNames.items():
     domainReg = domain + r'\d\d'
     dSegments = domainKeyMap(segments, domainReg)
     sSkipped = split(dSegments, isSkipped) 
-    sLinear = split(sSkipped[False], isLinear) 
+    sLinear = split(sSkipped[False], isWithoutBacktracking) 
     sEdits = map(firstViableEditsDistribution, sLinear[False])
     sEdits = list(filter(lambda x: x, sEdits))
     avgSimilarity = sum(map(lambda x: x[0], sEdits))/len(sEdits)

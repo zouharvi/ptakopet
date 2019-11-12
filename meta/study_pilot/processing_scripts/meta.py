@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os, argparse, pickle, copy
+from utils import nJoin, prefixMapArray
 
 # This script does some basic time metrics and then cleans the data and
 # dumps them into a pickle file by segments. Each line is prefixed by the
@@ -28,13 +29,6 @@ def userTime(logs, maxrest=60):
         last = x
     print(f'User time: {total}s, {total/60:.1f}m, {total/(60*60):.1f}h')
     return total
-
-# Filter actions, then perform func
-def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x[0] == prefix, logs)))
-
-def nJoin(l):
-    return '\n'.join(l)
 
 # Computes the average time per task
 def averageTime(logs, maxduration=500):
@@ -76,8 +70,8 @@ def confirmSplit(logs):
 
 # Clean segments of misc logs, which are not relevant to the annotator work
 def cleanSegments(segments):
-    segments = list(filter(lambda seg: len(seg) > 1 and len(prefixMap(seg, 'START')) == 0, segments))
-    segments = list(filter(lambda seg: len(prefixMap(seg, 'NEXT')) > 0, segments))
+    segments = list(filter(lambda seg: len(seg) > 1 and len(prefixMapArray(seg, 'START')) == 0, segments))
+    segments = list(filter(lambda seg: len(prefixMapArray(seg, 'NEXT')) > 0, segments))
     # Timestamps are recomputed to be with respect to segment start
     for seg in segments:
         base = int(seg[0][1])

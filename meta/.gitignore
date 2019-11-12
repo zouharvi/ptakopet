@@ -2,3 +2,4 @@
 *.blog[0-9]
 *.[sd]r[0-9]
 study_pilot/*.json
+**/__pycache__/*

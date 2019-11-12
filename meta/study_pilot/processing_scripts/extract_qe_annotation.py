@@ -6,8 +6,8 @@ import json
 # Add quality annotations to blog file and convert it to blog2
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
-parser.add_argument('blog2file',  help='Path to the binary log2 (.blog2) file in question')
+parser.add_argument('blog2in',  help='Path to input binary log 2 (.blog2) file')
+parser.add_argument('blog2out',  help='Path to output binary log 2 (.blog2) file')
 parser.add_argument('a0csv',  help='Path to the a0.csv file')
 parser.add_argument('-f', '--fix_usid', help='Fix USID mapping and save it to a0csv', action='store_true')
 args = parser.parse_args()
@@ -25,7 +25,7 @@ def fixUSIDsMap(segments):
         i += 1
     return out
 
-with open(args.blogfile, 'rb') as f:
+with open(args.blog2in, 'rb') as f:
     segments = pickle.load(f)
 
 with open(args.a0csv, 'r') as f:
@@ -47,20 +47,15 @@ if args.fix_usid:
 scoreMap = dict()
 for x in a0csv:
     scoreMap[x[0]] = x[1]
-newSegments = []
 for seg in segments:
-    newSeg = dict()
-    newSeg['items'] = seg
-    newSeg['rating'] = dict()
-    usid = str(seg[0]['usid'])
+    usid = str(seg['usid'])
     if usid in scoreMap:
-        newSeg['rating']['final'] = scoreMap[usid]
-        # if scoreMap[usid] != 0:
-        #     print(usid) 
-        #     print(newSeg['items'][-2]) 
+        seg['rating']['final'] = scoreMap[usid]
+        if scoreMap[usid] != 0:
+            print(usid) 
+            print(seg['items'][-2]) 
     if 'v' + usid in scoreMap:
-        newSeg['rating']['first_viable'] = scoreMap['v' + usid]
-    newSegments.append(newSeg)
+        seg['rating']['first_viable'] = scoreMap['v' + usid]
 
-with open(args.blog2file, 'wb') as f:
-    pickle.dump(newSegments, f)
+with open(args.blog2out, 'wb') as f:
+    pickle.dump(segments, f)

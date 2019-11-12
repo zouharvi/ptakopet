@@ -3,12 +3,13 @@ import argparse
 import pickle
 from difflib import SequenceMatcher
 import re
+from utils import prefixMap, isWithoutBacktracking, tokenize, firstViable
 
 # This script processes and outputs Segment Readable and Domain Readable outputs from
 # segments blogfile.
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
+parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file in question')
 parser.add_argument('-sr1', '--segments_r1',
                     help='Path to file for segments readable 1 output')
 parser.add_argument('-sr2', '--segments_r2',
@@ -21,27 +22,13 @@ parser.add_argument('-sr5', '--segments_r5',
                     help='Path to file for segments readable 5 output')
 args = parser.parse_args()
 
-# Filter actions, then perform func
-def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x['type'] == prefix, logs)))
-
 # Rudimentary statistics for segments, which were completed left to right
 def withoutBacktracking(segments):
     out = []
     for segment in segments:
-        translates = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
-        if len(translates) == 0:
-            continue
-        prev = ''
-        ok = True
-        for line in translates:
-            if line.startswith(prev):
-                prev = line
-            else:
-                ok = False
-                break
-        if ok:
-            out.append([line, len(segment)])
+        if isWithoutBacktracking(segment):
+            translates = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
+            out.append([translates[-1], len(segment)])
     print('Number of all segments:', len(segments))
     print('Number of segments without backtracking:', len(out))
     return out
@@ -84,34 +71,14 @@ def segmentR3(segment):
             l3 = line['text3'] # back
     return f'{l1}\n{l3}\n###'
 
-# Try to extract the first viable source sentence using some rudimentary heuristics
-def firstViableSrc(segment):
-    srcs = prefixMap(segment, 'TRANSLATE1', lambda x: x['text1'])
-    if len(srcs) == 0:
-        return None
-    longest = sorted(srcs, key=lambda x: len(x), reverse=True)
-
-    for src in longest:
-        if len(src) == 0:
-            return None
-        if src == segment[-1]['text1']: # CONFIRM
-            continue
-        if src[-1] in ".?" or (len(src) > 1 and src[-2] in ".?"):
-            return src
-    return None
-
-# Very simple tokenization scheme
-def tokenize(raw):
-    out = re.split('\?|\.|,|\s+',raw)
-    out = list(filter(lambda x: len(x) != 0, out))
-    return out
-
 # SR4
 # Each segment progression is turned into: `<viable>, <src final>, <target final>, <similarity>, <edit types>`
 def segmentR4(segment):
-    viable = firstViableSrc(segment)
-    if not viable:
+    viable = firstViable(segment)
+    if viable is None:
         return '<None>|<Linear>\n'
+    else:
+        viable = viable['text1']
     sm = SequenceMatcher(None, tokenize(viable), tokenize(segment[-1]['text1']))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))
