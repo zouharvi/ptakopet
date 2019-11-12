@@ -1,0 +1,997 @@
+START,1570210309,t01-z17-t19-t03-z09-z15-p07-z10-z08-t22-p11-p19-t34-p22-t24-t28-t20-t18-z12-z54-p27-z53-p00-z52-z44-z30-z20-p24-t27-z02-t04-t00-z01-p23-p14-t21-p15-p06-z05-t17-z00-t09-p08-p12-t13-p29-t14-z43-z50-z38-t32-t15-z45-z55-t16-z40-z28-p09-z29-z49-z37-p04-z18-t26-p26-t30-p03-z36-t07-t10-z24-z57-z34-z46-z13-p05-z07-t05-z39-z21-p02-p10-z35-t12-z22-t06-p28-t33-z23-z32-z42-z16-z14-z04-z33-p16-t25-z03-z58-z47-t23-z25-t29-z06-z31-p21-p20-z56-p01-t31-z11-z48-t02-z19-z59-t11-p25-t08-p17-z27-p13-p18-z26-z51-z41
+NEXT,1570210309,t01,
+TRANSLATE1,1570210379,Kurzor je ,Der Kursor ist zehn.
+TRANSLATE2,1570210379,Der Kursor ist zehn.,Kursor je deset.
+ESTIMATE,1570210381,0.1-0.1-0.1-0.1-1
+ALIGN,1570210381,0.1-1
+TRANSLATE1,1570210384,Kurzor je skrytý,Der Kursor ist versteckt.
+TRANSLATE2,1570210384,Der Kursor ist versteckt.,Kursor je schovaný.
+ESTIMATE,1570210385,1-1-0.1-0.1-1
+ALIGN,1570210385,1-0.1-1
+TRANSLATE1,1570210390,Kurzor je skrytý&#44; ,Der Kursor ist versteckt.
+TRANSLATE2,1570210390,Der Kursor ist versteckt.,Kursor je schovaný.
+ESTIMATE,1570210391,1-1-1-0.1-1
+ALIGN,1570210391,1-1-1-0.1-1
+TRANSLATE1,1570210392,Kurzor je skrytý&#44; přč,Der Kursor ist versteckt.
+TRANSLATE2,1570210392,Der Kursor ist versteckt.,Kursor je schovaný.
+TRANSLATE1,1570210393,Kurzor je skrytý&#44; přesto ,Der Kursor ist versteckt.
+ESTIMATE,1570210393,1-1-0.7-0.1-1
+TRANSLATE2,1570210393,Der Kursor ist versteckt.,Kursor je schovaný.
+ESTIMATE,1570210395,1-1-0.7-0.1-1
+ALIGN,1570210395,1-0.7-1-0.1-1
+ALIGN,1570210395,1-0.7-1-0.1-1
+TRANSLATE1,1570210405,Kurzor je skrytý&#44; přesto stále aktivní,Der Kursor ist versteckt&#44; aber er ist noch aktiv.
+TRANSLATE2,1570210405,Der Kursor ist versteckt&#44; aber er ist noch aktiv.,Kursor je schovaný&#44; ale je stále aktivní.
+ESTIMATE,1570210407,1-1-1-1-1-1-0.7-1-1-1-1
+ALIGN,1570210407,1-1-1-0.7-1-1-1
+TRANSLATE1,1570210432,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním ,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44;
+TRANSLATE2,1570210432,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44;,Kursor je schovaný&#44; ale je stále aktivní.
+ESTIMATE,1570210434,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1
+ALIGN,1570210434,1-1-1-1-0.1-1-1-1-0.7-0.1-1-1
+TRANSLATE1,1570210453,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním vybírat nebo ,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; ihn auszuwählen oder zu wählen.
+TRANSLATE2,1570210453,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; ihn auszuwählen oder zu wählen.,Kursor je schovaný&#44; ale je stále aktivní a je možné ho vybrat nebo vybrat.
+ESTIMATE,1570210455,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-1-1-1-0.1-1-0.1-0.1-0.1-1
+ALIGN,1570210455,1-1-1-0.1-1-1-1-1-1-1-1-0.1-0.1-1
+TRANSLATE1,1570210456,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním vybírat ,Der Kursor ist versteckt&#44; aber er ist noch aktiv&#44; und es ist möglich&#44; ihn auszuwählen.
+TRANSLATE2,1570210456,Der Kursor ist versteckt&#44; aber er ist noch aktiv&#44; und es ist möglich&#44; ihn auszuwählen.,Kursor je schovaný&#44; ale je stále aktivní a je možné si ho vybrat.
+ESTIMATE,1570210457,1-1-1-1-1-1-0.1-1-1-1-1-1-0.1-1-1-1-0.1-0.1-1
+ALIGN,1570210457,1-1-1-1-0.1-1-1-1-1-0.1-1-1-0.1-1-1
+TRANSLATE1,1570210459,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním vybírat i vytvářet okna.,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.
+TRANSLATE2,1570210459,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.,Kursor je schovaný&#44; ale je stále aktivní a je možné s ním postavit okna.
+ESTIMATE,1570210461,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1-1-1-1-0.1-0.1-1
+ALIGN,1570210461,1-1-1-1-0.1-1-1-1-0.7-0.1-1-1-1-1-1-1-1
+TRANSLATE1,1570210469,Kurzor je skryt&#44; přesto stále aktivní a je možné s ním vybírat i vytvářet okna.,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.
+TRANSLATE2,1570210469,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.,Kursor je schovaný&#44; ale je stále aktivní a je možné s ním postavit okna.
+ESTIMATE,1570210471,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1-1-0.7-1-0.1-0.1-1
+ALIGN,1570210471,1-1-1-1-0.1-1-1-1-0.7-0.1-0.7-1-1-1-1-1-1
+TRANSLATE1,1570210472,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním vybírat i vytvářet okna.,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.
+TRANSLATE2,1570210472,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm zu errichten.,Kursor je schovaný&#44; ale je stále aktivní a je možné s ním postavit okna.
+ESTIMATE,1570210474,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1-1-1-1-0.1-0.1-1
+ALIGN,1570210474,1-1-1-1-0.1-1-1-1-0.7-0.1-1-1-1-1-1-1-1
+TRANSLATE1,1570210483,Kurzor je skrytý&#44; přesto stále aktivní a je možné s ním vybírat a vytvářet okna.,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.
+TRANSLATE2,1570210483,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.,Kursor je schovaný&#44; ale je stále aktivní a je možné s ním vybrat a postavit okna.
+ESTIMATE,1570210484,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210485,1-1-1-1-0.1-1-1-1-0.7-0.1-0.1-1-0.7-1-0.1-1-1
+TRANSLATE1,1570210514,Kurzor není &#44; přesto stále aktivní a je možné s ním vybírat a vytvářet okna.,Der Kursor ist nicht aktiv&#44; aber es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.
+TRANSLATE2,1570210514,Der Kursor ist nicht aktiv&#44; aber es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.,Kursor není aktivní&#44; ale je možné s ním vybrat a postavit okna.
+ESTIMATE,1570210515,1-1-1-1-1-1-1-0.1-0.7-1-1-1-0.7-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210516,1-1-1-1-1-1-1-0.7-1-0.7-1-0.1-1-1-1-1
+TRANSLATE1,1570210518,Kurzor není vidět&#44; přesto stále aktivní a je možné s ním vybírat a vytvářet okna.,Man kann den Kursor nicht sehen&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.
+TRANSLATE2,1570210518,Man kann den Kursor nicht sehen&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.,Není vidět kurz&#44; ale je stále aktivní a je možné s ním vybrat a postavit okna.
+ESTIMATE,1570210519,0.1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-1-1-1-1-1-1-0.1-0.7-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210520,0.1-0.1-0.1-0.1-0.1-1-1-1-0.7-0.1-0.1-1-0.7-1-0.1-1-1
+TRANSLATE1,1570210526,Kurzor nje skrytý&#44; přesto stále aktivní a je možné s ním vybírat a vytvářet okna.,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.
+TRANSLATE2,1570210526,Der Kursor ist versteckt&#44; aber er ist immer noch aktiv&#44; und es ist möglich&#44; Fenster mit ihm auszuwählen und zu bauen.,Kursor je schovaný&#44; ale je stále aktivní a je možné s ním vybrat a postavit okna.
+ESTIMATE,1570210528,1-1-1-1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210528,1-1-1-1-0.1-1-1-1-0.1-0.1-0.1-1-0.7-1-0.1-1-1
+TRANSLATE1,1570210533,Kurzor nje skrytý&#44; ale přesto aktivní,Der Kursor ist versteckt&#44; aber aktiv.
+TRANSLATE2,1570210533,Der Kursor ist versteckt&#44; aber aktiv.,Kursor je schovaný&#44; ale aktivní.
+ESTIMATE,1570210535,1-1-1-1-1-0.7-0.1-1
+ALIGN,1570210535,1-1-1-1-0.7-0.1-1
+TRANSLATE1,1570210538,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a ,Der Kursor ist versteckt&#44; aber aktiv und
+TRANSLATE2,1570210538,Der Kursor ist versteckt&#44; aber aktiv und,Kursor je schovaný&#44; ale aktivní a
+ESTIMATE,1570210539,1-1-0.7-1-1-0.7-0.1-0.1
+ALIGN,1570210540,1-1-0.7-1-0.7-1-1-0.1-0.1
+TRANSLATE1,1570210544,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je s ním ,Der Kursor ist versteckt&#44; aber aktiv&#44; und er ist bei ihm.
+TRANSLATE2,1570210544,Der Kursor ist versteckt&#44; aber aktiv&#44; und er ist bei ihm.,Kursor je schovaný&#44; ale aktivní a je s ním.
+ESTIMATE,1570210546,1-0.7-1-1-1-1-0.7-0.7-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570210546,1-0.7-1-1-1-0.7-1-0.1-1-0.1-1-1
+TRANSLATE1,1570210550,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a i tak ,Der Kursor ist versteckt&#44; aber aktiv und dennoch...
+TRANSLATE2,1570210550,Der Kursor ist versteckt&#44; aber aktiv und dennoch...,Kursor je schovaný&#44; ale aktivní&#44; a přesto...
+ESTIMATE,1570210551,0.7-0.1-1-1-1-0.7-0.1-0.7-0.1-1
+ALIGN,1570210551,0.7-0.1-1-1-0.7-1-1-0.1-0.7-1-1
+TRANSLATE1,1570210555,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a ,Der Kursor ist versteckt&#44; aber aktiv und
+TRANSLATE2,1570210555,Der Kursor ist versteckt&#44; aber aktiv und,Kursor je schovaný&#44; ale aktivní a
+ESTIMATE,1570210556,1-1-0.7-1-1-0.7-0.1-0.1
+ALIGN,1570210557,1-1-1-1-0.7-1-1-0.1-0.1-0.7
+TRANSLATE1,1570210559,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním prov,Der Kursor ist versteckt&#44; aber aktiv&#44; und es ist möglich&#44; ihn zu sehen.
+TRANSLATE2,1570210559,Der Kursor ist versteckt&#44; aber aktiv&#44; und es ist möglich&#44; ihn zu sehen.,Kursor je schovaný&#44; ale aktivní a je možné ho vidět.
+TRANSLATE1,1570210560,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním pr,Der Kursor ist versteckt&#44; aber er ist aktiv&#44; und es ist möglich&#44; dass wir ihn in die Luft jagen.
+TRANSLATE2,1570210561,Der Kursor ist versteckt&#44; aber er ist aktiv&#44; und es ist möglich&#44; dass wir ihn in die Luft jagen.,Kursor je ukrytý&#44; ale je aktivní a je možné&#44; že ho vyhodíme do vzduchu.
+ESTIMATE,1570210561,1-1-1-1-1-0.7-0.1-0.1-1-0.1-1-1-1-0.1-0.7-0.1-1
+TRANSLATE1,1570210561,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním ,Der Kursor ist versteckt&#44; aber aktiv&#44; und er ist möglich.
+TRANSLATE2,1570210561,Der Kursor ist versteckt&#44; aber aktiv&#44; und er ist möglich.,Kursor je ukrytý&#44; ale aktivní a je možný.
+ESTIMATE,1570210563,1-1-1-1-1-1-0.1-1-1-1-1-0.1-0.7-1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570210563,1-1-1-1-0.7-0.7-1-1-1-1--1-
+TRANSLATE1,1570210563,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním např. ,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und er ist zum Beispiel möglich.
+TRANSLATE2,1570210563,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und er ist zum Beispiel möglich.,Kursor je schovaný&#44; ale aktivní&#44; a je to možné.
+ESTIMATE,1570210564,1-0.7-1-1-1-1-0.7-0.1-1-0.1-0.7-1-1
+ALIGN,1570210565,1-1-1-1-1-1-1-0.1-1-1-1-1-0.1-0.7
+ESTIMATE,1570210567,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-0.1-0.7-1-0.1-1
+ALIGN,1570210567,1-0.7-1-1-1-0.7-1-0.7-0.1-1-1-1--
+ALIGN,1570210567,1-1-1-1-1-1-1-0.1-1-0.1-1-1-0.7-1-1
+TRANSLATE1,1570210568,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo ,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und zum Beispiel ist es möglich&#44; ihn auszuwählen oder zu nutzen.
+TRANSLATE2,1570210568,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und zum Beispiel ist es möglich&#44; ihn auszuwählen oder zu nutzen.,Kursor je ukrytý&#44; ale přesto aktivní&#44; a například je možné ho vybrat nebo využít.
+ESTIMATE,1570210569,1-1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-1-0.1-0.7-1-0.1-0.1-1
+TRANSLATE1,1570210569,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet ,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und zum Beispiel ist es möglich&#44; ihn auszuwählen oder zu erschaffen.
+TRANSLATE2,1570210569,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und zum Beispiel ist es möglich&#44; ihn auszuwählen oder zu erschaffen.,Kursor je ukrytý&#44; ale přesto aktivní&#44; a je například možné ho vybrat nebo vytvořit.
+ALIGN,1570210569,1-1-1-0.1-1-1-1-1-0.1-1-1-1-0.1-0.7-1-1-1
+ESTIMATE,1570210571,1-1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-1-0.1-0.1-1-0.1-0.1-1
+TRANSLATE1,1570210571,Kurzor nje skrytý&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+ALIGN,1570210571,1-1-1-1-1-0.1-1-1-0.1-1-1-1-1-1-0.1-1-0.1-1-1
+TRANSLATE2,1570210571,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+ESTIMATE,1570210573,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210573,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+TRANSLATE1,1570210578,Kurzor je skrytý&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210578,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+ESTIMATE,1570210579,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210580,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+TRANSLATE1,1570210591,Kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210591,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+ESTIMATE,1570210593,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210593,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+TRANSLATE1,1570210603,Kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebotvořit okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210603,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+TRANSLATE1,1570210605,Kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo tvořit okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+ESTIMATE,1570210605,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+TRANSLATE2,1570210605,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+ESTIMATE,1570210606,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210607,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+ALIGN,1570210607,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+TRANSLATE1,1570210623,Kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo tv okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist möglich&#44; zum Beispiel mit ihm oder deinen Fenstern zu wählen.
+TRANSLATE2,1570210623,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist möglich&#44; zum Beispiel mit ihm oder deinen Fenstern zu wählen.,Kursor je schovaný&#44; ale aktivní&#44; a je možné si vybrat například s ním nebo s tvými okny.
+ESTIMATE,1570210625,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-0.7-1-1-0.1-0.7-1-0.1-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570210625,1-1-1-0.1-1-1-1-1-1-0.7-0.1-1-0.7-1-0.1-1-0.1-1-1
+TRANSLATE1,1570210626,Kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210626,Der Kursor ist versteckt&#44; aber dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,Kursor je ukrytý&#44; ale přesto aktivní a je například možné s ním vybrat nebo postavit okna.
+ESTIMATE,1570210627,1-1-1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210628,1-1-1-0.1-1-1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-1-1
+TRANSLATE1,1570210663,Ačkoliv je urzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Obwohl die Struktur versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihr auszuwählen oder zu bauen.
+TRANSLATE2,1570210664,Obwohl die Struktur versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihr auszuwählen oder zu bauen.,I když je struktura skrytá&#44; ale přesto aktivní&#44; je například možné s ní vybírat nebo stavět okna.
+TRANSLATE1,1570210664,Ačkoliv je kurzor je schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Obwohl der Kursor versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210664,Obwohl der Kursor versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,I když je kurz ukrytý&#44; ale přesto je aktivní&#44; je například možné s ním vybírat nebo stavět okna.
+ESTIMATE,1570210665,1-1-0.1-0.1-0.1-1-0.1-0.1-0.1-1-1-1-1-0.1-1-1-0.1-0.1-0.1-0.1-1-0.1-0.1-1
+ESTIMATE,1570210666,1-0.1-0.7-0.1-0.1-1-0.1-0.1-0.1-1-1-1-1-0.1-1-1-0.1-0.1-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210667,1-1-0.1-0.1-1-0.1-0.1-1-1-1-1-0.1-1-0.1-1-1-0.1-1-0.1-1-1
+TRANSLATE1,1570210667,Ačkoliv je kurzor schovaný&#44; ale přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Obwohl der Kursor versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+ALIGN,1570210667,1-0.1-0.7-0.1-0.1-0.1-1-1-1-1-1-1-0.1-0.1-1-0.1-1-1-1-1
+TRANSLATE2,1570210667,Obwohl der Kursor versteckt ist&#44; aber dennoch aktiv ist&#44; ist es beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,I když je kurz ukrytý&#44; ale přesto je aktivní&#44; je například možné s ním vybírat nebo stavět okna.
+ESTIMATE,1570210668,1-0.1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.7-1-1-1-0.1-1-1-0.7-0.7-0.7-0.1-1-0.1-0.1-1
+ALIGN,1570210669,1-0.1-0.1-0.1-0.1-0.1-1-1-1-1-1-1-0.7-0.7-1-0.1-1-1-1-1
+TRANSLATE1,1570210670,Ačkoliv je kurzor schovaný&#44; apřesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Auch wenn der Kursor versteckt ist und höchst aktiv ist&#44; und es beispielsweise möglich ist&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210670,Auch wenn der Kursor versteckt ist und höchst aktiv ist&#44; und es beispielsweise möglich ist&#44; Fenster mit ihm auszuwählen oder zu bauen.,I když je ten kurz ukrytý a je velmi aktivní a je například možné s ním vybírat nebo stavět okna.
+ESTIMATE,1570210672,1-0.1-0.1-0.1-0.1-0.1-1-0.7-0.1-0.1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-1
+ALIGN,1570210672,1-0.1-1-0.1-0.7-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-0.7-0.1-1-1
+TRANSLATE1,1570210673,Ačkoliv je kurzor schovaný&#44; je přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Obwohl der Kursor versteckt ist&#44; ist er dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.
+TRANSLATE2,1570210673,Obwohl der Kursor versteckt ist&#44; ist er dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,I když je kurz skryt&#44; je stále aktivní a je například možné s ním vybírat nebo stavět okna.
+ESTIMATE,1570210674,1-0.1-1-0.1-1-1-1-1-0.1-0.7-1-1-0.1-1-1-1-1-0.7-0.7-0.1-0.1-1-0.1-0.1-1
+ALIGN,1570210674,1-1-1-0.1-1-1-1-1-1-1-0.7-1-0.7-1-1-0.1-1-0.1-1-1
+NEXT,1570210687,z17
+CONFIRM,1570210687,t01,Ačkoliv je kurzor schovaný&#44; je přesto aktivní&#44; a je možné s ním např. vybírat nebo vytvářet okna.,Obwohl der Kursor versteckt ist&#44; ist er dennoch aktiv&#44; und es ist beispielsweise möglich&#44; Fenster mit ihm auszuwählen oder zu bauen.,1-0.1-1-0.1-1-1-1-1-0.1-0.7-1-1-0.1-1-1-1-1-0.7-0.7-0.1-0.1-1-0.1-0.1-1
+TRANSLATE1,1570210747,Co přijal Gautama ,Was Gautama akzeptiert hat.
+TRANSLATE2,1570210747,Was Gautama akzeptiert hat.,Co Gautama přijal.
+TRANSLATE1,1570210752,Co přijal Gautama od ,Seit Gautama 13 ist.
+TRANSLATE2,1570210752,Seit Gautama 13 ist.,Gautama má 13 let.
+TRANSLATE1,1570210752,Co přijal Gautama od vesnické dívky?,Was hat Gautama von einem Dorfmädchen angenommen?
+TRANSLATE2,1570210753,Was hat Gautama von einem Dorfmädchen angenommen?,Co si Gautama myslel o jedné chůvě?
+TRANSLATE1,1570210762,Co př Gautama od vesnické dívky?,Was ist mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210763,Was ist mit Gautama vom Dorfmädchen?,A co Gautama od té chůvy?
+TRANSLATE1,1570210763,Co  Gautama od vesnické dívky?,Was ist mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210763,Was ist mit Gautama vom Dorfmädchen?,A co Gautama od té chůvy?
+TRANSLATE1,1570210764,Co si Gautama od vesnické dívky?,Was machst du mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210765,Was machst du mit Gautama vom Dorfmädchen?,Co děláš s Gautama od té chůvy?
+TRANSLATE1,1570210768,Co si Gautama vzal od vesnické dívky?,Was hat Gautama von einem Dorfmädchen genommen?
+TRANSLATE2,1570210768,Was hat Gautama von einem Dorfmädchen genommen?,Co si Gautama vzal od chůvy?
+TRANSLATE1,1570210775,Co si Gautama vzal od vesn dívky?,Was hat Gautama vom Dorf genommen?
+TRANSLATE2,1570210776,Was hat Gautama vom Dorf genommen?,Co Gautama vzal z vesnice?
+TRANSLATE1,1570210776,Co si Gautama vzal od ve dívky?,Was hat Gautama von einem Mädchen genommen?
+TRANSLATE2,1570210776,Was hat Gautama von einem Mädchen genommen?,Co Gautama vzal dívce?
+TRANSLATE1,1570210777,Co si Gautama vzal od v dívky?,Was hat Gautama von einem Mädchen genommen?
+TRANSLATE2,1570210777,Was hat Gautama von einem Mädchen genommen?,Co Gautama vzal dívce?
+TRANSLATE1,1570210778,Co si Gautama vzal od  dívky?,Was hat Gautama von einem Mädchen genommen?
+TRANSLATE2,1570210778,Was hat Gautama von einem Mädchen genommen?,Co Gautama vzal dívce?
+TRANSLATE1,1570210779,Co si Gautama vzal od dívky?,Was hat Gautama von einem Mädchen genommen?
+TRANSLATE2,1570210779,Was hat Gautama von einem Mädchen genommen?,Co Gautama vzal dívce?
+TRANSLATE1,1570210784,Co si Gautama vzal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf genommen?
+TRANSLATE2,1570210784,Was hat Gautama von einem Mädchen aus dem Dorf genommen?,Co Gautama vzal dívce z vesnice?
+TRANSLATE1,1570210811,Co sGautama vzal od dívky z vesnice?,Was hat er von einem Mädchen aus dem Dorf?
+TRANSLATE2,1570210811,Was hat er von einem Mädchen aus dem Dorf?,Co má od dívky z vesnice?
+TRANSLATE1,1570210811,Co Gautama vzal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf genommen?
+TRANSLATE2,1570210811,Was hat Gautama von einem Mädchen aus dem Dorf genommen?,Co Gautama vzal dívce z vesnice?
+TRANSLATE1,1570210815,Co Gautama v od dívky z vesnice?,Was ist mit Gautama im Dorf?
+TRANSLATE2,1570210815,Was ist mit Gautama im Dorf?,A co Gautama ve vesnici?
+TRANSLATE1,1570210817,Co Gautama dostal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf?
+TRANSLATE2,1570210817,Was hat Gautama von einem Mädchen aus dem Dorf?,Co má Gautama společného s dívkou z vesnice?
+TRANSLATE1,1570210827,Co Gautama do od dívky z vesnice?,Was ist mit Gautama und dem Mädchen aus dem Dorf?
+TRANSLATE2,1570210828,Was ist mit Gautama und dem Mädchen aus dem Dorf?,A co Gautama a ta holka z vesnice?
+TRANSLATE1,1570210828,Co Gautama  od dívky z vesnice?,Was ist mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210828,Was ist mit Gautama vom Dorfmädchen?,A co Gautama od té chůvy?
+TRANSLATE1,1570210831,Co Gautama přijal od dívky z vesnice?,Was hat Gautama von einem Dorfmädchen angenommen?
+TRANSLATE2,1570210831,Was hat Gautama von einem Dorfmädchen angenommen?,Co si Gautama myslel o jedné chůvě?
+TRANSLATE1,1570210835,Co Gautama p od dívky z vesnice?,Was ist mit Gautama P vom Dorfmädchen?
+TRANSLATE2,1570210835,Was ist mit Gautama P vom Dorfmädchen?,A co Gautama P od té chůvy?
+TRANSLATE1,1570210836,Co Gautama od dívky z vesnice?,Was ist mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210837,Was ist mit Gautama vom Dorfmädchen?,A co Gautama od té chůvy?
+TRANSLATE1,1570210839,Co si Gautama od dívky z vesnice?,Was machst du mit Gautama vom Dorfmädchen?
+TRANSLATE2,1570210839,Was machst du mit Gautama vom Dorfmädchen?,Co děláš s Gautama od té chůvy?
+TRANSLATE1,1570210843,Co si Gautama vzal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf genommen?
+TRANSLATE2,1570210843,Was hat Gautama von einem Mädchen aus dem Dorf genommen?,Co Gautama vzal dívce z vesnice?
+TRANSLATE1,1570210858,Co si Gautama vzod dívky z vesnice?,Was ist mit Gautama von einem Dorfmädchen?
+TRANSLATE2,1570210858,Was ist mit Gautama von einem Dorfmädchen?,A co Gautama od venkovské dívky?
+TRANSLATE1,1570210861,Co si Gautama získal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf?
+TRANSLATE2,1570210862,Was hat Gautama von einem Mädchen aus dem Dorf?,Co má Gautama společného s dívkou z vesnice?
+TRANSLATE1,1570210866,Co Gautama získal od dívky z vesnice?,Was hat Gautama von einem Mädchen aus dem Dorf?
+TRANSLATE2,1570210866,Was hat Gautama von einem Mädchen aus dem Dorf?,Co má Gautama společného s dívkou z vesnice?
+TRANSLATE1,1570210873,Co dívky z vesnice?,Was ist mit den Mädchen aus dem Dorf?
+TRANSLATE2,1570210873,Was ist mit den Mädchen aus dem Dorf?,A co děvčata z vesnice?
+TRANSLATE1,1570210876,Co dala dívky z vesnice?,Was hat sie den Mädchen aus dem Dorf gegeben?
+TRANSLATE2,1570210876,Was hat sie den Mädchen aus dem Dorf gegeben?,Co dala holkám z vesnice?
+TRANSLATE1,1570210879,Co dala dívka  z vesnice?,Was hat ein Mädchen aus dem Dorf gegeben?
+TRANSLATE2,1570210879,Was hat ein Mädchen aus dem Dorf gegeben?,Co dala holka z vesnice?
+TRANSLATE1,1570210880,Co dala dívka z vesnice?,Was hat ein Mädchen aus dem Dorf gegeben?
+TRANSLATE2,1570210880,Was hat ein Mädchen aus dem Dorf gegeben?,Co dala holka z vesnice?
+TRANSLATE1,1570210883,Co dala dívka z vesnice ?,Was hat ein Mädchen aus dem Dorf gegeben?
+TRANSLATE2,1570210883,Was hat ein Mädchen aus dem Dorf gegeben?,Co dala holka z vesnice?
+TRANSLATE1,1570210887,Co dala dívka z vesnice Gautamovi?,Was hat das Mädchen im Dorf Gautam gegeben?
+TRANSLATE2,1570210887,Was hat das Mädchen im Dorf Gautam gegeben?,Co dala ta dívka Gautamovi?
+CONFIRM,1570210904,z17,Co dala dívka z vesnice Gautamovi?,Was hat das Mädchen im Dorf Gautam gegeben?,1-0.1-1-0.1-1-1-1-1-0.1-0.7-1-1-0.1-1-1-1-1-0.7-0.7-0.1-0.1-1-0.1-0.1-1
+NEXT,1570210904,t19
+TRANSLATE1,1570210915,P,P.P.&#44; ich
+TRANSLATE2,1570210916,P.P.&#44; ich,P.P.&#44; já.
+ESTIMATE,1570210920,0.1-1
+TRANSLATE1,1570210920,Při zadání ,Bei der Einberufung.
+TRANSLATE2,1570210920,Bei der Einberufung.,Při svolání.
+ALIGN,1570210920,1-
+ESTIMATE,1570210922,0.1-0.1-0.1-1
+ALIGN,1570210922,0.1-1
+TRANSLATE1,1570210927,Při zadání absolutního,Bei der Eingabe des absoluten...
+TRANSLATE2,1570210927,Bei der Eingabe des absoluten...,Při zadání absolutního...
+ESTIMATE,1570210928,1-1-1-0.1-0.1-1
+ALIGN,1570210929,1-0.1-1
+TRANSLATE1,1570210929,Při zadání absolutního ,Bei der Eingabe des absoluten...
+TRANSLATE2,1570210929,Bei der Eingabe des absoluten...,Při zadání absolutního...
+ESTIMATE,1570210931,1-1-1-0.1-0.1-1
+TRANSLATE1,1570210931,Při zadání absolutního URL,Bei der Vergabe des absoluten URL
+ALIGN,1570210931,1-1-0.1-1
+TRANSLATE2,1570210931,Bei der Vergabe des absoluten URL,Při rozdávání absolutní URL
+ESTIMATE,1570210933,0.1-0.1-1-0.1-1-1
+ALIGN,1570210933,0.1-1-1-1
+TRANSLATE1,1570210953,Po zadání absolutního URL,Nach der Eingabe des absoluten URL
+TRANSLATE2,1570210953,Nach der Eingabe des absoluten URL,Po zadání kompletní URL
+ESTIMATE,1570210955,1-1-1-1-1-1
+ALIGN,1570210955,1-1-1-1
+TRANSLATE1,1570210972,Po zadání absolutního URL dojde k nepřijetí,Nach der Eingabe des absoluten URL wird es keinen Besuch geben.
+TRANSLATE2,1570210972,Nach der Eingabe des absoluten URL wird es keinen Besuch geben.,Po zadání absolutní URL žádná návštěva nebude.
+ESTIMATE,1570210977,1-1-0.7-0.7-1-1-0.7-0.1-0.1-1-0.1-1
+TRANSLATE1,1570210977,Po zadání absolutního URL dojde k ,Nach der Vergabe des absoluten URL wird es
+TRANSLATE2,1570210978,Nach der Vergabe des absoluten URL wird es,Po vydání absolutního URL&#44;
+ALIGN,1570210978,1-0.7-0.7-0.1-1
+ESTIMATE,1570210979,1-0.7-1-0.7-1-1-0.1-0.1
+TRANSLATE1,1570210979,Po zadání absolutního URL dojde,Nach der Verleihung des absoluten URL wird es keine
+ALIGN,1570210979,0.7-1-1-1-0.1
+TRANSLATE2,1570210979,Nach der Verleihung des absoluten URL wird es keine,Po vydání absolutního URL&#44; žádná z nich nebude.
+ESTIMATE,1570210981,1-1-1-1-1-1-0.1-0.1-0.1
+TRANSLATE1,1570210982,Po zadání absolutního URL do,Nach der Eingabe des absoluten URL bis
+TRANSLATE2,1570210982,Nach der Eingabe des absoluten URL bis,Po zadání absolutní URL do roku
+ALIGN,1570210982,1-1-1-0.1
+ESTIMATE,1570210984,1-1-1-0.7-1-1-0.1
+TRANSLATE1,1570210984,Po zadání absolutního URL ,Nach der Eingabe des absoluten URL
+TRANSLATE2,1570210984,Nach der Eingabe des absoluten URL,Po zadání kompletní URL
+ALIGN,1570210984,1-0.7-1-0.1
+ESTIMATE,1570210987,1-1-1-1-1-1
+TRANSLATE1,1570210987,Po zadání absolutního URL není ,Nach der Eingabe des absoluten URL gibt es keine
+TRANSLATE2,1570210987,Nach der Eingabe des absoluten URL gibt es keine,Po zadání absolutní URL není žádná URL.
+ALIGN,1570210987,1-1-1-1
+ESTIMATE,1570210990,1-1-0.7-1-1-1-0.1-0.1-0.1
+TRANSLATE1,1570210990,Po zadání absolutního URL není při,Nach der Eingabe des absoluten URL ist er nicht mehr bei
+TRANSLATE2,1570210990,Nach der Eingabe des absoluten URL ist er nicht mehr bei,Po zadání absolutní URL už není na
+ALIGN,1570210990,1-0.7-1-0.1-0.1
+ESTIMATE,1570210995,1-1-1-0.7-1-1-1-1-1-0.7-0.1
+TRANSLATE1,1570210996,Po zadání absolutního URL není přijat žádný ,Nach der Vergabe des absoluten URL wird kein URL akzeptiert.
+ALIGN,1570210996,1-1-1-1-1-0.7-0.1
+TRANSLATE2,1570210996,Nach der Vergabe des absoluten URL wird kein URL akzeptiert.,Po udělení absolutního URL nebude URL přijat.
+ESTIMATE,1570210997,1-1-1-0.7-1-1-1-0.1-1-0.1-1
+ALIGN,1570210997,1-1-1-1-0.1-0.1-1
+TRANSLATE1,1570211003,Po zadání absolutního URL není přijat žádný protokol,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen.
+TRANSLATE2,1570211003,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen.,Po zadání absolutního URL nebude přijat žádný protokol.
+ESTIMATE,1570211005,1-1-1-0.7-1-1-1-1-0.7-0.1-1
+ALIGN,1570211005,1-1-1-1-1-0.7-0.1-1
+TRANSLATE1,1570211022,Po zadání absolutního URL není přijat žádný protokol ,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen.
+TRANSLATE2,1570211022,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen.,Po zadání absolutního URL nebude přijat žádný protokol.
+ESTIMATE,1570211024,1-1-1-0.7-1-1-1-1-0.7-0.1-1
+ALIGN,1570211024,1-1-1-1-1-0.7-0.1-1
+TRANSLATE1,1570211029,Po zadání absolutního URL není přijat žádný protokol (např. ,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. kein Protokoll).
+TRANSLATE2,1570211029,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. kein Protokoll).,Po udělení absolutního URL nebude přijat žádný protokol (např. žádný protokol).
+ESTIMATE,1570211030,1-1-1-0.7-1-1-1-1-0.7-0.1-1
+ALIGN,1570211030,1-0.7-1-1-1-1----
+TRANSLATE1,1570211062,Po zadání absolutního URL není přijat žádný protokol (např. https,Nach der Eingabe des absoluten URL ist kein Protokoll (z. B. https) angenommen worden.
+TRANSLATE2,1570211063,Nach der Eingabe des absoluten URL ist kein Protokoll (z. B. https) angenommen worden.,Po zavedení úplného systému URL nebyl přijat žádný protokol (např. https).
+TRANSLATE1,1570211064,Po zadání absolutního URL není přijat žádný protokol (např. https:,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen (z. B. https:
+ESTIMATE,1570211064,1-1-1-0.7-1-1-1-1-0.7-0.1-1
+TRANSLATE2,1570211064,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen (z. B. https:,Po zadání absolutního URL nebude přijat žádný protokol (např. https: https)
+ESTIMATE,1570211066,1-0.7-0.7-0.7-1-1-0.7-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+TRANSLATE1,1570211066,Po zadání absolutního URL není přijat žádný protokol (např. https://,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https:
+ALIGN,1570211066,1-1-0.7-1-1-1-0.7-0.1--1--
+TRANSLATE2,1570211072,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https:,Po udělení absolutního URL nebude přijat žádný protokol (např. https: https)
+ALIGN,1570211072,0.7-1-0.7-1-0.1-0.7-1-1-0.1-1-0.1-1-0.1
+ESTIMATE,1570211072,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+TRANSLATE1,1570211073,Po zadání absolutního URL není přijat žádný protokol (např. https://www.cuni.cz,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. kein https: ww. Cuni).
+ALIGN,1570211073,0.7-1-0.7-0.7-0.1-1-0.1-1-0.1-0.1-0.1-1-1-0.1
+TRANSLATE2,1570211073,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. kein https: ww. Cuni).,Po přidělení absolutního URL nebude přijat žádný protokol (např. žádný tempo: wow).Cuni. - Cuni.
+ESTIMATE,1570211074,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+ALIGN,1570211075,0.7-0.7-1-1-0.1-0.1-0.1-0.1-1-1-1----
+TRANSLATE1,1570211079,Po zadání absolutního URL není přijat žádný protokol (např. https://www.cuni.cz&#44; ani ,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen (z. B. kein https: ww. Cuni).
+TRANSLATE2,1570211079,Nach der Eingabe des absoluten URL wird kein Protokoll angenommen (z. B. kein https: ww. Cuni).,Po zavedení úplného systému URL nebude přijat žádný protokol (např. žádný razítko: wow).Cuni. - Cuni.
+ESTIMATE,1570211080,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+ALIGN,1570211081,0.7-1-0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-1--1---
+TRANSLATE1,1570211093,Po zadání absolutního URL není přijat žádný protokol (např. https://www.cuni.cz&#44; ani http://www.cuni.com,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https. ww. Cuni).
+TRANSLATE2,1570211093,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https. ww. Cuni).,Po udělení absolutního URL nebude přijat žádný protokol (např. https).Cuni. - Cuni.
+ESTIMATE,1570211095,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+ALIGN,1570211096,0.7-1-0.7-1-0.1-1-1-1-1-1-1-1-0.1-0.1-1-1-1-1-1---
+TRANSLATE1,1570211097,Po zadání absolutního URL není přijat žádný protokol (např. https://www.cuni.cz&#44; ani http://www.cuni.com).,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https. ww. Cuni).
+TRANSLATE2,1570211098,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https. ww. Cuni).,Po udělení absolutního URL nebude přijat žádný protokol (např. https).Cuni. - Cuni.
+ESTIMATE,1570211099,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+ALIGN,1570211100,1-1-0.7-1-0.1-1-1-1-1-1-1-1-0.1-1-1-1-1-1-1-1--1-1-
+CONFIRM,1570211148,t19,Po zadání absolutního URL není přijat žádný protokol (např. https://www.cuni.cz&#44; ani http://www.cuni.com).,Nach der Vergabe des absoluten URL wird kein Protokoll angenommen (z. B. https. ww. Cuni).,1-0.7-0.7-0.7-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+NEXT,1570211148,t03
+TRANSLATE1,1570211212,PO vyex,Nach zehn Jahren.
+TRANSLATE2,1570211213,Nach zehn Jahren.,Deset let.
+ESTIMATE,1570211217,0.1-0.1-0.1-1
+ALIGN,1570211217,0.1-1
+TRANSLATE1,1570211217,PO vyexportování,Nach der Ausfuhr
+TRANSLATE2,1570211217,Nach der Ausfuhr,Po vývozu
+ESTIMATE,1570211222,1-0.1-1
+TRANSLATE1,1570211222,PO vyexportování PDF,Nach dem Export von PDF
+TRANSLATE2,1570211222,Nach dem Export von PDF,Po vývozu PDF
+ALIGN,1570211222,1-0.1-1
+TRANSLATE1,1570211223,PO vyexportování PDF ,Nach dem Export von PDF
+TRANSLATE2,1570211223,Nach dem Export von PDF,Po vývozu PDF
+ESTIMATE,1570211224,1-1-0.7-0.1-0.1
+ESTIMATE,1570211225,1-1-0.7-0.1-0.1
+ALIGN,1570211225,1-0.1-0.1
+ALIGN,1570211226,1-0.1-0.1
+TRANSLATE1,1570211227,P vyexportování PDF ,PDF-Exporte
+TRANSLATE2,1570211227,PDF-Exporte,Vývoz z PDF.
+ESTIMATE,1570211229,0.1-0.1-1
+ALIGN,1570211229,0.1-0.1-1
+TRANSLATE1,1570211241,Vyexportuje-li,Wenn er exportiert&#44;
+TRANSLATE2,1570211241,Wenn er exportiert&#44;,Když vyváží&#44;
+ESTIMATE,1570211242,0.1-0.1-0.1-1
+ALIGN,1570211244,0.1-0.1-1
+TRANSLATE1,1570211244,Vyexportuje-li se,Wenn es exportiert wird...
+TRANSLATE2,1570211244,Wenn es exportiert wird...,Když ho vyvážejí...
+ESTIMATE,1570211246,0.1-0.1-0.1-1-1
+ALIGN,1570211246,0.1-0.1-1
+TRANSLATE1,1570211252,,
+TRANSLATE2,1570211252,,
+ESTIMATE,1570211252,
+ALIGN,1570211252,
+TRANSLATE1,1570211256,Vyex,Übersetzt von Evidence&#44; Evidence
+TRANSLATE2,1570211256,Übersetzt von Evidence&#44; Evidence,Překlad: xtomas252&#44; rebarborka channina Korekce: xtomas252 Anetka888
+ESTIMATE,1570211261,0.1-0.1-0.1-1-1
+TRANSLATE1,1570211261,Vyexportovaný,Exportiert von... -...
+TRANSLATE2,1570211262,Exportiert von... -...,Vyvezli ho...
+ALIGN,1570211262,1
+ESTIMATE,1570211263,0.1-0.1-1
+ALIGN,1570211263,
+TRANSLATE1,1570211266,Vyexportovaný ,Exportiert von... -...
+TRANSLATE2,1570211266,Exportiert von... -...,Vyvezli ho...
+ESTIMATE,1570211267,0.1-0.1-1
+ALIGN,1570211267,
+TRANSLATE1,1570211280,Vyexportovaný PDF dokument ,Ein exportiertes PDF-Dokument&#44;
+TRANSLATE2,1570211280,Ein exportiertes PDF-Dokument&#44;,Vyvážející dokument PDF&#44;
+ESTIMATE,1570211281,0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211282,0.1-0.1-1
+TRANSLATE1,1570211296,Výchozím způsobem yexportovaný PDF dokument ,Ich werde die eisernen PDF-Dokumente auf eine Art und Weise betreuen&#44;
+TRANSLATE2,1570211296,Ich werde die eisernen PDF-Dokumente auf eine Art und Weise betreuen&#44;,O železné dokumenty PDF se postarám tak&#44;
+ESTIMATE,1570211297,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-1-0.1-0.1-0.1
+ALIGN,1570211297,0.1-0.1-0.7-1-0.1
+TRANSLATE1,1570211301,Výchozím způsobem exportovaný PDF dokument ,Ich werde das exportierte PDF-Dokument auf eine Art und Weise umleiten&#44;
+TRANSLATE2,1570211301,Ich werde das exportierte PDF-Dokument auf eine Art und Weise umleiten&#44;,Přesměruji vývozní dokument PDF tak&#44; jak to bude možné&#44;
+ESTIMATE,1570211303,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-1-0.1-0.1-0.1
+ALIGN,1570211303,0.1-0.1-0.7-1-0.1
+TRANSLATE1,1570211314,Výchozím způsobem exportovaný PDF dokument obsajuhe ,Ich werde ein exportiertes PDF-Dokument in Umlauf bringen.
+TRANSLATE2,1570211314,Ich werde ein exportiertes PDF-Dokument in Umlauf bringen.,Zajistím&#44; aby byl v oběhu exportní dokument PDF.
+ESTIMATE,1570211315,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211316,0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570211322,Ve výchozím způsobem exportovaný PDF dokument obsajuhe ,Ausgefuhrtes PDF-Dokument&#44; Bestäubungsmittel
+TRANSLATE2,1570211322,Ausgefuhrtes PDF-Dokument&#44; Bestäubungsmittel,Vyvážené PDF zásoby&#44; opylování.
+ESTIMATE,1570211323,0.1-0.1-0.1-0.1-0.1-0.7
+ALIGN,1570211324,0.1-1-1-0.1-0.1-0.1-0.7
+TRANSLATE1,1570211330,,
+TRANSLATE2,1570211331,,
+ESTIMATE,1570211331,
+ALIGN,1570211331,
+TRANSLATE1,1570211332,V,Um 10 Uhr.
+TRANSLATE2,1570211333,Um 10 Uhr.,V 10:
+TRANSLATE1,1570211333,V ,Um 10 Uhr.
+TRANSLATE2,1570211334,Um 10 Uhr.,V 10:
+ESTIMATE,1570211334,0.1-0.1-0.1-0.1-0.1-0.7
+ESTIMATE,1570211335,0.1-0.1-0.1-0.1-0.1-0.7
+ALIGN,1570211335,0.1
+ALIGN,1570211336,0.1
+TRANSLATE1,1570211338,,
+TRANSLATE2,1570211338,,
+ESTIMATE,1570211338,
+ALIGN,1570211338,
+TRANSLATE1,1570211355,V exportovaném PDF ,In einem exportierten PDF.
+TRANSLATE2,1570211355,In einem exportierten PDF.,V exportním PDF.
+ESTIMATE,1570211357,1-0.1-0.7-0.7-1
+ALIGN,1570211357,1-0.7-1
+TRANSLATE1,1570211368,Exportovaném PDF ,Die exportierten PDFs.
+TRANSLATE2,1570211368,Die exportierten PDFs.,Vyvážející PDF.
+ESTIMATE,1570211369,0.7-0.1-0.1-1
+ALIGN,1570211370,0.1-1
+TRANSLATE1,1570211371,Exportované PDF ,Das ist ein exportierter PDF
+TRANSLATE2,1570211386,Das ist ein exportierter PDF,To je exportní PDF.
+ESTIMATE,1570211386,0.1-0.1-0.1-0.1-0.1
+TRANSLATE1,1570211387,ExportovanéExportovaný dokument PDF ,Das Exportierte PDF-Dokument.
+TRANSLATE2,1570211387,Das Exportierte PDF-Dokument.,Vyvážející dokument PDF.
+ALIGN,1570211387,0.1-0.1-0.1
+ESTIMATE,1570211388,0.7-0.1-0.1-0.1-1-1
+ALIGN,1570211388,0.1-1-1
+TRANSLATE1,1570211392,,
+TRANSLATE2,1570211392,,
+ESTIMATE,1570211392,
+ALIGN,1570211392,
+TRANSLATE1,1570211394,V ,Um 10 Uhr.
+TRANSLATE2,1570211394,Um 10 Uhr.,V 10:
+ESTIMATE,1570211396,0.7-0.1-0.1-0.1-1-1
+TRANSLATE1,1570211396,,
+TRANSLATE2,1570211396,,
+ESTIMATE,1570211396,
+ALIGN,1570211397,
+TRANSLATE1,1570211463,V exportovaném PDF dokumentu chybí části textu a symboly.,In dem exportierten PDF-Dokument fehlen Teile des Textes und Symbole.
+TRANSLATE2,1570211463,In dem exportierten PDF-Dokument fehlen Teile des Textes und Symbole.,Vývoz PDF obsahuje chybějící části textu a symboly.
+ESTIMATE,1570211465,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-1
+ALIGN,1570211465,0.1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211486,V exportovaném PDF dokumentu chybí části textu a symboly. ,In dem exportierten PDF-Dokument fehlen Teile des Textes und Symbole.
+TRANSLATE2,1570211486,In dem exportierten PDF-Dokument fehlen Teile des Textes und Symbole.,Vývoz PDF obsahuje chybějící části textu a symboly.
+ESTIMATE,1570211487,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-1
+ALIGN,1570211488,0.1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211499,Poexportovaném PDF dokumentu chybí části textu a symboly. ,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.
+TRANSLATE2,1570211499,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.,Po vyváženém dokumentu PDF chybí některé části textu a symboly.
+ESTIMATE,1570211501,0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-1
+TRANSLATE1,1570211501,Po exportovaném PDF dokumentu chybí části textu a symboly. ,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.
+ALIGN,1570211501,1-0.1-0.1-0.1-0.1-1-0.1-1-0.1-1
+TRANSLATE2,1570211501,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.,Po vyváženém dokumentu PDF chybí některé části textu a symboly.
+ESTIMATE,1570211503,1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-1
+ALIGN,1570211503,1-0.1-0.1-0.1-0.1-1-0.1-1-0.1-1
+TRANSLATE1,1570211506,Po exportovanéPDF dokumentu chybí části textu a symboly. ,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.
+TRANSLATE2,1570211506,Nach dem exportierten PDF-Dokument fehlen Teile des Textes und der Symbole.,Po vyváženém dokumentu PDF chybí některé části textu a symboly.
+ESTIMATE,1570211510,1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-1
+TRANSLATE1,1570211510,Po exportovaní PDF dokumentu chybí části textu a symboly. ,Nach der Ausfuhr des PDF-Dokuments fehlen Teile des Textes und der Symbole.
+ALIGN,1570211511,1-0.1-0.1-0.1-0.1-1-0.1-1-0.1-1
+TRANSLATE2,1570211511,Nach der Ausfuhr des PDF-Dokuments fehlen Teile des Textes und der Symbole.,Po vývozu doku PDF chybí některé části textu a symboly.
+ESTIMATE,1570211512,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-1
+ALIGN,1570211512,0.1-1-0.1-0.1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211531,Po exportovaní výchozím způsobePDF dokumentu chybí části textu a symboly. ,Nach der Ausfuhr der Ausgangsform des PPDF-Dokuments fehlen Teile des Textes und Symbole.
+TRANSLATE2,1570211531,Nach der Ausfuhr der Ausgangsform des PPDF-Dokuments fehlen Teile des Textes und Symbole.,Po vývozu formy přílohy PPDF chybí některé části textu a symboly.
+ESTIMATE,1570211533,1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-0.1-1
+ALIGN,1570211533,0.1-0.1-1-1-0.1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211560,Po exportovaní výchozím způsobem chybá PDF dokumentu chybí části textu a symboly. ,Nach dem Export des PDF-Dokuments fehlt ein Teil des Textes und der Symbole.
+TRANSLATE2,1570211561,Nach dem Export des PDF-Dokuments fehlt ein Teil des Textes und der Symbole.,Po vývozu doku PDF chybí část textu a symboly.
+ESTIMATE,1570211562,1-1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-1-1-0.1-0.1-1
+ALIGN,1570211567,1-1-1-1-0.1-0.1-1-1-1-0.1-1-0.1-1
+TRANSLATE1,1570211568,Po exportovaní výchozím způsobem chybí v PDF dokumentu chybí části textu a symboly. ,Nach der Ausfuhr fehlt es in der PDF-Dokumentation an Teilen des Textes und an Symbolen.
+TRANSLATE2,1570211568,Nach der Ausfuhr fehlt es in der PDF-Dokumentation an Teilen des Textes und an Symbolen.,Po vývozu chybí koncentrace PDF části textu a symboly.
+ESTIMATE,1570211570,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.7-1-0.1-0.1-1
+ALIGN,1570211570,0.1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.7-1-1-1
+TRANSLATE1,1570211574,Po exportovaní výchozím způsobem chybí v PDF dokumentu části textu a symboly. ,Nach dem Export fehlt es an dem PDF-Dokument&#44; an einem Teil des Textes und an Symbolen.
+TRANSLATE2,1570211574,Nach dem Export fehlt es an dem PDF-Dokument&#44; an einem Teil des Textes und an Symbolen.,Po vývozu chybí dokument PDF&#44; část textu a symboly.
+ESTIMATE,1570211576,1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-1-1-0.1-0.1-1
+ALIGN,1570211576,1-0.1-0.1-1-0.1-0.1-0.1-0.1-1-1-1-1-1
+TRANSLATE1,1570211598,PDF dokumentu části textu a symboly. ,Das PDF-Dokument des Textes und der Symbole.
+TRANSLATE2,1570211598,Das PDF-Dokument des Textes und der Symbole.,Doktura PDF textu a symboly.
+ESTIMATE,1570211600,0.7-0.1-0.1-0.1-0.7-1-1-0.1-0.1-1
+ALIGN,1570211600,0.1-0.1-0.7-0.1-1-0.1-1
+TRANSLATE1,1570211614,PDF dokument po exportu  části textu a symboly. ,Das PDF-Dokument nach dem Export eines Teils des Textes und der Symbole.
+TRANSLATE2,1570211614,Das PDF-Dokument nach dem Export eines Teils des Textes und der Symbole.,Dotace PDF po vývozu části textu a symbolů.
+ESTIMATE,1570211616,0.7-0.1-0.1-0.1-1-0.7-1-0.1-0.1-0.7-1-1-0.1-0.1-1
+ALIGN,1570211616,0.1-0.1-1-1-0.1-1-1-0.1-1
+TRANSLATE1,1570211629,PDF dokument po exportu neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Teile des Textes und Symbole.
+TRANSLATE2,1570211629,Das PDF-Dokument nach dem Export enthält keine Teile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné části textu ani symboly.
+ESTIMATE,1570211631,0.7-0.1-0.1-0.1-1-0.7-0.7-0.1-1-1-1-1-1-1-1
+ALIGN,1570211631,0.1-0.1-1-0.7-0.1-1-1-1-1-1
+TRANSLATE1,1570211669,PDF dokument po exportu výchozím způboem  neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.
+TRANSLATE2,1570211669,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů.
+ESTIMATE,1570211671,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-1
+ALIGN,1570211672,0.1-0.1-1-1-1-0.1-0.1-0.1-1-1-0.7-1
+TRANSLATE1,1570211680,PDF dokument po exportu výchozím způs0oem  neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.
+TRANSLATE2,1570211680,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů.
+ESTIMATE,1570211683,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-1
+TRANSLATE1,1570211683,PDF dokument po exportu výchozím způsoem  neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.
+ALIGN,1570211684,0.1-0.1-1-1-1-0.1-0.1-0.1-1-1-0.7-1
+TRANSLATE2,1570211684,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů.
+ESTIMATE,1570211686,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-1
+TRANSLATE1,1570211687,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.
+ALIGN,1570211687,0.1-0.1-1-1-1-1-0.1-0.1-1-1-0.7-1
+TRANSLATE2,1570211687,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů.
+ESTIMATE,1570211688,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1
+ALIGN,1570211689,0.1-0.1-1-1-1-1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211719,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.
+TRANSLATE2,1570211719,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů.
+ESTIMATE,1570211721,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1
+ALIGN,1570211721,0.1-0.1-1-1-1-1-0.1-0.1-1-1-0.1-1
+TRANSLATE1,1570211724,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. V,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Um 10 Uhr.
+TRANSLATE2,1570211724,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Um 10 Uhr.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symbolů v 10:
+ESTIMATE,1570211725,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1
+ALIGN,1570211726,0.1-0.1-1-1-1-0.1-0.1-0.1-1-1-0.1--1
+TRANSLATE1,1570211734,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. Výběrem ,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Die Wahl ist getroffen.
+TRANSLATE2,1570211734,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Die Wahl ist getroffen.,Dotace PDF po vývozu neobsahuje žádné prvky textu ani symboly. Volby byly učiněny.
+ESTIMATE,1570211736,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1-1-1-0.1-0.1-1
+ALIGN,1570211736,0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-1-0.1
+TRANSLATE1,1570211762,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. Výběrem kódování,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Wir wählen den Code.
+TRANSLATE2,1570211762,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Wir wählen den Code.,Dotace PDF po vývozu neobsahuje žádné prvky textu a symboly. Volíme kód.
+ESTIMATE,1570211763,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211780,0.1-0.1-1-1-1-0.1-0.1-0.1-1-1-0.1-1-0.1-0.1
+TRANSLATE1,1570211781,PDF dokument po exportu výchozím způsobem  neobsahuje  části textu a symboly. Výběrem kódování Windows-1250,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.
+TRANSLATE2,1570211781,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.,Dok PDF po vývozu neobsahuje žádné prvky textu ani symboly&#44; které by zakódovaly Windows-1250.
+ESTIMATE,1570211783,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211783,0.1-0.1-1-1-1-1-0.1-0.1-1-1-1-0.1-1-0.1-0.1-0.1-0.1
+TRANSLATE1,1570211803,PDF dokument po exportu výchozím způsobem  neobsahuje části textu a symboly. Výběrem kódování Windows-1250,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.
+TRANSLATE2,1570211804,Das PDF-Dokument nach dem Export enthält keine Bestandteile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.,Dok PDF po vývozu neobsahuje žádné prvky textu ani symboly&#44; které by zakódovaly Windows-1250.
+ESTIMATE,1570211805,0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-1-1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211805,0.1-0.1-1-1-1-1-0.1-0.1-1-1-1-0.1-1-0.1-0.1-0.1-0.1
+TRANSLATE1,1570211819,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly. Výběrem kódování Windows-1250,Das PDF-Dokument nach dem Export verliert an Ausgangsbasis Teile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.
+TRANSLATE2,1570211819,Das PDF-Dokument nach dem Export verliert an Ausgangsbasis Teile des Textes und Symbole.Verschlüsselung der Windows-1250 ausgewählt.,Dok PDF po vývozu ztrácí části textu a symboly&#44; šifrování Windows-1250.
+ESTIMATE,1570211821,0.7-0.1-0.1-0.1-1-0.7-0.7-0.1-0.1-0.1-0.7-1-1-1-0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211821,0.1-0.1-1-1-1-0.7-0.1-0.1-0.7-1-1-0.7-1-0.1-0.1-0.1-0.1
+TRANSLATE1,1570211843,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symbolyýběrem kódování Windows-1250,Das PDF-Dokument nach dem Export verliert Teile des Textes und symbolisiert die Verschlüsselung der Windows-1250er Windows.
+TRANSLATE2,1570211843,Das PDF-Dokument nach dem Export verliert Teile des Textes und symbolisiert die Verschlüsselung der Windows-1250er Windows.,Dok PDF po vývozu ztrácí části textu a symbolizuje šifrování Windows-1250 Windows.
+ESTIMATE,1570211849,1-0.1-0.1-0.1-1-0.7-0.7-0.1-0.1-1-0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570211850,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly a výýběrem kódování Windows-1250,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl&#44; Windows-1250 zu kodieren.
+ALIGN,1570211850,0.1-0.1-1-1-1-0.7-0.1-1-0.7-1-0.1-1-0.1-0.1-0.1-0.1-1
+TRANSLATE2,1570211850,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl&#44; Windows-1250 zu kodieren.,Dotace PDF po vývozu ztrácí část textu a symbolů a volby zakódovat Windows-1250.
+ESTIMATE,1570211853,1-0.1-0.1-0.1-1-0.7-0.7-0.1-0.1-1-1-1-1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211853,0.1-0.1-1-0.7-0.7-0.1-1-1-1-1-0.1-1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570211853,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly a výběrem kódování Windows-1250,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl des Codes Windows-1250.
+TRANSLATE2,1570211853,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl des Codes Windows-1250.,Dotace PDF po vývozu ztrácí část textu a symbolů a zvolení kódu Windows-1250.
+ESTIMATE,1570211855,1-0.1-0.1-0.1-1-0.7-0.7-0.1-0.1-0.7-1-0.7-1-0.1-1-0.1-0.7-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211855,0.1-0.1-1-1-0.7-0.1-0.7-1-0.7-1-0.1-1-1-0.1-0.1-0.1-1
+TRANSLATE1,1570211862,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly a výběrem kódování Windows-1250 ,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl des Codes Windows-1250.
+TRANSLATE2,1570211862,Das PDF-Dokument nach dem Export verliert einen Teil des Textes und Symbole und die Wahl des Codes Windows-1250.,Dotace PDF po vývozu ztrácí část textu a symbolů a zvolení kódu Windows-1250.
+ESTIMATE,1570211896,1-0.1-0.1-0.1-1-0.7-0.7-0.1-0.1-0.7-1-0.7-1-0.1-1-0.1-0.7-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211896,0.1-0.1-1-0.1-1-1-0.1-1-0.7-1-0.1-1-1-1-0.1-0.7-1-0.1-1-1-1-1
+TRANSLATE1,1570211896,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly a výběrem kódování Windows-1250 zmizí zase jiné symboly.,Das PDF-Dokument nach dem Export verliert einen Teil des Textes&#44; und die Symbole und die Wahl der Verschlüsselung von Windows-1250 werden wieder andere Symbole verlieren.
+TRANSLATE2,1570211897,Das PDF-Dokument nach dem Export verliert einen Teil des Textes&#44; und die Symbole und die Wahl der Verschlüsselung von Windows-1250 werden wieder andere Symbole verlieren.,Dotace PDF po vývozu ztratí část textu a symboly a zvolení kódování Windows-1250 ztratí další symboly.
+ESTIMATE,1570211898,0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-1-1-0.7-1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570211898,0.1-0.1-1-1-0.1-0.1-1-0.7-1-0.1-0.1-1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-0.1-1
+NEXT,1570211906,z09
+CONFIRM,1570211906,t03,PDF dokument po exportu výchozím způsobem  ztrácí části textu a symboly a výběrem kódování Windows-1250 zmizí zase jiné symboly.,Das PDF-Dokument nach dem Export verliert einen Teil des Textes&#44; und die Symbole und die Wahl der Verschlüsselung von Windows-1250 werden wieder andere Symbole verlieren.,0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-1-1-0.7-1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570212052,Co způsobil  podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212053,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212064,Co způsobil podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212065,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212125,Co způsobil Y EKONOMICKÉ REFORMY A podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat Y EKONOMIK REFORMY und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212126,Was hat Y EKONOMIK REFORMY und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo EKONOMIK REFORMY a podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212131,Co způsobil EKONOMICKÉ REFORMY A podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat EKONOMISCHE REFORMY und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212131,Was hat EKONOMISCHE REFORMY und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo EKONOMickou REFORMY a podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212179,Co způsobilY EKONOMICKÉ REFORMY A EKONOMICKÉ REFORMY A podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat EKONOMISCHE REFORMY und EKONOMISCHER REFORMY verursacht und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212179,Was hat EKONOMISCHE REFORMY und EKONOMISCHER REFORMY verursacht und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo EKONOMickou REFORMY a ECR REFORMY a podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212194,Co způsobilZ podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?
+TRANSLATE2,1570212194,Was hat die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) verursacht?,Co způsobilo podpis Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212235,Co způsobily ekonomické reformy podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was hat die Wirtschaftsreform zur Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) geführt?
+TRANSLATE2,1570212235,Was hat die Wirtschaftsreform zur Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) geführt?,Co vedlo k podepsání hospodářské reformy Severoamerické dohody o volném obchodu (NAFTA)?
+TRANSLATE1,1570212244,Co způsobily ekonomické reformy a podpis Severoamerické dohody o volném obchodu (NAFTA)?,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) bewirkt?
+TRANSLATE2,1570212244,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens (NAFTA) bewirkt?,Co vedlo k hospodářským reformám a podpisu Severoamerické dohody o volném obchodu (NAFTA)?
+START,1570212293,t01-z17-t19-t03-z09-z15-p07-z10-z08-t22-p11-p19-t34-p22-t24-t28-t20-t18-z12-z54-p27-z53-p00-z52-z44-z30-z20-p24-t27-z02-t04-t00-z01-p23-p14-t21-p15-p06-z05-t17-z00-t09-p08-p12-t13-p29-t14-z43-z50-z38-t32-t15-z45-z55-t16-z40-z28-p09-z29-z49-z37-p04-z18-t26-p26-t30-p03-z36-t07-t10-z24-z57-z34-z46-z13-p05-z07-t05-z39-z21-p02-p10-z35-t12-z22-t06-p28-t33-z23-z32-z42-z16-z14-z04-z33-p16-t25-z03-z58-z47-t23-z25-t29-z06-z31-p21-p20-z56-p01-t31-z11-z48-t02-z19-z59-t11-p25-t08-p17-z27-p13-p18-z26-z51-z41
+NEXT,1570212293,z09,
+NEXT,1570271316,z09,
+START,1570271316,t01-z17-t19-t03-z09-z15-p07-z10-z08-t22-p11-p19-t34-p22-t24-t28-t20-t18-z12-z54-p27-z53-p00-z52-z44-z30-z20-p24-t27-z02-t04-t00-z01-p23-p14-t21-p15-p06-z05-t17-z00-t09-p08-p12-t13-p29-t14-z43-z50-z38-t32-t15-z45-z55-t16-z40-z28-p09-z29-z49-z37-p04-z18-t26-p26-t30-p03-z36-t07-t10-z24-z57-z34-z46-z13-p05-z07-t05-z39-z21-p02-p10-z35-t12-z22-t06-p28-t33-z23-z32-z42-z16-z14-z04-z33-p16-t25-z03-z58-z47-t23-z25-t29-z06-z31-p21-p20-z56-p01-t31-z11-z48-t02-z19-z59-t11-p25-t08-p17-z27-p13-p18-z26-z51-z41
+TRANSLATE1,1570271325,Co způsobily ,Was haben sie getan?
+TRANSLATE2,1570271325,Was haben sie getan?,Co udělali?
+TRANSLATE1,1570271325,Co způsobily ref,Was haben sie getan?
+TRANSLATE2,1570271325,Was haben sie getan?,Co udělali?
+TRANSLATE1,1570271326,Co způsobily refo,Was verursachte die Refassion?
+TRANSLATE2,1570271326,Was verursachte die Refassion?,Co způsobilo rehabilitaci?
+TRANSLATE1,1570271327,Co způsobily ,Was haben sie getan?
+TRANSLATE2,1570271327,Was haben sie getan?,Co udělali?
+TRANSLATE1,1570271330,Co způsobily ekonomické reformy ,Was hat die Wirtschaftsreformen verursacht?
+TRANSLATE2,1570271330,Was hat die Wirtschaftsreformen verursacht?,Co způsobilo hospodářské reformy?
+TRANSLATE1,1570271335,Co způsobily ekonomické reformy a ,Was die Wirtschaftsreformen und
+TRANSLATE2,1570271335,Was die Wirtschaftsreformen und,Co se týče hospodářských reforem a
+TRANSLATE1,1570271337,Co způsobily ekonomické reformy a podepsání ,Was verursachte die Wirtschaftsreformen und die Unterzeichnung?
+TRANSLATE2,1570271337,Was verursachte die Wirtschaftsreformen und die Unterzeichnung?,Co způsobilo hospodářské reformy a podpis?
+TRANSLATE1,1570271344,Co způsobily ekonomické reformy a podepsání Severoameri,Was hat die Wirtschaftsreformen und die Unterzeichnung der Nordamerikaner verursacht?
+TRANSLATE2,1570271344,Was hat die Wirtschaftsreformen und die Unterzeichnung der Nordamerikaner verursacht?,Co způsobilo hospodářské reformy a podpis Severní Ameriky?
+TRANSLATE1,1570271346,Co způsobily ekonomické reformy a podepsání Severoamerické o,Was verursachte die Wirtschaftsreformen und die Unterzeichnung der Nordamerikaner um
+TRANSLATE2,1570271346,Was verursachte die Wirtschaftsreformen und die Unterzeichnung der Nordamerikaner um,Co vedlo k hospodářským reformám a podpisu Severní Ameriky v roce 2005?
+TRANSLATE1,1570271348,Co způsobily ekonomické reformy a podepsání Severoamerické dohod,Was hat die Wirtschaftsreformen und die Unterzeichnung der Nordamerikanischen Abkommen zur Folge?
+TRANSLATE2,1570271348,Was hat die Wirtschaftsreformen und die Unterzeichnung der Nordamerikanischen Abkommen zur Folge?,Jaký je výsledek hospodářských reforem a podpisu severoamerických dohod?
+TRANSLATE1,1570271349,Co způsobily ekonomické reformy a podepsání Severoamerické dohody ,Was hat die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Abkommens zur Folge?
+TRANSLATE2,1570271349,Was hat die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Abkommens zur Folge?,Jaký je výsledek hospodářských reforem a podpisu Severoamerické dohody?
+TRANSLATE1,1570271350,Co způsobily ekonomické reformy a podepsání Severoamerické dohody o ,Was hat die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Abkommens zur Folge?
+TRANSLATE2,1570271350,Was hat die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Abkommens zur Folge?,Jaký je výsledek hospodářských reforem a podpisu Severoamerické dohody?
+TRANSLATE1,1570271354,Co způsobily ekonomické reformy a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271354,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly hospodářské reformy a podepsání dohody o volném obchodu se Severní Amerikou?
+TRANSLATE1,1570271411,K čemu vedly ekonomické reformy a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271411,Was haben die Wirtschaftsreformen und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly hospodářské reformy a podepsání dohody o volném obchodu se Severní Amerikou?
+TRANSLATE1,1570271425,K čemu vedly ekonomické reformy prezidenta  a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen des Präsidenten und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271425,Was haben die Wirtschaftsreformen des Präsidenten und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly prezidentovy hospodářské reformy a podpis Severoamerické dohody o volném obchodu?
+TRANSLATE1,1570271427,K čemu vedly ekonomické reformy prezidenta Carlose  a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen von Präsident Carlos und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271427,Was haben die Wirtschaftsreformen von Präsident Carlos und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly hospodářské reformy prezidenta Carlose a podpis Severoamerické dohody o volném obchodu?
+TRANSLATE1,1570271436,K čemu vedly ekonomické reformy prezidenta Carlose Salinase de Go a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen von Präsident Carlos Salinas de Go und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271436,Was haben die Wirtschaftsreformen von Präsident Carlos Salinas de Go und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly hospodářské reformy prezidenta Carlose Salinase de Go a podpis dohody o volném obchodu se Severní Amerikou?
+TRANSLATE1,1570271439,K čemu vedly ekonomické reformy prezidenta Carlose Salinase de Gortariho a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen von Präsident Carlos Salinas de Gortari und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?
+TRANSLATE2,1570271439,Was haben die Wirtschaftsreformen von Präsident Carlos Salinas de Gortari und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,Co přinesly hospodářské reformy prezidenta Carlose Salinase de Gortariho a podpis Severoamerické dohody o volném obchodu?
+CONFIRM,1570271445,z09,K čemu vedly ekonomické reformy prezidenta Carlose Salinase de Gortariho a podepsání Severoamerické dohody o volném obchodu?,Was haben die Wirtschaftsreformen von Präsident Carlos Salinas de Gortari und die Unterzeichnung des Nordamerikanischen Freihandelsabkommens bewirkt?,
+NEXT,1570271445,z15
+TRANSLATE1,1570271474,Kdo postavi,Wer ist das?
+TRANSLATE2,1570271474,Wer ist das?,Kdo je to? - Já.
+TRANSLATE1,1570271475,Kdo postavil,Wer hat das gebaut?
+TRANSLATE2,1570271475,Wer hat das gebaut?,Kdo to postavil?
+TRANSLATE1,1570271476,Kdo postavil ,Wer hat das gebaut?
+TRANSLATE2,1570271476,Wer hat das gebaut?,Kdo to postavil?
+TRANSLATE1,1570271478,Kdo postavil nové ,Wer hat neue gebaut?
+TRANSLATE2,1570271478,Wer hat neue gebaut?,Kdo postavil nové?
+TRANSLATE1,1570271480,Kdo postavil nové křídlo,Wer baute einen neuen Flügel?
+TRANSLATE2,1570271480,Wer baute einen neuen Flügel?,Kdo postavil nové křídlo?
+TRANSLATE1,1570271482,Kdo postavil nové křídlo paláce,Wer baute den neuen Flügel des Palastes?
+TRANSLATE2,1570271482,Wer baute den neuen Flügel des Palastes?,Kdo postavil nové křídlo paláce?
+TRANSLATE1,1570271482,Kdo postavil nové křídlo paláce?,Wer baute den neuen Flügel des Palastes?
+TRANSLATE2,1570271482,Wer baute den neuen Flügel des Palastes?,Kdo postavil nové křídlo paláce?
+CONFIRM,1570271490,z15,Kdo postavil nové křídlo paláce?,Wer baute den neuen Flügel des Palastes?,
+NEXT,1570271490,p07
+TRANSLATE1,1570271504,K čemu ,Was soll 's?
+TRANSLATE2,1570271504,Was soll 's?,Co na tom záleží?
+TRANSLATE1,1570271505,K čemu po,Was soll 's?
+TRANSLATE2,1570271505,Was soll 's?,Co na tom záleží?
+TRANSLATE1,1570271508,K čemu používáme info,Wofür benutzen wir die Infos?
+TRANSLATE2,1570271508,Wofür benutzen wir die Infos?,Na co ty informace používáme?
+TRANSLATE1,1570271512,K čemu používáme infomace o počtu ,Wofür benutzen wir Informationen über die Anzahl der Opfer?
+TRANSLATE2,1570271512,Wofür benutzen wir Informationen über die Anzahl der Opfer?,K čemu používáme informace o počtu obětí?
+TRANSLATE1,1570271516,K čemu používáme infomace o počtu návštěvníků na webu,Wofür benutzen wir Informationen über die Anzahl der Besucher im Internet?
+TRANSLATE2,1570271517,Wofür benutzen wir Informationen über die Anzahl der Besucher im Internet?,K čemu používáme informace o počtu návštěv na internetu?
+TRANSLATE1,1570271522,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich ,Wofür benutzen wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre
+TRANSLATE2,1570271522,Wofür benutzen wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre,K čemu používáme informace o počtu návštěvníků na webových stránkách&#44; o jejich
+TRANSLATE1,1570271525,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich příchodu,Wofür benutzen wir Informationen über die Anzahl der Besucher im Internet&#44; über deren Ankunft?
+TRANSLATE2,1570271526,Wofür benutzen wir Informationen über die Anzahl der Besucher im Internet&#44; über deren Ankunft?,K čemu používáme informace o počtu návštěv na internetu&#44; o jejich příjezdu?
+TRANSLATE1,1570271528,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich příchodu a ,Wofür benutzen wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und ihre Ankunft?
+TRANSLATE2,1570271528,Wofür benutzen wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und ihre Ankunft?,K čemu používáme informace o počtu návštěvníků na internetových stránkách&#44; o jejich příjezdu a příjezdu?
+TRANSLATE1,1570271534,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich příchodu a navštěvovaných stránkách?,Wofür verwenden wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und ihre Besuche?
+TRANSLATE2,1570271534,Wofür verwenden wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und ihre Besuche?,K čemu používáme informace o počtu návštěvníků na internetových stránkách&#44; o jejich příjezdu a návštěvách?
+TRANSLATE1,1570271553,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich příchodu a stránkách&#44; které navštěvují?,Wofür verwenden wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und die Webseiten&#44; die sie besuchen?
+TRANSLATE2,1570271554,Wofür verwenden wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und die Webseiten&#44; die sie besuchen?,K čemu používáme informace o počtu návštěvníků na internetových stránkách&#44; o jejich příjezdu a internetových stránkách&#44; které navštěvují?
+CONFIRM,1570271564,p07,K čemu používáme infomace o počtu návštěvníků na webu&#44; o jejich příchodu a stránkách&#44; které navštěvují?,Wofür verwenden wir Informationen über die Anzahl der Besucher auf der Website&#44; über ihre Ankunft und die Webseiten&#44; die sie besuchen?,
+NEXT,1570271564,z10
+TRANSLATE1,1570271590,Jak je ,Wie geht 's?
+TRANSLATE2,1570271590,Wie geht 's?,Jak se vede?
+TRANSLATE1,1570271590,Jak je na,Wie geht 's?
+TRANSLATE2,1570271590,Wie geht 's?,Jak se vede?
+TRANSLATE1,1570271591,Jak je nazýv,Wie nennt man sie?
+TRANSLATE2,1570271591,Wie nennt man sie?,Jak se jim říká?
+TRANSLATE1,1570271594,Jak je nazýván nový režim?,Wie nennt man das neue Regime?
+TRANSLATE2,1570271595,Wie nennt man das neue Regime?,Jak se říká novému režimu?
+NEXT,1570271605,z08
+CONFIRM,1570271605,z10,Jak je nazýván nový režim?,Wie nennt man das neue Regime?,
+TRANSLATE1,1570271628,Co je ,Was ist los?
+TRANSLATE2,1570271629,Was ist los?,Co se děje? Co se děje?
+TRANSLATE1,1570271631,Co je dolní komora?,Was ist die untere Kammer?
+TRANSLATE2,1570271631,Was ist die untere Kammer?,Co je to dolní komora?
+NEXT,1570271651,t22
+CONFIRM,1570271651,z08,Co je dolní komora?,Was ist die untere Kammer?,
+TRANSLATE1,1570271708,Inspektor ,Inspektor. - Ja?
+TRANSLATE2,1570271708,Inspektor. - Ja?,Inspektore.
+ESTIMATE,1570271710,0.1-0.1-0.1-0.7-0.7-0.1-0.1-0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-0.1-1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-0.7-0.1-0.1-1
+ALIGN,1570271710,0.7
+TRANSLATE1,1570271714,Inspektor má barvy ,Der Inspektor hat Farbe
+TRANSLATE2,1570271714,Der Inspektor hat Farbe,Inspektor má barvu.
+ESTIMATE,1570271716,1-0.7-0.1-0.1
+ALIGN,1570271716,0.7-0.1-0.1
+TRANSLATE1,1570271723,Inspektor má barvy opa,Der Inspektor hat die Farbe eines Geiers.
+TRANSLATE2,1570271723,Der Inspektor hat die Farbe eines Geiers.,Inspektor má barvu supa.
+TRANSLATE1,1570271724,Inspektor má barvy opačné,Der Inspektor hat die Farbe falsch herum.
+TRANSLATE2,1570271724,Der Inspektor hat die Farbe falsch herum.,Inspektor má tu barvu obráceně.
+ESTIMATE,1570271725,1-1-0.1-1-1-0.1-0.1-1
+ESTIMATE,1570271726,1-1-0.7-1-1-0.1-0.1-1
+ALIGN,1570271727,1-1-0.1-1
+ALIGN,1570271727,1-1-0.1-1
+TRANSLATE1,1570271729,Inspektor má barvy opačné ,Der Inspektor hat die Farbe falsch herum.
+TRANSLATE2,1570271729,Der Inspektor hat die Farbe falsch herum.,Inspektor má tu barvu obráceně.
+ESTIMATE,1570271730,1-1-0.7-1-1-0.1-0.1-1
+ALIGN,1570271730,1-1-0.1-1
+TRANSLATE1,1570271733,Inspektor má barvy o,Der Inspektor hat Farbe
+TRANSLATE2,1570271733,Der Inspektor hat Farbe,Inspektor má barvu.
+ESTIMATE,1570271734,1-1-0.1-0.1
+ALIGN,1570271734,1-0.1-1-0.1
+TRANSLATE1,1570271735,Inspektor má barvy obrá,Der Inspektor hat Farbe.
+TRANSLATE2,1570271735,Der Inspektor hat Farbe.,Inspektor má barvu.
+ESTIMATE,1570271736,1-1-0.1-1-1
+ALIGN,1570271737,1-0.1-1-1-1
+TRANSLATE1,1570271737,Inspektor má barvy obrácené než ,Der Inspektor hat die Farbe umgedreht.
+TRANSLATE2,1570271737,Der Inspektor hat die Farbe umgedreht.,Inspektor tu barvu otočil.
+ESTIMATE,1570271739,1-1-0.1-1-1-0.1-1
+ALIGN,1570271739,1-0.1-1-0.1-1
+TRANSLATE1,1570271744,Inspektor má barvy obrácené,Der Inspektor hat die Farbe umgedreht.
+TRANSLATE2,1570271744,Der Inspektor hat die Farbe umgedreht.,Inspektor tu barvu otočil.
+ESTIMATE,1570271746,1-1-0.1-0.7-1-0.1-1
+ALIGN,1570271746,1
+TRANSLATE1,1570271748,Na rozdíl od,Im Gegensatz zu...
+TRANSLATE2,1570271748,Im Gegensatz zu...,Na rozdíl od...
+ESTIMATE,1570271749,1-1-0.1-1
+ALIGN,1570271750,1-1-0.1-1
+TRANSLATE1,1570271751,Na rozdíl od skriptovacího ,Im Gegensatz zur Skriptierung.
+TRANSLATE2,1570271751,Im Gegensatz zur Skriptierung.,Na rozdíl od shrnutí.
+ESTIMATE,1570271752,1-1-0.7-0.1-1
+ALIGN,1570271752,1-1-1-0.1-1
+TRANSLATE1,1570271753,Na rozdíl od skriptovacího jazyka má ,Im Gegensatz zur Skriptierungszunge hat sie
+TRANSLATE2,1570271753,Im Gegensatz zur Skriptierungszunge hat sie,Na rozdíl od redukčních limitů má
+ESTIMATE,1570271755,1-1-1-0.1-0.1-0.1
+ALIGN,1570271755,1-1-1-0.1-0.1-0.1
+TRANSLATE1,1570271758,Na rozdíl od skriptovacího jazyka má Inspektor ,Im Gegensatz zur Skriptierungszunge hat der Inspektor
+TRANSLATE2,1570271759,Im Gegensatz zur Skriptierungszunge hat der Inspektor,Na rozdíl od stlačování má inspektor
+TRANSLATE1,1570271760,Na rozdíl od skriptovacího jazyka má Inspektor obrá,Im Gegensatz zu der Skriptierungszunge&#44; hat mein Inspektor einen Vorteil.
+TRANSLATE2,1570271760,Im Gegensatz zu der Skriptierungszunge&#44; hat mein Inspektor einen Vorteil.,Na rozdíl od stlačování má můj inspektor výhodu.
+ESTIMATE,1570271760,1-1-1-1-0.1-0.7-1
+TRANSLATE1,1570271761,Na rozdíl od skriptovacího jazyka má Inspektor ,Im Gegensatz zur Skriptierungszunge hat der Inspektor
+TRANSLATE2,1570271761,Im Gegensatz zur Skriptierungszunge hat der Inspektor,Na rozdíl od stlačování má inspektor
+ESTIMATE,1570271761,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271762,1-1-1-0.7--1--
+ESTIMATE,1570271763,1-1-1-1-0.1-0.7-1
+TRANSLATE1,1570271763,Na rozdíl od skriptovacího jazyka má Inspektor bravy obrácen,Im Gegensatz zur Skriptierungszunge hat Inspektor Bravoy die falsche Richtung eingeschlagen.
+ALIGN,1570271763,1-1-1-0.1-1-0.1-0.1-0.1
+TRANSLATE2,1570271764,Im Gegensatz zur Skriptierungszunge hat Inspektor Bravoy die falsche Richtung eingeschlagen.,Na rozdíl od stlačování se inspektor Bravoy vydal špatným směrem.
+ALIGN,1570271764,1-1-1-1-1-1-0.1-0.7-1
+TRANSLATE1,1570271764,Na rozdíl od skriptovacího jazyka má Inspektor bravy obrácené,Im Gegensatz zu der Skriptierungszunge&#44; hat Inspektor Bravoy die falsche Richtung eingeschlagen.
+TRANSLATE2,1570271764,Im Gegensatz zu der Skriptierungszunge&#44; hat Inspektor Bravoy die falsche Richtung eingeschlagen.,Na rozdíl od stlačování se inspektor Bravoy vydal špatným směrem.
+TRANSLATE1,1570271765,Na rozdíl od skriptovacího jazyka má Inspektor bravy obráceně,Im Gegensatz zur Skriptierungszunge hat Inspektor Bravoy die falsche Richtung eingeschlagen.
+TRANSLATE2,1570271765,Im Gegensatz zur Skriptierungszunge hat Inspektor Bravoy die falsche Richtung eingeschlagen.,Na rozdíl od stlačování se inspektor Bravoy vydal špatným směrem.
+ESTIMATE,1570271765,1-1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271767,1-1-1-0.1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271768,1-1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271768,1-1-1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271769,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1
+ALIGN,1570271769,1-1-1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271779,Na rozdíl od skriptovacího jazyka má Inspektor bavy obráceně,Im Gegensatz zu der Skriptierungszunge hat der Inspektor eine umgekehrte Unterhaltung.
+TRANSLATE2,1570271779,Im Gegensatz zu der Skriptierungszunge hat der Inspektor eine umgekehrte Unterhaltung.,Na rozdíl od stlačování má inspektor obrácenou konverzaci.
+TRANSLATE1,1570271780,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe falsch herum.
+TRANSLATE2,1570271780,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe falsch herum.,Na rozdíl od stlačování má inspektor tu barvu obráceně.
+ESTIMATE,1570271781,1-1-1-0.1-1-0.1-0.7-1-0.1-0.1-0.1-1
+ESTIMATE,1570271782,1-1-1-0.1-1-0.1-1-1-0.7-1-0.7-0.1-1
+ALIGN,1570271783,1-1-1-0.1-1-0.1-0.1-1-
+ALIGN,1570271783,1-1-1-0.1-1-0.7-0.7-1-1
+TRANSLATE1,1570271794,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; ,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44;
+TRANSLATE2,1570271794,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44;,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44;
+TRANSLATE1,1570271795,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; za,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe falsch herum&#44; für
+TRANSLATE2,1570271795,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe falsch herum&#44; für,Na rozdíl od stlačování má inspektor tu barvu obráceně.
+ESTIMATE,1570271796,1-1-1-1-0.1-0.7-1-0.7-1-0.1-1
+ESTIMATE,1570271798,1-1-1-1-0.1-1-1-1-1-1-0.1-0.1-0.1
+ALIGN,1570271798,1-1-1-0.1-0.7-1-1-1-1--
+ALIGN,1570271798,1-1-1-0.1-1-1-1-1-1-0.1-0.1-0.1
+TRANSLATE1,1570271799,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco ,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...
+TRANSLATE2,1570271799,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...,Na rozdíl od stlačování má inspektor tu barvu obráceně&#44; takže...
+ESTIMATE,1570271801,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271801,1-0.1-1-0.1-0.1-0.1-0.1-1-0.1-0.1-0.1-1
+TRANSLATE1,1570271802,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v ,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...
+TRANSLATE2,1570271802,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...,Na rozdíl od stlačování má inspektor tu barvu obráceně&#44; takže...
+TRANSLATE1,1570271803,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Ins,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; während er in Ins
+TRANSLATE2,1570271803,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; während er in Ins,Na rozdíl od stlačování&#44; inspektor má tu barvu obráceně&#44; zatímco on je uvnitř
+ESTIMATE,1570271804,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-1
+TRANSLATE1,1570271804,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v ,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...
+TRANSLATE2,1570271804,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also...,Na rozdíl od stlačování má inspektor tu barvu obráceně&#44; takže...
+ESTIMATE,1570271805,0.7-0.1-0.1-0.1-0.1-0.1-0.7-0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-1
+ALIGN,1570271806,1-0.1-1-0.1-0.1-0.1-0.1-1-0.7-0.1-1--
+TRANSLATE1,1570271806,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru je ,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also ist er im Inspektor
+TRANSLATE2,1570271806,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; also ist er im Inspektor,Na rozdíl od stlačování má inspektor tu barvu obráceně&#44; takže je v inspektorově kanceláři.
+TRANSLATE1,1570271807,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru je 0,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0 ist.
+ESTIMATE,1570271807,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-1
+TRANSLATE2,1570271807,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0 ist.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektorovi je 0.
+ALIGN,1570271807,1-0.1-1-0.1-1-0.1-0.7-1-1-0.1-0.1-0.7-0.7-0.1
+TRANSLATE1,1570271809,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru je 0-0-0,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; also ist der Inspektor 0-0-0-
+ESTIMATE,1570271809,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE2,1570271809,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; also ist der Inspektor 0-0-0-,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; takže inspektor je 0-0-0-
+ESTIMATE,1570271810,1-1-1-0.1-1-0.1-0.7-1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-1
+ALIGN,1570271810,1-0.1-1-0.1-0.1-0.1-1-1-0.1-0.1-0.7-0.1-1-1--
+TRANSLATE1,1570271811,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru je 0-0-0 ,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; also ist der Inspektor 0-0-0-
+TRANSLATE2,1570271811,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; also ist der Inspektor 0-0-0-,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; takže inspektor je 0-0-0-
+ESTIMATE,1570271812,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271812,1-0.1-1-0.1-1-0.1-0.1-1-0.1-0.1-0.7-0.1-1-1-0.1-0.1-1---
+ALIGN,1570271812,1-1-1-1-1-0.1-0.1-1-0.1-0.1-1-1-1-1-0.7-0.1-1---
+ESTIMATE,1570271814,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271814,1-1-1-1-1-0.1-0.1-1-0.1-0.1-0.7-0.1-1-1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271814,1-1-1-1-1-0.1-0.1-1-0.1-0.1-0.7-0.1-1-1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271817,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru  0-0-0 ,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; während der Inspektor bei 0-0-0 ist.
+TRANSLATE2,1570271817,Anders als die Skriptierungszunge&#44; hat der Inspektor die Farbe verkehrt herum&#44; während der Inspektor bei 0-0-0 ist.,Na rozdíl od stlačování má inspektor tu barvu obráceně&#44; zatímco inspektor je na 0-0-0.
+ESTIMATE,1570271818,0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.7-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271819,1-0.1-1-0.1-1-0.1-0.1-1-0.1-1-1-1-0.1-1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271819,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 ,Im Gegensatz zur Skriptierungssprache hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0 antwortet.
+TRANSLATE2,1570271819,Im Gegensatz zur Skriptierungssprache hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0 antwortet.,Na rozdíl od srovnávacího jazyka&#44; inspektor změnil barvu&#44; zatímco inspektor odpovídá 0-0-0-0.
+ESTIMATE,1570271820,1-1-1-1-0.1-0.7-0.7-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271821,1-1-1-1-0.1-0.1-0.1-1-0.1-0.1-1-1-1-1-1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271823,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe trägt.
+TRANSLATE2,1570271823,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe trägt.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0 Black.
+ESTIMATE,1570271824,1-1-1-1-0.1-0.7-0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271825,1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-0.7-1-1-0.1-0.1-0.1-0.1-0.1-1-1
+TRANSLATE1,1570271830,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44;
+TRANSLATE2,1570271830,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44;,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0-0- Black&#44;
+ESTIMATE,1570271831,1-1-1-1-0.1-0.7-0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271831,1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-0.7-1-1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+TRANSLATE1,1570271832,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; v,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe entspricht.
+TRANSLATE2,1570271832,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe entspricht.,Na rozdíl od stlačeniny&#44; inspektor změnil barvu&#44; zatímco inspektor identifikoval 0-0- Blackovu značku.
+TRANSLATE1,1570271833,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ve,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt.
+TRANSLATE2,1570271833,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0-0-0- Black.
+ESTIMATE,1570271834,1-1-1-0.1-1-0.1-0.7-1-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271835,1-1-1-1-0.1-0.7-0.7-0.1-0.1-0.1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271836,1-1-1-0.1-1-1-0.1-1-1-0.1-0.1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-1-
+TRANSLATE1,1570271836,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ve skriptu je,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44; ist er im Schrip.
+ALIGN,1570271836,1-1-1-1-1-0.1-0.1-1-1-0.1-1-1-0.7-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-1-1
+TRANSLATE2,1570271836,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44; ist er im Schrip.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0-0- Black&#44; je v blázinci.
+TRANSLATE1,1570271837,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ve skriptu je ,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44; ist er im Schrip.
+TRANSLATE2,1570271837,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-0-Black-Farbe trägt&#44; ist er im Schrip.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0-0- Black&#44; je v blázinci.
+ESTIMATE,1570271837,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271839,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ALIGN,1570271841,1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-1-0.1
+ALIGN,1570271841,1-1-1-1-0.1-0.1-0.1-1-0.1-1-1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-1-0.1
+TRANSLATE1,1570271842,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ve skriptu je barva bílá,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe trägt&#44; ist die Farbe weiß im Schrip.
+TRANSLATE2,1570271842,Im Gegensatz zur Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe trägt&#44; ist die Farbe weiß im Schrip.,Na rozdíl od stlačování&#44; inspektor změnil barvu&#44; zatímco inspektor nosí odznak 0-0-0&#44; barva je bílá.
+TRANSLATE1,1570271843,Na rozdíl od skriptovacího jazyka má Inspektor barvy obráceně&#44; takže zatímco v Inspektoru odpovídá 0-0-0 černé barvě&#44; ve skriptu je barva bílá.,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe entspricht&#44; ist die Farbe im Schrip weiß.
+ESTIMATE,1570271843,1-1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE2,1570271843,Im Gegensatz zu der Skriptierungszunge hat der Inspektor die Farbe umgekehrt&#44; während der Inspektor 0-0-Black-Farbe entspricht&#44; ist die Farbe im Schrip weiß.,Na rozdíl od stlačeniny&#44; inspektor změnil barvu&#44; zatímco značka je 0-0-0&#44; barva je bílá.
+ESTIMATE,1570271845,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-1-0.7-0.7-0.1-1
+ALIGN,1570271845,1-1-1-0.1-0.1-0.1-1-1-1-1-1-1-0.1-1-1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-1-0.1-0.1-1-
+ALIGN,1570271846,1-1-1-1-0.1-0.1-1-1-1-1-1-1-1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-0.7-1-0.1-1-0.1-1
+TRANSLATE1,1570271851,,
+TRANSLATE2,1570271851,,
+ESTIMATE,1570271851,
+ALIGN,1570271851,
+TRANSLATE1,1570271852,Ob,Um die 000.
+TRANSLATE2,1570271852,Um die 000.,Asi 200 000 dolarů.
+TRANSLATE1,1570271853,,
+TRANSLATE2,1570271853,,
+ESTIMATE,1570271854,1-1-1-0.1-1-0.1-0.1-0.7-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-1-0.7-0.7-0.1-1
+ESTIMATE,1570271854,
+ALIGN,1570271854,
+TRANSLATE1,1570271860,Ispektor ,Das ist der Ispektor.
+TRANSLATE2,1570271860,Das ist der Ispektor.,To je ispektor.
+ESTIMATE,1570271862,0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271862,,
+TRANSLATE2,1570271862,,
+ESTIMATE,1570271862,
+ALIGN,1570271863,
+TRANSLATE1,1570271865,Inspektor,Inspektor. - Ja?
+TRANSLATE2,1570271865,Inspektor. - Ja?,Inspektore.
+ESTIMATE,1570271866,0.1-0.1-0.1-0.1-1
+ALIGN,1570271866,1
+TRANSLATE1,1570271869,Inspektor ,Inspektor. - Ja?
+TRANSLATE2,1570271869,Inspektor. - Ja?,Inspektore.
+TRANSLATE1,1570271870,Inspektor,Inspektor. - Ja?
+TRANSLATE2,1570271870,Inspektor. - Ja?,Inspektore.
+ESTIMATE,1570271870,0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271873,0.1-0.1-0.1-0.1-1
+ALIGN,1570271873,1
+ALIGN,1570271875,1
+TRANSLATE1,1570271875,V Inspektoru ,Ja&#44; Inspektor.
+TRANSLATE2,1570271875,Ja&#44; Inspektor.,Ano&#44; inspektore.
+ESTIMATE,1570271877,0.1-0.1-0.1-1
+ALIGN,1570271878,0.1-0.1-1
+TRANSLATE1,1570271878,V Inspektoru odpovídá ,Der Inspektor antwortet.
+TRANSLATE2,1570271878,Der Inspektor antwortet.,Inspektor na to odpovídá.
+ESTIMATE,1570271879,0.1-0.1-0.1-1
+ALIGN,1570271880,1-0.1-1-0.1-0.1-1-1
+TRANSLATE1,1570271880,V Inspektoru odpovídá 0+0+0,Der Inspektor sagt 0&#44;0 Prozent.
+TRANSLATE2,1570271880,Der Inspektor sagt 0&#44;0 Prozent.,Inspektor říká 0&#44;0 procent.
+TRANSLATE1,1570271882,V Inspektoru odpovídá 0+,Der Inspektor sagt 0 Prozent.
+TRANSLATE2,1570271882,Der Inspektor sagt 0 Prozent.,Inspektor říká nula procent.
+ESTIMATE,1570271882,0.7-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271884,0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271884,0.7-0.1-0.1-1
+TRANSLATE1,1570271884,V Inspektoru odpovídá 0-0-0,Der Inspektor sagt 0-0-0-
+TRANSLATE2,1570271884,Der Inspektor sagt 0-0-0-,Inspektor říká 0-0-0-
+ALIGN,1570271884,1-0.1-1-0.1-1-0.1-0.1-1
+TRANSLATE1,1570271885,V Inspektoru odpovídá 0-0-0 ,Der Inspektor sagt 0-0-0-
+TRANSLATE2,1570271886,Der Inspektor sagt 0-0-0-,Inspektor říká 0-0-0-
+ESTIMATE,1570271886,0.7-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271887,V Inspektoru odpovídá 0-0-0 černé,Der Inspektor sagt 0-0-0 schwarz.
+TRANSLATE2,1570271887,Der Inspektor sagt 0-0-0 schwarz.,Inspektor říká nula nula nula nula nula nula černá.
+ESTIMATE,1570271887,0.7-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271887,1-0.1-1-0.1-0.1-0.1-0.1-1-1
+ESTIMATE,1570271889,0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271889,1-0.1-1-0.1-0.1-0.1-0.1--
+ALIGN,1570271890,1-0.1-1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271891,V Inspektoru odpovídá 0-0-0 černé&#44; ve,Der Inspektor sagt 0-0-0 schwarz aus&#44; um 19: 00 Uhr.
+TRANSLATE2,1570271891,Der Inspektor sagt 0-0-0 schwarz aus&#44; um 19: 00 Uhr.,Inspektor svědčil v 19: 00 v černém.
+ESTIMATE,1570271896,1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271896,1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1-0.1-1
+TRANSLATE1,1570271896,V Inspektoru odpovídá 0-0-0 černé&#44; ve skriptu bílé,Der Inspektor sagt 0-0-0 schwarz&#44; weiß im Schnipsel.
+TRANSLATE2,1570271896,Der Inspektor sagt 0-0-0 schwarz&#44; weiß im Schnipsel.,Inspektor říká nula nula nula nula černá&#44; bílá ve šňupacím šňupání.
+ESTIMATE,1570271898,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271898,1-0.1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271900,V Inspektoru odpovídá 0-0-0 černé&#44; ve skriptu bílé.,Der Inspektor hat 0-0-0 Schwarz im Schredder weiß.
+TRANSLATE2,1570271900,Der Inspektor hat 0-0-0 Schwarz im Schredder weiß.,Inspektor ví&#44; že je to nula nula nula nula nula černá v tlachání.
+ESTIMATE,1570271901,1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271902,1-1-1-0.1-0.1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271906,V Inspektoru  0-0-0 černé&#44; ve skriptu bílé.,In Inspektor 0-0-0 Schwarz&#44; im Schredder weiß.
+TRANSLATE2,1570271906,In Inspektor 0-0-0 Schwarz&#44; im Schredder weiß.,Inspektor 0-0-0-0 černá&#44; hláška bílá.
+TRANSLATE1,1570271907,V Inspektoru je 0-0-0 černé&#44; ve skriptu bílé.,Der Inspektor hat 0-0-0 Schwarz im Schredder weiß.
+TRANSLATE2,1570271907,Der Inspektor hat 0-0-0 Schwarz im Schredder weiß.,Inspektor ví&#44; že je to nula nula nula nula nula černá v tlachání.
+ESTIMATE,1570271908,0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271910,1-1-0.7-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271910,1-0.1-1-0.1-0.1-0.1-0.1-0.1-1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271911,1-1-1-0.1-0.1-0.1-0.1-0.1-1-1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271911,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílé.,Der Inspektor hat 0-0-0 schwarze Farbe in weißem Schnipsel.
+TRANSLATE2,1570271911,Der Inspektor hat 0-0-0 schwarze Farbe in weißem Schnipsel.,Inspektor má černou barvu 0-0 v bílém šňupání.
+ESTIMATE,1570271912,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-1
+ALIGN,1570271913,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-1-0.1-0.1-0.1-1
+TRANSLATE1,1570271913,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bíl.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.
+TRANSLATE2,1570271913,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce.
+ESTIMATE,1570271915,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+ALIGN,1570271915,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271917,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.
+TRANSLATE2,1570271917,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce.
+ESTIMATE,1570271919,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ALIGN,1570271919,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271923,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. ,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.
+TRANSLATE2,1570271923,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce.
+ESTIMATE,1570271924,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ALIGN,1570271925,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271930,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Vž,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Oh&#44; mein Gott.
+TRANSLATE2,1570271930,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Oh&#44; mein Gott.,Inspektor má černou barvu 0-0&#44; bílou ve skřínce.
+TRANSLATE1,1570271931,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. ,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.
+TRANSLATE2,1570271931,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce.
+ESTIMATE,1570271931,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ESTIMATE,1570271933,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ALIGN,1570271945,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+ALIGN,1570271945,1-1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1
+TRANSLATE1,1570271945,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farbe falsch herum.
+TRANSLATE2,1570271945,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farbe falsch herum.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce.
+ESTIMATE,1570271947,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-1-1-0.1-0.1-1
+ALIGN,1570271950,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-1-1-1-1-1-0.1
+TRANSLATE1,1570271951,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně a jsou ,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind
+TRANSLATE2,1570271951,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; inspektor má barvy obráceně a je mu
+ESTIMATE,1570271952,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1
+ALIGN,1570271953,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-1-1-0.7-1-0.7-1-0.1-1
+TRANSLATE1,1570271958,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně a jsou správně,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.
+TRANSLATE2,1570271958,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; inspektor má ty barvy obráceně a jsou správné.
+ESTIMATE,1570271960,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.1-0.7-0.1-0.1-1-1-0.1-0.1-0.1-1
+ALIGN,1570271960,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-1-0.1-0.1-1-1-0.7-1-0.1-1-0.1-1-0.1
+TRANSLATE1,1570271965,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně a jsou správně.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.
+TRANSLATE2,1570271965,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; inspektor má ty barvy obráceně a jsou správné.
+ESTIMATE,1570271967,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1-0.7-1
+ALIGN,1570271967,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-1-0.7-1-1-0.7-0.1-0.1-1-1-0.1
+TRANSLATE1,1570271977,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně oproti skriptu a jsou správně.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben falsch herum und sie sind korrekt.
+TRANSLATE2,1570271977,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben falsch herum und sie sind korrekt.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; inspektor má špatné barvy a jsou správné.
+ESTIMATE,1570271979,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-1-1-0.1-0.7-1-0.1-0.1-1-1
+ALIGN,1570271979,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-1-1-1-0.1-1-1-0.1
+TRANSLATE1,1570271988,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráce a jsou správně.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farbe eines Ackers und sie sind korrekt.
+TRANSLATE2,1570271988,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farbe eines Ackers und sie sind korrekt.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; a inspektor má barvu zeleniny a je to správně.
+ESTIMATE,1570271990,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-1-1-1-0.1-0.1-1-0.1-0.1-0.1-1
+ALIGN,1570271990,1-1-1-0.1-0.1-0.1-0.1-1-1-1-0.1-0.1-0.1-1-1-1-1-1-1-0.1-1-1-0.1
+TRANSLATE1,1570271995,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně a jsou správně.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.
+TRANSLATE2,1570271995,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.,Inspektor má černou barvu 0-0&#44; bílou ve smyčce&#44; inspektor má ty barvy obráceně a jsou správné.
+ESTIMATE,1570271997,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1-0.7-1
+ALIGN,1570271997,1-1-1-0.1-0.1-0.1-0.1-1-1-0.7-0.1-0.1-0.1-1-0.7-1-1-0.7-0.1-0.1-1-1-0.1
+CONFIRM,1570272001,t22,V Inspektoru je 0-0-0 černá barva&#44; ve skriptu bílá. Inspektor má barvy obráceně a jsou správně.,Der Inspektor hat 0-0-0 schwarze Farbe&#44; weiß im Schnipsel.Der Inspektor hat die Farben verkehrt herum und sie sind korrekt.,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1-0.7-1
+NEXT,1570272001,p11
+TRANSLATE1,1570272015,Jak je možné ,Wie ist das möglich?
+TRANSLATE2,1570272015,Wie ist das möglich?,Jak je to možné?
+TRANSLATE1,1570272022,Jak je možné zaplatit,Wie kann man zahlen?
+TRANSLATE2,1570272022,Wie kann man zahlen?,Jak zaplatíme?
+TRANSLATE1,1570272027,Jak je možné zaplatit poplatek?,Wie kann man eine Gebühr zahlen?
+TRANSLATE2,1570272027,Wie kann man eine Gebühr zahlen?,Jak můžete platit poplatky?
+TRANSLATE1,1570272036,Jak je možné úhradit poplatek?,Wie kann eine Gebühr erstattet werden?
+TRANSLATE2,1570272037,Wie kann eine Gebühr erstattet werden?,Jak může být poplatek proplacen?
+TRANSLATE1,1570272040,Jak je možné uhradit poplatek?,Wie ist es möglich&#44; die Gebühr zu bezahlen?
+TRANSLATE2,1570272040,Wie ist es möglich&#44; die Gebühr zu bezahlen?,Jak je možné platit poplatky?
+TRANSLATE1,1570272053,Jakým způsobem je možné uhradit poplatek?,Wie kann eine Gebühr erstattet werden?
+TRANSLATE2,1570272053,Wie kann eine Gebühr erstattet werden?,Jak může být poplatek proplacen?
+TRANSLATE1,1570272068,Jakým způsobem se dá uhradit poplatek?,Wie kann man eine Gebühr entschädigen?
+TRANSLATE2,1570272068,Wie kann man eine Gebühr entschädigen?,Jak se dá odškodnit poplatek?
+TRANSLATE1,1570272079,Jakým způsobem se dá zaplatit poplatek?,Wie kann man eine Gebühr zahlen?
+TRANSLATE2,1570272079,Wie kann man eine Gebühr zahlen?,Jak můžete platit poplatky?
+CONFIRM,1570272083,p11,Jakým způsobem se dá zaplatit poplatek?,Wie kann man eine Gebühr zahlen?,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1-0.7-1
+NEXT,1570272083,p19
+TRANSLATE1,1570272095,Co ,Wie geht 's?
+TRANSLATE2,1570272095,Wie geht 's?,Jak se vede?
+TRANSLATE1,1570272105,Co musí obsahovat ,Was muss es enthalten?
+TRANSLATE2,1570272105,Was muss es enthalten?,Co v ní musí být?
+TRANSLATE1,1570272128,Co musí obsahovat žádost o udělení občanství?,Was muss ein Antrag auf Staatsbürgerschaft beinhalten?
+TRANSLATE2,1570272128,Was muss ein Antrag auf Staatsbürgerschaft beinhalten?,Co musí zahrnovat žádost o občanství?
+TRANSLATE1,1570272159,Co musí být v žádost o udělení občanství?,Was muss im Antrag auf Staatsbürgerschaft stehen?
+TRANSLATE2,1570272160,Was muss im Antrag auf Staatsbürgerschaft stehen?,Co musí být v žádosti o občanství?
+TRANSLATE1,1570272162,Co musí být v žádosti o udělení občanství?,Was muss im Antrag auf Staatsbürgerschaft stehen?
+TRANSLATE2,1570272163,Was muss im Antrag auf Staatsbürgerschaft stehen?,Co musí být v žádosti o občanství?
+CONFIRM,1570272167,p19,Co musí být v žádosti o udělení občanství?,Was muss im Antrag auf Staatsbürgerschaft stehen?,1-1-0.1-0.1-0.1-0.1-0.1-0.1-0.1-0.7-0.1-0.1-0.1-0.1-1-1-1-0.7-0.7-0.1-0.1-1-1-0.1-0.1-0.7-1
+NEXT,1570272167,t34
+NEXT,1571330962,z52,
+TRANSLATE1,1571331009,Co Napoleon ,Was ist mit Napoleon?
+TRANSLATE2,1571331009,Was ist mit Napoleon?,A co Napoleon?
+TRANSLATE1,1571331010,Co Napoleon III,Was ist mit Napoleon III?
+TRANSLATE2,1571331011,Was ist mit Napoleon III?,A co Napoleon IIl?
+TRANSLATE1,1571331018,Co Napoleon III. ,Was ist mit Napoleon III?
+TRANSLATE2,1571331018,Was ist mit Napoleon III?,A co Napoleon IIl?
+TRANSLATE1,1571331034,Co Napoleon III. v Paříži navštívili,Seit Napoleon III. in Paris war&#44;
+TRANSLATE2,1571331034,Seit Napoleon III. in Paris war&#44;,Od Napoleona IIl. v Paříži&#44;
+TRANSLATE1,1571331034,Co Napoleon III. v Paříži navštívili?,Was haben Napoleon III in Paris besucht?
+TRANSLATE2,1571331034,Was haben Napoleon III in Paris besucht?,Co Napoleon IIl navštívil v Paříži?
+CONFIRM,1571331034,z52,Co Napoleon III. v Paříži navštívili?,Was haben Napoleon III in Paris besucht?,

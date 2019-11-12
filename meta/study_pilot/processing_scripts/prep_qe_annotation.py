@@ -2,7 +2,7 @@
 import argparse
 import pickle
 import json
-from utils import prefixMap, firstViable
+from utils import prefixMap, firstViableTrg
 
 # Prepare quality estimation text
 
@@ -24,7 +24,7 @@ def prepareA0(segments, questions):
         else:
             continue
         out.setdefault(confirm['sid'], []).append((str(confirm['usid']), confirm['text2']))
-        firstViable = firstViable(seg)
+        firstViable = firstViableTrg(seg)
         if firstViable:
             out.setdefault(confirm['sid'], []).append((f'v{confirm["usid"]}', firstViable['text2']))
 

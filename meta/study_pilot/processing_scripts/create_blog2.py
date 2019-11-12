@@ -2,7 +2,7 @@
 import argparse
 import pickle
 import re
-from utils import prefixMap, firstViable, isWithoutBacktracking
+from utils import prefixMap, firstViableSrc, firstViableTrg, isWithoutBacktracking
 
 # This script processes blog1 binary file and outputs corresponding blog2 file
 
@@ -22,8 +22,23 @@ def createBlog2(segments):
             del newLine['usid']
             newSeg['items'].append(newLine)
         newSeg['rating'] = dict()
-        newSeg['first_viable'] = firstViable(seg)
-        newSeg['backtracking'] = not isWithoutBacktracking(seg)
+
+        # Add first viable object by source
+        firstViableObj = firstViableSrc(newSeg)
+        newSeg['first_viable_src'] = firstViableObj
+
+        # Add first viable object by target
+        firstViableObj = firstViableTrg(newSeg)
+        newSeg['first_viable_trg'] = firstViableObj
+
+        # Add final object
+        lastConfirm = prefixMap(newSeg, 'CONFIRM')
+        if len(lastConfirm) == 0:
+            newSeg['final'] = None
+        else:
+            newSeg['final'] = lastConfirm[-1]
+
+        newSeg['backtracking'] = not isWithoutBacktracking(newSeg)
         newSegments.append(newSeg)
     return newSegments
 

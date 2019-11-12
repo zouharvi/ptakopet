@@ -4,7 +4,7 @@ import pickle
 from difflib import SequenceMatcher
 import re
 from functools import reduce
-from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViable, tokenize
+from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, tokenize
 
 # This script serves to explore phenomena in segments accross domains.
 # Phenomena include: distribution of skipped/finished/written linearly/edit types.
@@ -47,7 +47,7 @@ def split(segments, func):
 # (similarity ratio, % of equals, % of replaces, % of inserts, % of deletions)
 # None if first viable is not found
 def firstViableEditsDistribution(segment):
-    viable = firstViable(segment)
+    viable = firstViableSrc(segment)
     if viable is None:
         return None
     else:

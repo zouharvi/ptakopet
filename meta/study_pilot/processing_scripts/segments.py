@@ -3,7 +3,7 @@ import argparse
 import pickle
 from difflib import SequenceMatcher
 import re
-from utils import prefixMap, isWithoutBacktracking, tokenize, firstViable
+from utils import prefixMap, isWithoutBacktracking, tokenize, firstViableSrc
 
 # This script processes and outputs Segment Readable and Domain Readable outputs from
 # segments blogfile.
@@ -74,7 +74,7 @@ def segmentR3(segment):
 # SR4
 # Each segment progression is turned into: `<viable>, <src final>, <target final>, <similarity>, <edit types>`
 def segmentR4(segment):
-    viable = firstViable(segment)
+    viable = firstViableSrc(segment)
     if viable is None:
         return '<None>|<Linear>\n'
     else:

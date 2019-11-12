@@ -8,7 +8,7 @@ def prefixMapArray(logs, prefix, func=lambda x: x):
 
 # Filter actions, then perform func
 def prefixMap(logs, prefix, func=lambda x: x):
-    return list(map(func, filter(lambda x: x['type'] == prefix, logs)))
+    return list(map(func, filter(lambda x: x['type'] == prefix, logs['items'])))
 
 # Join array by newlines (syntactic sugar)
 def nJoin(l):
@@ -28,7 +28,8 @@ def isWithoutBacktracking(segment):
     return True
 
 # Try to extract the first viable source sentence using some rudimentary heuristics
-def firstViable(segment):
+# The viability is considered by the length of the source
+def firstViableSrc(segment):
     srcs = prefixMap(segment, 'TRANSLATE1')
     if len(srcs) == 0:
         return None
@@ -45,6 +46,29 @@ def firstViable(segment):
         if src['text1'] == lastConfirmSrc:
             continue
         if src['text1'][-1] in ".?" or (len(src['text1']) > 1 and src['text1'][-2] in ".?"):
+            return src
+    return None
+
+
+# Try to extract the first viable source sentence using some rudimentary heuristics
+# The viability is considered by the length of the translation
+def firstViableTrg(segment):
+    srcs = prefixMap(segment, 'TRANSLATE1')
+    if len(srcs) == 0:
+        return None
+    longest = sorted(srcs, key=lambda x: len(x['text2']), reverse=True)
+    lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text2'])
+    if len(lastConfirmSrc) == 0:
+        return None
+    else:
+        lastConfirmSrc = lastConfirmSrc[-1]
+
+    for src in longest:
+        if len(src['text2']) == 0:
+            return None
+        if src['text2'] == lastConfirmSrc:
+            continue
+        if src['text2'][-1] in ".?" or (len(src['text2']) > 1 and src['text2'][-2] in ".?"):
             return src
     return None
 
