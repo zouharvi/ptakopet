@@ -12,7 +12,7 @@ export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
 
 export class Estimator extends AsyncMessage {
-    public curEstimation : Estimation = []
+    public curEstimation: Estimation = []
     private throttler = new Throttler(500)
 
     /**
@@ -25,8 +25,8 @@ export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
      */
-     estimate = () => {
-        if(!this.running) {
+    estimate = () => {
+        if (!this.running) {
             return
         }
         // Check whether the backend supports this language pair
@@ -40,10 +40,10 @@ export class Estimator extends AsyncMessage {
                 request,
                 (estimation: Estimation) => {
                     this.curEstimation = estimation
-                    logger.log(logger.Action.ESTIMATE, { estimation : estimation.join('-') })
+                    logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
                     aligner.align(estimation)
                     highlighter_target.highlight(estimation)
-                    
+
                     /**
                      * @TODO: Passing estimation to aligner is probably not a good idea and there should be a spearate
                      * driver class that wraps this. The aligner uses the estimation to instruct the highlighter the intensities
@@ -67,7 +67,7 @@ export class Estimator extends AsyncMessage {
         this.source = source
         this.target = target
     }
-    
+
     private running: boolean = true
     public on(running: boolean = true) {
         this.running = running
@@ -126,7 +126,7 @@ export class Estimator extends AsyncMessage {
             languages: new Set([['en', 'cs']]),
             name: 'QuEst++',
         },
-        
+
         deepquest: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
@@ -165,6 +165,44 @@ export class Estimator extends AsyncMessage {
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'Random',
+        },
+
+        manual: {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+                let tokens = TextUtils.tokenize(targetText)
+                let zeroesPromise = new Promise<Estimation>((resolve, reject) => {
+                    let estimation: Estimation = []
+                    for (let i = 0; i < tokens.length; i++) {
+                        estimation.push(0)
+                    }
+                    resolve(estimation)
+                })
+                if (tokens.length == 0) {
+                    return zeroesPromise
+                }
+                
+                let qeRaw: string | null = prompt("Enter " + tokens.length + " comma separeted floats (no whitespace) for quality estimation")
+
+                if (qeRaw == null) {
+                    return zeroesPromise
+                } else {
+                    let estimation: Estimation = []
+                    try {
+                        for (let val of (qeRaw as string).split(',')) {
+                            estimation.push(parseFloat(val))
+                        }
+                        if (estimation.length != tokens.length) {
+                            return zeroesPromise
+                        } else {
+                            return new Promise<Estimation>((resolve, reject) => resolve(estimation))
+                        }
+                    } catch (e) {
+                        return zeroesPromise
+                    }
+                }
+            },
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
+            name: 'Manual',
         },
 
         none: {
