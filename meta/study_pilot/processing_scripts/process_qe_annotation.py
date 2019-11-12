@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 
 # TODO
 
+COLOR_FV = 'red'
+COLOR_FN = 'blue'
+
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
 parser.add_argument('-f', '--fix_usid', help='Fix USID mapping and save it to a0csv', action='store_true')
@@ -13,6 +16,34 @@ args = parser.parse_args()
 
 with open(args.blog2file, 'rb') as f:
     segments = pickle.load(f)
+
+tFVdom = dict()
+tFNdom = dict()
+# histogram by domain
+for seg in segments:
+    rating = seg['rating']
+    if 'first_viable' in rating and 'final' in rating:
+        # temporary until all data is processed
+        if rating['first_viable'] == 0 or rating['final'] == 0:
+            continue
+        tFVdom.setdefault(seg['domain'], []).append(rating['first_viable'])
+        tFVdom.setdefault('*', []).append(rating['first_viable'])
+        tFNdom.setdefault(seg['domain'], []).append(rating['final'])
+        tFNdom.setdefault('*', []).append(rating['final'])
+
+# tFVdom = {k:sum(v)/len(v) for k,v in tFVdom.items()}
+# tFNdom = {k:sum(v)/len(v) for k,v in tFNdom.items()}
+print('First viable')
+for domain, arr in tFVdom.items():
+    avg = sum(arr)/len(arr)
+    var = sum([(x-avg)**2 for x in arr])/len(arr)
+    print(f'Domain: {domain}, average: {avg:.2f}, variance: {var:.2f}') 
+
+print('\nFinal')
+for domain, arr in tFNdom.items():
+    avg = sum(arr)/len(arr)
+    var = sum([(x-avg)**2 for x in arr])/len(arr)
+    print(f'Domain: {domain}, average: {avg:.2f}, variance: {var:.2f}') 
 
 tFV = []
 tFN = []
@@ -32,11 +63,46 @@ tFVc = Counter(tFV)
 tFNc = Counter(tFN)
 
 # histogram for final vs first viable ratings
-plt.bar(tFVc.keys(), tFVc.values(), color='r', width=0.25, label='first viable')
-plt.bar([x + 0.25 for x in tFNc.keys()], tFNc.values(), color='b', width=0.25, label='final')
+plt.bar([x - 0.25/2 for x in tFVc.keys()], tFVc.values(), color=COLOR_FV, width=0.25, label='First viable')
+plt.bar([x + 0.25/2 for x in tFNc.keys()], tFNc.values(), color=COLOR_FN, width=0.25, label='Final')
 plt.xlabel('rating value')
 plt.ylabel('number of segments')
 plt.legend()
 plt.show()
 
-# TODO: histogram for final by sentence length
+# Histogram of average rating by sentence length
+SIZES = [5, 10, 15, 20, 25, 30, 50]
+tFNbuckets = [[] for _ in (SIZES)]
+tFVbuckets = [[] for _ in (SIZES)]
+for seg in segments:
+    if seg['final'] is not None and seg['first_viable_trg'] is not None:
+        txt = seg['final']['text1']
+        if txt is None or (not 'final' in seg['rating']) or seg['rating']['final'] == 0:
+            continue
+        for sizeI in range(len(SIZES)):
+            if len(txt.split(' ')) <= SIZES[sizeI]:
+                break 
+        if sizeI == 8:
+            print(sizeI, len(txt.split(' ')), txt)
+        tFNbuckets[sizeI].append(seg['rating']['final'])
+
+        txt = seg['first_viable_trg']['text1']
+        if txt is None or (not 'first_viable' in seg['rating']) or seg['rating']['first_viable'] == 0:
+            continue
+        for sizeI in range(len(SIZES)):
+            if len(txt.split(' ')) <= SIZES[sizeI]:
+                break 
+        tFVbuckets[sizeI].append(seg['rating']['first_viable'])
+
+tFNbuckets = [sum(ar)/len(ar) if len(ar) != 0 else 0 for ar in tFNbuckets]
+tFVbuckets = [sum(ar)/len(ar) if len(ar) != 0 else 1 for ar in tFVbuckets]
+xticks = range(len(SIZES))
+plt.clf()
+plt.bar([s - 0.35/2 for s in xticks], tFVbuckets, color=COLOR_FV, width=0.35, label='First viable')
+plt.bar([s + 0.35/2 for s in xticks], tFNbuckets, color=COLOR_FN, width=0.35, label='Final')
+plt.xticks(ticks=xticks, labels=[f'≤{s}' for s in SIZES])
+plt.ylim(1, 5)
+plt.xlabel('Length of input in words')
+plt.ylabel('Average rating in the bucket')
+plt.legend()
+plt.show()

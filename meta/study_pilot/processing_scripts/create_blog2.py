@@ -11,6 +11,14 @@ parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file i
 parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
 args = parser.parse_args()
 
+# Get segment domain
+def getDomain(segment):
+    firstNext = prefixMap(segment, 'NEXT', lambda x: x['sid'])
+    if len(firstNext) == 0:
+        raise Exception('Domain could not be found')
+    else:
+        return firstNext[0][0]
+
 def createBlog2(segments):
     newSegments = []
     for seg in segments:
@@ -21,6 +29,7 @@ def createBlog2(segments):
             newLine = dict(line)
             del newLine['usid']
             newSeg['items'].append(newLine)
+        newSeg['domain'] = getDomain(newSeg)
         newSeg['rating'] = dict()
 
         # Add first viable object by source
