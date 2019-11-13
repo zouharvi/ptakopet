@@ -1,12 +1,17 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import json
 import os
-import qe, align, logger
+import qe, align, tokenizer, logger
+
+print(dir(tokenizer))
 
 # create new Flask app
 app = Flask(__name__)
 # allow Cross-origin resource sharing access
 CORS(app)
+
+CONTENT_TYPE = {'Content-Type': 'application/json; charset=utf-8'}
 
 if __name__ == 'server':
   backends = dict()
@@ -17,6 +22,9 @@ if __name__ == 'server':
   }
   backends['align'] = {
     'fast_align': align.FastAlign(),
+  }
+  backends['tokenize'] = {
+    'moses': tokenizer.MosesTokenizer(),
   }
 
 @app.route('/')
@@ -43,11 +51,22 @@ def alignService(backend):
     if not backend in backends['align'].keys():
       raise Exception("Invalid backend selected")
     assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
-    return jsonify(backends['align'][backend].align(**request.args))
+    return json.dumps(backends['align'][backend].align(**request.args)), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
-
+@app.route('/tokenize/<backend>', methods = ['GET', 'POST'])
+def tokenizeService(backend):
+  """
+  Provides tokenization backend
+  """
+  try:
+    if not backend in backends['tokenize'].keys():
+      raise Exception("Invalid backend selected")
+    assertArgs(request.args, ['text', 'lang'])
+    return json.dumps(backends['tokenize'][backend].tokenize(**request.args), ensure_ascii=False), CONTENT_TYPE
+  except Exception as error:
+    return {'status': 'FAIL', 'error': str(error) }
 
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
 def qeService(backend):
@@ -60,7 +79,7 @@ def qeService(backend):
     assertArgs(request.values, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
     if len(request.values['sourceLang']) == 0 or len(request.values['targetText']) == 0:
       return jsonify({'status': 'OK', 'qe': []}) 
-    return jsonify(backends['qe'][backend].qe(**request.values))
+    return json.dumps(backends['qe'][backend].qe(**request.values), ensure_ascii=False), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
