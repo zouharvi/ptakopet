@@ -4,20 +4,6 @@
  */
 export module TextUtils {
     /**
-     * Tokenize input string according to some basic rules (collapse whitespace, newlines etc)
-     * @param raw Raw input string
-     */
-    export function tokenize(raw: string): Array<string> {
-        let res: Array<string> = TextUtils.clean(raw).split(/[\s\n\'\"]+/)
-        
-        // special case for empty string
-        if (res.length == 1 && res[0] == "") {
-            return []
-        }
-        return res
-    }
-
-    /**
      * Cleans up `contenteditable` div styling, applies some basic rules (collapse whitespace, newlines etc)
      * @deprecated
      * @param raw Input HTML string 
@@ -40,35 +26,22 @@ export module TextUtils {
      * Returns indices (beginning and end character position) of tokenized output.
      * @param raw Raw input string.
      */
-    export function tokenizeIndices(raw: string, skipSpaces: boolean = true): Array<[number, number]> {
-        let arr: Array<[number, number]> = []
-        let words: Array<string> = TextUtils.tokenize(raw)
+    export function tokenizeIndices(raw: string, tokens: Array<string>): Array<[number, number]> {
+        let out: Array<[number, number]> = []
 
-        // counts the number of all words
-        let wordIndex: number = 0
-        // count the number of spaces which to eventually subtract
-        let spaceBuffer: number = 0
-        for (let i = 0; i < raw.length; i++) {
-            if (raw.substring(i).indexOf(words[wordIndex]) == 0) {
-                if (skipSpaces) {
-                    arr.push([i, i + words[wordIndex].length])
-                } else {
-                    // if we want to add spaces to the next word, subtract the spaceBuffer from the left index
-                    arr.push([i - spaceBuffer, i + words[wordIndex].length])
-                }
-                i += words[wordIndex].length - 1
-                wordIndex++
-                // reset space buffer
-                spaceBuffer = 0
+        let newRaw: string = raw.slice(0)
+        let buff = 0
+        for (let tok of tokens) {
+            let occurence = newRaw.indexOf(tok)
+            if (occurence == -1) {
+                throw "Tokenization does not match the raw text"
             } else {
-                // not a word character, increase space buffer
-                spaceBuffer++
-            }
-            // check if all words were found
-            if (wordIndex >= words.length) {
-                break
+                out.push([buff + occurence, buff + occurence + tok.length])
+                buff += occurence + tok.length
+                newRaw = newRaw.slice(occurence + tok.length)
             }
         }
-        return arr
+
+        return out
     }
 }

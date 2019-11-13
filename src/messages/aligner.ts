@@ -6,6 +6,7 @@ import { TextUtils } from "../misc/text_utils"
 import { Estimation } from "./estimator"
 import { highlighter_source } from "../page/highlighter"
 import { logger } from '../study/logger'
+import { tokenizer } from './tokenizer'
 
 export type Alignment = Array<[number, number]>
 export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'error': string | undefined }
@@ -25,9 +26,9 @@ export class Aligner extends AsyncMessage {
                 $(this.target).val() as string)
             super.dispatch(
                 request,
-                (alignment: Alignment) => {
+                async (alignment: Alignment) => {
                     if (estimation.length == 0) {
-                        highlighter_source.highlight([])
+                        highlighter_source.highlight([], [])
                         logger.log(logger.Action.ALIGN, { alignment: '' })
                     } else {
                         // This extracts the max from the left side
@@ -38,7 +39,9 @@ export class Aligner extends AsyncMessage {
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]
                         }
                         logger.log(logger.Action.ALIGN, { alignment: intensities.join('-') })
-                        highlighter_source.highlight(intensities)
+
+                        let tokenization = await tokenizer.tokenize($(this.source).val() as string, Settings.language1 as LanguageCode)
+                        highlighter_source.highlight(intensities, tokenization)
                     }
                 }
             )
@@ -110,17 +113,16 @@ export class Aligner extends AsyncMessage {
 
         diagonal: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
-                return new Promise<Alignment>((resolve, reject) => {
+                return new Promise<Alignment>(async (resolve, reject) => {
                     let alignment: Alignment = []
-                    let tokens1: Array<string> = TextUtils.tokenize(sourceText)
-                    let tokens2: Array<string> = TextUtils.tokenize(targetText)
+                    let tokens1: Array<string> = await tokenizer.tokenize(sourceText, Settings.language1 as LanguageCode)
+                    let tokens2: Array<string> = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
 
                     for (let i: number = 0; i < tokens1.length; i++) {
                         alignment.push([i, Math.min(i, tokens2.length - 1)])
                     }
 
-                    // Fake loading time
-                    setTimeout(() => resolve(alignment), 500)
+                    resolve(alignment)
                 })
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),

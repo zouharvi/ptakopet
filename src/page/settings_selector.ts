@@ -56,8 +56,8 @@ export class SettingsSelector {
                 this.instantiateLanguagesTarget()
                 $(translator_source.source).val($(translator_source.target).val() as string)
                 // Clean the current highlight
-                highlighter_source.highlight([])
-                highlighter_target.highlight([])
+                highlighter_source.highlight([], [])
+                highlighter_target.highlight([], [])
             } else {
                 Settings.language1 = $(a.target).val() as LanguageCode
                 this.instantiateLanguagesTarget()
@@ -82,8 +82,8 @@ export class SettingsSelector {
                 this.instantiateLanguagesSource()
                 $(translator_source.source).val($(translator_source.target).val() as string)
                 // Clean the current highlight
-                highlighter_source.highlight([])
-                highlighter_target.highlight([])
+                highlighter_source.highlight([], [])
+                highlighter_target.highlight([], [])
             } else {
                 Settings.language2 = $(a.target).val() as LanguageCode
             }

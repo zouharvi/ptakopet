@@ -1,4 +1,5 @@
 import { TextUtils } from "../misc/text_utils"
+import { Tokenization } from "../messages/tokenizer"
 
 /**
  * This class manages highlighting of textarea element based on numeric values.
@@ -22,13 +23,14 @@ export class Highlighter {
      * Highlight the element based on numeric intensities.
      * @param intensities Numeric [0, 1] intensities of target words. The length must match the number of tokenized words.
      */
-    public highlight(intensities: Array<number>): void {
-        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, true)
+    public highlight(intensities: Array<number>, tokenization: Tokenization): void {
+        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, tokenization)
         /**
          * Instead of pairing estimator and translator requests, the highlighting job is dropped if these lengths
          * don't match. This is a hack, but works great for cases such as None estimation. This could be fixed by
          * upstream alignment tokenization and thus the inequality would be replaced with equality.
          */
+
         if (intensities.length < indices.length || intensities.length == 0) {
             // Only clean if it is dirty. Otherwise this worsens the mobile performance
             if (this.dirty) {

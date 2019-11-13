@@ -2,11 +2,11 @@ import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
 import { highlighter_target } from '../page/highlighter'
-import { TextUtils } from "../misc/text_utils"
 import { IndicatorManager } from "../page/indicator_manager"
 import { aligner } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
+import { tokenizer } from './tokenizer'
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
@@ -31,6 +31,8 @@ export class Estimator extends AsyncMessage {
         }
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+            // update tokenization
+
             let request = Settings.backendEstimator.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
@@ -38,18 +40,12 @@ export class Estimator extends AsyncMessage {
                 $(this.target).val() as string)
             super.dispatch(
                 request,
-                (estimation: Estimation) => {
+                async (estimation: Estimation) => {
+                    let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
                     this.curEstimation = estimation
                     logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
                     aligner.align(estimation)
-                    highlighter_target.highlight(estimation)
-
-                    /**
-                     * @TODO: Passing estimation to aligner is probably not a good idea and there should be a spearate
-                     * driver class that wraps this. The aligner uses the estimation to instruct the highlighter the intensities
-                     * with which to highlight the source textarea.
-                     * - zouharvi 15 Aug 2019
-                     */
+                    highlighter_target.highlight(estimation, tokenization)
                 }
             )
         } else {
@@ -62,20 +58,14 @@ export class Estimator extends AsyncMessage {
      * @param source Source textarea
      * @param target Target textarea
      */
-    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
+    constructor(private source: JQuery<HTMLElement>, private target: JQuery<HTMLElement>) {
         super()
-        this.source = source
-        this.target = target
     }
 
     private running: boolean = true
     public on(running: boolean = true) {
         this.running = running
     }
-
-    // Target HTML elements
-    public source: JQuery<HTMLElement>
-    public target: JQuery<HTMLElement>
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
@@ -153,14 +143,13 @@ export class Estimator extends AsyncMessage {
 
         random: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
-                let tokens = TextUtils.tokenize(targetText)
-                let estimation: Estimation = []
-                for (let i in tokens) {
-                    estimation.push(Math.random())
-                }
-                return new Promise<Estimation>((resolve, reject) => {
-                    // Fake loading time
-                    setTimeout(() => resolve(estimation), 500)
+                return new Promise<Estimation>(async (resolve, reject) => {
+                    let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
+                    let estimation: Estimation = []
+                    for (let i in tokens) {
+                        estimation.push(Math.random())
+                    }
+                    resolve(estimation)
                 })
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
@@ -169,37 +158,38 @@ export class Estimator extends AsyncMessage {
 
         manual: {
             composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
-                let tokens = TextUtils.tokenize(targetText)
-                let zeroesPromise = new Promise<Estimation>((resolve, reject) => {
-                    let estimation: Estimation = []
-                    for (let i = 0; i < tokens.length; i++) {
-                        estimation.push(0)
-                    }
-                    resolve(estimation)
-                })
-                if (tokens.length == 0) {
-                    return zeroesPromise
-                }
-                
-                let qeRaw: string | null = prompt("Enter " + tokens.length + " comma separeted floats (no whitespace) for quality estimation")
+                return new Promise<Estimation>(async (resolve, reject) => {
+                    let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
 
-                if (qeRaw == null) {
-                    return zeroesPromise
-                } else {
-                    let estimation: Estimation = []
-                    try {
-                        for (let val of (qeRaw as string).split(',')) {
-                            estimation.push(parseFloat(val))
-                        }
-                        if (estimation.length != tokens.length) {
-                            return zeroesPromise
-                        } else {
-                            return new Promise<Estimation>((resolve, reject) => resolve(estimation))
-                        }
-                    } catch (e) {
-                        return zeroesPromise
+                    let zeroes: Estimation = []
+                    for (let i = 0; i < tokens.length; i++) {
+                        zeroes.push(0)
                     }
-                }
+                    resolve(zeroes)
+                    if (tokens.length == 0) {
+                        resolve(zeroes)
+                    }
+
+                    let qeRaw: string | null = prompt("Enter " + tokens.length + " comma separeted floats (no whitespace) for quality estimation")
+
+                    if (qeRaw == null) {
+                        resolve(zeroes)
+                    } else {
+                        let estimation: Estimation = []
+                        try {
+                            for (let val of (qeRaw as string).split(',')) {
+                                estimation.push(parseFloat(val))
+                            }
+                            if (estimation.length != tokens.length) {
+                                resolve(zeroes)
+                            } else {
+                                resolve(estimation)
+                            }
+                        } catch (e) {
+                            resolve(zeroes)
+                        }
+                    }
+                })
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
             name: 'Manual',
