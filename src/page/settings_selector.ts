@@ -1,6 +1,7 @@
-import { translator_source, translator_target, Translator, TranslatorBackend } from '../messages/translator'
-import { estimator, Estimator, EstimatorBackend } from '../messages/estimator'
-import { aligner, Aligner, AlignerBackend } from '../messages/aligner'
+import { translator_source, translator_target, Translator } from '../messages/translator'
+import { estimator, Estimator } from '../messages/estimator'
+import { aligner, Aligner } from '../messages/aligner'
+import { Tokenizer } from '../messages/tokenizer'
 import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { highlighter_source, highlighter_target } from './highlighter'
@@ -10,29 +11,15 @@ import { logger } from '../study/logger'
  * Manages backend and language select boxes
  */
 export class SettingsSelector {
-    private backendTranslatorSelect: JQuery<HTMLElement>
-    private backendEstimatorSelect: JQuery<HTMLElement>
-    private backendAlignerSelect: JQuery<HTMLElement>
-    private lang1Select: JQuery<HTMLElement>
-    private lang2Select: JQuery<HTMLElement>
-    private warningEstimator: JQuery<HTMLElement>
-    private warningAligner: JQuery<HTMLElement>
-
     constructor(
-        backendTranslatorSelect: JQuery<HTMLElement>,
-        backendEstimatorSelect: JQuery<HTMLElement>,
-        backendAlignerSelect: JQuery<HTMLElement>,
-        lang1Select: JQuery<HTMLElement>,
-        lang2Select: JQuery<HTMLElement>,
-        warningEstimator: JQuery<HTMLElement>,
-        warningAligner: JQuery<HTMLElement>) {
-        this.backendTranslatorSelect = backendTranslatorSelect
-        this.backendEstimatorSelect = backendEstimatorSelect
-        this.backendAlignerSelect = backendAlignerSelect
-        this.lang1Select = lang1Select
-        this.lang2Select = lang2Select
-        this.warningEstimator = warningEstimator
-        this.warningAligner = warningAligner
+        private backendTranslatorSelect: JQuery<HTMLElement>,
+        private backendEstimatorSelect: JQuery<HTMLElement>,
+        private backendAlignerSelect: JQuery<HTMLElement>,
+        private backendTokenizerSelect: JQuery<HTMLElement>,
+        private lang1Select: JQuery<HTMLElement>,
+        private lang2Select: JQuery<HTMLElement>,
+        private warningEstimator: JQuery<HTMLElement>,
+        private warningAligner: JQuery<HTMLElement>) {
 
         // setup translator backend change callback
         $(this.backendTranslatorSelect).on('change', (a) => {
@@ -280,8 +267,14 @@ export class SettingsSelector {
             $(this.backendAlignerSelect).append($('<option>', { value: i, text: Aligner.backends[i].name }))
         }
 
+        // tokenizer backends
+        for (let i in Tokenizer.backends) {
+            $(this.backendTokenizerSelect).append($('<option>', { value: i, text: Tokenizer.backends[i].name }))
+        }
+
         Settings.backendTranslator = Translator.backends[$(this.backendTranslatorSelect).val() as string]
         Settings.backendEstimator = Estimator.backends[$(this.backendEstimatorSelect).val() as string]
         Settings.backendAligner = Aligner.backends[$(this.backendAlignerSelect).val() as string]
+        Settings.backendTokenizer = Tokenizer.backends[$(this.backendTokenizerSelect).val() as string]
     }
 }

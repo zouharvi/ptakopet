@@ -23,6 +23,7 @@ let settings_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
     $('#backend_estimator'),
     $('#backend_aligner'),
+    $('#backend_tokenizer'),
     $('#language_select_source'),
     $('#language_select_target'),
     $('#warning_estimator'),
