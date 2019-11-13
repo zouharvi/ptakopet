@@ -20,6 +20,17 @@ export class Highlighter {
     }
 
     /**
+     * Clean the displayed highlight
+     */
+    public clean(): void {
+        // Only clean if it is dirty. Otherwise this worsens the mobile performance
+        if (this.dirty) {
+            this.highlightFocus([])
+            this.dirty = false
+        }
+    }
+
+    /**
      * Highlight the element based on numeric intensities.
      * @param intensities Numeric [0, 1] intensities of target words. The length must match the number of tokenized words.
      */
@@ -32,12 +43,7 @@ export class Highlighter {
          */
 
         if (intensities.length < indices.length || intensities.length == 0) {
-            // Only clean if it is dirty. Otherwise this worsens the mobile performance
-            if (this.dirty) {
-                this.highlightFocus([])
-                this.dirty = false
-            }
-            return
+            this.clean()
         } else {
             this.dirty = true
         }

@@ -5,7 +5,7 @@ import { TextUtils } from "../misc/text_utils"
 import { LanguageCode } from "../misc/utils"
 
 export type Tokenization = Array<string>
-export type TokenizerResponse = { 'status': string, 'tokens': string[] | undefined, 'error': string | undefined }
+export type TokenizerResponse = { 'status': string, 'tokenization': string[] | undefined, 'error': string | undefined }
 export class Tokenizer {
     /**
      * Make a tokenization request
@@ -16,6 +16,34 @@ export class Tokenizer {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: TokenizerBackend } = {
+        moses: {
+            async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
+                return new Promise<Tokenization>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/tokenize/moses",
+                        data: { text: text, lang: lang },
+                        async: true,
+                    })
+                        .done((data: TokenizerResponse) => {
+                            let tokens: Tokenization = data['tokenization'] as Tokenization
+                            for(let i = 0; i < tokens.length; i++) {
+                                tokens[i] = TextUtils.decodeHTMLEntities(tokens[i])
+                            } 
+                            console.log('receiving', tokens)
+                            if (data['status'] == 'OK') {
+                                resolve(tokens)
+                            } else {
+                                console.warn(data['error'])
+                                reject(data['error'] as string)
+                            }
+                        })
+                        .fail(reject)
+                })
+            },
+            name: 'Moses',
+        },
+
         local: {
             async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
                 //  Tokenize input string according to some basic rules (collapse whitespace, newlines etc)
@@ -32,32 +60,6 @@ export class Tokenizer {
             },
             name: 'Local',
         },
-
-        moses: {
-            async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
-                return new Promise<Tokenization>((resolve, reject) => {
-                    resolve([])
-                    $.ajax({
-                        type: "GET",
-                        url: "https://quest.ms.mff.cuni.cz/zouharvi/tokenize/moses",
-                        data: { text: text, lang: lang },
-                        async: true,
-                    })
-                        .done((data: TokenizerResponse) => {
-                            console.log('receiving', data)
-                            if (data['status'] == 'OK') {
-                                resolve(data['tokens'])
-                            } else {
-                                console.warn(data['error'])
-                                reject(data['error'] as string)
-                            }
-                        })
-                        .fail(reject)
-                })
-            },
-            name: 'Moses',
-        },
-
         space: {
             async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
                 //  Tokenize input string according to whitespaces

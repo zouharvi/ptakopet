@@ -28,7 +28,7 @@ export class Aligner extends AsyncMessage {
                 request,
                 async (alignment: Alignment) => {
                     if (estimation.length == 0) {
-                        highlighter_source.highlight([], [])
+                        highlighter_source.clean()
                         logger.log(logger.Action.ALIGN, { alignment: '' })
                     } else {
                         // This extracts the max from the left side

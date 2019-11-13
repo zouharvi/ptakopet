@@ -43,6 +43,6 @@ $('#input_target').on('input', function () {
 // Try to do omnibox search
 let params = Utils.parseGETParams()
 if ('q' in params) {
-    $(translator_source.source).val(params['q'])
+    $(translator_source.source).val(params['q'].split('+').join(' '))
     $(translator_source.source).trigger('input')
 }

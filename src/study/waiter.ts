@@ -143,8 +143,8 @@ export class Waiter {
         $(translator_source.source).val('')
         $(translator_target.source).val('')
         $(translator_target.target).val('')
-        highlighter_source.highlight([], [])
-        highlighter_target.highlight([], [])
+        highlighter_source.clean()
+        highlighter_target.clean()
 
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')

@@ -20,8 +20,8 @@ export abstract class Translator extends AsyncMessage {
         this.throttler.throttle(this.translate)
 
         // Clean the previous highlight
-        highlighter_source.highlight([], [])
-        highlighter_target.highlight([], [])
+        highlighter_source.clean()
+        highlighter_target.clean()
     }
 
     /**
@@ -135,7 +135,7 @@ export class TranslatorSource extends Translator {
                 this.curTranslation = text
 
                 // Clean the previous highlight
-                highlighter_target.highlight([], [])
+                highlighter_target.clean()
 
                 $(this.target).val(text)
                 translator_target.translate()

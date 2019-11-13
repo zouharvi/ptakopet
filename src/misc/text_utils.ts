@@ -44,4 +44,26 @@ export module TextUtils {
 
         return out
     }
+
+    /**
+     * Decode HTML entities
+     * @param raw 
+     */
+    export function decodeHTMLEntities(raw: string) {
+        var translate_re = /&(nbsp|amp|apos|quot|lt|gt);/g;
+        var translate : {[index : string]: string} = {
+            "nbsp": " ",
+            "amp" : "&",
+            "apos": "'",
+            "quot": '"',
+            "lt"  : "<",
+            "gt"  : ">"
+        };
+        return raw.replace(translate_re, function(match, entity) {
+            return translate[entity];
+        }).replace(/&#(\d+);/gi, function(match, numStr) {
+            var num = parseInt(numStr, 10);
+            return String.fromCharCode(num);
+        });
+    }
 }
