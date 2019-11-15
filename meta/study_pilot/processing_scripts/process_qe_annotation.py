@@ -4,7 +4,7 @@ import pickle
 from collections import Counter
 import matplotlib.pyplot as plt
 
-# TODO
+# Process quality annotations on collected data (mostly graphs)
 
 COLOR_FV = 'red'
 COLOR_FN = 'blue'
@@ -65,8 +65,8 @@ tFNc = Counter(tFN)
 # histogram for final vs first viable ratings
 plt.bar([x - 0.25/2 for x in tFVc.keys()], tFVc.values(), color=COLOR_FV, width=0.25, label='First viable')
 plt.bar([x + 0.25/2 for x in tFNc.keys()], tFNc.values(), color=COLOR_FN, width=0.25, label='Final')
-plt.xlabel('rating value')
-plt.ylabel('number of segments')
+plt.xlabel('Rating')
+plt.ylabel('Number of segments')
 plt.legend()
 plt.show()
 
