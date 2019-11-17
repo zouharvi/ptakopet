@@ -165,7 +165,6 @@ export class Estimator extends AsyncMessage {
                     for (let i = 0; i < tokens.length; i++) {
                         zeroes.push(0)
                     }
-                    resolve(zeroes)
                     if (tokens.length == 0) {
                         resolve(zeroes)
                     }
