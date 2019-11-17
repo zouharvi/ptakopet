@@ -4,6 +4,7 @@ import pickle
 from difflib import SequenceMatcher
 import re
 from functools import reduce
+import json
 from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, tokenize
 
 # This script serves to explore phenomena in segments accross domains.
@@ -11,6 +12,7 @@ from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, t
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
+parser.add_argument('-qf', '--questions_flat', help='Path to JSON question map: sid -> question')
 args = parser.parse_args()
 
 # Return list of segments, which correspond to a given domain regex
@@ -27,10 +29,10 @@ def segmentTime(segments, maxtime=600):
     total = 0
     faulty = 0
     for seg in segments:
-        if seg[-1]['timestamp'] > maxtime:
+        if seg['items'][-1]['timestamp'] > maxtime:
             faulty += 1
         else:
-            total += seg[-1]['timestamp']
+            total += seg['items'][-1]['timestamp']
     return total/(len(segments)-faulty)
 
 
@@ -93,3 +95,38 @@ for domain, domainName in domainNames.items():
     print(f'- - - replace: {avgDistribution[2]/len(sEdits)*100:.2f}%')
     print(f'- - - insert: {avgDistribution[3]/len(sEdits)*100:.2f}%')
     print(f'- - - delete: {avgDistribution[4]/len(sEdits)*100:.2f}%')
+
+# Only for technical issues check how much it overlaps  
+if args.questions_flat != None:
+    print('\nSpecific for tech issues:')
+    with open(args.questions_flat, 'r') as f:
+        questions = json.loads(f.read())
+    questions = {k:v.replace('*', '') for k,v in questions.items()}
+    techSegments = domainKeyMap(segments, 't[0-9]{2}')
+    lineRatios = []
+    confirmRatios = []
+    for seg in techSegments:
+        question = questions[seg['sid']]
+        if not isSkipped(seg):
+            translates = prefixMap(seg, 'TRANSLATE1', lambda x: x['text1'])
+            # these two are the same on the collected data
+            if True:
+                sm = SequenceMatcher(None, tokenize(question), tokenize(translates[0]))
+                maxR = sm.ratio()
+            else: 
+                maxR = -1
+                for line in translates:
+                    sm = SequenceMatcher(None, tokenize(question), tokenize(line))
+                    maxR = max(sm.ratio(), maxR)
+                maxR = max(sm.ratio(), maxR)
+            lineRatios.append(maxR)
+
+            lastConfirmSrc = prefixMap(seg, 'CONFIRM', lambda x: x['text1'])[-1]
+            sm = SequenceMatcher(None, tokenize(question), tokenize(lastConfirmSrc))
+            confirmRatios.append(sm.ratio())
+
+
+    copied = len(list(filter(lambda x: x == 1.0, lineRatios)))
+    submitted = len(list(filter(lambda x: x == 1.0, confirmRatios)))
+    total = len(lineRatios)
+    print(f'first copied: {copied}, copied & submitted: {submitted}, Total: {total}')

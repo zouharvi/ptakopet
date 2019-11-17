@@ -6,18 +6,18 @@ from utils import prefixMap, firstViableSrc, firstViableTrg, isWithoutBacktracki
 
 # This script processes blog1 binary file and outputs corresponding blog2 file
 
-parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file in question')
-parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
-args = parser.parse_args()
+# parser = argparse.ArgumentParser(description='')
+# parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file in question')
+# parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
+# args = parser.parse_args()
 
 # Get segment domain
-def getDomain(segment):
+def getSID(segment):
     firstNext = prefixMap(segment, 'NEXT', lambda x: x['sid'])
     if len(firstNext) == 0:
         raise Exception('Domain could not be found')
     else:
-        return firstNext[0][0]
+        return firstNext[0]
 
 def createBlog2(segments):
     newSegments = []
@@ -29,7 +29,8 @@ def createBlog2(segments):
             newLine = dict(line)
             del newLine['usid']
             newSeg['items'].append(newLine)
-        newSeg['domain'] = getDomain(newSeg)
+        newSeg['sid'] = getSID(newSeg)
+        newSeg['domain'] = newSeg['sid'][0]
         newSeg['rating'] = dict()
 
         # Add first viable object by source
@@ -51,8 +52,8 @@ def createBlog2(segments):
         newSegments.append(newSeg)
     return newSegments
 
-with open(args.blog1file, 'rb') as f:
-    segments = pickle.load(f)
+# with open(args.blog1file, 'rb') as f:
+#     segments = pickle.load(f)
 
-with open(args.blog2file, 'wb') as f:
-    pickle.dump(createBlog2(segments), f)
+# with open(args.blog2file, 'wb') as f:
+#     pickle.dump(createBlog2(segments), f)

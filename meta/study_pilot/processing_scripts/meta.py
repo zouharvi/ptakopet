@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os, argparse, pickle, copy
 from utils import nJoin, prefixMapArray
+from create_blog2 import createBlog2
 
 # This script does some basic time metrics and then cleans the data and
 # dumps them into a pickle file by segments. Each line is prefixed by the
@@ -139,6 +140,9 @@ for logfile in args.logfile:
 
 # Add USIDs to all segments
 addUSIDs(allSegments)
+
+# Change from blog1 to blog2
+allSegments = createBlog2(allSegments)
 
 # Dump the segments object
 if args.blog is not None:
