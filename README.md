@@ -1,3 +1,7 @@
+# Disclaimer
+
+The previous two versions are vastly outdated and should not be used. Please see the [Ptakopět v3](https://github.com/zouharvi/ptakopet) repository.
+
 [![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-v1-v2/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
 
 
