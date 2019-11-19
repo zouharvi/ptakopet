@@ -5,7 +5,7 @@ from difflib import SequenceMatcher
 import re
 from functools import reduce
 import json
-from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, tokenize
+from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, firstViableTrg, tokenize
 
 # This script serves to explore phenomena in segments accross domains.
 # Phenomena include: distribution of skipped/finished/written linearly/edit types.
@@ -13,6 +13,8 @@ from utils import prefixMap, isWithoutBacktracking, isSkipped, firstViableSrc, t
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 parser.add_argument('-qf', '--questions_flat', help='Path to JSON question map: sid -> question')
+parser.add_argument('-d', '--diffs', default='src', choices=['src', 'trg'], help='Do edits analysis on src or trg')
+
 args = parser.parse_args()
 
 # Return list of segments, which correspond to a given domain regex
@@ -45,10 +47,10 @@ def split(segments, func):
         out.setdefault(val, []).append(seg)
     return out
 
-# Return quintuples of edit distributions between the first viable and the confirmed output.
+# Return quintuples of edit distributions between the first viable and the confirmed input.
 # (similarity ratio, % of equals, % of replaces, % of inserts, % of deletions)
 # None if first viable is not found
-def firstViableEditsDistribution(segment):
+def firstViableSrcEditsDistribution(segment):
     viable = firstViableSrc(segment)
     if viable is None:
         return None
@@ -56,6 +58,31 @@ def firstViableEditsDistribution(segment):
         viable = viable['text1']
     lastConfirmSrc = prefixMap(segment, 'CONFIRM', lambda x: x['text1'])[-1]
     sm = SequenceMatcher(None, tokenize(viable), tokenize(lastConfirmSrc))
+    opcodes = sm.get_opcodes()
+    opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))
+    opcodes_replace = list(filter(lambda x: x[0] == 'replace', opcodes))
+    opcodes_insert = list(filter(lambda x: x[0] == 'insert', opcodes))
+    opcodes_delete = list(filter(lambda x: x[0] == 'delete', opcodes))
+    sum_equals = sum(map(lambda x: x[2] - x[1], opcodes_equals))
+    sum_replace = sum(map(lambda x: x[2] - x[1], opcodes_replace))
+    sum_insert = sum(map(lambda x: x[2] - x[1], opcodes_insert))
+    sum_delete = sum(map(lambda x: x[2] - x[1], opcodes_delete))
+    sum_all = float(sum_equals + sum_replace + sum_insert + sum_delete)
+    return (sm.ratio(), sum_equals/sum_all, sum_replace/sum_all, sum_insert/sum_all, sum_delete/sum_all)
+
+
+
+# Return quintuples of edit distributions between the first viable and the confirmed output.
+# (similarity ratio, % of equals, % of replaces, % of inserts, % of deletions)
+# None if first viable is not found
+def firstViableTrgEditsDistribution(segment):
+    viable = firstViableTrg(segment)
+    if viable is None:
+        return None
+    else:
+        viable = viable['text2']
+    lastConfirmTrg = prefixMap(segment, 'CONFIRM', lambda x: x['text2'])[-1]
+    sm = SequenceMatcher(None, tokenize(viable), tokenize(lastConfirmTrg))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))
     opcodes_replace = list(filter(lambda x: x[0] == 'replace', opcodes))
@@ -79,7 +106,10 @@ for domain, domainName in domainNames.items():
     dSegments = domainKeyMap(segments, domainReg)
     sSkipped = split(dSegments, isSkipped) 
     sLinear = split(sSkipped[False], isWithoutBacktracking) 
-    sEdits = map(firstViableEditsDistribution, sLinear[False])
+    if args.diffs == 'src':
+        sEdits = map(firstViableSrcEditsDistribution, sLinear[False])
+    elif args.diffs == 'trg':
+        sEdits = map(firstViableTrgEditsDistribution, sLinear[False])
     sEdits = list(filter(lambda x: x, sEdits))
     avgSimilarity = sum(map(lambda x: x[0], sEdits))/len(sEdits)
     avgDistribution = reduce(lambda x, y: (x[0]+y[0], x[1]+y[1], x[2]+y[2], x[3]+y[3], x[4]+y[4]), sEdits)
