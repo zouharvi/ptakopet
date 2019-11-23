@@ -114,12 +114,13 @@ plt.show()
 # paired t-test from tPairs
 import math
 from scipy import stats
-diffs = [x[0] - x[1] for x in tPairs]
+DIFF = 0
+diffs = [x[0] + DIFF - x[1] for x in tPairs]
 avg = sum(diffs)/len(diffs)
-var = sum((d - avg)**2 for d in diffs)/(len(diffs) - 1)
+var = sum((d - avg)**2 for d in diffs)/(len(diffs) - 1) # * 2
 sd = math.sqrt(var)
 T = avg/(sd/math.sqrt(len(diffs)))
-pval = stats.t.sf(abs(T), len(diffs)-1)*2
+pval = stats.t.sf(abs(T), len(diffs)-1)
 print(pval) # 9.316163371064496e-65
 
 # for x in tPairs:

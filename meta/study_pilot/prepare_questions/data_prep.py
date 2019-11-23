@@ -66,7 +66,10 @@ elif len(sys.argv) == 3 and sys.argv[1] == 'rip_random_seq':
                 DIDToQID[(topicI, parI, offset, length)] = questions
    
     DIDToQIDCount = {k: len(v) for k, v in DIDToQID.items()}
-    print(Counter(DIDToQIDCount.values()))
+
+    alphaCounterSQUAD = Counter(DIDToQIDCount.values())
+    print(f'SQuAD: {alphaCounterSQUAD}')
+
     QIDCountToDID = {}
     for (k,v) in DIDToQIDCount.items():
         QIDCountToDID.setdefault(v, []).append(k)
@@ -87,7 +90,8 @@ elif len(sys.argv) == 3 and sys.argv[1] == 'rip_random_seq':
 
     # We are able to format only the original, since the alignment for the Czech version is off.
     output = [{'org': formatParagraph(parOrg, sID, lID), 'zil': parZil} for (parOrg, sID, lID, parZil) in output]
-    print(len(output))
+    print(f'Total our: {len(output)}')
+    print(f'Total SQuAD: {sum(alphaCounterSQUAD.values())}')
     # Bucket sizes:
     # Counter({1: 81619, 2: 2303, 3: 166, 4: 13, 5: 8, 6: 1})
     with open(outFile, 'w') as f:
