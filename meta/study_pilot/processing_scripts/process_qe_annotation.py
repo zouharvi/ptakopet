@@ -3,6 +3,7 @@ import argparse
 import pickle
 from collections import Counter
 import matplotlib.pyplot as plt
+from utils import isWithoutBacktracking
 
 # Process quality annotations on collected data (mostly graphs)
 
@@ -19,17 +20,19 @@ with open(args.blog2file, 'rb') as f:
 
 tFVdom = dict()
 tFNdom = dict()
+tPairs = []
 # histogram by domain
 for seg in segments:
     rating = seg['rating']
     if 'first_viable' in rating and 'final' in rating:
         # temporary until all data is processed
-        if rating['first_viable'] == 0 or rating['final'] == 0:
+        if rating['first_viable'] == 0 or rating['final'] == 0 or isWithoutBacktracking(seg):
             continue
         tFVdom.setdefault(seg['domain'], []).append(rating['first_viable'])
         tFVdom.setdefault('*', []).append(rating['first_viable'])
         tFNdom.setdefault(seg['domain'], []).append(rating['final'])
         tFNdom.setdefault('*', []).append(rating['final'])
+        tPairs.append((rating['final'], rating['first_viable']))
 
 # tFVdom = {k:sum(v)/len(v) for k,v in tFVdom.items()}
 # tFNdom = {k:sum(v)/len(v) for k,v in tFNdom.items()}
@@ -51,7 +54,7 @@ for seg in segments:
     rating = seg['rating']
     if 'first_viable' in rating and 'final' in rating:
         # temporary until all data is processed
-        if rating['first_viable'] == 0 or rating['final'] == 0:
+        if rating['first_viable'] == 0 or rating['final'] == 0 or isWithoutBacktracking(seg):
             continue
         tFV.append(rating['first_viable'])
         tFN.append(rating['final'])
@@ -100,9 +103,28 @@ xticks = range(len(SIZES))
 plt.clf()
 plt.bar([s - 0.35/2 for s in xticks], tFVbuckets, color=COLOR_FV, width=0.35, label='First viable')
 plt.bar([s + 0.35/2 for s in xticks], tFNbuckets, color=COLOR_FN, width=0.35, label='Final')
-plt.xticks(ticks=xticks, labels=[f'≤{s}' for s in SIZES])
+XTICKSLABELS = ['≤5', '6-10', '11-15', '16-20', '21-25', '26-30', '≥31']
+plt.xticks(ticks=xticks, labels=XTICKSLABELS)
 plt.ylim(1, 5)
 plt.xlabel('Length of input in words')
 plt.ylabel('Average rating in the bucket')
 plt.legend()
 plt.show()
+
+# paired t-test from tPairs
+import math
+from scipy import stats
+diffs = [x[0] - x[1] for x in tPairs]
+avg = sum(diffs)/len(diffs)
+var = sum((d - avg)**2 for d in diffs)/(len(diffs) - 1)
+sd = math.sqrt(var)
+T = avg/(sd/math.sqrt(len(diffs)))
+pval = stats.t.sf(abs(T), len(diffs)-1)*2
+print(pval) # 9.316163371064496e-65
+
+# for x in tPairs:
+#     print(x[0])
+# print('--')
+# for x in tPairs:
+#     print(x[1])
+# print('--')
