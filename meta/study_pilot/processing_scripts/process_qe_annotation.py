@@ -7,8 +7,8 @@ from utils import isWithoutBacktracking
 
 # Process quality annotations on collected data (mostly graphs)
 
-COLOR_FV = 'red'
-COLOR_FN = 'blue'
+COLOR_FV = 'greenyellow'
+COLOR_FN = 'olivedrab'
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
