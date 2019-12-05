@@ -51,7 +51,7 @@ export class Logger {
             userID: waiter.userID,
             action: LogAction[action],
             // Date.now() returns epoch number in milliseconds
-            time: Math.round(Date.now()/1000),
+            time: Date.now(),
             ...extra,
         }
         $.ajax({
