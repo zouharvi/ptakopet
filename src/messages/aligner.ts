@@ -54,8 +54,8 @@ export class Aligner extends AsyncMessage {
      * @param source Source textarea
      * @param target Target textarea
      */
-    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
-        super()
+    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>, indicator: IndicatorManager) {
+        super(indicator)
         this.source = source
         this.target = target
     }
@@ -152,9 +152,8 @@ export interface AlignerBackend {
     name: string,
 }
 
-let aligner: Aligner = new Aligner($('#input_source'), $('#input_target'))
 let indicator_aligner: IndicatorManager = new IndicatorManager($('#indicator_aligner'))
-aligner.addIndicator(indicator_aligner)
+let aligner: Aligner = new Aligner($('#input_source'), $('#input_target'), indicator_aligner)
 
 // export the aligner singleton
 export { aligner }

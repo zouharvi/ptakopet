@@ -58,8 +58,8 @@ export class Estimator extends AsyncMessage {
      * @param source Source textarea
      * @param target Target textarea
      */
-    constructor(private source: JQuery<HTMLElement>, private target: JQuery<HTMLElement>) {
-        super()
+    constructor(private source: JQuery<HTMLElement>, private target: JQuery<HTMLElement>, indicator: IndicatorManager) {
+        super(indicator)
     }
 
     private running: boolean = true
@@ -217,9 +217,8 @@ export interface EstimatorBackend {
     name: string,
 }
 
-let estimator: Estimator = new Estimator($('#input_source'), $('#input_target'))
 let indicator_estimator: IndicatorManager = new IndicatorManager($('#indicator_estimator'))
-estimator.addIndicator(indicator_estimator)
+let estimator: Estimator = new Estimator($('#input_source'), $('#input_target'), indicator_estimator)
 
 // export the estimator singleton
 export { estimator }

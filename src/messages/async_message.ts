@@ -8,10 +8,12 @@ import { IndicatorManager } from '../page/indicator_manager'
 export class AsyncMessage {
     protected msgRec: number = 0
     protected msgNext: number = 1
-    public indicatorHandle?: IndicatorManager
+
+    constructor(public indicatorHandle?: IndicatorManager) { }
 
     /**
      * Add indicator to distinguish msgRec <= msgNext-1
+     * @deprecated
      */
     public addIndicator(indicatorHandle: IndicatorManager) {
         this.indicatorHandle = indicatorHandle

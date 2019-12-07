@@ -28,11 +28,8 @@ export abstract class Translator extends AsyncMessage {
      * @param source Source textareat
      * @param target Target textarea
      */
-    constructor(
-        source: JQuery<HTMLElement>,
-        target: JQuery<HTMLElement>,
-    ) {
-        super()
+    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>, indicator: IndicatorManager) {
+        super(indicator)
         this.source = source
         this.target = target
     }
@@ -182,12 +179,9 @@ export interface TranslatorBackend {
     name: string,
 }
 
-let translator_source: TranslatorSource = new TranslatorSource($('#input_source'), $('#input_target'))
-let translator_target: TranslatorTarget = new TranslatorTarget($('#input_target'), $('#input_back'))
-
 let indicator_translator: IndicatorManager = new IndicatorManager($('#indicator_translator'))
-translator_source.addIndicator(indicator_translator)
-translator_target.addIndicator(indicator_translator)
+let translator_source: TranslatorSource = new TranslatorSource($('#input_source'), $('#input_target'), indicator_translator)
+let translator_target: TranslatorTarget = new TranslatorTarget($('#input_target'), $('#input_back'), indicator_translator)
 
 // export translation singletons
 export { translator_source, translator_target, indicator_translator }
