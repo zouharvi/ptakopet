@@ -111,7 +111,8 @@ input {
 
 #study_content_block {
     max-width: calc(475px + 475px + 18px);
-    min-widht: 475px;
+    width: calc(100% - 18px);
+    min-width: 465px;
     margin-left: 10px;
 }
 

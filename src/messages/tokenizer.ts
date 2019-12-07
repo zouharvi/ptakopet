@@ -46,11 +46,9 @@ export class Tokenizer {
                             for(let i = 0; i < tokens.length; i++) {
                                 tokens[i] = TextUtils.decodeHTMLEntities(tokens[i])
                             } 
-                            console.log('receiving', tokens)
                             if (data['status'] == 'OK') {
                                 resolve(tokens)
                             } else {
-                                console.warn(data['error'])
                                 reject(data['error'] as string)
                             }
                         })

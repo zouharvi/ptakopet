@@ -25,19 +25,27 @@
     <h1 id='title_name'>
         <img src='img/logo_as_path.svg' style='width: 160px;' alt='Ptakopět title logo'>
 	<a href='http://browser.mt'>
-        	<img src='img/bergamot_logo.png' style='float: right; width: 160px; margin-right: 40px;' alt='Ptakopět title logo'>
+        <img src='img/bergamot_logo.png' style='float: right; width: 160px; margin-right: 40px;' alt='Ptakopět title logo'>
 	</a>
     </h1>
 
     <div id='main_content'>
         <div id='study_content_block' style='display: none;'>
             <div style='margin-bottom: 20px; padding-left: 20px;'>
-                <div id='study_instructions' style='display: inline-block; float: left; width: calc(100% - 115px); text-align: left;'>
+                <div id='study_instructions' style='display: inline-block; float: left; width: calc(100% - 165px); text-align: left;'>
                     Translate the following text:
                 </div>
-                <div style='display: inline-block; float: right; width: 100px;'>
-                    <input id='study_ok_button' type='button' value='OK'>
+                <div style='display: inline-block; float: right; width: 150px; text-align: right;'>
+                    <span style='margin-right: 8px;'>Confidence:</span>
                     <input id='study_skip_button' type='button' value='SKIP'>
+                    <!-- <input id='study_ok_button' type='button' value='OK'> -->
+                    <div id='study_ok_buttons' style='margin-top: 10px;'>
+                        <input type='button' value='1'>
+                        <input type='button' value='2'>
+                        <input type='button' value='3'>
+                        <input type='button' value='4'>
+                        <input type='button' value='5'>
+                    </div>
                 </div>
             </div>
             <div id='study_text'></div>

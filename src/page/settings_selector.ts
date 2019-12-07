@@ -195,16 +195,8 @@ export class SettingsSelector {
         language1?: string,
         language2?: string,
     ): void {
-        /**
-         * This may not be the best way to handle settings manipulation from code
-         * since it creates unnecesary calls to the server via triggers.
-         */
         // mute
-        translator_source.on(false)
-        translator_target.on(false)
-        estimator.on(false)
-        aligner.on(false)
-        logger.on(false)
+        this.muteServices(true)
 
         if (backendTranslator) {
             $(this.backendTranslatorSelect).val(backendTranslator)
@@ -228,16 +220,25 @@ export class SettingsSelector {
         $(this.lang2Select).trigger('change')
 
         // unmute
-        translator_source.on(true)
-        translator_target.on(true)
-        estimator.on(true)
-        aligner.on(true)
-        logger.on(true)
+        this.muteServices(false)
 
         // disable UI elements
         this.hide()
         $(this.lang1Select).prop('disabled', true)
         $(this.lang2Select).prop('disabled', true)
+    }
+
+    /**
+     * Mutes TODO
+     * @param yes 
+     */
+    private muteServices(yes: boolean) {
+        translator_source.on(!yes)
+        translator_target.on(!yes)
+        estimator.on(!yes)
+        aligner.on(!yes)
+        aligner.on(!yes)
+        logger.on(!yes)
     }
 
     /**

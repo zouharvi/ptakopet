@@ -13,29 +13,23 @@ export class Waiter {
 
     private localStorageID: string | null = null
 
-    private textContainer: JQuery<HTMLElement>
-    private instructionsContainer: JQuery<HTMLElement>
-    private studyBlock: JQuery<HTMLElement>
-    public  joinButton: JQuery<HTMLElement>
-    
     constructor(
-        textContainer: JQuery<HTMLElement>,
-        instructionsContainer: JQuery<HTMLElement>,
+        private textContainer: JQuery<HTMLElement>,
+        private instructionsContainer: JQuery<HTMLElement>,
         okButton: JQuery<HTMLElement>,
-        skipButton: JQuery<HTMLElement>,
-        joinButton: JQuery<HTMLElement>,
-        studyBlock: JQuery<HTMLElement>,
+        private skipButton: JQuery<HTMLElement>,
+        private joinButton: JQuery<HTMLElement>,
+        private studyBlock: JQuery<HTMLElement>,
     ) {
-        this.textContainer = textContainer
-        this.instructionsContainer = instructionsContainer
-        this.textContainer = textContainer
-        this.joinButton = joinButton
-        this.studyBlock = studyBlock
 
         $(joinButton).click(() => this.joinStudy())
         
+        // $(okButton).click(() => this.nextOk())
+        for(let okChild of $(okButton).children()) {
+            $(okChild).click(() => this.nextOk($(okChild).val() as number))
+        }
+        
         // lambda is used here to capture 'this' context
-        $(okButton).click(() => this.nextOk())
         $(skipButton).click(() => this.nextSkip())
     }
 
@@ -102,11 +96,12 @@ export class Waiter {
     /**
      * Work done, send to logger and go to the next question
      */
-    public nextOk(): void {
+    public nextOk(value?: number): void {
         logger.log(logger.Action.CONFIRM, 
             {
                 text1: translator_source.curSource,
                 text2: translator_source.curTranslation,
+                confidence: value,
                 estimation: estimator.curEstimation.join('-'), 
                 questionKey: this.bakedQueue[this.bakedIndex][0],
             }
@@ -191,7 +186,7 @@ export class Waiter {
 let waiter: Waiter = new Waiter(
     $('#study_text'),
     $('#study_instructions'),
-    $('#study_ok_button'),
+    $('#study_ok_buttons'),
     $('#study_skip_button'),
     $('#join_study_button'),
     $('#study_content_block'),

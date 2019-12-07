@@ -30,3 +30,29 @@
   /* start hidden */
   display: none;
 }
+
+
+#study_ok_buttons input {
+  width: 26px;
+  height: 26px;
+}
+
+#study_ok_buttons input:nth-child(1) {
+  background-color: #91b17e;
+}
+
+#study_ok_buttons input:nth-child(2) {
+  background-color: #a7be52;
+}
+
+#study_ok_buttons input:nth-child(3) {
+  background-color: #c7c54e;
+}
+
+#study_ok_buttons input:nth-child(4) {
+  background-color: #c9a775;
+}
+
+#study_ok_buttons input:nth-child(5) {
+  background-color: #c2746e;
+}
