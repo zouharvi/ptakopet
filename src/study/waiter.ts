@@ -4,8 +4,6 @@ import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { BAKED_QUEUE } from './pilot/baked_queue'
 import { QUESTIONS_FLAT } from './pilot/questions_flat'
-import { settings_selector } from '../main'
-import { Settings } from '../misc/settings'
 import { SettingsProfiles } from '../page/settings_profiles'
 
 export class Waiter {

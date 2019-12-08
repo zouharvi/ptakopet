@@ -60,6 +60,21 @@ export class SettingsProfiles {
     }
 }
 
+SettingsProfiles.profiles['default'] = {
+    settings: {
+        backendTranslator: 'ufalTranslationDev',
+        backendEstimator: 'openkiwi',
+        backendAligner: 'fastAlign',
+        language1: 'cs',
+        language2: 'de',
+    },
+    qe: true,
+    mt: true,
+    bt: false,
+    pp: true,
+    manual: true,
+}
+
 SettingsProfiles.profiles['pilot'] = {
     settings: {
         backendTranslator: 'ufalTranslationDev',

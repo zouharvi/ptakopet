@@ -5,8 +5,9 @@
 // This was replaced by server-side .htaccess file
 
 import { translator_source, translator_target } from './messages/translator'
-import { SettingsSelector } from './page/settings_selector'
 import { estimator } from './messages/estimator'
+import { SettingsSelector } from './page/settings_selector'
+import { SettingsProfiles } from './page/settings_profiles'
 import { waiter } from './study/waiter'
 import { logger } from './study/logger'
 import { Utils } from './misc/utils'
@@ -19,7 +20,7 @@ estimator
 waiter
 logger
 
-export let settings_selector: SettingsSelector = new SettingsSelector(
+let settings_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
     $('#backend_estimator'),
     $('#backend_aligner'),
@@ -29,6 +30,9 @@ export let settings_selector: SettingsSelector = new SettingsSelector(
     $('#warning_estimator'),
     $('#warning_aligner')
 )
+SettingsProfiles.setSettingsTag('default')
+export { settings_selector }
+
 
 $('#input_source').on('input', function () {
     translator_source.translate_throttle()
