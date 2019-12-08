@@ -20,24 +20,24 @@ The experiment can be described by a single JSON file with the following schema:
 
 ```
 {
-    stimuli: {
+    "stimuli": {
         ...,
-        sID: content,
-        ...,
-    },
-    stimuli_intro: {
-        ...,
-        regex: intro_message,
+        "sID": content,
         ...,
     },
-    users: [
+    "stimuli_intro": {
         ...,
-        userID: {
-            settingsProfile: settingsProfile,
-            bakedQueue: [sID, sID, ...],
+        "regex": intro_message,
+        ...,
+    },
+    "users": {
+        ...,
+        "userID": {
+            "settingsProfile": { settingsProfile },
+            "bakedQueue": ["sID", "sID", ...],
         },
         ...,
-    ]
+    }
 }
 ```
 
@@ -49,7 +49,7 @@ Every stimulus has to have an `sID`. A stimulus can be any text/HTML. It will be
 
 Because there can be multiple types of stimuli in one experiment (as happened in the pilot study), it is advisable that there would be an introductory text for each stimulus type. Such introductory text is displayed above the stimulus and can be (for the previous example): _"Please create a question in the target language which the highlighted segment answers."_
 
-In code this is done by regexes of `sID`s, which usually look like: `t00, t01, ..., p00, p01, p02, ..`. The regex for the first domain of stimuli is `t..` and for the second is `p..`. If one wishes to not use introductory texts per stimuli domain, they may use: `stimuli_intro: { '.*': '(generic text or empty)' }`
+In code this is done by regexes of `sID`s, which usually look like: `t00, t01, ..., p00, p01, p02, ..`. The regex for the first domain of stimuli is `t..` and for the second is `p..`. If one wishes to not use introductory texts per stimuli domain, they may use: `stimuli_intro: { ".*": "(generic text or empty)" }`
 
 The introductory message should be a text, but mild HTML styling should work as well.
 
@@ -67,18 +67,18 @@ Every user also has to have a `SettingsProfile`, which instructs Ptaokpět what 
 
 ```
 {
-    settings: {
-        backendTranslator: 'ufalTranslationDev',
-        backendEstimator: 'openkiwi',
-        backendAligner: 'fastAlign',
-        language1: 'cs',
-        language2: 'de',
+    "settings": {
+        "backendTranslator": "ufalTranslationDev",
+        "backendEstimator": "openkiwi",
+        "backendAligner": "fastAlign",
+        "language1": "cs",
+        "language2": "de",
     },
-    qe: false,
-    mt: true,
-    bt: true,
-    pp: false,
-    manual: false,
+    "qe": false,
+    "mt": true,
+    "bt": true,
+    "pp": false,
+    "manual": false,
 }
 ```
 
@@ -89,15 +89,15 @@ Since this definition is too verbose, several things can be omitted. Since in th
 
 ```
 {
-    settings: {
-        backendTranslator: 'ufalTranslationDev',
-        language1: 'cs',
-        language2: 'de',
+    "settings": {
+        "backendTranslator": "ufalTranslationDev",
+        "language1": "cs",
+        "language2": "de",
     },
-    qe: false,
-    mt: true,
-    bt: true,
-    pp: false,
+    "qe": false,
+    "mt": true,
+    "bt": true,
+    "pp": false
 }
 ```
 

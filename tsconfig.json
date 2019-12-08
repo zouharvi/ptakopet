@@ -5,5 +5,8 @@
         "noImplicitAny": true,
         "sourceMap": true,
         "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node"
     }
 }
