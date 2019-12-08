@@ -6,4 +6,5 @@
 * * [Web frontend](web.md "Web frontend")
 * * [Multiservice backend](backend.md "Multiservice backend")
 * [User documentation](user.md "User documentation for Ptakopět")
+* [Experiment documentation](experiment.md "Experiment documentation for Ptakopět")
 * [License](license.md "License")

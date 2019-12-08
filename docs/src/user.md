@@ -1,3 +1,5 @@
+DISCLAIMER: Information here is very much outdated.
+
 Ptakopět is a system for user friendly quality estimation ptakopet.vilda.net. It can be used for translating texts to a language you are not really familiar with (outbound translation) or estimation the quality of your own translation (simple quality estimation). The user is expected to use the web frontend provided at [ptakopet.vilda.net](https://ptakopet.vilda.net/). The webpage contains three text areas (see Figure 1).
 
 @TODO: Figure 1
