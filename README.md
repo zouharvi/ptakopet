@@ -1,12 +1,12 @@
 # Disclaimer
 
-The previous two versions are vastly outdated and should not be used. Please see the [Ptakopět v3](https://github.com/zouharvi/ptakopet) repository.
+The previous two versions are vastly outdated and should not be used. Please see the [Ptakopět](https://github.com/zouharvi/ptakopet) repository.
 
-[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-v1-v2/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
+[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-old/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
 
 
-## Version 2
-Current version (static page) with word level quality estimation. [Ptakopět v2](https://ptakopet.vilda.net) (Překlad tam a kontrolně zpět) is a system for agile forward and backward translation. This project was created as a semestral assignment for _Semestral project_, a class at Charles University Faculty of Mathematics and Physics in summer semester (version 2) with help of Ondřej Bojar.
+## Version old-2
+Ptakopět (Překlad tam a kontrolně zpět) is a system for agile forward and backward translation together with quality estimation. This project was created as a semestral assignment for _Semestral project_, a class at Charles University Faculty of Mathematics and Physics in summer semester (version old-2) with help of Ondřej Bojar.
 
 ### Usage
 The frontend contains three windows (input, translation, backward translation). On user input rudimentary form of translation quality estimation is shown.
@@ -14,11 +14,11 @@ The frontend contains three windows (input, translation, backward translation). 
 ### Class requirements
 Full deployment of both server and frontend parts with robust translation interface.
 
-## Version 1
+## Version old-1
 
-Version 1 was developed as a browser addon. It is no longer maintained. [Ptakopět v1](http://vilda.net/s/dod_ptakopet) (Překlad tam a kontrolně zpět) is a browser agnostic (mostly) plugin/page script for agile forward and backward translation. This project was created as a semestral assignment for _Competing in Machine Translation_, a class at Charles University Faculty of Mathematics and Physics in winter semester 2018 (version 1).
+Version old-1 was developed as a browser addon. It is no longer maintained. Ptakopět (Překlad tam a kontrolně zpět) is a browser agnostic (mostly) plugin/page script for agile forward and backward translation. This project was created as a semestral assignment for _Competing in Machine Translation_, a class at Charles University Faculty of Mathematics and Physics in winter semester 2018 (version old-1).
 
-Available in [Chrome](https://chrome.google.com/webstore/detail/ptakop%C4%9Bt/hgjlgmhmcmcmjiclegnipnaeejpibjmn), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ptakop%C4%9Bt/) and [Opera (soon)](https://addons.mozilla.org/en-US/firefox/addon/ptakop%C4%9Bt/). Include this snippet to use Ptakopět explicitly on your page:
+It was available in Chrome, Firefox and Opera. Include this snippet to use Ptakopět explicitly on your page:
 
 ```<script id='ptakopet_init' src='dev/ptakopet/js/ptakopet_init.js'></script>```
 
