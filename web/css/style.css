@@ -43,6 +43,7 @@ textarea {
 
 .hwt-content,
 .hwt-content-disabled,
+#input_para,
 #study_text {
     font-size: 1.15em;
     width: 100%;
@@ -53,6 +54,7 @@ textarea {
 
 .hwt-container,
 .hwt-content-disabled,
+#input_para,
 #study_text {
     width: 100%;
     max-width: 475px;
@@ -133,4 +135,16 @@ input {
 #study_text mark {
     background-color: #b4c832;
     border-radius: 3px;
+}
+
+
+#input_para {
+    height: 155px;
+    background-color: #ececec;
+    /* This simulates the disabled textarea font color */
+    color: #505050;
+}
+
+#input_para div:not(:last-child) {
+    border-bottom: 1px solid #cccccc;
 }
