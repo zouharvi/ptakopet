@@ -7,7 +7,8 @@ import { Utils } from '../misc/utils'
 
 export enum LogAction { 
     START, END,
-    NEXT, CONFIRM,
+    NEXT,
+    CONFIRM_OK, CONFIRM_SKIP,
     TRANSLATE1, TRANSLATE2,
     ESTIMATE, ALIGN,
     LANG_CHANGE
