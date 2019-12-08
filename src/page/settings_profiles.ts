@@ -18,8 +18,8 @@ export interface SettingsProfile {
     bt: boolean,
     // paraphrasing
     pp: boolean,
-    // allow further manual settings
-    manual: boolean,
+    // allow further manual settings, defaults to false
+    manual?: boolean,
 }
 
 export class SettingsProfiles {
@@ -38,7 +38,7 @@ export class SettingsProfiles {
         }
         settings_selector.forceSettings(profile.settings)
 
-        settings_selector.hide(!profile.manual)
+        settings_selector.hide(profile.manual == undefined || !profile.manual)
 
         if(profile.mt) {
             $('#input_target_block').show()

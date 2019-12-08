@@ -41,18 +41,17 @@ export class Waiter {
         if (userID == null) {
             return
         }
+        if (!BAKED_QUEUE.hasOwnProperty(userID)) {
+            alert('Unknown userID. Falling back to public version.')
+            logger.on(false)
+            return
+        } 
 
         this.userID = userID
         this.localStorageID = 'ptakopet_progress_' + (this.userID as string)
-        
-        logger.on()
+        logger.on(true)
+        let keys = BAKED_QUEUE[this.userID]
 
-        let keys = BAKED_QUEUE['unknown']
-        if (BAKED_QUEUE.hasOwnProperty(this.userID)) {
-            keys = BAKED_QUEUE[this.userID]
-        } else {
-            alert('Unknown user ID, falling back to default baked queue.')
-        } 
         for(let key in keys) {
             let qID = keys[key]
             this.bakedQueue.push([qID, QUESTIONS_FLAT[qID]])
