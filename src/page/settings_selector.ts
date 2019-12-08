@@ -6,6 +6,7 @@ import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { highlighter_source, highlighter_target } from './highlighter'
 import { logger } from '../study/logger'
+import { SettingsObject } from './settings_profiles'
 
 /**
  * Manages backend and language select boxes
@@ -16,10 +17,11 @@ export class SettingsSelector {
         private backendEstimatorSelect: JQuery<HTMLElement>,
         private backendAlignerSelect: JQuery<HTMLElement>,
         private backendTokenizerSelect: JQuery<HTMLElement>,
-        private lang1Select: JQuery<HTMLElement>,
-        private lang2Select: JQuery<HTMLElement>,
+        public  lang1Select: JQuery<HTMLElement>,
+        public  lang2Select: JQuery<HTMLElement>,
         private warningEstimator: JQuery<HTMLElement>,
-        private warningAligner: JQuery<HTMLElement>) {
+        private warningAligner: JQuery<HTMLElement>
+    ) {
 
         // setup translator backend change callback
         $(this.backendTranslatorSelect).on('change', (a) => {
@@ -188,48 +190,40 @@ export class SettingsSelector {
     /**
      * Set settings and locck the corresponding UI elements
      */
-    public forceSettings(
-        backendTranslator?: string,
-        backendEstimator?: string,
-        backendAligner?: string,
-        language1?: string,
-        language2?: string,
-    ): void {
+    public forceSettings(settingsObject: SettingsObject): void {
         // mute
         this.muteServices(true)
 
-        if (backendTranslator) {
-            $(this.backendTranslatorSelect).val(backendTranslator)
-        }
-        if (backendEstimator) {
-            $(this.backendEstimatorSelect).val(backendEstimator)
-        }
-        if (backendAligner) {
-            $(this.backendAlignerSelect).val(backendAligner)
-        }
+        // Settings from the settings block
+        if (settingsObject.backendTranslator)
+            $(this.backendTranslatorSelect).val(settingsObject.backendTranslator)
+
+        if (settingsObject.backendEstimator)
+            $(this.backendEstimatorSelect).val(settingsObject.backendEstimator)
+        
+        if (settingsObject.backendAligner)
+            $(this.backendAlignerSelect).val(settingsObject.backendAligner)
+        
         $(this.backendTranslatorSelect).trigger('change')
         $(this.backendAlignerSelect).trigger('change')
         $(this.backendEstimatorSelect).trigger('change')
-        if (language1) {
-            $(this.lang1Select).val(language1)
-        }
+        
+        // Language settings
+        if (settingsObject.language1)
+            $(this.lang1Select).val(settingsObject.language1)
+        
         $(this.lang1Select).trigger('change')
-        if (language2) {
-            $(this.lang2Select).val(language2)
-        }
+        if (settingsObject.language2)
+            $(this.lang2Select).val(settingsObject.language2)
+        
         $(this.lang2Select).trigger('change')
 
         // unmute
         this.muteServices(false)
-
-        // disable UI elements
-        this.hide()
-        $(this.lang1Select).prop('disabled', true)
-        $(this.lang2Select).prop('disabled', true)
     }
 
     /**
-     * Mutes TODO
+     * Mutes/unmutes all available messaging services 
      * @param yes 
      */
     private muteServices(yes: boolean) {
@@ -242,10 +236,16 @@ export class SettingsSelector {
     }
 
     /**
-     * Hides the settings block in DOM
+     * Hides the settings block in DOM and locks other settings elements
      */
-    private hide(): void {
-        $('#settings_block').hide()
+    public hide(yes: boolean): void {
+        $(this.lang1Select).prop('disabled', yes)
+        $(this.lang2Select).prop('disabled', yes)
+        if(yes) {
+            $('#settings_block').hide()
+        } else {
+            $('#settings_block').show()
+        }
     }
 
     /**

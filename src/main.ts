@@ -19,7 +19,7 @@ estimator
 waiter
 logger
 
-let settings_selector: SettingsSelector = new SettingsSelector(
+export let settings_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
     $('#backend_estimator'),
     $('#backend_aligner'),
@@ -29,7 +29,6 @@ let settings_selector: SettingsSelector = new SettingsSelector(
     $('#warning_estimator'),
     $('#warning_aligner')
 )
-export { settings_selector }
 
 $('#input_source').on('input', function () {
     translator_source.translate_throttle()
@@ -40,7 +39,7 @@ $('#input_target').on('input', function () {
     estimator.estimate_throttle()
 })
 
-// Try to do omnibox search
+// Try to do omnibox search on default settings
 let params = Utils.parseGETParams()
 if ('q' in params) {
     $(translator_source.source).val(params['q'].split('+').join(' '))

@@ -57,16 +57,23 @@
             </div>
             <textarea autofocus tabindex='1' id='input_source' spellcheck="false" class='hwt-content'></textarea>
         </div>
-        <div class='content_block'>
+        <div id='input_target_block' class='content_block'>
             <div>
                 <span>Target language:</span>
                 <select id='language_select_target'></select>
             </div>
             <textarea tabindex='2' id='input_target' spellcheck="false" class='hwt-content'></textarea>
         </div>
-        <div class='content_block' style='max-width: 470px;'>
+
+        <div id='input_back_block'  class='content_block' style='max-width: 470px;'>
             <div>Backward translation:</div>
             <textarea disabled id='input_back' spellcheck="false" class='hwt-content-disabled'></textarea>
+        </div>
+
+
+        <div id='input_para_block'  class='content_block' style='max-width: 470px;'>
+            <div>Paraphrases: TODO</div>
+            <textarea disabled id='input_para' spellcheck="false" class='hwt-content-disabled'></textarea>
         </div>
 
         <div class='content_block' style='vertical-align: top;'>

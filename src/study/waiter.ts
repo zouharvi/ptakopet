@@ -5,6 +5,8 @@ import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { BAKED_QUEUE } from './baked_queue'
 import { QUESTIONS_FLAT } from './questions_flat'
 import { settings_selector } from '../main'
+import { Settings } from '../misc/settings'
+import { SettingsProfiles } from '../page/settings_profiles'
 
 export class Waiter {
     public bakedQueue : Array<[string, string]> = [] 
@@ -68,7 +70,7 @@ export class Waiter {
         $(this.studyBlock).show()
         $(this.joinButton).hide()
         
-        settings_selector.forceSettings('ufalTranslationDev', 'openkiwi', 'fastAlign', 'cs', 'de')
+        SettingsProfiles.setSettingsTag('edin')
         
         let tmpDataIndex : string | null = window.localStorage.getItem(this.localStorageID)
         if(tmpDataIndex == null) { 
