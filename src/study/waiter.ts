@@ -2,9 +2,8 @@ import { logger } from './logger'
 import { estimator } from '../messages/estimator'
 import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { BAKED_QUEUE } from './pilot/baked_queue'
-import { QUESTIONS_FLAT } from './pilot/questions_flat'
 import { SettingsProfiles } from '../page/settings_profiles'
+import { baked_study } from './baked_study'
 
 export class Waiter {
     public bakedQueue : Array<[string, string]> = [] 
@@ -16,7 +15,7 @@ export class Waiter {
     constructor(
         private textContainer: JQuery<HTMLElement>,
         private instructionsContainer: JQuery<HTMLElement>,
-        okButton: JQuery<HTMLElement>,
+        okButtonsParent: JQuery<HTMLElement>,
         private skipButton: JQuery<HTMLElement>,
         private joinButton: JQuery<HTMLElement>,
         private studyBlock: JQuery<HTMLElement>,
@@ -25,7 +24,7 @@ export class Waiter {
         $(joinButton).click(() => this.joinStudy())
         
         // $(okButton).click(() => this.nextOk())
-        for(let okChild of $(okButton).children()) {
+        for(let okChild of $(okButtonsParent).children()) {
             $(okChild).click(() => this.nextOk($(okChild).val() as number))
         }
         
@@ -41,7 +40,7 @@ export class Waiter {
         if (userID == null) {
             return
         }
-        if (!BAKED_QUEUE.hasOwnProperty(userID)) {
+        if (!baked_study.users.hasOwnProperty(userID)) {
             alert('Unknown userID. Falling back to public version.')
             logger.on(false)
             return
@@ -50,11 +49,11 @@ export class Waiter {
         this.userID = userID
         this.localStorageID = 'ptakopet_progress_' + (this.userID as string)
         logger.on(true)
-        let keys = BAKED_QUEUE[this.userID]
+        let keys = baked_study.users[this.userID].bakedQueue
 
         for(let key in keys) {
             let qID = keys[key]
-            this.bakedQueue.push([qID, QUESTIONS_FLAT[qID]])
+            this.bakedQueue.push([qID, baked_study.stimuli[qID]])
         } 
 
         logger.log(logger.Action.START, 
