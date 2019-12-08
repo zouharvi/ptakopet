@@ -86,6 +86,6 @@ SettingsProfiles.profiles['edin'] = {
     qe: false,
     mt: true,
     bt: true,
-    pp: true,
-    manual: true,
+    pp: false,
+    manual: false,
 }

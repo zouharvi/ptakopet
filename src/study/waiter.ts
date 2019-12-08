@@ -2,8 +2,8 @@ import { logger } from './logger'
 import { estimator } from '../messages/estimator'
 import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { BAKED_QUEUE } from './baked_queue'
-import { QUESTIONS_FLAT } from './questions_flat'
+import { BAKED_QUEUE } from './pilot/baked_queue'
+import { QUESTIONS_FLAT } from './pilot/questions_flat'
 import { settings_selector } from '../main'
 import { Settings } from '../misc/settings'
 import { SettingsProfiles } from '../page/settings_profiles'
@@ -147,10 +147,6 @@ export class Waiter {
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')
 
-        // first occurence
-        formattedText = formattedText.replace(/\*/, '<mark>')
-        // next occurence
-        formattedText = formattedText.replace(/\*/, '</mark>')
         $(this.textContainer).html(formattedText)
 
         let instructions : string = ''
