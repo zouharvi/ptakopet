@@ -229,7 +229,25 @@
         "z59": "Jméno iPod navrhl Vinnie Chieco, textař na volné noze, který (spolu s ostatními) byl společností Apple vyzván, aby přišel na to, jak nového hráče představit veřejnosti. Když Chieco viděl prototyp, vzpomněl si na film <mark>2001: Vesmírná odysea</mark> a věta \"Otevři dveře doku, Hale!\", která odkazuje na bílé EVA moduly kosmické lodi Discovery One. Chieco spatřoval analogii vztahu mezi kosmickou lodí a menšími nezávislými moduly ve vztahu mezi osobním počítačem a hudebním přehrávačem. Apple prozkoumal ochrannou známku a zjistil, že je již používána. Joseph N. Grasso z New Jersey měl původně na seznamu ochrannou známku \"iPod\" s USA. Patent and Trademark Office (USPTO) v červenci 2000 pro internetové kiosky. První iPod kiosky byly předvedeny veřejnosti v New Jersey v březnu 1998 a komerční využití začalo v lednu 2000, ale do roku 2001 bylo zřejmě ukončeno. Ochranná známka byla zaregistrována USPTO v listopadu 2003 a společnost Grasso ji přidělila společnosti Apple Computer, Inc. v roce 2005."
     },
     "stimuliRules": {
-        "*": {
+        "t..": {
+            "message": "Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší.",
+            "profile": {
+                "settings": {
+                    "backendTranslator": "ufalTranslationDev",
+                    "backendEstimator": "openkiwi",
+                    "backendAligner": "fastAlign",
+                    "language1": "cs",
+                    "language2": "de"
+                },
+                "qe": true,
+                "mt": true,
+                "bt": true,
+                "pp": false,
+                "manual": false
+            }
+        },
+        "[szp]..": {
+            "message": "Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.",
             "profile": {
                 "settings": {
                     "backendTranslator": "ufalTranslationDev",
@@ -244,12 +262,6 @@
                 "pp": false,
                 "manual": false
             }
-        },
-        "t..": {
-            "message": "Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší."
-        },
-        "[szp]..": {
-            "message": "Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší."
         }
     }
 }

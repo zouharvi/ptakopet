@@ -2,7 +2,7 @@ import { logger } from './logger'
 import { estimator } from '../messages/estimator'
 import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { SettingsProfiles } from '../page/settings_profiles'
+import { SettingsProfile, SettingsProfiles } from '../page/settings_profiles'
 import { baked_study } from './baked_study'
 
 export class Waiter {
@@ -86,7 +86,7 @@ export class Waiter {
         this.bakedIndex += 1
         if(this.bakedIndex == this.bakedQueue.length) {
             logger.log(logger.Action.END, {})
-            alert('Konec testování')
+            alert('Testing finished. Thank you. | Konec testování. Děkujeme.')
             this.bakedIndex = 0
         }
     }
@@ -142,22 +142,23 @@ export class Waiter {
 
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')
-
-        $(this.textContainer).html(formattedText)
-
         let instructions : string = ''
-        if(qID.startsWith('t')) {
-            instructions = 'Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší.'
-        } else if(qID.startsWith('s')) {
-            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
-        } else if(qID.startsWith('z')) {
-            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
-        } else if(qID.startsWith('p')) {
-            instructions = 'Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.'
-        } else {
-            console.error('Invalid qID: ' + qID)
+        
+        // apply regex rules 
+        for(let regex in baked_study.stimuliRules) {
+            if( (new RegExp(regex)).test(qID)) {
+                if(baked_study.stimuliRules[regex].profile != undefined) {
+                    SettingsProfiles.setSettings(baked_study.stimuliRules[regex].profile as SettingsProfile)
+                }
+                if(baked_study.stimuliRules[regex].message != undefined) {
+                    instructions = baked_study.stimuliRules[regex].message as string
+                }
+            }
         }
         $(this.instructionsContainer).text(instructions)
+
+        // show stimuli
+        $(this.textContainer).html(formattedText)
 
         if (reason != null) {
             logger.log(logger.Action.NEXT, 
