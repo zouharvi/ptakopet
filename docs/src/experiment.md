@@ -25,15 +25,17 @@ The experiment can be described by a single JSON file with the following schema:
         "sID": content,
         ...,
     },
-    "stimuli_intro": {
+    "stimuli_rules": {
         ...,
-        "regex": intro_message,
-        ...,
+        "regex": {
+            "message": "intro_message",
+            "profile": { ...settingsProflie }
+        },
+        ...
     },
     "users": {
         ...,
         "userID": {
-            "settingsProfile": { settingsProfile },
             "bakedQueue": ["sID", "sID", ...],
         },
         ...,
@@ -45,25 +47,21 @@ The experiment can be described by a single JSON file with the following schema:
 
 Every stimulus has to have an `sID`. A stimulus can be any text/HTML. It will be placed in a wrapper of max width 930px. The height is not limited, but it should not exceed 300px, as it would take up too much space from the rest of the page. An example stimulus: _"&lt;mark>Niels Bohr&lt;/mark> introduced the first quantized model of the atom in 1913."_
 
-### Stimulus intro
+## Stimulus regex
 
-Because there can be multiple types of stimuli in one experiment (as happened in the pilot study), it is advisable that there would be an introductory text for each stimulus type. Such introductory text is displayed above the stimulus and can be (for the previous example): _"Please create a question in the target language which the highlighted segment answers."_
+Because there can be multiple types of stimuli in one experiment (as happened in the pilot study), they can utilize different settings. This is done by applying rules to such `sID`s, that match the relevant regex. `sID`s usually look like: `t00, t01, ..., p00, p01, p02, ..`. The regex for the first domain of stimuli is `t..` and for the second is `p..`. All rules are applied (if matching) in sequence as defined in the JSON.
 
-In code this is done by regexes of `sID`s, which usually look like: `t00, t01, ..., p00, p01, p02, ..`. The regex for the first domain of stimuli is `t..` and for the second is `p..`. If one wishes to not use introductory texts per stimuli domain, they may use: `stimuli_intro: { ".*": "(generic text or empty)" }`
+### Stimulus message
 
-The introductory message should be a text, but mild HTML styling should work as well.
+It is advisable that there would be an introductory text for each stimulus domain. Such introductory text is displayed above the stimulus and can be (for the previous example): _"Please create a question in the target language which the highlighted segment answers."_
 
-## Users
+If one wishes to not use introductory texts per stimuli domain, they may use a generic regex `".*"` or set the `message` to `""`.
 
-Every user has to have a `userID`.
+The introductory message should be a text, but mild HTML styling should work as well. `message` can be omitted in the object definition.
 
-### Baked queue
+### Stimulus profile
 
-We use the concept of baked queues. This means, that the order of stimuli for a specific user is predetermined by the researcher. Every user should then have a list of `sID`s, which will be shown in sequence. If the user leaves the session (closes the browser), the position in the queue is restored after they log in again.
-
-### Settings profile
-
-Every user also has to have a `SettingsProfile`, which instructs Ptaokpět what modules to display and what languages and backends to show. A `SettingsProfile` is also an object of the following form (example):
+Stimuli can also have different `SettingsProfile`s, which instructs Ptakopět what modules to display and what languages and backends to show. A `SettingsProfile` is also an object of the following form (example):
 
 ```
 {
@@ -100,6 +98,17 @@ Since this definition is too verbose, several things can be omitted. Since in th
     "pp": false
 }
 ```
+
+`profile` can be omitted in the object definition.
+
+## Users
+
+Every user has to have a `userID`.
+
+### Baked queue
+
+We use the concept of baked queues. This means, that the order of stimuli for a specific user is predetermined by the researcher. Every user should then have a list of `sID`s, which will be shown in sequence. If the user leaves the session (closes the browser), the position in the queue is restored after they log in again.
+
 
 ## Logs
 
