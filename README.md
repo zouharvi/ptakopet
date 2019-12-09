@@ -2,7 +2,7 @@
 
 The previous two versions are vastly outdated and should not be used. Please see the [Ptakopět](https://github.com/zouharvi/ptakopet) repository.
 
-[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-old/master/v1/meta/logo.png)](https://ptakopet.vilda.net)
+[![Ptakopět logo](https://raw.githubusercontent.com/zouharvi/ptakopet-old/master/old-1/meta/logo.png)](https://ptakopet.vilda.net)
 
 
 ## Version old-2
