@@ -36,6 +36,9 @@ export class Aligner extends AsyncMessage {
 
                         let intensities: Array<number> = Array<number>(max).fill(1)
                         for (let i in alignment) {
+                            // Here we are taking the QE of the last aligned object
+                            // We could also experiment more with taking the first
+                            // or the sum. 
                             intensities[alignment[i][0]] = estimation[alignment[i][1]]
                         }
                         logger.log(logger.Action.ALIGN, { alignment: intensities.join('-') })
