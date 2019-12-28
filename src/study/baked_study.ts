@@ -1,5 +1,5 @@
 import _baked_study_raw from './data/study_pilot.json'
-import { SettingsProfile } from '../page/settings_profiles.js'
+import { SettingsProfile } from '../misc/settings_profiles.js'
 
 interface BakedStudyType {
     users: {

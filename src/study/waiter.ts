@@ -2,7 +2,7 @@ import { logger } from './logger'
 import { estimator } from '../messages/estimator'
 import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
-import { SettingsProfile, SettingsProfiles } from '../page/settings_profiles'
+import { SettingsProfile, SettingsProfiles } from '../misc/settings_profiles'
 import { baked_study } from './baked_study'
 
 export class Waiter {

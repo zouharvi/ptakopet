@@ -70,7 +70,7 @@ SettingsProfiles.profiles['default'] = {
     },
     qe: true,
     mt: true,
-    bt: false,
+    bt: true,
     pp: true,
     manual: true,
 }

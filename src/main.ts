@@ -7,7 +7,7 @@
 import { translator_source, translator_target } from './messages/translator'
 import { estimator } from './messages/estimator'
 import { SettingsSelector } from './page/settings_selector'
-import { SettingsProfiles } from './page/settings_profiles'
+import { SettingsProfiles } from './misc/settings_profiles'
 import { waiter } from './study/waiter'
 import { logger } from './study/logger'
 import { Utils } from './misc/utils'

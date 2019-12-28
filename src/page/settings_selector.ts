@@ -6,7 +6,7 @@ import { Utils, LanguageCode } from '../misc/utils'
 import { Settings } from '../misc/settings'
 import { highlighter_source, highlighter_target } from './highlighter'
 import { logger } from '../study/logger'
-import { SettingsObject, SettingsProfiles } from './settings_profiles'
+import { SettingsObject, SettingsProfiles } from '../misc/settings_profiles'
 
 /**
  * Manages backend and language select boxes
