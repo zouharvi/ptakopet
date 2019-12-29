@@ -1,4 +1,3 @@
-import { AsyncMessage } from "./async_message"
 import { IndicatorManager } from "../page/indicator_manager"
 import { Settings } from "../misc/settings"
 import { TextUtils } from "../misc/text_utils"
