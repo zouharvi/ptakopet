@@ -47,27 +47,6 @@ export abstract class Translator extends AsyncMessage {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
-        ufalTranslationDev: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => {
-                    $.ajax({
-                        type: "POST",
-                        url: "https://lindat.mff.cuni.cz/services/translation-dev/api/v2/languages/",
-                        data: { src: sourceLang, tgt: targetLang, input_text: text },
-                        headers: {
-                            Accept: "application/json",
-                        },
-                        async: true,
-                    })
-                        .done((data: Array<string>) => resolve(data.join('').replace(/\n$/, '')))
-                        .fail((xhr: JQueryXHR) => reject(xhr))
-                })
-            },
-            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'de'], false),
-            default: ['cs', 'de'],
-            name: 'ÚFAL Translation Dev',
-        },
-
         ufalTransformer: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
                 return new Promise<string>((resolve, reject) => {
@@ -84,7 +63,7 @@ export abstract class Translator extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr'], false),
+            languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr', 'de'], false),
             default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },

@@ -62,7 +62,7 @@ export class SettingsProfiles {
 
 SettingsProfiles.profiles['default'] = {
     settings: {
-        backendTranslator: 'ufalTranslationDev',
+        backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
         backendAligner: 'fastAlign',
         language1: 'cs',
@@ -77,7 +77,7 @@ SettingsProfiles.profiles['default'] = {
 
 SettingsProfiles.profiles['pilot'] = {
     settings: {
-        backendTranslator: 'ufalTranslationDev',
+        backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
         backendAligner: 'fastAlign',
         language1: 'cs',
@@ -92,7 +92,7 @@ SettingsProfiles.profiles['pilot'] = {
 
 SettingsProfiles.profiles['edin'] = {
     settings: {
-        backendTranslator: 'ufalTranslationDev',
+        backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
         backendAligner: 'fastAlign',
         language1: 'cs',
