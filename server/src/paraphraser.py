@@ -19,7 +19,8 @@ class Mock():
             return lang1text
         
         retobj = {'status': 'OK'}
-        for lang2 in ['de', 'fr', 'ru']:
-            retobj[lang2] = roundtrip(lang, lang2, text)
+        for lang2 in ['de', 'fr', 'ru', 'en']:
+            if lang != lang2:
+                retobj[lang2] = roundtrip(lang, lang2, text)
             
         return retobj 
