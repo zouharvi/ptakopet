@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import os
-import qe, align, tokenizer, logger
+import qe, align, tokenizer, paraphraser, logger
 
 print(dir(tokenizer))
 
@@ -25,6 +25,9 @@ if __name__ == 'server':
   }
   backends['tokenize'] = {
     'moses': tokenizer.MosesTokenizer(),
+  }
+  backends['paraphrase'] = {
+    'mock': paraphraser.Mock(),
   }
 
 @app.route('/')
@@ -80,6 +83,19 @@ def qeService(backend):
     if len(request.values['sourceLang']) == 0 or len(request.values['targetText']) == 0:
       return jsonify({'status': 'OK', 'qe': []}) 
     return json.dumps(backends['qe'][backend].qe(**request.values), ensure_ascii=False), CONTENT_TYPE
+  except Exception as error:
+    return {'status': 'FAIL', 'error': str(error) }
+
+@app.route('/paraphrase/<backend>', methods = ['GET', 'POST'])
+def paraphraseService(backend):
+  """
+  Provides mock up paraphrasing backend
+  """
+  try:
+    if not backend in backends['paraphrase'].keys():
+      raise Exception("Invalid backend selected")
+    assertArgs(request.values, ['lang', 'text'])
+    return json.dumps(backends['paraphrase'][backend].paraphrase(**request.values), ensure_ascii=False), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
