@@ -1,5 +1,6 @@
 import { translator_source, translator_target, Translator } from '../messages/translator'
 import { estimator, Estimator } from '../messages/estimator'
+import { paraphraser, Paraphraser } from '../messages/paraphraser'
 import { aligner, Aligner } from '../messages/aligner'
 import { Tokenizer } from '../messages/tokenizer'
 import { Utils, LanguageCode } from '../misc/utils'
@@ -15,6 +16,7 @@ export class SettingsSelector {
     constructor(
         private backendTranslatorSelect: JQuery<HTMLElement>,
         private backendEstimatorSelect: JQuery<HTMLElement>,
+        private backendParaphraserSelect: JQuery<HTMLElement>,
         private backendAlignerSelect: JQuery<HTMLElement>,
         private backendTokenizerSelect: JQuery<HTMLElement>,
         public  lang1Select: JQuery<HTMLElement>,
@@ -37,6 +39,13 @@ export class SettingsSelector {
             Settings.backendEstimator = Estimator.backends[$(a.target).val() as string]
             this.refreshWarning()
             estimator.estimate()
+        })
+
+        // setup paraphraser backend change callback
+        $(this.backendParaphraserSelect).on('change', (a) => {
+            Settings.backendParaphraser = Paraphraser.backends[$(a.target).val() as string]
+            this.refreshWarning()
+            paraphraser.paraphrase()
         })
 
         // setup aligner backend change callback
@@ -201,12 +210,16 @@ export class SettingsSelector {
         if (settingsObject.backendEstimator)
             $(this.backendEstimatorSelect).val(settingsObject.backendEstimator)
         
+        if (settingsObject.backendParaphraser)
+            $(this.backendParaphraserSelect).val(settingsObject.backendParaphraser)
+        
         if (settingsObject.backendAligner)
             $(this.backendAlignerSelect).val(settingsObject.backendAligner)
         
         $(this.backendTranslatorSelect).trigger('change')
-        $(this.backendAlignerSelect).trigger('change')
         $(this.backendEstimatorSelect).trigger('change')
+        $(this.backendParaphraserSelect).trigger('change')
+        $(this.backendAlignerSelect).trigger('change')
         
         // Language settings
         if (settingsObject.language1)
@@ -230,6 +243,7 @@ export class SettingsSelector {
         translator_source.on(!yes)
         translator_target.on(!yes)
         estimator.on(!yes)
+        paraphraser.on(!yes)
         aligner.on(!yes)
         aligner.on(!yes)
         logger.on(!yes)
@@ -261,6 +275,11 @@ export class SettingsSelector {
         // estimator backends
         for (let i in Estimator.backends) {
             $(this.backendEstimatorSelect).append($('<option>', { value: i, text: Estimator.backends[i].name }))
+        }
+
+        // paraphraser backends
+        for (let i in Paraphraser.backends) {
+            $(this.backendParaphraserSelect).append($('<option>', { value: i, text: Paraphraser.backends[i].name }))
         }
 
         // alignment backends

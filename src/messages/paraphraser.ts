@@ -9,46 +9,45 @@ import { logger } from '../study/logger'
 import { tokenizer } from './tokenizer'
 
 export type Paraphrase = { [key in LanguageCode]?: string }
-export type ParaphraseResponse = { 'status': string } & Paraphrase
+export type ParaphraseResponse = { 'status': string, 'error'?: string} & Paraphrase
 
 export class Paraphraser extends AsyncMessage {
     private throttler = new Throttler(500)
 
     /**
-     * Make a estimator request, which can be later interrupted. 
+     * Make a paraphraser request, which can be later interrupted. 
      */
-    public estimate_throttle() {
-        this.throttler.throttle(this.estimate)
+    public paraphrase_throttle() {
+        this.throttler.throttle(this.paraphrase)
     }
 
     /**
-     * Make an estimator request
+     * Make an paraphraser request
      */
-    estimate = () => {
+    paraphrase = () => {
         if (!this.running) {
             return
         }
         // Check whether the backend supports this language pair
-        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
-            // update tokenization
-
-            let request = Settings.backendEstimator.composeRequest(
+        if (Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
+            let request = Settings.backendParaphraser.composeRequest(
                 Settings.language1 as LanguageCode,
-                Settings.language2 as LanguageCode,
-                $(this.source).val() as string,
-                $(this.target).val() as string)
+                $(this.source).val() as string)
             super.dispatch(
                 request,
-                async (paraphrase: Paraphraser) => {
-                    let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
-                    logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
-                    aligner.align(estimation)
-                    highlighter_target.highlight(estimation, tokenization)
+                async (paraphrase: Paraphrase) => {
+                    $(this.paraphraserElement).empty()
+                    for(let lang of Object.keys(paraphrase)) {
+                        if(Utils.Languages.has(lang as LanguageCode)) {
+                            let data : string = paraphrase[lang as LanguageCode] as string
+                            $(this.paraphraserElement).append("<div>" + data + "</div>")
+                        }
+                    }
                 }
             )
         } else {
-            // The estimator does not support this language pair, skipping
-            console.warn("The estimator does not support this language pair, skipping")
+            // The paraphraser does not support this language pair, skipping
+            console.warn("The paraphraser does not support this language pair, skipping")
         }
     }
 
@@ -56,7 +55,12 @@ export class Paraphraser extends AsyncMessage {
      * @param source Source textarea
      * @param target Target textarea
      */
-    constructor(private source: JQuery<HTMLElement>, private target: JQuery<HTMLElement>, indicator: IndicatorManager) {
+    constructor(
+        private source: JQuery<HTMLElement>,
+        private target: JQuery<HTMLElement>,
+        private paraphraserElement: JQuery<HTMLElement>,
+        indicator: IndicatorManager)
+    {
         super(indicator)
     }
 
@@ -68,17 +72,17 @@ export class Paraphraser extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: ParaphraserBackend } = {
         mock: {
-            composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
-                return new Promise<Estimation>((resolve, reject) => {
+            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrase> {
+                return new Promise<Paraphrase>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
-                        url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        url: "https://quest.ms.mff.cuni.cz/zouharvi/paraphrase/mock",
+                        data: { lang: lang, text: text.replace(/\n/, " ") },
                         async: true,
                     })
-                        .done((data: EstimationResponse) => {
+                        .done((data: ParaphraseResponse) => {
                             if (data['status'] == 'OK') {
-                                resolve(data['qe'])
+                                resolve(data)
                             } else {
                                 console.warn(data['error'])
                                 reject(data['error'] as string)
@@ -88,14 +92,18 @@ export class Paraphraser extends AsyncMessage {
                 })
             },
             languages: new Set(['cs', 'en', 'de']),
-            name: 'QuEst++',
+            name: 'LINDAT Mock',
         },
 
 
         same: {
             composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
                 return new Promise<Paraphrase>(async (resolve, reject) => {
-                    
+                    let res : Paraphrase = {}
+                    for(let l of Utils.Languages) {
+                        res[l] = text
+                    }
+                    resolve(res)
                 })
             },
             languages: Utils.Languages,
@@ -126,7 +134,7 @@ export interface ParaphraserBackend {
 }
 
 let indicator_paraphraser: IndicatorManager = new IndicatorManager($('#indicator_paraphraser'))
-let paraphraser: Paraphraser = new Paraphraser($('#input_source'), $('#input_target'), indicator_paraphraser)
+let paraphraser: Paraphraser = new Paraphraser($('#input_source'), $('#input_target'), $('#input_para'), indicator_paraphraser)
 
-// export the estimator singleton
+// export the paraphraser singleton
 export { paraphraser }

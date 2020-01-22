@@ -71,13 +71,8 @@
         </div>
 
         <div id='input_para_block'  class='content_block' style='max-width: 470px;'>
-            <div>Paraphrases: TODO</div>
-            <div id='input_para'>
-                <div>A paraphrase typically explains or clarifies the text that is being paraphrased.</div>
-                <div>A summarizing ordinarily clarifies or clarifies the content that's being summarized.</div>
-                <div>A paraphrase usually explains or clarifies the text that is being paraphrased.</div>
-                <div>It usually explains or rewrites the reformulated text.</div>
-            </div>
+            <div>Paraphrases:</div>
+            <div id='input_para'></div>
         </div>
 
         <div class='content_block' style='vertical-align: top;'>
@@ -96,6 +91,15 @@
                             title='Backend does not support this language pair.'>
                         <select id='backend_estimator'> </select>
                         <div id='indicator_estimator' class="loader"></div>
+                    </div>
+                </div>
+                <div>
+                    <span>Paraphraser backend: </span>
+                    <div style='float: right;'>
+                        <img id='warning_paraphraser' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                            title='Backend does not support this language pair.'>
+                        <select id='backend_paraphraser'> </select>
+                        <div id='indicator_paraphraser' class="loader"></div>
                     </div>
                 </div>
                 <div>
@@ -121,7 +125,7 @@
             </div>
         </div>
     </div>
-    <script src='ptakopet-web.js?v=7'></script>
+    <script src='ptakopet-web.js?v=8'></script>
 
     <!-- Loads Roboto:400 -->
     <script type="text/javascript">

@@ -23,6 +23,7 @@ logger
 let settings_selector: SettingsSelector = new SettingsSelector(
     $('#backend_translator'),
     $('#backend_estimator'),
+    $('#backend_paraphraser'),
     $('#backend_aligner'),
     $('#backend_tokenizer'),
     $('#language_select_source'),

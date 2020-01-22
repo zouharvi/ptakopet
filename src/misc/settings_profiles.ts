@@ -3,6 +3,7 @@ import { settings_selector } from '../main'
 export interface SettingsObject {
     backendTranslator?: string,
     backendEstimator?: string,
+    backendParaphraser?: string,
     backendAligner?: string,
     language1?: string,
     language2?: string,
@@ -64,6 +65,7 @@ SettingsProfiles.profiles['default'] = {
     settings: {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
+        backendParaphraser: 'mock',
         backendAligner: 'fastAlign',
         language1: 'cs',
         language2: 'de',
@@ -94,6 +96,7 @@ SettingsProfiles.profiles['edin'] = {
     settings: {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
+        backendParaphraser: 'mock',
         backendAligner: 'fastAlign',
         language1: 'cs',
         language2: 'de',
@@ -101,6 +104,6 @@ SettingsProfiles.profiles['edin'] = {
     qe: false,
     mt: true,
     bt: true,
-    pp: false,
+    pp: true,
     manual: false,
 }

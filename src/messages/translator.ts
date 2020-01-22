@@ -6,6 +6,7 @@ import { estimator } from './estimator'
 import { IndicatorManager } from "../page/indicator_manager"
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { logger } from '../study/logger'
+import { paraphraser } from "./paraphraser"
 
 /**
  * Template for forward and backward translators
@@ -116,6 +117,7 @@ export class TranslatorSource extends Translator {
                 $(this.target).val(text)
                 translator_target.translate()
                 estimator.estimate()
+                paraphraser.paraphrase()
             }
         )
     }
