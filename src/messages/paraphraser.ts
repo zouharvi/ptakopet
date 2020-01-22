@@ -7,9 +7,10 @@ import { aligner } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
 import { tokenizer } from './tokenizer'
+import { TextUtils } from "../misc/text_utils"
 
 export type Paraphrase = { [key in LanguageCode]?: string }
-export type ParaphraseResponse = { 'status': string, 'error'?: string} & Paraphrase
+export type ParaphraseResponse = { 'status': string, 'error'?: string } & Paraphrase
 
 export class Paraphraser extends AsyncMessage {
     private throttler = new Throttler(500)
@@ -28,20 +29,43 @@ export class Paraphraser extends AsyncMessage {
         if (!this.running) {
             return
         }
+        let srcText: string = $(this.source).val() as string
         // Check whether the backend supports this language pair
         if (Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
             let request = Settings.backendParaphraser.composeRequest(
                 Settings.language1 as LanguageCode,
-                $(this.source).val() as string)
+                srcText)
             super.dispatch(
                 request,
                 async (paraphrase: Paraphrase) => {
                     $(this.paraphraserElement).empty()
-                    for(let lang of Object.keys(paraphrase)) {
-                        if(Utils.Languages.has(lang as LanguageCode)) {
-                            let data : string = paraphrase[lang as LanguageCode] as string
-                            $(this.paraphraserElement).append("<div>" + data + "</div>")
+                    let toDisplay: Array<string> = []
+
+                    for (let lang of Object.keys(paraphrase)) {
+                        // disregard other information, such as status
+                        if (Utils.Languages.has(lang as LanguageCode)) {
+                            let data: string = paraphrase[lang as LanguageCode] as string
+
+                            // skip if equal to the currently displayed source
+                            if (TextUtils.vagueEqual(data, srcText)) {
+                                continue;
+                            }
+
+                            let ok: boolean = true
+                            for (let other of toDisplay) {
+                                if(TextUtils.vagueEqual(other, data)) {
+                                    ok = false;
+                                    break;
+                                }
+                            }
+                            if (ok) {
+                                toDisplay.push(data)
+                            }
                         }
+                    }
+
+                    for (let data of toDisplay) {
+                        $(this.paraphraserElement).append("<div>" + data + "</div>")
                     }
                 }
             )
@@ -59,8 +83,7 @@ export class Paraphraser extends AsyncMessage {
         private source: JQuery<HTMLElement>,
         private target: JQuery<HTMLElement>,
         private paraphraserElement: JQuery<HTMLElement>,
-        indicator: IndicatorManager)
-    {
+        indicator: IndicatorManager) {
         super(indicator)
     }
 
@@ -99,8 +122,8 @@ export class Paraphraser extends AsyncMessage {
         same: {
             composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
                 return new Promise<Paraphrase>(async (resolve, reject) => {
-                    let res : Paraphrase = {}
-                    for(let l of Utils.Languages) {
+                    let res: Paraphrase = {}
+                    for (let l of Utils.Languages) {
                         res[l] = text
                     }
                     resolve(res)
@@ -128,7 +151,7 @@ export interface ParaphraserBackend {
 
     // Array of available languages to this backend
     languages: Set<LanguageCode>,
-    
+
     // Proper backend name (not key)
     name: string,
 }

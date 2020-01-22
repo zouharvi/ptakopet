@@ -66,4 +66,13 @@ export module TextUtils {
             return String.fromCharCode(num);
         });
     }
+
+    /**
+     * Compare two strings, but by human standards
+     * @param str1 
+     * @param str2 
+     */
+    export function vagueEqual(str1: string, str2: string) : boolean {
+        return str1.toLowerCase().trim() == str2.toLowerCase().trim()
+    }
 }
