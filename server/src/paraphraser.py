@@ -12,10 +12,10 @@ class Mock():
             HEADERS = {'Accept': 'application/json'}
             data = {'src': lang1, 'tgt': lang2, 'input_text': text}
             r = requests.post(URL, data=data, headers=HEADERS)
-            lang2text = "".join(r.json())
+            lang2text = "".join(r.json()).rstrip('\n')
             data = {'src': lang2, 'tgt': lang1, 'input_text': lang2text}
             r = requests.post(URL, data=data, headers=HEADERS)
-            lang1text = "".join(r.json())
+            lang1text = "".join(r.json()).rstrip('\n')
             return lang1text
         
         retobj = {'status': 'OK'}
