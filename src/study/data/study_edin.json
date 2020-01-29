@@ -1,0 +1,55 @@
+{
+    "users": {
+        "vilda": {
+            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+        },
+        "ondra": {
+            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+        },
+        "michal": {
+            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+        }
+    },
+    "stimuli": {
+        "hotel0": "<img src='http://ptakopet.vilda.net/stable/edin/h0.png'>",
+        "hotel1": "<img src='http://ptakopet.vilda.net/stable/edin/h1.png'>",
+        "restaurant0": "<img src='http://ptakopet.vilda.net/stable/edin/r0.png'>"
+    },
+    "stimuliRules": {
+        "hotel[0-9]": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.",
+            "profile": {
+                "settings": {
+                    "backendTranslator": "ufalTransformer",
+                    "backendEstimator": "openkiwi",
+                    "backendAligner": "fastAlign",
+                    "backendParaphraser": "mock",
+                    "language1": "en",
+                    "language2": "cs"
+                },
+                "qe": false,
+                "mt": true,
+                "bt": true,
+                "pp": true,
+                "manual": false
+            }
+        },
+        "restaurant.": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.",
+            "profile": {
+                "settings": {
+                    "backendTranslator": "ufalTransformer",
+                    "backendEstimator": "openkiwi",
+                    "backendAligner": "fastAlign",
+                    "language1": "en",
+                    "language2": "cs"
+                },
+                "qe": false,
+                "mt": true,
+                "bt": true,
+                "pp": false,
+                "manual": false
+            }
+        }
+    }
+}

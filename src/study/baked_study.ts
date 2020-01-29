@@ -1,4 +1,4 @@
-import _baked_study_raw from './data/study_pilot.json'
+import _baked_study_raw from './data/study_edin.json'
 import { SettingsProfile } from '../misc/settings_profiles.js'
 
 interface BakedStudyType {

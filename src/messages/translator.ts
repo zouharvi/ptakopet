@@ -60,7 +60,7 @@ export abstract class Translator extends AsyncMessage {
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
-                        .done((data: Array<string>) => resolve(data.join('').replace(/\n$/, '')))
+                        .done((data: Array<string>) => resolve(data.join(' ').replace(/\n$/, '')))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },

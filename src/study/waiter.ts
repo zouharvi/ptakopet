@@ -19,6 +19,7 @@ export class Waiter {
         private skipButton: JQuery<HTMLElement>,
         private joinButton: JQuery<HTMLElement>,
         private studyBlock: JQuery<HTMLElement>,
+        private moduleMainContent: JQuery<HTMLElement>,
     ) {
 
         $(joinButton).click(() => this.joinStudy())
@@ -65,6 +66,7 @@ export class Waiter {
 
         $(this.studyBlock).show()
         $(this.joinButton).hide()
+        $(this.moduleMainContent).attr('study_active', '')
 
         SettingsProfiles.setSettingsTag('edin')
 
@@ -153,7 +155,7 @@ export class Waiter {
                 }
             }
         }
-        $(this.instructionsContainer).text(instructions)
+        $(this.instructionsContainer).html(instructions)
 
         // show stimuli
         $(this.textContainer).html(formattedText)
@@ -175,6 +177,7 @@ let waiter: Waiter = new Waiter(
     $('#study_skip_button'),
     $('#join_study_button'),
     $('#study_content_block'),
+    $('#module_main_content'),
 )
 
 //$(waiter.joinButton).trigger('click') // for temporary debug purposes
