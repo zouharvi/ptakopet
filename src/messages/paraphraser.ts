@@ -22,6 +22,10 @@ export class Paraphraser extends AsyncMessage {
         this.throttler.throttle(this.paraphrase)
     }
 
+    public clean() {
+        this.paraphraserElement.html('<div></div>')
+    }
+
     /**
      * Make an paraphraser request
      */

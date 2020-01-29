@@ -4,6 +4,8 @@ import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { SettingsProfile, SettingsProfiles } from '../misc/settings_profiles'
 import { baked_study } from './baked_study'
+import { paraphraser } from '../messages/paraphraser'
+import { aligner } from '../messages/aligner'
 
 export class Waiter {
     public bakedQueue: Array<[string, string]> = []
@@ -104,6 +106,7 @@ export class Waiter {
                 {
                     text1: translator_source.curSource,
                     text2: translator_source.curTranslation,
+                    text3: translator_target.curTranslation,
                     reason: reason,
                     questionKey: this.bakedQueue[this.bakedIndex][0],
                 }
@@ -114,6 +117,7 @@ export class Waiter {
                 {
                     text1: translator_source.curSource,
                     text2: translator_source.curTranslation,
+                    text3: translator_target.curTranslation,
                     confidence: value,
                     estimation: estimator.curEstimation.join('-'),
                     questionKey: this.bakedQueue[this.bakedIndex][0],
@@ -134,11 +138,12 @@ export class Waiter {
         let formattedText: string = question[1]
 
         // clear artifacts
-        $(translator_source.source).val('')
-        $(translator_target.source).val('')
-        $(translator_target.target).val('')
         highlighter_source.clean()
         highlighter_target.clean()
+        estimator.clean()
+        translator_source.clean()
+        translator_target.clean()
+        paraphraser.clean()
 
         // disable estimation on out of domain questions
         estimator.on(qID[0] == 't')

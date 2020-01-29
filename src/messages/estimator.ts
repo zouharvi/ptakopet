@@ -22,6 +22,11 @@ export class Estimator extends AsyncMessage {
         this.throttler.throttle(this.estimate)
     }
 
+    public clean() {
+        this.curEstimation = []
+        
+    }
+
     /**
      * Make an estimator request
      */
@@ -41,6 +46,12 @@ export class Estimator extends AsyncMessage {
             super.dispatch(
                 request,
                 async (estimation: Estimation) => {
+                    if (estimation.length == 0) {
+                        // Used for none estimator to stop cascade
+                        // but also useful to other, as this limits
+                        // the log clutter
+                        return
+                    }
                     let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
                     this.curEstimation = estimation
                     logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })

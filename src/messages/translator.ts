@@ -95,6 +95,7 @@ export abstract class Translator extends AsyncMessage {
 export class TranslatorSource extends Translator {
     public curSource: string = ''
     public curTranslation: string = ''
+
     public translate = () => {
         if (!this.running)
             return
@@ -121,28 +122,48 @@ export class TranslatorSource extends Translator {
             }
         )
     }
+
+    public clean = () => {
+        this.curSource = ''
+        this.curTranslation = ''
+        $(this.source).val('')
+        $(this.target).val('')
+    }
 }
 
 /**
  * Class for translating target to source
  */
 export class TranslatorTarget extends Translator {
+    public curSource: string = ''
+    public curTranslation: string = ''
+
     public translate = () => {
         if (!this.running) {
             return
         }
+        this.curSource = $(this.source).val() as string
+
         let targetText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
-            $(this.source).val() as string,
+            this.curSource,
             Settings.language2 as LanguageCode,
             Settings.language1 as LanguageCode)
         super.dispatch(
             request,
             (text) => {
-                logger.log(logger.Action.TRANSLATE2, { text1: targetText, text2: text })
+                logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
+                this.curTranslation = text
                 $(this.target).val(text)
             }
         )
+    }
+
+    public clean = () => {
+        this.curSource = ''
+        this.curTranslation = ''
+        $(this.source).val('')
+        $(this.target).val('')
     }
 }
 
