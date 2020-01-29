@@ -20,7 +20,15 @@ def isSimilar(src1, src2):
 
 out = []
 for segment in segments:
-    if ('final' in segment['rating']) and ('rating' in segment) and ('final' in segment['rating']):
+    if segment['final']:
+        text1 = segment['final']['text1']
+        # out.append([text1])
+    if segment['first_viable_src']:
+        text1 = segment['first_viable_src']['text1']
+        if text1[-1] in ['.', '?']:
+            out.append([text1])
+
+    if False and ('rating' in segment) and ('final' in segment['rating']):
         text1 = segment['final']['text1']
         text2 = segment['final']['text2']
         bts = prefixMap(segment, 'TRANSLATE2')
