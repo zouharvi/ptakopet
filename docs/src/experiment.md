@@ -66,7 +66,7 @@ Stimuli can also have different `SettingsProfile`s, which instructs Ptakopět wh
 ```
 {
     "settings": {
-        "backendTranslator": "ufalTranslationDev",
+        "backendTranslator": "ufalTransformer",
         "backendEstimator": "openkiwi",
         "backendAligner": "fastAlign",
         "language1": "cs",
@@ -88,7 +88,7 @@ Since this definition is too verbose, several things can be omitted. Since in th
 ```
 {
     "settings": {
-        "backendTranslator": "ufalTranslationDev",
+        "backendTranslator": "ufalTransformer",
         "language1": "cs",
         "language2": "de",
     },

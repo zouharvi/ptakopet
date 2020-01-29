@@ -233,7 +233,7 @@
             "message": "Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší.",
             "profile": {
                 "settings": {
-                    "backendTranslator": "ufalTranslationDev",
+                    "backendTranslator": "ufalTransformer",
                     "backendEstimator": "openkiwi",
                     "backendAligner": "fastAlign",
                     "language1": "cs",
@@ -250,7 +250,7 @@
             "message": "Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.",
             "profile": {
                 "settings": {
-                    "backendTranslator": "ufalTranslationDev",
+                    "backendTranslator": "ufalTransformer",
                     "backendEstimator": "openkiwi",
                     "backendAligner": "fastAlign",
                     "language1": "cs",
