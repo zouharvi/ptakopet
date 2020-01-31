@@ -172,7 +172,8 @@ export class SettingsSelector {
         $(this.lang2Select).find('option').remove()
 
         // Select compatible languages with already selected source language
-        let codeData = Utils.leftDerivative(Settings.language1 as LanguageCode, [...Settings.backendTranslator.languages])
+        // let codeData = Utils.leftDerivative(Settings.language1 as LanguageCode, [...Settings.backendTranslator.languages])
+        let codeData = Utils.rightUnique([...Settings.backendTranslator.languages])
         let arrayData = codeData.map(Utils.languageName)
         for (let i in arrayData) {
             $(this.lang2Select).append($('<option>', { value: codeData[i], text: arrayData[i] }))
