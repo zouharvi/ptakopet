@@ -22,13 +22,48 @@
 </head>
 
 <body style='overflow-x: hidden; margin: 0; background-color: #f4f4f4;'>
-    <h1 id='title_name'>
-        <img src='img/logo_as_path.svg' style='width: 160px;' alt='Ptakopět title logo'>
-	<a href='http://browser.mt'>
-        <img src='img/bergamot_logo.png' style='float: right; width: 160px; margin-right: 40px;' alt='Ptakopět title logo'>
-	</a>
-    </h1>
+    <div id='burger_main'>
+        <div id='burger_back_div'>
+            <img id='burger_back_arrow' src="img/iconmonstr-arrow-25.svg" />
+            <span style='font-size: 1.6em; margin-left: 50px;'>Settings</span>
+        </div>
+        <div id='burger_settings'>
+            <p>Translator backend: </p>
+            <div>
+                <select id='backend_translator'></select>
+            </div>
 
+            <p>Quality estimator backend: </p>
+            <div>
+                <select id='backend_estimator'> </select>
+            </div>
+
+            <p>Paraphraser backend: </p>
+            <div>
+                <select id='backend_paraphraser'> </select>
+            </div>
+
+            <p>Alignment backend: </p>
+            <div>
+                <select id='backend_aligner'></select>
+            </div>
+
+            <p>Tokenization backend: </p>
+            <div>
+                <select id='backend_tokenizer'></select>
+            </div>
+
+            <a href='https://github.com/zouharvi/ptakopet' style='display: block; margin-top: 50px;'>About Ptakopět</a>
+        </div>
+    </div>
+
+    <h1 id='title_name'>
+        <input id='burger_show_arrow' type="image" src="img/iconmonstr-menu-1.svg" />
+        <img id='ptakopet_logo' src='img/ptakopet_logo.svg' style='width: 130px;' alt='Ptakopět title logo'>
+        <a href='http://browser.mt'>
+            <img src='img/bergamot_logo.svg' style='float: right; width: 125px; margin-right: 40px;' alt='Bergamot title logo'>
+        </a>
+    </h1>
 
     <div id='main_content'>
         <div id='study_content_block' style='display: none; vertical-align: top;'>
@@ -57,6 +92,13 @@
                 <div>
                     <span>Source language:</span>
                     <select id='language_select_source'></select>
+                    <div id='indicator_translator' class="loader"></div>
+
+                    <img id='warning_aligner' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                        title='Aligner does not support this language pair.'>
+                    <div id='indicator_aligner' class="loader"></div>
+
+                    <div id='indicator_tokenizer' class="loader"></div>
                 </div>
                 <textarea autofocus tabindex='1' id='input_source' spellcheck="false" class='hwt-content'></textarea>
             </div>
@@ -64,6 +106,9 @@
                 <div>
                     <span>Target language:</span>
                     <select id='language_select_target'></select>
+                    <img id='warning_estimator' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                        title='Quality estimator does not support this language pair.'>
+                    <div id='indicator_estimator' class="loader"></div>
                 </div>
                 <textarea tabindex='2' id='input_target' spellcheck="false" class='hwt-content'></textarea>
             </div>
@@ -74,59 +119,14 @@
             </div>
 
             <div id='input_para_block'  class='content_block' style='max-width: 470px;'>
-                <div>Paraphrases:</div>
+                <div>Paraphrases:
+                    <div id='indicator_paraphraser' class="loader"></div>
+                    <img id='warning_paraphraser' class='settings_warning' src='img/iconmonstr-warning-5.svg'
+                        title='Paraphraser does not support this language pair.'>
+                </div>
                 <div id='input_para'></div>
             </div>
-
-            <div class='content_block' style='vertical-align: top;'>
-                <div id='settings_block'>
-                    <div>
-                        <span>Translator backend: </span>
-                        <div style='float: right;'>
-                            <select id='backend_translator'></select>
-                            <div id='indicator_translator' class="loader"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Quality estimator backend: </span>
-                        <div style='float: right;'>
-                            <img id='warning_estimator' class='settings_warning' src='img/iconmonstr-warning-5.svg'
-                                title='Backend does not support this language pair.'>
-                            <select id='backend_estimator'> </select>
-                            <div id='indicator_estimator' class="loader"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Paraphraser backend: </span>
-                        <div style='float: right;'>
-                            <img id='warning_paraphraser' class='settings_warning' src='img/iconmonstr-warning-5.svg'
-                                title='Backend does not support this language pair.'>
-                            <select id='backend_paraphraser'> </select>
-                            <div id='indicator_paraphraser' class="loader"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Alignment backend: </span>
-                        <div style='float: right;'>
-                            <img id='warning_aligner' class='settings_warning' src='img/iconmonstr-warning-5.svg'
-                                title='Backend does not support this language pair.'>
-                            <select id='backend_aligner'></select>
-                            <div id='indicator_aligner' class="loader"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Tokenization backend: </span>
-                        <div style='float: right;'>
-                            <select id='backend_tokenizer'></select>
-                            <div id='indicator_tokenizer' class="loader"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <a href='https://github.com/zouharvi/ptakopet'>About Ptakopět</a>
-                        <input id='join_study_button' type='button' style='float: right; margin-right: 32px;' value='Join study'>
-                    </div>
-                </div>
-            </div>
+            <input id='join_study_button' type='button' style='display: block; margin: auto; margin-top: 50px;' value='Enter experiment'>
         </div>
     </div>
 

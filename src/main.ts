@@ -50,3 +50,14 @@ if ('q' in params) {
     $(translator_source.source).val(params['q'].split('+').join(' '))
     $(translator_source.source).trigger('input')
 }
+
+
+// Burger menu
+
+$('#burger_back_div').click(() => {
+    $('#burger_main').hide()
+})
+
+$('#burger_show_arrow').click(() => {
+    $('#burger_main').show()
+})

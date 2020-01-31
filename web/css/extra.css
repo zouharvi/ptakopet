@@ -31,6 +31,36 @@
   display: none;
 }
 
+/* STUDY elements */
+
+#study_content_block {
+  display: inline-block;
+  width: 700px;
+  max-width: max(99%, 485px);
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+#study_text {
+  background: #ececec;
+  color: black;
+  height: fit-content;
+  max-width: 100%;
+  width: calc(100% - 2 * 9px);
+  padding: 10px;
+  overflow-x: hidden;
+
+  /* this is hacky, but float of the div above messes everything up */
+  margin-bottom: 10px;
+  position: relative;
+  top: 10px;
+}
+
+#study_text mark {
+  background-color: #b4c832;
+  border-radius: 3px;
+}
+
 
 #study_ok_buttons input {
   width: 26px;
@@ -70,4 +100,53 @@
 #study_text p {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+
+/* BURGER section */
+
+#burger_main {
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fbfbfb;
+  z-index: 10000;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+  display: none;
+}
+
+#burger_back_arrow {
+  margin-top: 15px;
+  margin-left: 20px;
+  width: 20px;
+  transform: rotate(180deg);
+}
+
+#burger_show_arrow {
+  position: relative;
+  top: -5px;
+  left: -15px;
+  width: 20px;
+  box-shadow: none;
+}
+
+#burger_back_div:hover {
+  cursor: pointer;
+}
+
+#burger_settings {
+  padding-left: 10px;
+  margin-top: 50px;
+  padding-bottom: 20px;
+}
+
+#burger_settings p {
+  width: 100%;
+}
+
+#burger_settings div {
+  text-align: right;
+  margin-right: 10px;
 }

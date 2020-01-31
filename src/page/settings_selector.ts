@@ -256,9 +256,11 @@ export class SettingsSelector {
         $(this.lang1Select).prop('disabled', yes)
         $(this.lang2Select).prop('disabled', yes)
         if(yes) {
-            $('#settings_block').hide()
+            $('#burger_main').hide()
+            $('#burger_show_arrow').css('visibility', 'hidden')
         } else {
-            $('#settings_block').show()
+            // $('#burger_main').show()
+            $('#burger_show_arrow').css('visibility', 'visible')
         }
     }
 
