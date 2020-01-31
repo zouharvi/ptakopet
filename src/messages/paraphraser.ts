@@ -122,14 +122,11 @@ export class Paraphraser extends AsyncMessage {
             name: 'LINDAT Mock',
         },
 
-
         same: {
             composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
                 return new Promise<Paraphrase>(async (resolve, reject) => {
                     let res: Paraphrase = {}
-                    for (let l of Utils.Languages) {
-                        res[l] = text
-                    }
+                    res[language] = language + ': ' + text
                     resolve(res)
                 })
             },

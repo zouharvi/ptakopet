@@ -109,9 +109,11 @@ export class SettingsSelector {
 
         this.instantiateBackends()
         this.instantiateLanguagesSource()
-        $(this.lang1Select).trigger('change')
-        $(this.lang2Select).trigger('change')
-        this.refreshWarning()
+
+        // Settings Profiles will do many triggers later
+        // $(this.lang1Select).trigger('change')
+        // $(this.lang2Select).trigger('change')
+        // this.refreshWarning()
     }
 
     /**
@@ -204,6 +206,20 @@ export class SettingsSelector {
         // mute
         this.muteServices(true)
 
+        // Language settings
+        // This would be done automatically by triggering the changes below,
+        // but at the cost of false positive warning for backends
+        Settings.language1 = settingsObject.language1 as LanguageCode
+        Settings.language2 = settingsObject.language2 as LanguageCode
+
+        if (settingsObject.language1)
+            $(this.lang1Select).val(settingsObject.language1)
+        $(this.lang1Select).trigger('change')
+
+        if (settingsObject.language2)
+            $(this.lang2Select).val(settingsObject.language2)
+        $(this.lang2Select).trigger('change')
+
         // Settings from the settings block
         if (settingsObject.backendTranslator)
             $(this.backendTranslatorSelect).val(settingsObject.backendTranslator)
@@ -222,16 +238,6 @@ export class SettingsSelector {
         $(this.backendParaphraserSelect).trigger('change')
         $(this.backendAlignerSelect).trigger('change')
         
-        // Language settings
-        if (settingsObject.language1)
-            $(this.lang1Select).val(settingsObject.language1)
-        
-        $(this.lang1Select).trigger('change')
-        if (settingsObject.language2)
-            $(this.lang2Select).val(settingsObject.language2)
-        
-        $(this.lang2Select).trigger('change')
-
         // unmute
         this.muteServices(false)
     }
