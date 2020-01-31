@@ -48,6 +48,15 @@ export module Utils {
     }
 
     /**
+     * Returns all elements, which appear on the right side of this pair
+     * @param arr Array from which elements are extracted
+     */
+    export function rightUnique<R, T>(arr: Array<[R, T]>): Array<T> {
+        let right: Array<T> = arr.map((a: [R, T]) => { return a[1] })
+        return [...new Set(right)]
+    }
+
+    /**
      * Returns all elements on the right from tuples which have @param elem on the left
      * @param arr Array from which elements are extracted
      */
