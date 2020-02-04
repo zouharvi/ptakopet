@@ -38,6 +38,9 @@ export class Estimator extends AsyncMessage {
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             // update tokenization
 
+            let curLang1 : LanguageCode = Settings.language1 as LanguageCode
+            let curLang2 : LanguageCode = Settings.language2 as LanguageCode
+
             let request = Settings.backendEstimator.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
@@ -47,16 +50,28 @@ export class Estimator extends AsyncMessage {
                 request,
                 async (estimation: Estimation) => {
                     if (estimation.length == 0) {
-                        // Used for none estimator to stop cascade
-                        // but also useful to other, as this limits
+                        // Used for none estimator to stop cascade but also useful to other, as this limits
                         // the log clutter
                         return
                     }
-                    let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
+
+                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2) {
+                        // Make sure that we drop the pending quality estimation after lang switch
+                        return
+                    }
+
                     this.curEstimation = estimation
-                    logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
-                    aligner.align(estimation)
+                    let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
                     highlighter_target.highlight(estimation, tokenization)
+                    logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
+
+
+                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2) {
+                        // Make sure that we drop the pending quality estimation after lang switch
+                        return
+                    }
+
+                    aligner.align(estimation)
                 }
             )
         } else {

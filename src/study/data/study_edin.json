@@ -8,6 +8,9 @@
         },
         "michal": {
             "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+        },
+        "call": {
+            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
         }
     },
     "stimuli": {
