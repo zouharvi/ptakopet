@@ -68,7 +68,28 @@ export abstract class Translator extends AsyncMessage {
             default: ['cs', 'en'],
             name: 'ÚFAL Transformer',
         },
-
+        neurotolge: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
+                return new Promise<string>((resolve, reject) => {
+                    if(text == '')
+                        resolve('')
+                    $.ajax({
+                        type: "POST",
+                        url: "https://api.neurotolge.ee/v1.1/translate",
+                        headers: {
+                            Accept: "application/json",
+                        },
+                        data: { auth: "public", conf: targetLang, src: text },
+                        async: true,
+                    })
+                        .done((data: any) => resolve(data['tgt']))
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
+            default: ['en', 'et'],
+            name: 'Neurotõlge',
+        },
         identity: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
                 return new Promise<string>((resolve, reject) => resolve(text))

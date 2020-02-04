@@ -141,7 +141,7 @@ export module Utils {
     /**
      * All supported languages have their language code stored here
      */
-    export type LanguageCode = 'cs' | 'en' | 'fr' | 'ru' | 'hi' | 'de' | 'pl' | 'es'
+    export type LanguageCode = 'cs' | 'en' | 'fr' | 'ru' | 'hi' | 'de' | 'pl' | 'es' | 'et'
 
     /**
      * Storage for language code <-> language name relation.
@@ -155,6 +155,7 @@ export module Utils {
         hi: 'Hindi',
         de: 'German',
         pl: 'Polish',
+        et: 'Estonian',
     } as { [K in LanguageCode]: string }
 
     /**
