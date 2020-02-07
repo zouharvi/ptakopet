@@ -26,6 +26,23 @@
         "zlin-dotaz-1": "<img src='https://ptakopet.vilda.net/stable/edin/zlin-dotaz-1.png'>"
     },
     "stimuliRules": {
+        ".*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Paraphraser off)",
+            "profile": {
+                "settings": {
+                    "backendTranslator": "ufalTransformer",
+                    "backendEstimator": "random",
+                    "backendAligner": "fastAlign",
+                    "language1": "en",
+                    "language2": "cs"
+                },
+                "qe": true,
+                "mt": true,
+                "bt": true,
+                "pp": false,
+                "manual": false
+            }
+        },
         ".*(hotel|booking|restaur|booking).*": {
             "message": "Translate the highlighted text in the online hotel form to Czech.<br>Try to achieve the best possible translation quality.",
             "profile": {
@@ -41,23 +58,6 @@
                 "mt": true,
                 "bt": true,
                 "pp": true,
-                "manual": false
-            }
-        },
-        ".*": {
-            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Paraphraser off)",
-            "profile": {
-                "settings": {
-                    "backendTranslator": "ufalTransformer",
-                    "backendEstimator": "random",
-                    "backendAligner": "fastAlign",
-                    "language1": "en",
-                    "language2": "cs"
-                },
-                "qe": true,
-                "mt": true,
-                "bt": true,
-                "pp": false,
                 "manual": false
             }
         }

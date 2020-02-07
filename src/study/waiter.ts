@@ -158,8 +158,6 @@ export class Waiter {
                 if (baked_study.stimuliRules[regex].message != undefined) {
                     instructions = baked_study.stimuliRules[regex].message as string
                 }
-                // read only the first matching settings
-                break;
             }
         }
         $(this.instructionsContainer).html(instructions)
