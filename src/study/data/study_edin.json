@@ -1,53 +1,60 @@
 {
     "users": {
         "vilda": {
-            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
         },
         "ondra": {
-            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
         },
         "michal": {
-            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
         },
         "call": {
-            "bakedQueue": ["hotel1", "restaurant0", "hotel0"]
+            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
         }
     },
     "stimuli": {
-        "hotel0": "<img src='http://ptakopet.vilda.net/stable/edin/h0.png'>",
-        "hotel1": "<img src='http://ptakopet.vilda.net/stable/edin/h1.png'>",
-        "restaurant0": "<img src='http://ptakopet.vilda.net/stable/edin/r0.png'>"
+        "absolute-cosmetics-3a": "<img src='http://ptakopet.vilda.net/stable/edin/absolute-cosmetics-3a.png'>",
+        "alexis-beauty-16a": "<img src='http://ptakopet.vilda.net/stable/edin/alexis-beauty-16a.png'>",
+        "beetle-19a": "<img src='http://ptakopet.vilda.net/stable/edin/beetle-19a.png'>",
+        "booking-a": "<img src='http://ptakopet.vilda.net/stable/edin/booking-a.png'>",
+        "bozi-dar-dotaz-1": "<img src='http://ptakopet.vilda.net/stable/edin/bozi-dar-dotaz-1.png'>",
+        "hotel-cvilin-25": "<img src='http://ptakopet.vilda.net/stable/edin/hotel-cvilin-25.png'>",
+        "kolkovna-restaurace-1": "<img src='http://ptakopet.vilda.net/stable/edin/kolkovna-restaurace-1.png'>",
+        "restaurant-signature-restaurace-1": "<img src='http://ptakopet.vilda.net/stable/edin/restaurant-signature-restaurace-1.png'>",
+        "skoda-auto-14a": "<img src='http://ptakopet.vilda.net/stable/edin/skoda-auto-14a.png'>",
+        "zlin-dotaz-1": "<img src='http://ptakopet.vilda.net/stable/edin/zlin-dotaz-1.png'>"
     },
     "stimuliRules": {
-        "hotel[0-9]": {
-            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.",
+        ".*(hotel|booking|restaur|booking).*": {
+            "message": "Translate the highlighted text in the online hotel form to Czech.<br>Try to achieve the best possible translation quality.",
             "profile": {
                 "settings": {
                     "backendTranslator": "ufalTransformer",
-                    "backendEstimator": "openkiwi",
+                    "backendEstimator": "random",
                     "backendAligner": "fastAlign",
                     "backendParaphraser": "mock",
                     "language1": "en",
                     "language2": "cs"
                 },
-                "qe": false,
+                "qe": true,
                 "mt": true,
                 "bt": true,
                 "pp": true,
                 "manual": false
             }
         },
-        "restaurant.": {
-            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.",
+        ".*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Paraphraser off)",
             "profile": {
                 "settings": {
                     "backendTranslator": "ufalTransformer",
-                    "backendEstimator": "openkiwi",
+                    "backendEstimator": "random",
                     "backendAligner": "fastAlign",
                     "language1": "en",
                     "language2": "cs"
                 },
-                "qe": false,
+                "qe": true,
                 "mt": true,
                 "bt": true,
                 "pp": false,
