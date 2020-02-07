@@ -1,7 +1,7 @@
 {
     "users": {
         "vilda": {
-            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
+            "bakedQueue": ["absolute-cosmetics-3a#-bt", "alexis-beauty-16a#-mt", "beetle-19a#-qe", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
         },
         "ondra": {
             "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
@@ -59,6 +59,26 @@
                 "bt": true,
                 "pp": true,
                 "manual": false
+            }
+        },
+        ".*#.*-bt.*": {
+            "profile": {
+                "bt": false
+            }
+        },
+        ".*#.*-pp.*": {
+            "profile": {
+                "pp": false
+            }
+        },
+        ".*#.*-mt.*": {
+            "profile": {
+                "mt": false
+            }
+        },
+        ".*#.*-qe.*": {
+            "profile": {
+                "qe": false
             }
         }
     }

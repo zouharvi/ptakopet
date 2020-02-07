@@ -209,15 +209,15 @@ export class SettingsSelector {
         // Language settings
         // This would be done automatically by triggering the changes below,
         // but at the cost of false positive warning for backends
-        Settings.language1 = settingsObject.language1 as LanguageCode
-        Settings.language2 = settingsObject.language2 as LanguageCode
-
-        if (settingsObject.language1)
+        if (settingsObject.language1) {
+            Settings.language1 = settingsObject.language1 as LanguageCode
             $(this.lang1Select).val(settingsObject.language1)
-        $(this.lang1Select).trigger('change')
-
-        if (settingsObject.language2)
+        }
+        if (settingsObject.language2) {
+            Settings.language2 = settingsObject.language2 as LanguageCode
             $(this.lang2Select).val(settingsObject.language2)
+        }
+        $(this.lang1Select).trigger('change')
         $(this.lang2Select).trigger('change')
 
         // Settings from the settings block

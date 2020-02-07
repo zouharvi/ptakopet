@@ -56,7 +56,11 @@ export class Waiter {
 
         for (let key in keys) {
             let qID = keys[key]
-            this.bakedQueue.push([qID, baked_study.stimuli[qID]])
+            let qIDbare = qID
+            if(qID.indexOf('#') != -1) {
+                qIDbare = qID.substring(0, qID.indexOf('#'))
+            }
+            this.bakedQueue.push([qID, baked_study.stimuli[qIDbare]])
         }
 
         logger.log(logger.Action.START,

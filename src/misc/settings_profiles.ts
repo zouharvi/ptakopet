@@ -1,4 +1,5 @@
 import { settings_selector } from '../main'
+import { paraphraser } from '../messages/paraphraser'
 
 export interface SettingsObject {
     backendTranslator?: string,
@@ -10,15 +11,15 @@ export interface SettingsObject {
 }
 
 export interface SettingsProfile {
-    settings: SettingsObject,
+    settings?: SettingsObject,
     // quality estimation
-    qe: boolean,
+    qe?: boolean,
     // machine translation (translate 1)
-    mt: boolean,
+    mt?: boolean,
     // backward translation (translate 2)
-    bt: boolean,
+    bt?: boolean,
     // paraphrasing
-    pp: boolean,
+    pp?: boolean,
     // allow further manual settings, defaults to false
     manual?: boolean,
 }
@@ -35,28 +36,41 @@ export class SettingsProfiles {
             // This is very much an edge case. If qe is to be shown but the settings
             // object contains no backend, then this could be confusing for the user.
         } else {
-            profile.settings.backendEstimator = 'none'
+            if(profile.settings != undefined) {
+                profile.settings.backendEstimator = 'none'
+            } else {
+                profile.settings = { backendEstimator: 'none' }
+            }
         }
-        settings_selector.forceSettings(profile.settings)
+
+        if(profile.settings != undefined) {
+            settings_selector.forceSettings(profile.settings)
+        }
 
         settings_selector.hide(profile.manual == undefined || !profile.manual)
 
-        if(profile.mt) {
-            $('#input_target_block').show()
-        } else {
-            $('#input_target_block').hide()
+        if(profile.mt != undefined) {
+            if(profile.mt) {
+                $('#input_target_block').show()
+            } else {
+                $('#input_target_block').hide()
+            }
         }
 
-        if(profile.bt) {
-            $('#input_back_block').show()
-        } else {
-            $('#input_back_block').hide()
+        if(profile.bt != undefined) {
+            if(profile.bt) {
+                $('#input_back_block').show()
+            } else {
+                $('#input_back_block').hide()
+            }
         }
 
-        if(profile.pp) {
-            $('#input_para_block').show()
-        } else {
-            $('#input_para_block').hide()
+        if(profile.pp != undefined) {
+            if(profile.pp) {
+                $('#input_para_block').show()
+            } else {
+                $('#input_para_block').hide()
+            }
         }
     }
 }
