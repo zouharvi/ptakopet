@@ -154,6 +154,8 @@ export class Waiter {
         let instructions: string = ''
 
         // apply regex rules 
+        // this could be rewritten so that the settings is set only once, but no elegant
+        // solution exists, as TS doesn't allow deep merging of two objects
         for (let regex in baked_study.stimuliRules) {
             if ((new RegExp(regex)).test(qID)) {
                 if (baked_study.stimuliRules[regex].profile != undefined) {

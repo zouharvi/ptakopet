@@ -1,33 +1,29 @@
 {
     "users": {
         "vilda": {
-            "bakedQueue": ["absolute-cosmetics-3a#-bt", "alexis-beauty-16a#-mt", "beetle-19a#-qe", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
-        },
-        "ondra": {
-            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
-        },
-        "michal": {
-            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
+            "bakedQueue": ["044-inst", "011-museum", "038-rest", "022-accom", "016-car", "025-hotel", "002-makeu", "013-hair", "045-inst", "040-rest"]
         },
         "call": {
-            "bakedQueue": ["absolute-cosmetics-3a", "alexis-beauty-16a", "beetle-19a", "booking-a", "bozi-dar-dotaz-1", "hotel-cvilin-25", "kolkovna-restaurace-1", "restaurant-signature-restaurace-1", "skoda-auto-14a", "zlin-dotaz-1"]
+            "bakedQueue": ["044-inst", "011-museum", "038-rest", "022-accom", "016-car", "025-hotel", "002-makeu", "013-hair", "045-inst", "040-rest"]
+        },
+        "michal": {
+            "bakedQueue": ["044-inst", "011-museum", "038-rest", "022-accom", "016-car", "025-hotel", "002-makeu", "013-hair", "045-inst", "040-rest"]
         }
     },
     "stimuli": {
-        "absolute-cosmetics-3a": "<img src='https://ptakopet.vilda.net/stable/edin/absolute-cosmetics-3a.png'>",
-        "alexis-beauty-16a": "<img src='https://ptakopet.vilda.net/stable/edin/alexis-beauty-16a.png'>",
-        "beetle-19a": "<img src='https://ptakopet.vilda.net/stable/edin/beetle-19a.png'>",
-        "booking-a": "<img src='https://ptakopet.vilda.net/stable/edin/booking-a.png'>",
-        "bozi-dar-dotaz-1": "<img src='https://ptakopet.vilda.net/stable/edin/bozi-dar-dotaz-1.png'>",
-        "hotel-cvilin-25": "<img src='https://ptakopet.vilda.net/stable/edin/hotel-cvilin-25.png'>",
-        "kolkovna-restaurace-1": "<img src='https://ptakopet.vilda.net/stable/edin/kolkovna-restaurace-1.png'>",
-        "restaurant-signature-restaurace-1": "<img src='https://ptakopet.vilda.net/stable/edin/restaurant-signature-restaurace-1.png'>",
-        "skoda-auto-14a": "<img src='https://ptakopet.vilda.net/stable/edin/skoda-auto-14a.png'>",
-        "zlin-dotaz-1": "<img src='https://ptakopet.vilda.net/stable/edin/zlin-dotaz-1.png'>"
+        "044-inst": "<img src='https://ptakopet.vilda.net/stable/edin/044-inst.png'>",
+        "011-museum": "<img src='https://ptakopet.vilda.net/stable/edin/011-museum.png'>",
+        "038-rest": "<img src='https://ptakopet.vilda.net/stable/edin/038-rest.png'>",
+        "022-accom": "<img src='https://ptakopet.vilda.net/stable/edin/022-accom.png'>",
+        "016-car": "<img src='https://ptakopet.vilda.net/stable/edin/016-car.png'>",
+        "025-hotel": "<img src='https://ptakopet.vilda.net/stable/edin/025-booki.png'>",
+        "002-makeu": "<img src='https://ptakopet.vilda.net/stable/edin/002-makeu.png'>",
+        "013-hair": "<img src='https://ptakopet.vilda.net/stable/edin/013-hair.png'>",
+        "045-inst": "<img src='https://ptakopet.vilda.net/stable/edin/045-inst.png'>",
+        "040-rest": "<img src='https://ptakopet.vilda.net/stable/edin/040-rest.png'>"
     },
     "stimuliRules": {
         ".*": {
-            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Paraphraser off)",
             "profile": {
                 "settings": {
                     "backendTranslator": "ufalTransformer",
@@ -43,24 +39,34 @@
                 "manual": false
             }
         },
-        ".*(hotel|booking|restaur|booking).*": {
-            "message": "Translate the highlighted text in the online hotel form to Czech.<br>Try to achieve the best possible translation quality.",
-            "profile": {
-                "settings": {
-                    "backendTranslator": "ufalTransformer",
-                    "backendEstimator": "random",
-                    "backendAligner": "fastAlign",
-                    "backendParaphraser": "mock",
-                    "language1": "en",
-                    "language2": "cs"
-                },
-                "qe": true,
-                "mt": true,
-                "bt": true,
-                "pp": true,
-                "manual": false
-            }
+        ".*-food#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Food delivery)"
         },
+        ".*-hair#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Hairdresser)"
+        },
+        ".*-makeup#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Make-up)"
+        },
+        ".*-car#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Car accessories)"
+        },
+        ".*-hotel#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Accomodation)"
+        },
+        ".*-inst#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Institution)"
+        },
+        ".*-accom#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Accomodation)"
+        },
+        ".*-rest#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Restaurant)"
+        },
+        ".*-museum#?[^#]*": {
+            "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Museum)"
+        },
+
         ".*#.*-bt.*": {
             "profile": {
                 "bt": false
