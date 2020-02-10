@@ -71,7 +71,7 @@ textarea {
 #study_text {
     width: 100%;
     max-width: 475px;
-    height: 150px;
+    height: 155px;
     margin-top: 10px;
     background: #FFFFFF;
     border-radius: 3px;
@@ -80,6 +80,21 @@ textarea {
     text-align: left;
     overflow-y: auto;
     overflow-x: auto;
+}
+
+#input_para {
+    height: 159px !important;
+}
+
+@-moz-document url-prefix() {
+    #input_para_block {
+        position: relative !important;
+        top: 2px !important;
+    }
+
+    #input_para {
+        height: 153px !important;
+    }
 }
 
 .hwt-content-disabled {
