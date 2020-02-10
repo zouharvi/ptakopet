@@ -44,13 +44,22 @@ $('#input_target').on('input', function () {
     estimator.estimate_throttle()
 })
 
-// Try to do omnibox search on default settings
+
 let params = Utils.parseGETParams()
+
+// Try to do omnibox search on default settings
 if ('q' in params) {
     $(translator_source.source).val(params['q'].split('+').join(' '))
     $(translator_source.source).trigger('input')
 }
 
+// Try to set the settings according to the parameter
+if ('p' in params) {
+    let profile = params['p']
+    if (profile in SettingsProfiles.profiles) {
+        SettingsProfiles.setSettingsTag(profile)
+    }
+}
 
 // Burger menu
 

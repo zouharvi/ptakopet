@@ -121,3 +121,19 @@ SettingsProfiles.profiles['edin'] = {
     pp: true,
     manual: false,
 }
+
+SettingsProfiles.profiles['sao'] = {
+    settings: {
+        backendTranslator: 'neurotolge',
+        backendEstimator: 'none',
+        backendParaphraser: 'mock',
+        backendAligner: 'none',
+        language1: 'en',
+        language2: 'et',
+    },
+    qe: false,
+    mt: true,
+    bt: true,
+    pp: true,
+    manual: true,
+}

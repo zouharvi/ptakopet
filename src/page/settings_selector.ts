@@ -8,6 +8,7 @@ import { Settings } from '../misc/settings'
 import { highlighter_source, highlighter_target } from './highlighter'
 import { logger } from '../study/logger'
 import { SettingsObject, SettingsProfiles } from '../misc/settings_profiles'
+import { Throttler } from '../messages/throttler'
 
 /**
  * Manages backend and language select boxes
@@ -19,8 +20,8 @@ export class SettingsSelector {
         private backendParaphraserSelect: JQuery<HTMLElement>,
         private backendAlignerSelect: JQuery<HTMLElement>,
         private backendTokenizerSelect: JQuery<HTMLElement>,
-        public  lang1Select: JQuery<HTMLElement>,
-        public  lang2Select: JQuery<HTMLElement>,
+        public lang1Select: JQuery<HTMLElement>,
+        public lang2Select: JQuery<HTMLElement>,
         private warningEstimator: JQuery<HTMLElement>,
         private warningAligner: JQuery<HTMLElement>
     ) {
@@ -119,17 +120,27 @@ export class SettingsSelector {
     /**
      * Manage visibility of warning icons next to backends
      */
+    private warningEstimatorThrottler = new Throttler(200)
+    private warningAlignerThrottler = new Throttler(200)
     private refreshWarning(): void {
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
-            $(this.warningEstimator).fadeOut()
+            this.warningEstimatorThrottler.throttle(
+                () => $(this.warningEstimator).fadeOut()
+            )
         } else {
-            $(this.warningEstimator).fadeIn()
+            this.warningEstimatorThrottler.throttle(
+                () => $(this.warningEstimator).fadeIn()
+            )
         }
 
         if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
-            $(this.warningAligner).fadeOut()
+            this.warningAlignerThrottler.throttle(
+                () => $(this.warningAligner).fadeOut()
+            )
         } else {
-            $(this.warningAligner).fadeIn()
+            this.warningAlignerThrottler.throttle(
+                () => $(this.warningAligner).fadeIn()
+            )
         }
     }
 
@@ -226,18 +237,18 @@ export class SettingsSelector {
 
         if (settingsObject.backendEstimator)
             $(this.backendEstimatorSelect).val(settingsObject.backendEstimator)
-        
+
         if (settingsObject.backendParaphraser)
             $(this.backendParaphraserSelect).val(settingsObject.backendParaphraser)
-        
+
         if (settingsObject.backendAligner)
             $(this.backendAlignerSelect).val(settingsObject.backendAligner)
-        
+
         $(this.backendTranslatorSelect).trigger('change')
         $(this.backendEstimatorSelect).trigger('change')
         $(this.backendParaphraserSelect).trigger('change')
         $(this.backendAlignerSelect).trigger('change')
-        
+
         // unmute
         this.muteServices(false)
     }
@@ -262,7 +273,7 @@ export class SettingsSelector {
     public hide(yes: boolean): void {
         $(this.lang1Select).prop('disabled', yes)
         $(this.lang2Select).prop('disabled', yes)
-        if(yes) {
+        if (yes) {
             $('#burger_main').hide()
             $('#burger_show_arrow').css('visibility', 'hidden')
         } else {
