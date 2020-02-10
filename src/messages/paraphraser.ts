@@ -121,6 +121,25 @@ export class Paraphraser extends AsyncMessage {
             languages: new Set(['cs', 'en', 'de']),
             name: 'LINDAT Mock',
         },
+        
+        rainbow: {
+            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrase> {
+                return new Promise<Paraphrase>((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://quest.ms.mff.cuni.cz/paraf/translate",
+                        data: { lang: lang, text: text.replace(/\n/, " ") },
+                        async: true,
+                    })
+                        .done((data: ParaphraseResponse) => {
+                            resolve(data)
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.Languages,
+            name: 'Rainbow',
+        },
 
         same: {
             composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
