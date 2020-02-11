@@ -32,14 +32,16 @@ export class SettingsProfiles {
     }
 
     public static setSettings(profile: SettingsProfile) {
-        if(profile.qe) {
-            // This is very much an edge case. If qe is to be shown but the settings
-            // object contains no backend, then this could be confusing for the user.
-        } else {
-            if(profile.settings != undefined) {
-                profile.settings.backendEstimator = 'none'
+        if(profile.qe != undefined) {
+            if(profile.qe) {
+                // This is very much an edge case. If qe is to be shown but the settings
+                // object contains no backend, then this could be confusing for the user.
             } else {
-                profile.settings = { backendEstimator: 'none' }
+                if(profile.settings != undefined) {
+                    profile.settings.backendEstimator = 'none'
+                } else {
+                    profile.settings = { backendEstimator: 'none' }
+                }
             }
         }
 

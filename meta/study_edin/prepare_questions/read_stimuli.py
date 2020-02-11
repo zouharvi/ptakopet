@@ -6,7 +6,7 @@ import json
 
 parser = argparse.ArgumentParser(description='Create list of stimuli')
 parser.add_argument('stimuli_dir', help='path to the directory containing stimuli images')
-args = parser.parse_args()
+args, _ = parser.parse_known_args()
 
 directory = os.fsencode(args.stimuli_dir)
 stimuliList = []
