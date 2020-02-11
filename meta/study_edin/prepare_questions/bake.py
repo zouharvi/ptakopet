@@ -22,13 +22,13 @@ args, _ = parser.parse_known_args()
 
 configs = [
     '-bt-pp~qe~cs',
-    '+bt-pp~qe~cs',
-    '-bt+pp~qe~cs',
-    '+bt+pp~qe~cs',
+    '~bt-pp~qe~cs',
+    '-bt~pp~qe~cs',
+    '~bt~pp~qe~cs',
     '-bt-pp~qe~et',
-    '+bt-pp~qe~et',
-    '-bt+pp~qe~et',
-    '+bt+pp~qe~et',
+    '~bt-pp~qe~et',
+    '-bt~pp~qe~et',
+    '~bt~pp~qe~et',
 ]
 
 print("Stimuli:", stimuliList)

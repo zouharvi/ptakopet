@@ -1,16 +1,16 @@
 {
     "users": {
-        "u000":   { "bakedQueue": ["002-makeu#+bt-pp~qe~cs", "016-car#+bt+pp~qe~cs", "013-hair#+bt-pp~qe~cs", "038-rest#-bt-pp~qe~cs", "025-hotel#-bt+pp~qe~cs", "045-inst#-bt-pp~qe~et", "011-museum#-bt+pp~qe~et", "040-rest#+bt+pp~qe~et", "044-inst#-bt+pp~qe~et", "022-accom#+bt+pp~qe~et"] },
-        "u001":   { "bakedQueue": ["044-inst#+bt-pp~qe~cs", "040-rest#-bt-pp~qe~cs", "045-inst#+bt+pp~qe~cs", "011-museum#+bt-pp~qe~cs", "002-makeu#-bt+pp~qe~et", "038-rest#-bt-pp~qe~et", "025-hotel#+bt+pp~qe~et", "016-car#+bt+pp~qe~et", "013-hair#+bt-pp~qe~et", "022-accom#-bt-pp~qe~et"] },
-        "u002":   { "bakedQueue": ["040-rest#-bt+pp~qe~cs", "022-accom#-bt-pp~qe~cs", "038-rest#+bt-pp~qe~cs", "044-inst#-bt-pp~qe~cs", "045-inst#+bt-pp~qe~cs", "002-makeu#+bt+pp~qe~cs", "025-hotel#+bt-pp~qe~et", "013-hair#-bt-pp~qe~et", "016-car#-bt-pp~qe~et", "011-museum#+bt-pp~qe~et"] },
-        "u003":   { "bakedQueue": ["022-accom#-bt+pp~qe~cs", "011-museum#-bt+pp~qe~cs", "016-car#-bt+pp~qe~cs", "002-makeu#-bt-pp~qe~cs", "040-rest#+bt+pp~qe~cs", "025-hotel#-bt-pp~qe~et", "013-hair#+bt+pp~qe~et", "038-rest#+bt+pp~qe~et", "045-inst#+bt+pp~qe~et", "044-inst#+bt+pp~qe~et"] },
-        "u004":   { "bakedQueue": ["016-car#+bt-pp~qe~cs", "025-hotel#-bt-pp~qe~cs", "044-inst#+bt+pp~qe~cs", "013-hair#+bt+pp~qe~cs", "045-inst#+bt-pp~qe~et", "040-rest#+bt-pp~qe~et", "038-rest#-bt+pp~qe~et", "011-museum#+bt+pp~qe~et", "022-accom#+bt-pp~qe~et", "002-makeu#+bt-pp~qe~et"] },
-        "u005":   { "bakedQueue": ["045-inst#-bt+pp~qe~cs", "011-museum#+bt+pp~qe~cs", "040-rest#+bt-pp~qe~cs", "044-inst#-bt+pp~qe~cs", "038-rest#-bt+pp~qe~cs", "002-makeu#-bt+pp~qe~cs", "022-accom#+bt-pp~qe~cs", "013-hair#-bt+pp~qe~et", "025-hotel#-bt+pp~qe~et", "016-car#+bt-pp~qe~et"] },
-        "u006":   { "bakedQueue": ["013-hair#-bt+pp~qe~cs", "045-inst#-bt-pp~qe~cs", "022-accom#+bt+pp~qe~cs", "038-rest#+bt+pp~qe~cs", "011-museum#-bt-pp~qe~cs", "025-hotel#+bt+pp~qe~cs", "002-makeu#+bt+pp~qe~et", "044-inst#+bt-pp~qe~et", "040-rest#-bt+pp~qe~et", "016-car#-bt+pp~qe~et"] },
-        "u007":   { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#+bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt+pp~qe~et", "038-rest#+bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt+pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
-        "vilda":  { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#+bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt+pp~qe~et", "038-rest#+bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt+pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
-        "call":   { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#+bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt+pp~qe~et", "038-rest#+bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt+pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
-        "michal": { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#+bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt+pp~qe~et", "038-rest#+bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt+pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] }
+        "u000":   { "bakedQueue": ["002-makeu#~bt-pp~qe~cs", "016-car#~bt~pp~qe~cs", "013-hair#~bt-pp~qe~cs", "038-rest#-bt-pp~qe~cs", "025-hotel#-bt~pp~qe~cs", "045-inst#-bt-pp~qe~et", "011-museum#-bt~pp~qe~et", "040-rest#~bt~pp~qe~et", "044-inst#-bt~pp~qe~et", "022-accom#~bt~pp~qe~et"] },
+        "u001":   { "bakedQueue": ["044-inst#~bt-pp~qe~cs", "040-rest#-bt-pp~qe~cs", "045-inst#~bt~pp~qe~cs", "011-museum#~bt-pp~qe~cs", "002-makeu#-bt~pp~qe~et", "038-rest#-bt-pp~qe~et", "025-hotel#~bt~pp~qe~et", "016-car#~bt~pp~qe~et", "013-hair#~bt-pp~qe~et", "022-accom#-bt-pp~qe~et"] },
+        "u002":   { "bakedQueue": ["040-rest#-bt~pp~qe~cs", "022-accom#-bt-pp~qe~cs", "038-rest#~bt-pp~qe~cs", "044-inst#-bt-pp~qe~cs", "045-inst#~bt-pp~qe~cs", "002-makeu#~bt~pp~qe~cs", "025-hotel#~bt-pp~qe~et", "013-hair#-bt-pp~qe~et", "016-car#-bt-pp~qe~et", "011-museum#~bt-pp~qe~et"] },
+        "u003":   { "bakedQueue": ["022-accom#-bt~pp~qe~cs", "011-museum#-bt~pp~qe~cs", "016-car#-bt~pp~qe~cs", "002-makeu#-bt-pp~qe~cs", "040-rest#~bt~pp~qe~cs", "025-hotel#-bt-pp~qe~et", "013-hair#~bt~pp~qe~et", "038-rest#~bt~pp~qe~et", "045-inst#~bt~pp~qe~et", "044-inst#~bt~pp~qe~et"] },
+        "u004":   { "bakedQueue": ["016-car#~bt-pp~qe~cs", "025-hotel#-bt-pp~qe~cs", "044-inst#~bt~pp~qe~cs", "013-hair#~bt~pp~qe~cs", "045-inst#~bt-pp~qe~et", "040-rest#~bt-pp~qe~et", "038-rest#-bt~pp~qe~et", "011-museum#~bt~pp~qe~et", "022-accom#~bt-pp~qe~et", "002-makeu#~bt-pp~qe~et"] },
+        "u005":   { "bakedQueue": ["045-inst#-bt~pp~qe~cs", "011-museum#~bt~pp~qe~cs", "040-rest#~bt-pp~qe~cs", "044-inst#-bt~pp~qe~cs", "038-rest#-bt~pp~qe~cs", "002-makeu#-bt~pp~qe~cs", "022-accom#~bt-pp~qe~cs", "013-hair#-bt~pp~qe~et", "025-hotel#-bt~pp~qe~et", "016-car#~bt-pp~qe~et"] },
+        "u006":   { "bakedQueue": ["013-hair#-bt~pp~qe~cs", "045-inst#-bt-pp~qe~cs", "022-accom#~bt~pp~qe~cs", "038-rest#~bt~pp~qe~cs", "011-museum#-bt-pp~qe~cs", "025-hotel#~bt~pp~qe~cs", "002-makeu#~bt~pp~qe~et", "044-inst#~bt-pp~qe~et", "040-rest#-bt~pp~qe~et", "016-car#-bt~pp~qe~et"] },
+        "u007":   { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#~bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt~pp~qe~et", "038-rest#~bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt~pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
+        "vilda":  { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#~bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt~pp~qe~et", "038-rest#~bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt~pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
+        "call":   { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#~bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt~pp~qe~et", "038-rest#~bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt~pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] },
+        "michal": { "bakedQueue": ["016-car#-bt-pp~qe~cs", "025-hotel#~bt-pp~qe~cs", "013-hair#-bt-pp~qe~cs", "022-accom#-bt~pp~qe~et", "038-rest#~bt-pp~qe~et", "011-museum#-bt-pp~qe~et", "045-inst#-bt~pp~qe~et", "002-makeu#-bt-pp~qe~et", "044-inst#-bt-pp~qe~et", "040-rest#-bt-pp~qe~et"] }
     },
     "stimuli": {
         "044-inst": "<img src='https://ptakopet.vilda.net/stable/edin/044-inst.png'>",
@@ -18,7 +18,7 @@
         "038-rest": "<img src='https://ptakopet.vilda.net/stable/edin/038-rest.png'>",
         "022-accom": "<img src='https://ptakopet.vilda.net/stable/edin/022-accom.png'>",
         "016-car": "<img src='https://ptakopet.vilda.net/stable/edin/016-car.png'>",
-        "025-hotel": "<img src='https://ptakopet.vilda.net/stable/edin/025-booki.png'>",
+        "025-hotel": "<img src='https://ptakopet.vilda.net/stable/edin/025-hotel.png'>",
         "002-makeu": "<img src='https://ptakopet.vilda.net/stable/edin/002-makeu.png'>",
         "013-hair": "<img src='https://ptakopet.vilda.net/stable/edin/013-hair.png'>",
         "045-inst": "<img src='https://ptakopet.vilda.net/stable/edin/045-inst.png'>",
@@ -42,7 +42,7 @@
             }
         },
 
-        ".*#.*-et.*": {
+        ".*#.*~et.*": {
             "profile": {
                 "settings": {
                     "backendTranslator": "neurotolge",
@@ -55,7 +55,7 @@
             }
         },
 
-        ".*#.*-cs.*": {
+        ".*#.*~cs.*": {
             "profile": {
                 "settings": {
                     "backendTranslator": "ufalTransformer",
@@ -74,7 +74,7 @@
         ".*-hair#?[^#]*": {
             "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Hairdresser)"
         },
-        ".*-makeup#?[^#]*": {
+        ".*-makeu#?[^#]*": {
             "message": "Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>(Make-up)"
         },
         ".*-car#?[^#]*": {
@@ -102,14 +102,29 @@
                 "bt": false
             }
         },
+        ".*#.*~bt.*": {
+            "profile": {
+                "bt": true
+            }
+        },
         ".*#.*-pp.*": {
             "profile": {
                 "pp": false
             }
         },
+        ".*#.*~pp.*": {
+            "profile": {
+                "pp": true
+            }
+        },
         ".*#.*-mt.*": {
             "profile": {
                 "mt": false
+            }
+        },
+        ".*#.*~mt.*": {
+            "profile": {
+                "mt": true
             }
         },
         ".*#.*-qe.*": {
