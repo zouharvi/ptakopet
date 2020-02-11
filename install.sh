@@ -89,6 +89,7 @@ assertPip3 "flask" 1.0.0
 assertPip3 "flask-cors" 3.0.0
 assertPip3 "openkiwi" 0.1.2
 assertPip3 "mosestokenizer" 1.0.0
+assertPip3 "aiohttp" 3.0.0
 
 ./qe/install.sh
 ./align/install.sh
