@@ -24,7 +24,6 @@ export class Estimator extends AsyncMessage {
 
     public clean() {
         this.curEstimation = []
-        
     }
 
     /**
@@ -34,6 +33,7 @@ export class Estimator extends AsyncMessage {
         if (!this.running) {
             return
         }
+
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             // update tokenization
@@ -41,11 +41,14 @@ export class Estimator extends AsyncMessage {
             let curLang1 : LanguageCode = Settings.language1 as LanguageCode
             let curLang2 : LanguageCode = Settings.language2 as LanguageCode
 
+            let curSource : string = $(this.source).val() as string
+            let curTarget : string = $(this.target).val() as string
+
             let request = Settings.backendEstimator.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
-                $(this.source).val() as string,
-                $(this.target).val() as string)
+                curSource,
+                curTarget)
             super.dispatch(
                 request,
                 async (estimation: Estimation) => {
@@ -55,18 +58,19 @@ export class Estimator extends AsyncMessage {
                         return
                     }
 
-                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2) {
+                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+                        || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
                         // Make sure that we drop the pending quality estimation after lang switch
                         return
                     }
 
                     this.curEstimation = estimation
-                    let tokenization = await tokenizer.tokenize($(this.target).val() as string, Settings.language2 as LanguageCode)
+                    let tokenization = await tokenizer.tokenize(curTarget, Settings.language2 as LanguageCode)
                     highlighter_target.highlight(estimation, tokenization)
                     logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
 
-
-                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2) {
+                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+                        || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
                         // Make sure that we drop the pending quality estimation after lang switch
                         return
                     }

@@ -45,6 +45,11 @@ export class Paraphraser extends AsyncMessage {
                     $(this.paraphraserElement).empty()
                     let toDisplay: Array<string> = []
 
+                    if(srcText != $(this.source).val()) {
+                        // skip if source is obsolete
+                        return
+                    }
+
                     for (let lang of Object.keys(paraphrase)) {
                         // disregard other information, such as status
                         if (Utils.Languages.has(lang as LanguageCode)) {
