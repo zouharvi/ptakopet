@@ -19,6 +19,8 @@ def organizeData(request):
     return result
 
 def log(sessionID, userID, action, time, **request):
+    if '..' in userID:
+        raise Exception('Invalid userID')
     logFile = f'logs/{userID}.log'
     with open(logFile, 'a') as logFile:
         line = f'{action},{time},{",".join(organizeData(request))}\n'
