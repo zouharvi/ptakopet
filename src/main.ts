@@ -61,6 +61,14 @@ if ('p' in params) {
     }
 }
 
+// log init
+logger.log(logger.Action.START,
+    {
+        queue: 'public',
+        agent: navigator.userAgent,
+    }
+)
+
 // Burger menu
 
 $('#burger_back_div').click(() => {

@@ -49,7 +49,7 @@ export class Logger {
         // Reverse enum mapping is not guaranteed!
         let data = {
             sessionID: this.sessionID,
-            userID: waiter.userID,
+            userID: (waiter.userID ? waiter.userID : 'default'),
             action: LogAction[action],
             // Date.now() returns epoch number in milliseconds
             time: Date.now(),
