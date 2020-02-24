@@ -44,6 +44,7 @@ random.seed(args.seed)
 queue = [[] for _ in range(args.users)]
 for i in range(len(stimuliAll)):
     user = i % args.users
+    pcounter = 0
     while True:
         stim = random.choice(stimuliAll)
         ok = True
@@ -55,6 +56,9 @@ for i in range(len(stimuliAll)):
             stimuliAll.remove(stim)
             queue[user].append(stim)
             break
+        pcounter += 1
+        # 50 attempts
+        user = (i+(pcounter // 50)) % args.users
 
 queue = [[x[0] + '#' + x[1] for x in user] for user in queue]
 
@@ -62,7 +66,7 @@ queue = [[x[0] + '#' + x[1] for x in user] for user in queue]
 queue = [sorted(userQueue, key=lambda x: 'et' in x) for userQueue in queue]
 queueU = {}
 for u in range(len(queue)):
-    queueU['u' + str(u).zfill(3)] = queue[u]
+    queueU['u' + str(u).zfill(3)] = {'bakedQueue': queue[u]}
 
 if args.file:
     with open(args.file, 'w') as f:
