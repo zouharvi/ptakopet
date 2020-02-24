@@ -13,7 +13,7 @@ out = dict()
 with open(args.tsvfile) as tsvfile:
   reader = csv.reader(tsvfile, delimiter='\t')
   for row in reader:
-      out['^' + row[0].rstrip('.png') + '.*'] = {'message': f'Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<br>({row[1]})'}
+      out['^' + row[0].rstrip('.png') + '.*'] = {'message': f'Translate the highlighted text in the online form to Czech.<br>Try to achieve the best possible translation quality.<div style="font-weight: bold">({row[1]})</div>'}
 
 if __name__ == '__main__':
     print(json.dumps(out))
