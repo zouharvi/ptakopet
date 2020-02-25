@@ -21,14 +21,14 @@ parser.add_argument('--file', help='output baked file', default='baked.json')
 args, _ = parser.parse_known_args()
 
 configs = [
-    '-bt-pp~qe~cs',
-    '~bt-pp~qe~cs',
-    '-bt~pp~qe~cs',
-    '~bt~pp~qe~cs',
-    '-bt-pp~qe~et',
-    '~bt-pp~qe~et',
-    '-bt~pp~qe~et',
-    '~bt~pp~qe~et',
+    'bt.n-pp.n-qe.y-cs',
+    'bt.y-pp.n-qe.y-cs',
+    'bt.n-pp.y-qe.y-cs',
+    'bt.y-pp.y-qe.y-cs',
+    'bt.n-pp.n-qe.y-et',
+    'bt.y-pp.n-qe.y-et',
+    'bt.n-pp.y-qe.y-et',
+    'bt.y-pp.y-qe.y-et',
 ]
 
 print("Stimuli:", stimuliList)

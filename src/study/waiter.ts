@@ -65,7 +65,7 @@ export class Waiter {
 
         logger.log(logger.Action.START,
             {
-                queue: this.bakedQueue.map((x) => x[0]).join('-'),
+                queue: this.bakedQueue.map((x) => x[0]).join('|'),
                 agent: navigator.userAgent,
             }
         )
