@@ -75,6 +75,10 @@ $('#burger_back_div').click(() => {
     $('#burger_main').hide()
 })
 
+$('#burger_rest').click(() => {
+    $('#burger_main').hide()
+})
+
 $('#burger_show_arrow').click(() => {
     $('#burger_main').show()
 })

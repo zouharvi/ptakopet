@@ -106,15 +106,32 @@
 /* BURGER section */
 
 #burger_main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: none;
+  width: 100%;
+}
+
+#burger_main_side {
   width: 300px;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   background-color: #fbfbfb;
-  z-index: 10000;
   box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-  display: none;
+  z-index: 10001;
+}
+
+#burger_rest {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10000;
 }
 
 #burger_back_arrow {
