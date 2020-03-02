@@ -122,8 +122,7 @@ Annotation data from te user are collected in the following way:
 | SKIP       | REASON | User skips stimulus |
 | TRANSLATE1 | TXT1, TXT2 | Forward translation is displayed |
 | TRANSLATE2 | TXT2, TXT3 | Backward translation is displayed |
-| TRANSLATE3 | TXT2, TXT3a, TXT3b, TXT3c, ... | RTT paraphrasing is displayed |
-| ESTIMATE   | ESTIMATION | Quality estimation is highlighted |
-| ALIGN      | ALIGNMENT  | Source complexity is highlighted |
+| ESTIMATE   | ESTIMATION | Quality estimation is computed |
+| ALIGN      | ALIGNMENT  | Alignment is computed |
 
 Additionally, each logged event contains Unix timestamp in milliseconds.

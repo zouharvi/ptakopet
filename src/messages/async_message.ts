@@ -39,7 +39,7 @@ export class AsyncMessage {
      * Resolves a promise and if the response lands back before the
      * following one, invokes callback
      */
-    public dispatch<T>(message: Promise<T>, callback: (data: T) => void): void {
+    public dispatch<T>(message: Promise<T>, callback?: (data: T) => void): void {
         let msgCurrent = this.msgNext
         this.msgNext++
 
@@ -50,7 +50,7 @@ export class AsyncMessage {
         message.then(
             (text) => {
                 // If in an increasing sequence invoke callback
-                if (this.receiveCheck(msgCurrent)) {
+                if (this.receiveCheck(msgCurrent) && callback) {
                     callback(text)
                 }
             },

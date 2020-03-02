@@ -6,27 +6,14 @@ import { LanguageCode } from "../misc/utils"
 export type Tokenization = Array<string>
 export type TokenizerResponse = { 'status': string, 'tokenization': string[] | undefined, 'error': string | undefined }
 export class Tokenizer {
-    constructor(private indicator: IndicatorManager) { }
+    constructor() { }
 
     /**
      * Make a tokenization request
      */
     public tokenize(text: string, lang: LanguageCode): Promise<Tokenization> {
-        // This complex double Promise construction is just so that backends don't have
-        // to manage the indicator.
-
-        this.indicator.add(-1)
         let request: Promise<Tokenization> = Settings.backendTokenizer.composeRequest(text, lang)
-        return new Promise<Tokenization>(async (resolve, reject) => {
-            try {
-                let result: Tokenization = await request
-                this.indicator.add(+1)
-                resolve(result)
-            } catch (error) {
-                this.indicator.add(+1)
-                reject(error)
-            } 
-        })
+        return request
     }
 
     // Object of available backends and their implementations
@@ -100,8 +87,7 @@ export interface TokenizerBackend {
     name: string,
 }
 
-let indicator_tokenizer: IndicatorManager = new IndicatorManager($('#indicator_tokenizer'))
-let tokenizer: Tokenizer = new Tokenizer(indicator_tokenizer)
+let tokenizer: Tokenizer = new Tokenizer()
 
 // export the tokenizer singleton
 export { tokenizer }

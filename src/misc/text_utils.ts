@@ -34,7 +34,7 @@ export module TextUtils {
         for (let tok of tokens) {
             let occurence = newRaw.indexOf(tok)
             if (occurence == -1) {
-                throw "Tokenization does not match the raw text"
+                throw new Error("Tokenization does not match the raw text.")
             } else {
                 out.push([buff + occurence, buff + occurence + tok.length])
                 buff += occurence + tok.length

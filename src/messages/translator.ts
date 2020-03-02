@@ -71,7 +71,7 @@ export abstract class Translator extends AsyncMessage {
         neurotolge: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
                 return new Promise<string>((resolve, reject) => {
-                    if(text == '')
+                    if (text == '')
                         resolve('')
                     $.ajax({
                         type: "POST",
@@ -127,21 +127,20 @@ export class TranslatorSource extends Translator {
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
 
-        super.dispatch(
-            request,
-            (text: string) => {
-                logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
-                this.curTranslation = text
+        request.then((text: string) => {
+            logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
+            this.curTranslation = text
 
-                // Clean the previous highlight
-                highlighter_target.clean()
+            // Clean the previous highlight
+            highlighter_target.clean()
 
-                $(this.target).val(text)
-                translator_target.translate()
-                estimator.estimate()
-                paraphraser.paraphrase()
-            }
-        )
+            $(this.target).val(text)
+            translator_target.translate()
+            estimator.estimate()
+            paraphraser.paraphrase_throttle()
+        })
+
+        super.dispatch(request)
     }
 
     public clean = () => {
@@ -170,14 +169,13 @@ export class TranslatorTarget extends Translator {
             this.curSource,
             Settings.language2 as LanguageCode,
             Settings.language1 as LanguageCode)
-        super.dispatch(
-            request,
-            (text) => {
-                logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
-                this.curTranslation = text
-                $(this.target).val(text)
-            }
-        )
+        request.then((text: string) => {
+            logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
+            this.curTranslation = text
+            $(this.target).val(text)
+        })
+
+        super.dispatch(request)
     }
 
     public clean = () => {

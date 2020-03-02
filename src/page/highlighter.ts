@@ -35,30 +35,23 @@ export class Highlighter {
      * @param intensities Numeric [0, 1] intensities of target words. The length must match the number of tokenized words.
      */
     public highlight(intensities: Array<number>, tokenization: Tokenization): void {
-        let indices: Array<[number, number]> = TextUtils.tokenizeIndices($(this.element).val() as string, tokenization)
-        /**
-         * Instead of pairing estimator and translator requests, the highlighting job is dropped if these lengths
-         * don't match. This is a hack, but works great for cases such as None estimation. This could be fixed by
-         * upstream alignment tokenization and thus the inequality would be replaced with equality.
-         */
+        let indices: Array<[number, number]> = []
+        try {
+            indices = TextUtils.tokenizeIndices($(this.element).val() as string, tokenization)
+        } catch (e) {
+            console.warn(e.message, 'Refusing to continue.')
+            return
+        }
 
-        if (intensities.length < indices.length || intensities.length == 0) {
+        if(intensities.length != indices.length) {
+            console.warn('Estimation does not match the tokenizatin in length.', 'Refusing to continue.')
+            return
+        }
+
+        if (intensities.length == 0) {
             this.clean()
         } else {
             this.dirty = true
-        }
-
-        // an attempt for normalization
-        if (false) {
-            // Copy array
-            let myClonedArray: Array<number> = [...intensities]
-
-            // Normalize
-            let max = Math.max(...intensities)
-            let min = Math.min(...intensities)
-            for (let i in intensities) {
-                intensities[i] = (intensities[i] - min) / (max - min)
-            }
         }
 
         // Compute colors from intensities

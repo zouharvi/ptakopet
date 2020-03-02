@@ -13,7 +13,7 @@ export type Paraphrase = { [key in LanguageCode]?: string }
 export type ParaphraseResponse = { 'status': string, 'error'?: string } & Paraphrase
 
 export class Paraphraser extends AsyncMessage {
-    private throttler = new Throttler(500)
+    private throttler = new Throttler(2500)
 
     /**
      * Make a paraphraser request, which can be later interrupted. 
@@ -30,6 +30,7 @@ export class Paraphraser extends AsyncMessage {
      * Make an paraphraser request
      */
     paraphrase = () => {
+        console.log('parphrasing')
         if (!this.running) {
             return
         }
@@ -39,45 +40,45 @@ export class Paraphraser extends AsyncMessage {
             let request = Settings.backendParaphraser.composeRequest(
                 Settings.language1 as LanguageCode,
                 srcText)
-            super.dispatch(
-                request,
-                async (paraphrase: Paraphrase) => {
-                    $(this.paraphraserElement).empty()
-                    let toDisplay: Array<string> = []
 
-                    if(srcText != $(this.source).val()) {
-                        // skip if source is obsolete
-                        return
-                    }
+            request.then(async (paraphrase: Paraphrase) => {
+                $(this.paraphraserElement).empty()
+                let toDisplay: Array<string> = []
 
-                    for (let lang of Object.keys(paraphrase)) {
-                        // disregard other information, such as status
-                        if (Utils.Languages.has(lang as LanguageCode)) {
-                            let data: string = paraphrase[lang as LanguageCode] as string
+                if (srcText != $(this.source).val()) {
+                    // skip if source is obsolete
+                    return
+                }
 
-                            // skip if equal to the currently displayed source
-                            if (TextUtils.vagueEqual(data, srcText)) {
-                                continue;
-                            }
+                for (let lang of Object.keys(paraphrase)) {
+                    // disregard other information, such as status
+                    if (Utils.Languages.has(lang as LanguageCode)) {
+                        let data: string = paraphrase[lang as LanguageCode] as string
 
-                            let ok: boolean = true
-                            for (let other of toDisplay) {
-                                if(TextUtils.vagueEqual(other, data)) {
-                                    ok = false;
-                                    break;
-                                }
-                            }
-                            if (ok) {
-                                toDisplay.push(data)
+                        // skip if equal to the currently displayed source
+                        if (TextUtils.vagueEqual(data, srcText)) {
+                            continue;
+                        }
+
+                        let ok: boolean = true
+                        for (let other of toDisplay) {
+                            if (TextUtils.vagueEqual(other, data)) {
+                                ok = false;
+                                break;
                             }
                         }
-                    }
-
-                    for (let data of toDisplay) {
-                        $(this.paraphraserElement).append("<div>" + data + "</div>")
+                        if (ok) {
+                            toDisplay.push(data)
+                        }
                     }
                 }
-            )
+
+                for (let data of toDisplay) {
+                    $(this.paraphraserElement).append("<div>" + data + "</div>")
+                }
+            })
+
+            super.dispatch(request)
         } else {
             // The paraphraser does not support this language pair, skipping
             console.warn("The paraphraser does not support this language pair, skipping")
@@ -126,7 +127,7 @@ export class Paraphraser extends AsyncMessage {
             languages: new Set(['cs', 'en', 'de']),
             name: 'LINDAT Mock',
         },
-        
+
         rainbow: {
             composeRequest(lang: LanguageCode, text: string): Promise<Paraphrase> {
                 return new Promise<Paraphrase>((resolve, reject) => {
@@ -145,19 +146,6 @@ export class Paraphraser extends AsyncMessage {
             languages: Utils.Languages,
             name: 'Rainbow',
         },
-
-        same: {
-            composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
-                return new Promise<Paraphrase>(async (resolve, reject) => {
-                    let res: Paraphrase = {}
-                    res[language] = language + ': ' + text
-                    resolve(res)
-                })
-            },
-            languages: Utils.Languages,
-            name: 'Same',
-        },
-
         none: {
             composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
                 return new Promise<Paraphrase>((resolve, reject) => {

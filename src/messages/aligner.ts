@@ -10,55 +10,32 @@ import { tokenizer } from './tokenizer'
 
 export type Alignment = Array<[number, number]>
 export type AlignmentResponse = { 'status': string, 'alignment': string | undefined, 'error': string | undefined }
-export class Aligner extends AsyncMessage {
+export class Aligner {
     /**
      * Make an alignment request
      */
-    public align(estimation: Estimation): void {
+    public async align(): Promise<Alignment> {
         if (!this.running) {
-            return
+            return new Promise<Alignment>((resolve, reject) => { resolve([]) })
         }
-        if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+        if (!Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
+            console.warn("The aligner does not support this language pair, skipping")
+            return new Promise<Alignment>((resolve, reject) => { resolve([]) })
+        } else {
             let request = Settings.backendAligner.composeRequest(
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
                 $(this.source).val() as string,
                 $(this.target).val() as string)
-            super.dispatch(
-                request,
-                async (alignment: Alignment) => {
-                    if (estimation.length == 0) {
-                        highlighter_source.clean()
-                        logger.log(logger.Action.ALIGN, { alignment: '' })
-                    } else {
-                        // This extracts the max from the left side
-                        let max = Math.max(...alignment.map((a: [number, number]) => a[0]))
-
-                        let intensities: Array<number> = Array<number>(max).fill(1)
-                        for (let i in alignment) {
-                            // Here we are taking the QE of the last aligned object
-                            // We could also experiment more with taking the first
-                            // or the sum. 
-                            intensities[alignment[i][0]] = estimation[alignment[i][1]]
-                        }
-                        logger.log(logger.Action.ALIGN, { alignment: intensities.join('-') })
-
-                        let tokenization = await tokenizer.tokenize($(this.source).val() as string, Settings.language1 as LanguageCode)
-                        highlighter_source.highlight(intensities, tokenization)
-                    }
-                }
-            )
-        } else {
-            console.warn("The aligner does not support this language pair, skipping")
+            request.then((alignment: Alignment) => {
+                let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join(' ')
+                logger.log(logger.Action.ALIGN, { alignment: stringified })
+            })
+            return request                
         }
     }
 
-    /**
-     * @param source Source textarea
-     * @param target Target textarea
-     */
-    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>, indicator: IndicatorManager) {
-        super(indicator)
+    constructor(source: JQuery<HTMLElement>, target: JQuery<HTMLElement>) {
         this.source = source
         this.target = target
     }
@@ -84,7 +61,7 @@ export class Aligner extends AsyncMessage {
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
-
+    
     // Object of available backends and their implementations
     public static backends: { [index: string]: AlignerBackend } = {
         fastAlign: {
@@ -156,8 +133,7 @@ export interface AlignerBackend {
     name: string,
 }
 
-let indicator_aligner: IndicatorManager = new IndicatorManager($('#indicator_aligner'))
-let aligner: Aligner = new Aligner($('#input_source'), $('#input_target'), indicator_aligner)
+let aligner: Aligner = new Aligner($('#input_source'), $('#input_target'))
 
 // export the aligner singleton
 export { aligner }

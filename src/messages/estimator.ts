@@ -1,9 +1,9 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings } from '../misc/settings'
-import { highlighter_target } from '../page/highlighter'
+import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager"
-import { aligner } from "./aligner"
+import { aligner, Alignment } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
 import { tokenizer } from './tokenizer'
@@ -36,11 +36,8 @@ export class Estimator extends AsyncMessage {
 
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
-            // update tokenization
-
             let curLang1 : LanguageCode = Settings.language1 as LanguageCode
             let curLang2 : LanguageCode = Settings.language2 as LanguageCode
-
             let curSource : string = $(this.source).val() as string
             let curTarget : string = $(this.target).val() as string
 
@@ -49,35 +46,37 @@ export class Estimator extends AsyncMessage {
                 Settings.language2 as LanguageCode,
                 curSource,
                 curTarget)
-            super.dispatch(
-                request,
-                async (estimation: Estimation) => {
-                    if (estimation.length == 0) {
-                        // Used for none estimator to stop cascade but also useful to other, as this limits
-                        // the log clutter
-                        return
-                    }
 
-                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2
-                        || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
-                        // Make sure that we drop the pending quality estimation after lang switch
-                        return
-                    }
-
-                    this.curEstimation = estimation
-                    let tokenization = await tokenizer.tokenize(curTarget, Settings.language2 as LanguageCode)
-                    highlighter_target.highlight(estimation, tokenization)
-                    logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
-
-                    if(Settings.language1 != curLang1 || Settings.language2 != curLang2
-                        || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
-                        // Make sure that we drop the pending quality estimation after lang switch
-                        return
-                    }
-
-                    aligner.align(estimation)
+            request.then(async (estimation: Estimation) => {
+                if (estimation.length == 0) {
+                    // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
+                    return
                 }
-            )
+
+                if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+                    || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
+                    // Make sure that we drop the pending quality estimation after lang switch
+                    return
+                }
+                this.curEstimation = estimation
+                let tokenizationSource = await tokenizer.tokenize(curSource, Settings.language2 as LanguageCode)
+                let tokenizationTarget = await tokenizer.tokenize(curTarget, Settings.language1 as LanguageCode)
+                highlighter_target.highlight(estimation, tokenizationTarget)
+                logger.log(logger.Action.ESTIMATE, { estimation: estimation.join(' ') })
+                
+                let alignment = await aligner.align()
+                
+                if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+                    || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
+                    // Make sure that we drop the pending quality estimation after lang switch
+                    return
+                }
+
+                let intensities = Estimator.computeSourceComplexity(alignment, estimation)
+                highlighter_source.highlight(intensities, tokenizationSource)
+            })
+
+            super.dispatch(request)
         } else {
             // The estimator does not support this language pair, skipping
             console.warn("The estimator does not support this language pair, skipping")
@@ -95,6 +94,18 @@ export class Estimator extends AsyncMessage {
     private running: boolean = true
     public on(running: boolean = true) {
         this.running = running
+    }
+
+    private static computeSourceComplexity(alignment: Alignment, estimation: Estimation) : Estimation {
+        // This extracts the max from the left side
+        let max = Math.max(...alignment.map((a: [number, number]) => a[0]))
+        let intensities: Array<number> = Array<number>(max).fill(1)
+        for (let i in alignment) {
+            // Here we are taking the QE of the last aligned object. We could also experiment more with
+            // taking the first or the sum. 
+            intensities[alignment[i][0]] = estimation[alignment[i][1]]
+        }
+        return intensities
     }
 
     // Object of available backends and their implementations
