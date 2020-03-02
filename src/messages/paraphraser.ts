@@ -30,7 +30,6 @@ export class Paraphraser extends AsyncMessage {
      * Make an paraphraser request
      */
     paraphrase = () => {
-        console.log('parphrasing')
         if (!this.running) {
             return
         }
@@ -75,6 +74,9 @@ export class Paraphraser extends AsyncMessage {
 
                 for (let data of toDisplay) {
                     $(this.paraphraserElement).append("<div>" + data + "</div>")
+                }
+                if(toDisplay.length == 0) {
+                    $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
                 }
             })
 
