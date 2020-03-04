@@ -29,8 +29,8 @@ class FastAlign():
         file1, file2 = self.findRawData(sourceLang, targetLang)
         out = formatParallel(file1, file2)
 
-        sourceText = tokenize(sourceText, sourceLang)
-        targetText = tokenize(targetText, targetLang)
+        sourceText = tokenize(sourceText.replace('\n', ' '), sourceLang)
+        targetText = tokenize(targetText.replace('\n', ' '), targetLang)
 
         out = ["{} ||| {}".format(sourceText, targetText)] + out
         # Found relevant parallel corpus

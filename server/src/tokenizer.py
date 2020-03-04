@@ -11,6 +11,8 @@ class MosesTokenizer():
         """
         Tokenize input text with moses tokenizer
         """
-
-        texts = tokenize(text, lang, False)
-        return {'status': 'OK', 'tokenization': texts}
+        texts = text.split('\n')
+        out = []
+        for t in texts:
+            out += tokenize(t, lang, False)
+        return {'status': 'OK', 'tokenization': out}
