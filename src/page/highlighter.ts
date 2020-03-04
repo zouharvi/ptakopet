@@ -37,6 +37,7 @@ export class Highlighter {
     public highlight(intensities: Array<number>, tokenization: Tokenization): void {
         let indices: Array<[number, number]> = []
         try {
+            // Tokenization may be outdated, so it's actually good that an error is thrown here.
             indices = TextUtils.tokenizeIndices($(this.element).val() as string, tokenization)
         } catch (e) {
             console.warn(e.message, 'Refusing to continue.')
@@ -44,7 +45,7 @@ export class Highlighter {
         }
 
         if(intensities.length != indices.length) {
-            console.warn('Estimation does not match the tokenizatin in length.', 'Refusing to continue.')
+            console.warn('Estimation does not match the tokenization in length.', 'Refusing to continue.')
             return
         }
 
@@ -57,7 +58,7 @@ export class Highlighter {
         // Compute colors from intensities
         let highlights: Array<{ highlight: [number, number], className: string }> = []
         for (let i = 0; i < indices.length; i++) {
-            let styleColor: string = `rgba(255, 0, 0, ${0.3 - intensities[i] / 3})`
+            let styleColor: string = `rgba(255, 0, 0, ${(1 - intensities[i]) / 3})`
             highlights.push({ highlight: indices[i], className: `style='background-color: ${styleColor};'` })
         }
 
