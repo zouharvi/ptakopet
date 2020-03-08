@@ -66,7 +66,7 @@ export abstract class Translator extends AsyncMessage {
             },
             languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr', 'de'], false),
             default: ['cs', 'en'],
-            name: 'ÚFAL Transformer',
+            name: 'ÚFAL Translation',
         },
         neurotolge: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {

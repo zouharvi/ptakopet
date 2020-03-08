@@ -6,7 +6,7 @@ import { IndicatorManager } from "../page/indicator_manager"
 import { aligner, Alignment } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
-import { tokenizer } from './tokenizer'
+import { tokenizer, Tokenization } from './tokenizer'
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
@@ -36,10 +36,10 @@ export class Estimator extends AsyncMessage {
 
         // Check whether the backend supports this language pair
         if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
-            let curLang1 : LanguageCode = Settings.language1 as LanguageCode
-            let curLang2 : LanguageCode = Settings.language2 as LanguageCode
-            let curSource : string = $(this.source).val() as string
-            let curTarget : string = $(this.target).val() as string
+            let curLang1: LanguageCode = Settings.language1 as LanguageCode
+            let curLang2: LanguageCode = Settings.language2 as LanguageCode
+            let curSource: string = $(this.source).val() as string
+            let curTarget: string = $(this.target).val() as string
 
             let request = Settings.backendEstimator.composeRequest(
                 Settings.language1 as LanguageCode,
@@ -53,7 +53,7 @@ export class Estimator extends AsyncMessage {
                     return
                 }
 
-                if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+                if (Settings.language1 != curLang1 || Settings.language2 != curLang2
                     || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
                     // Make sure that we drop the pending quality estimation after lang switch
                     return
@@ -63,16 +63,16 @@ export class Estimator extends AsyncMessage {
                 let tokenizationTarget = await tokenizer.tokenize(curTarget, Settings.language1 as LanguageCode)
                 highlighter_target.highlight(estimation, tokenizationTarget)
                 logger.log(logger.Action.ESTIMATE, { estimation: estimation.join(' ') })
-                
+
                 let alignment = await aligner.align()
-                
-                if(Settings.language1 != curLang1 || Settings.language2 != curLang2
+
+                if (Settings.language1 != curLang1 || Settings.language2 != curLang2
                     || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
                     // Make sure that we drop the pending quality estimation after lang switch
                     return
                 }
 
-                let intensities = Estimator.computeSourceComplexity(alignment, estimation)
+                let intensities = Estimator.computeSourceComplexity(alignment, estimation, tokenizationSource)
                 highlighter_source.highlight(intensities, tokenizationSource)
             })
 
@@ -96,16 +96,17 @@ export class Estimator extends AsyncMessage {
         this.running = running
     }
 
-    private static computeSourceComplexity(alignment: Alignment, estimation: Estimation) : Estimation {
-        // This extracts the max from the left side
-        let max = Math.max(...alignment.map((a: [number, number]) => a[0]))
-        let intensities: Array<number> = Array<number>(max).fill(1)
+    private static computeSourceComplexity(alignment: Alignment, estimation: Estimation, tokenizationSource: Tokenization): Estimation {
+        let sourceCount = tokenizationSource.length
+
+        // Using only fill would create reference errors, so we need to map it with a lambda function  
+        let intensities: Array<Array<number>> = Array<Array<number>>(sourceCount).fill([]).map((_) => new Array<number>())
         for (let i in alignment) {
-            // Here we are taking the QE of the last aligned object. We could also experiment more with
-            // taking the first or the sum. 
-            intensities[alignment[i][0]] = estimation[alignment[i][1]]
+            intensities[alignment[i][0]].push(estimation[alignment[i][1]])
         }
-        return intensities
+        
+        // We use 0.87 implicitly for unaligned source tokens, but other strategy may be better 
+        return intensities.map((arr) => arr.length == 0 ? 0.87 : arr.reduce((a, b) => a + b, 0) / arr.length)
     }
 
     // Object of available backends and their implementations
