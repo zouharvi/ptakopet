@@ -71,7 +71,8 @@ export class Paraphraser extends AsyncMessage {
                         }
                     }
                 }
-
+                logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
+                
                 for (let data of toDisplay) {
                     $(this.paraphraserElement).append("<div>" + data + "</div>")
                 }

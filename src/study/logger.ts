@@ -10,6 +10,7 @@ export enum LogAction {
     NEXT,
     CONFIRM_OK, CONFIRM_SKIP,
     TRANSLATE1, TRANSLATE2,
+    PARAPHRASE,
     ESTIMATE, ALIGN,
     LANG_CHANGE
 }
