@@ -47,6 +47,14 @@ $('#input_target').on('input', function () {
 
 let params = Utils.parseGETParams()
 
+// log init
+logger.log(logger.Action.START,
+    {
+        queue: 'public',
+        agent: navigator.userAgent,
+    }
+)
+
 // Try to do omnibox search on default settings
 if ('q' in params) {
     $(translator_source.source).val(params['q'].split('+').join(' '))
@@ -61,13 +69,12 @@ if ('p' in params) {
     }
 }
 
-// log init
-logger.log(logger.Action.START,
-    {
-        queue: 'public',
-        agent: navigator.userAgent,
-    }
-)
+// Apply userID if possible
+if ('userID' in params) {
+    let userID = params['userID']
+    waiter.joinStudy(userID)
+}
+
 
 // Burger menu
 

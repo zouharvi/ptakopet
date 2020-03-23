@@ -38,8 +38,10 @@ export class Waiter {
     /**
      * Prepares the interface after the users joins the study
      */
-    private joinStudy(): void {
-        let userID: string | null = prompt('UserID:', '')
+    public joinStudy(userID: string | null = null): void {
+        if (userID == null) {
+            userID = prompt('UserID:', '')
+        }
         if (userID == null) {
             return
         }
