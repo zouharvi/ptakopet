@@ -34,6 +34,12 @@ export class Paraphraser extends AsyncMessage {
             return
         }
         let srcText: string = $(this.source).val() as string
+
+        if (srcText == '') {
+            $(this.paraphraserElement).html("")
+            return
+        }
+        
         // Check whether the backend supports this language pair
         if (Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
             let request = Settings.backendParaphraser.composeRequest(
@@ -72,11 +78,11 @@ export class Paraphraser extends AsyncMessage {
                     }
                 }
                 logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
-                
+
                 for (let data of toDisplay) {
                     $(this.paraphraserElement).append("<div>" + data + "</div>")
                 }
-                if(toDisplay.length == 0) {
+                if (toDisplay.length == 0) {
                     $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
                 }
             })
