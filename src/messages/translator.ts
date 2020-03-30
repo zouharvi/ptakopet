@@ -97,7 +97,7 @@ export abstract class Translator extends AsyncMessage {
                         resolve('')
                     $.ajax({
                         type: "GET",
-                        url: `http://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${sourceLang}-${targetLang}`,
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${sourceLang}-${targetLang}`,
                         data: { text: text },
                         async: true,
                     })
