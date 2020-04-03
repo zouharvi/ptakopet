@@ -51,7 +51,12 @@ element {
 
 textarea {
     /* This is just to avoid FOUC before higlighter loads */
-    background: #FFFFFF
+    background: #FFFFFF;
+    padding: 6px !important;
+}
+
+.hwt-backdrop {
+    padding: 6px;
 }
 
 .hwt-content,
@@ -74,16 +79,18 @@ textarea {
     height: 155px;
     margin-top: 10px;
     background: #FFFFFF;
-    border-radius: 3px;
+    border-radius: 2px;
     border: none;
-    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
     text-align: left;
     overflow-y: auto;
     overflow-x: auto;
 }
 
 #input_para {
-    height: 159px !important;
+    height: calc(159px - 12px) !important;
+    padding: 6px;
+    width: calc(100% - 12px);
 }
 
 @-moz-document url-prefix() {
@@ -104,6 +111,8 @@ textarea {
 
 .hwt-content-disabled {
     max-width: 472px;
+    width: calc(100% - 12px);
+    height: calc(155px - 12px + 4px);
 }
 
 textarea,
@@ -125,14 +134,14 @@ input {
     cursor: pointer;
     background-color: #ffffff;
     font-size: 1.1em;
-    border-radius: 3px;
+    border-radius: 2px;
     border: none;
-    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
 /* default marks for QE */
 .hwt-highlights mark {
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: transparent;
 }
 
@@ -145,4 +154,8 @@ input {
 
 #input_para div:not(:last-child) {
     border-bottom: 1px solid #cccccc;
+}
+
+#input_source, #input_target {
+    width: calc(100% - 12px);
 }
