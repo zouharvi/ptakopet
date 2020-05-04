@@ -7,6 +7,7 @@ import { aligner, Alignment } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
 import { tokenizer, Tokenization } from './tokenizer'
+import { ExtraTranslationInfo, translator_source } from "./translator"
 
 export type Estimation = Array<number>
 export type EstimationResponse = { 'status': string, 'qe': Estimation | undefined, 'error': string | undefined }
@@ -45,7 +46,8 @@ export class Estimator extends AsyncMessage {
                 Settings.language1 as LanguageCode,
                 Settings.language2 as LanguageCode,
                 curSource,
-                curTarget)
+                curTarget,
+                translator_source.curExtra)
 
             request.then(async (estimation: Estimation) => {
                 if (estimation.length == 0) {
@@ -104,7 +106,7 @@ export class Estimator extends AsyncMessage {
         for (let i in alignment) {
             intensities[alignment[i][0]].push(estimation[alignment[i][1]])
         }
-        
+
         // We use 0.87 implicitly for unaligned source tokens, but other strategy may be better 
         return intensities.map((arr) => arr.length == 0 ? 0.87 : arr.reduce((a, b) => a + b, 0) / arr.length)
     }
@@ -112,7 +114,7 @@ export class Estimator extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
         openkiwi: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
@@ -136,7 +138,7 @@ export class Estimator extends AsyncMessage {
         },
 
         questplusplus: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
@@ -160,7 +162,7 @@ export class Estimator extends AsyncMessage {
         },
 
         deepquest: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
@@ -184,7 +186,7 @@ export class Estimator extends AsyncMessage {
         },
 
         random: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
                     let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
                     let estimation: Estimation = []
@@ -199,7 +201,7 @@ export class Estimator extends AsyncMessage {
         },
 
         manual: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
                     let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
 
@@ -237,7 +239,7 @@ export class Estimator extends AsyncMessage {
         },
 
         none: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Estimation> {
+            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     resolve([])
                 })
@@ -250,7 +252,7 @@ export class Estimator extends AsyncMessage {
 
 export interface EstimatorBackend {
     // Return a finished promise object, which can later be resolved
-    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Estimation>,
+    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo) => Promise<Estimation>,
 
     // Array of available languages to this backend
     languages: Set<[LanguageCode, LanguageCode]>,

@@ -8,11 +8,14 @@ import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { logger } from '../study/logger'
 import { paraphraser } from "./paraphraser"
 
+export type ExtraTranslationInfo = any | undefined
+
 /**
  * Template for forward and backward translators
  */
 export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(500)
+
 
     /**
      * Make a translator request, which can be later interrupted. 
@@ -49,8 +52,10 @@ export abstract class Translator extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
         ufalTransformer: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
+                    if (text == '')
+                        resolve(['', undefined])
                     $.ajax({
                         type: "POST",
                         url: "https://lindat.mff.cuni.cz/services/transformer/api/v2/languages/",
@@ -60,7 +65,7 @@ export abstract class Translator extends AsyncMessage {
                         data: { src: sourceLang, tgt: targetLang, input_text: text },
                         async: true,
                     })
-                        .done((data: Array<string>) => resolve(data.join(' ').replace(/\n$/, '')))
+                        .done((data: Array<string>) => resolve([data.join(' ').replace(/\n$/, ''), undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
@@ -69,10 +74,10 @@ export abstract class Translator extends AsyncMessage {
             name: 'ÚFAL Translation',
         },
         neurotolge: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
-                        resolve('')
+                        resolve(['', undefined])
                     $.ajax({
                         type: "POST",
                         url: "https://api.neurotolge.ee/v1.1/translate",
@@ -82,7 +87,7 @@ export abstract class Translator extends AsyncMessage {
                         data: { auth: "public", conf: targetLang, src: text },
                         async: true,
                     })
-                        .done((data: any) => resolve(data['tgt']))
+                        .done((data: any) => resolve([data['tgt'], undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
@@ -91,17 +96,17 @@ export abstract class Translator extends AsyncMessage {
             name: 'Neurotõlge',
         },
         questENET: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
-                        resolve('')
+                        resolve(['', undefined])
                     $.ajax({
                         type: "GET",
                         url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${sourceLang}-${targetLang}`,
                         data: { text: text },
                         async: true,
                     })
-                        .done((data: any) => resolve(data['text']))
+                        .done((data: any) => resolve([data['text'], undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
@@ -110,28 +115,33 @@ export abstract class Translator extends AsyncMessage {
             name: 'Quest EN-ET',
         },
         identity: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => resolve(text))
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve([text, undefined]))
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
             default: ['en', 'cs'],
             name: 'Identity',
         },
         weakENCS: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
-                    resolve('')
+                        resolve(['', undefined])
                     $.ajax({
                         type: "POST",
                         contentType: "application/x-www-form-urlencoded",
+                        dataType: "json",
                         url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${sourceLang}-${targetLang}`,
                         data: { input_text: text },
                         crossDomain: true,
+                        accepts: {
+                            text: "application/json",
+                        },
                         async: true,
                     })
                         .done((result) => {
-                            resolve(result)
+                            let text = result.map((x: any) => x.sent).join(' ')
+                            resolve([text, result as ExtraTranslationInfo])
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
@@ -142,8 +152,8 @@ export abstract class Translator extends AsyncMessage {
         },
 
         none: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
-                return new Promise<string>((resolve, reject) => resolve(''))
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve(['', undefined]))
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
             default: ['en', 'cs'],
@@ -158,6 +168,7 @@ export abstract class Translator extends AsyncMessage {
 export class TranslatorSource extends Translator {
     public curSource: string = ''
     public curTranslation: string = ''
+    public curExtra: ExtraTranslationInfo = undefined
 
     public translate = () => {
         if (!this.running)
@@ -169,9 +180,10 @@ export class TranslatorSource extends Translator {
             Settings.language1 as LanguageCode,
             Settings.language2 as LanguageCode)
 
-        request.then((text: string) => {
+        request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
             this.curTranslation = text
+            this.curExtra = extra
 
             // Clean the previous highlight
             highlighter_target.clean()
@@ -211,7 +223,7 @@ export class TranslatorTarget extends Translator {
             this.curSource,
             Settings.language2 as LanguageCode,
             Settings.language1 as LanguageCode)
-        request.then((text: string) => {
+        request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
             this.curTranslation = text
             $(this.target).val(text)
@@ -230,7 +242,7 @@ export class TranslatorTarget extends Translator {
 
 export interface TranslatorBackend {
     // Return a finished promise settings object, which can later be resolved
-    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<string>,
+    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<[string, ExtraTranslationInfo]>,
 
     // Array of available languages to this backend
     languages: Set<[LanguageCode, LanguageCode]>,

@@ -17,7 +17,7 @@ npm run build
 The file `web/ptakopet-web.js` should now contain live code. You can run
 
 ```
-npm run watch
+npm run dev
 ```
 
 to rebuild the code each time one of the source files changes.
