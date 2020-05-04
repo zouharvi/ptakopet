@@ -4,7 +4,7 @@
  */
 export class Throttler {
     private activationDelay : number
-    private timeoutId : number | undefined
+    private timeoutId : NodeJS.Timeout | undefined
 
     /**
      * @param activationDelay Delay after which the latest request is fired.

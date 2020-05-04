@@ -5,12 +5,16 @@
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch=true",
-    "build": "webpack"
+    "build": "webpack --mode=production",
+    "build_dev": "webpack --mode=development",
+    "watch": "webpack --mode=development --watch ",
+    "dev": "webpack-dev-server --mode=development --open",
+    "dev_prod": "webpack-dev-server --mode=production --open"
   },
   "repository": {
     "type": "git",

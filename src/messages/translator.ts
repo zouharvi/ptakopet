@@ -117,6 +117,29 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'cs'],
             name: 'Identity',
         },
+        weakENCS: {
+            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
+                return new Promise<string>((resolve, reject) => {
+                    if (text == '')
+                    resolve('')
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${sourceLang}-${targetLang}`,
+                        data: { input_text: text },
+                        crossDomain: true,
+                        async: true,
+                    })
+                        .done((result) => {
+                            resolve(result)
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
+            default: ['en', 'cs'],
+            name: 'Weak EN-CS',
+        },
 
         none: {
             composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<string> {
