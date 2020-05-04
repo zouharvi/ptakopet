@@ -1,6 +1,6 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
-import { Settings } from '../misc/settings'
+import { Settings, RequestHashOne } from '../misc/settings'
 import { highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager"
 import { aligner } from "./aligner"
@@ -33,65 +33,67 @@ export class Paraphraser extends AsyncMessage {
         if (!this.running) {
             return
         }
-        let srcText: string = $(this.source).val() as string
 
-        if (srcText == '') {
+        let hash = new RequestHashOne(this)
+
+        if (hash.text == '') {
             $(this.paraphraserElement).html("")
             return
         }
-        
+
         // Check whether the backend supports this language pair
-        if (Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
-            let request = Settings.backendParaphraser.composeRequest(
-                Settings.language1 as LanguageCode,
-                srcText)
-
-            request.then(async (paraphrase: Paraphrase) => {
-                $(this.paraphraserElement).empty()
-                let toDisplay: Array<string> = []
-
-                if (srcText != $(this.source).val()) {
-                    // skip if source is obsolete
-                    return
-                }
-
-                for (let lang of Object.keys(paraphrase)) {
-                    // disregard other information, such as status
-                    if (Utils.Languages.has(lang as LanguageCode)) {
-                        let data: string = paraphrase[lang as LanguageCode] as string
-
-                        // skip if equal to the currently displayed source
-                        if (TextUtils.vagueEqual(data, srcText)) {
-                            continue;
-                        }
-
-                        let ok: boolean = true
-                        for (let other of toDisplay) {
-                            if (TextUtils.vagueEqual(other, data)) {
-                                ok = false;
-                                break;
-                            }
-                        }
-                        if (ok) {
-                            toDisplay.push(data)
-                        }
-                    }
-                }
-                logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
-
-                for (let data of toDisplay) {
-                    $(this.paraphraserElement).append("<div>" + data + "</div>")
-                }
-                if (toDisplay.length == 0) {
-                    $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
-                }
-            })
-
-            super.dispatch(request)
-        } else {
+        if (!Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
             // The paraphraser does not support this language pair, skipping
             console.warn("The paraphraser does not support this language pair, skipping")
+            return
         }
+
+        let request = Settings.backendParaphraser.composeRequest(
+            Settings.language1 as LanguageCode,
+            hash.text)
+
+        request.then(async (paraphrase: Paraphrase) => {
+            $(this.paraphraserElement).empty()
+            let toDisplay: Array<string> = []
+
+            // Skip if source is obsolete
+            if (!hash.valid()) {
+                return
+            }
+
+            for (let lang of Object.keys(paraphrase)) {
+                // disregard other information, such as status
+                if (Utils.Languages.has(lang as LanguageCode)) {
+                    let data: string = paraphrase[lang as LanguageCode] as string
+
+                    // skip if equal to the currently displayed source
+                    if (TextUtils.vagueEqual(data, hash.text)) {
+                        continue;
+                    }
+
+                    let ok: boolean = true
+                    for (let other of toDisplay) {
+                        if (TextUtils.vagueEqual(other, data)) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        toDisplay.push(data)
+                    }
+                }
+            }
+            logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
+
+            for (let data of toDisplay) {
+                $(this.paraphraserElement).append("<div>" + data + "</div>")
+            }
+            if (toDisplay.length == 0) {
+                $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
+            }
+        })
+
+        super.dispatch(request)
     }
 
     /**
@@ -99,8 +101,7 @@ export class Paraphraser extends AsyncMessage {
      * @param target Target textarea
      */
     constructor(
-        private source: JQuery<HTMLElement>,
-        private target: JQuery<HTMLElement>,
+        public source: JQuery<HTMLElement>,
         private paraphraserElement: JQuery<HTMLElement>,
         indicator: IndicatorManager) {
         super(indicator)
@@ -179,7 +180,7 @@ export interface ParaphraserBackend {
 }
 
 let indicator_paraphraser: IndicatorManager = new IndicatorManager($('#indicator_paraphraser'))
-let paraphraser: Paraphraser = new Paraphraser($('#input_source'), $('#input_target'), $('#input_para'), indicator_paraphraser)
+let paraphraser: Paraphraser = new Paraphraser($('#input_source'), $('#input_para'), indicator_paraphraser)
 
 // export the paraphraser singleton
 export { paraphraser }

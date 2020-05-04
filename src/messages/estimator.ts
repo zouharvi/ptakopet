@@ -1,6 +1,6 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
-import { Settings } from '../misc/settings'
+import { Settings, RequestHashTwo } from '../misc/settings'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager"
 import { aligner, Alignment } from "./aligner"
@@ -30,66 +30,65 @@ export class Estimator extends AsyncMessage {
     /**
      * Make an estimator request
      */
-    estimate = () => {
+    public async estimate() {
         if (!this.running) {
             return
         }
 
         // Check whether the backend supports this language pair
-        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
-            let curLang1: LanguageCode = Settings.language1 as LanguageCode
-            let curLang2: LanguageCode = Settings.language2 as LanguageCode
-            let curSource: string = $(this.source).val() as string
-            let curTarget: string = $(this.target).val() as string
-
-            let request = Settings.backendEstimator.composeRequest(
-                Settings.language1 as LanguageCode,
-                Settings.language2 as LanguageCode,
-                curSource,
-                curTarget,
-                translator_source.curExtra)
-
-            request.then(async (estimation: Estimation) => {
-                if (estimation.length == 0) {
-                    // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
-                    return
-                }
-
-                if (Settings.language1 != curLang1 || Settings.language2 != curLang2
-                    || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
-                    // Make sure that we drop the pending quality estimation after lang switch
-                    return
-                }
-                this.curEstimation = estimation
-                let tokenizationSource = await tokenizer.tokenize(curSource, Settings.language2 as LanguageCode)
-                let tokenizationTarget = await tokenizer.tokenize(curTarget, Settings.language1 as LanguageCode)
-                highlighter_target.highlight(estimation, tokenizationTarget)
-                logger.log(logger.Action.ESTIMATE, { estimation: estimation.join(' ') })
-
-                let alignment = await aligner.align()
-
-                if (Settings.language1 != curLang1 || Settings.language2 != curLang2
-                    || $(this.source).val() != curSource || $(this.target).val() != curTarget) {
-                    // Make sure that we drop the pending quality estimation after lang switch
-                    return
-                }
-
-                let intensities = Estimator.computeSourceComplexity(alignment, estimation, tokenizationSource)
-                highlighter_source.highlight(intensities, tokenizationSource)
-            })
-
-            super.dispatch(request)
-        } else {
+        if (!Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1 as LanguageCode, Settings.language2 as LanguageCode])) {
             // The estimator does not support this language pair, skipping
             console.warn("The estimator does not support this language pair, skipping")
+            return
         }
+
+        let hash = new RequestHashTwo(this)
+
+        let alignment = await aligner.align()
+
+        let request = Settings.backendEstimator.composeRequest(
+            [Settings.language1, Settings.language2] as [LanguageCode, LanguageCode],
+            [hash.curSource, hash.curTarget],
+            { ...translator_source.curExtra, alignment: alignment })
+
+
+        request.then(async (estimation: Estimation) => {
+            if (estimation.length == 0) {
+                // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
+                return
+            }
+
+            // Make sure that we drop the pending quality estimation after lang switch
+            if (!hash.valid()) {
+                return
+            }
+
+            this.curEstimation = estimation
+            let tokenizationSource = await tokenizer.tokenize(hash.curSource, Settings.language2 as LanguageCode)
+            let tokenizationTarget = await tokenizer.tokenize(hash.curTarget, Settings.language1 as LanguageCode)
+            highlighter_target.highlight(estimation, tokenizationTarget)
+            logger.log(logger.Action.ESTIMATE, { estimation: estimation.join(' ') })
+
+            // Make sure that we drop the pending quality estimation after lang switch
+            if (!hash.valid()) {
+                return
+            }
+
+            let intensities = Estimator.computeSourceComplexity(alignment, estimation, tokenizationSource)
+            highlighter_source.highlight(intensities, tokenizationSource)
+        })
+
+        super.dispatch(request)
     }
 
     /**
      * @param source Source textarea
      * @param target Target textarea
      */
-    constructor(private source: JQuery<HTMLElement>, private target: JQuery<HTMLElement>, indicator: IndicatorManager) {
+    constructor(
+        public source: JQuery<HTMLElement>,
+        public target: JQuery<HTMLElement>,
+        indicator: IndicatorManager) {
         super(indicator)
     }
 
@@ -114,12 +113,12 @@ export class Estimator extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: EstimatorBackend } = {
         openkiwi: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/openkiwi",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        data: { sourceLang: lang1, targetLang: lang2, sourceText: text1.replace(/\n/, " "), targetText: text2.replace(/\n/, " ") },
                         async: true,
                     })
                         .done((data: EstimationResponse) => {
@@ -138,12 +137,12 @@ export class Estimator extends AsyncMessage {
         },
 
         questplusplus: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/questplusplus",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        data: { sourceLang: lang1, targetLang: lang2, sourceText: text1.replace(/\n/, " "), targetText: text2.replace(/\n/, " ") },
                         async: true,
                     })
                         .done((data: EstimationResponse) => {
@@ -162,12 +161,12 @@ export class Estimator extends AsyncMessage {
         },
 
         deepquest: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/qe/deepquest",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText.replace(/\n/, " "), targetText: targetText.replace(/\n/, " ") },
+                        data: { sourceLang: lang1, targetLang: lang2, sourceText: text1.replace(/\n/, " "), targetText: text2.replace(/\n/, " ") },
                         async: true,
                     })
                         .done((data: EstimationResponse) => {
@@ -186,9 +185,9 @@ export class Estimator extends AsyncMessage {
         },
 
         random: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
-                    let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
+                    let tokens = await tokenizer.tokenize(text2, Settings.language2 as LanguageCode)
                     let estimation: Estimation = []
                     for (let i in tokens) {
                         estimation.push(Math.random())
@@ -201,9 +200,9 @@ export class Estimator extends AsyncMessage {
         },
 
         manual: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
-                    let tokens = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
+                    let tokens = await tokenizer.tokenize(text2, Settings.language2 as LanguageCode)
 
                     let zeroes: Estimation = []
                     for (let i = 0; i < tokens.length; i++) {
@@ -239,7 +238,7 @@ export class Estimator extends AsyncMessage {
         },
 
         none: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo): Promise<Estimation> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     resolve([])
                 })
@@ -252,7 +251,7 @@ export class Estimator extends AsyncMessage {
 
 export interface EstimatorBackend {
     // Return a finished promise object, which can later be resolved
-    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string, extra: ExtraTranslationInfo) => Promise<Estimation>,
+    composeRequest: ([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo) => Promise<Estimation>,
 
     // Array of available languages to this backend
     languages: Set<[LanguageCode, LanguageCode]>,

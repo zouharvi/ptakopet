@@ -23,15 +23,14 @@ export class Aligner {
             return new Promise<Alignment>((resolve, reject) => { resolve([]) })
         } else {
             let request = Settings.backendAligner.composeRequest(
-                Settings.language1 as LanguageCode,
-                Settings.language2 as LanguageCode,
-                $(this.source).val() as string,
-                $(this.target).val() as string)
+                [Settings.language1, Settings.language1] as [LanguageCode, LanguageCode],
+                [$(this.source).val(), $(this.target).val()] as [string, string]
+            )
             request.then((alignment: Alignment) => {
                 let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join(' ')
                 logger.log(logger.Action.ALIGN, { alignment: stringified })
             })
-            return request                
+            return request
         }
     }
 
@@ -61,16 +60,16 @@ export class Aligner {
     // Target HTML elements
     public source: JQuery<HTMLElement>
     public target: JQuery<HTMLElement>
-    
+
     // Object of available backends and their implementations
     public static backends: { [index: string]: AlignerBackend } = {
         fastAlign: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/align/fast_align",
-                        data: { sourceLang: sourceLang, targetLang: targetLang, sourceText: sourceText, targetText: targetText },
+                        data: { sourceLang: lang1, targetLang: lang2, sourceText: text1, targetText: text2 },
                         async: true,
                     })
                         .done((data: AlignmentResponse) => {
@@ -93,11 +92,11 @@ export class Aligner {
         },
 
         diagonal: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]): Promise<Alignment> {
                 return new Promise<Alignment>(async (resolve, reject) => {
                     let alignment: Alignment = []
-                    let tokens1: Array<string> = await tokenizer.tokenize(sourceText, Settings.language1 as LanguageCode)
-                    let tokens2: Array<string> = await tokenizer.tokenize(targetText, Settings.language2 as LanguageCode)
+                    let tokens1: Array<string> = await tokenizer.tokenize(text1, Settings.language1 as LanguageCode)
+                    let tokens2: Array<string> = await tokenizer.tokenize(text2, Settings.language2 as LanguageCode)
 
                     for (let i: number = 0; i < tokens1.length; i++) {
                         alignment.push([i, Math.min(i, tokens2.length - 1)])
@@ -111,7 +110,7 @@ export class Aligner {
         },
 
         none: {
-            composeRequest(sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string): Promise<Alignment> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
                     resolve([])
                 })
@@ -124,7 +123,7 @@ export class Aligner {
 
 export interface AlignerBackend {
     // Return a finished promise object, which can later be resolved
-    composeRequest: (sourceLang: LanguageCode, targetLang: LanguageCode, sourceText: string, targetText: string) => Promise<Alignment>,
+    composeRequest: ([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]) => Promise<Alignment>,
 
     // Array of available languages to this backend
     languages: Set<[LanguageCode, LanguageCode]>,

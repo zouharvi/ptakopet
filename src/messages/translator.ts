@@ -52,7 +52,7 @@ export abstract class Translator extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: TranslatorBackend } = {
         ufalTransformer: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
                         resolve(['', undefined])
@@ -62,7 +62,7 @@ export abstract class Translator extends AsyncMessage {
                         headers: {
                             Accept: "application/json",
                         },
-                        data: { src: sourceLang, tgt: targetLang, input_text: text },
+                        data: { src: lang1, tgt: lang2, input_text: text },
                         async: true,
                     })
                         .done((data: Array<string>) => resolve([data.join(' ').replace(/\n$/, ''), undefined]))
@@ -74,7 +74,7 @@ export abstract class Translator extends AsyncMessage {
             name: 'ÚFAL Translation',
         },
         neurotolge: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
                         resolve(['', undefined])
@@ -84,7 +84,7 @@ export abstract class Translator extends AsyncMessage {
                         headers: {
                             Accept: "application/json",
                         },
-                        data: { auth: "public", conf: targetLang, src: text },
+                        data: { auth: "public", conf: lang2, src: text },
                         async: true,
                     })
                         .done((data: any) => resolve([data['tgt'], undefined]))
@@ -96,13 +96,13 @@ export abstract class Translator extends AsyncMessage {
             name: 'Neurotõlge',
         },
         questENET: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
                         resolve(['', undefined])
                     $.ajax({
                         type: "GET",
-                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${sourceLang}-${targetLang}`,
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${lang1}-${lang2}`,
                         data: { text: text },
                         async: true,
                     })
@@ -115,7 +115,7 @@ export abstract class Translator extends AsyncMessage {
             name: 'Quest EN-ET',
         },
         identity: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve([text, undefined]))
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
@@ -123,7 +123,7 @@ export abstract class Translator extends AsyncMessage {
             name: 'Identity',
         },
         weakENCS: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
                         resolve(['', undefined])
@@ -131,7 +131,7 @@ export abstract class Translator extends AsyncMessage {
                         type: "POST",
                         contentType: "application/x-www-form-urlencoded",
                         dataType: "json",
-                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${sourceLang}-${targetLang}`,
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}`,
                         data: { input_text: text },
                         crossDomain: true,
                         accepts: {
@@ -152,7 +152,7 @@ export abstract class Translator extends AsyncMessage {
         },
 
         none: {
-            composeRequest(text: string, sourceLang: LanguageCode, targetLang: LanguageCode): Promise<[string, ExtraTranslationInfo]> {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve(['', undefined]))
             },
             languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
@@ -176,9 +176,9 @@ export class TranslatorSource extends Translator {
         this.curSource = $(this.source).val() as string
 
         let request = Settings.backendTranslator.composeRequest(
-            this.curSource,
-            Settings.language1 as LanguageCode,
-            Settings.language2 as LanguageCode)
+            [Settings.language1, Settings.language2] as [LanguageCode, LanguageCode],
+            this.curSource
+        )
 
         request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
@@ -220,9 +220,9 @@ export class TranslatorTarget extends Translator {
 
         let targetText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
-            this.curSource,
-            Settings.language2 as LanguageCode,
-            Settings.language1 as LanguageCode)
+            [Settings.language2, Settings.language1] as [LanguageCode, LanguageCode],
+            this.curSource
+        )
         request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
             this.curTranslation = text
@@ -242,7 +242,7 @@ export class TranslatorTarget extends Translator {
 
 export interface TranslatorBackend {
     // Return a finished promise settings object, which can later be resolved
-    composeRequest: (text: string, sourceLang: LanguageCode, targetLang: LanguageCode) => Promise<[string, ExtraTranslationInfo]>,
+    composeRequest: ([lang1, lang2]: [LanguageCode, LanguageCode], text: string) => Promise<[string, ExtraTranslationInfo]>,
 
     // Array of available languages to this backend
     languages: Set<[LanguageCode, LanguageCode]>,

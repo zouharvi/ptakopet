@@ -17,3 +17,50 @@ export class Settings {
     public static language1?: LanguageCode
     public static language2?: LanguageCode
 }
+
+export class RequestHashTwo {
+    public curLang1: LanguageCode
+    public curLang2: LanguageCode
+    public curSource: string
+    public curTarget: string
+
+    public constructor(private object: { source: JQuery<HTMLElement>, target: JQuery<HTMLElement> }) {
+        this.curSource = $(object.source).val() as string
+        this.curTarget = $(object.target).val() as string
+        this.curLang2 = Settings.language2 as LanguageCode
+        this.curLang1 = Settings.language1 as LanguageCode
+    }
+
+    public valid(): boolean {
+        if (Settings.language1 != this.curLang1)
+            return false
+        if ($(this.object.source).val() != this.curSource)
+            return false
+
+        if (Settings.language2 != this.curLang2)
+            return false
+        if ($(this.object.target).val() != this.curTarget)
+            return false
+
+        return true
+    }
+}
+
+export class RequestHashOne {
+    public lang: LanguageCode
+    public text: string
+
+    public constructor(private object: { source: JQuery<HTMLElement> }) {
+        this.text = $(object.source).val() as string
+        this.lang = Settings.language1 as LanguageCode
+    }
+
+    public valid(): boolean {
+        if (Settings.language1 != this.lang)
+            return false
+        if ($(this.object.source as JQuery<HTMLElement>).val() != this.text)
+            return false
+
+        return true
+    }
+}
