@@ -15,25 +15,25 @@ export class Waiter {
 
     private localStorageID: string | null = null
 
-    constructor(
-        private textContainer: JQuery<HTMLElement>,
-        private instructionsContainer: JQuery<HTMLElement>,
-        okButtonsParent: JQuery<HTMLElement>,
-        private skipButton: JQuery<HTMLElement>,
-        private joinButton: JQuery<HTMLElement>,
-        private studyParent: JQuery<HTMLElement>,
-        private moduleMainContent: JQuery<HTMLElement>,
-    ) {
+    private textContainer: JQuery<HTMLElement> = $('#study_text')
+    private instructionsContainer: JQuery<HTMLElement> = $('#study_instructions')
+    private studyProgress: JQuery<HTMLElement> = $('#study_progress')
+    private okButtonsParent: JQuery<HTMLElement> = $('#study_ok_buttons')
+    private skipButton: JQuery<HTMLElement> = $('#study_skip_button')
+    private joinButton: JQuery<HTMLElement> = $('#join_study_button')
+    private studyParent: JQuery<HTMLElement> = $('#study_content_block')
+    private moduleMainContent: JQuery<HTMLElement> = $('#module_main_content')
 
-        $(joinButton).click(() => this.joinStudy())
+    constructor() {
+        $(this.joinButton).click(() => this.joinStudy())
 
         // $(okButton).click(() => this.nextOk())
-        for (let okChild of $(okButtonsParent).children()) {
+        for (let okChild of $(this.okButtonsParent).children()) {
             $(okChild).click(() => this.nextOk($(okChild).val() as number))
         }
 
         // lambda is used here to capture 'this' context
-        $(skipButton).click(() => this.nextOk(undefined))
+        $(this.skipButton).click(() => this.nextOk(undefined))
     }
 
     /**
@@ -178,6 +178,8 @@ export class Waiter {
      * Display the current question
      */
     private serveQuestion(): void {
+        this.studyProgress.text(`Progress: ${this.bakedIndex+1}/${this.bakedQueue.length}, Block: ${this.bakedBlock+1}/${this.bakedQueueAll.length}`)
+
         let question: [string, string] = this.bakedQueue[this.bakedIndex]
         let qID: string = question[0]
         let formattedText: string = question[1]
@@ -222,15 +224,7 @@ export class Waiter {
     }
 }
 
-let waiter: Waiter = new Waiter(
-    $('#study_text'),
-    $('#study_instructions'),
-    $('#study_ok_buttons'),
-    $('#study_skip_button'),
-    $('#join_study_button'),
-    $('#study_content_block'),
-    $('#module_main_content'),
-)
+let waiter: Waiter = new Waiter()
 
 //$(waiter.joinButton).trigger('click') // for temporary debug purposes
 

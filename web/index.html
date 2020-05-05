@@ -22,56 +22,59 @@
 </head>
 
 <body style='overflow-x: hidden; margin: 0; margin-bottom: 20px; background-color: #f4f4f4;'>
-        <div id='burger_main_side'>
-            <div id='burger_back_div'>
-                <img id='burger_back_arrow' src="img/iconmonstr-arrow-25.svg" />
-                <span style='font-size: 1.6em; margin-left: 50px;'>Settings</span>
-            </div>
-            <div id='burger_settings'>
-                <p>Translator backend: </p>
-                <div>
-                    <select id='backend_translator'></select>
-                </div>
-    
-                <p>Quality estimator backend: </p>
-                <div>
-                    <select id='backend_estimator'> </select>
-                </div>
-    
-                <p>Paraphraser backend: </p>
-                <div>
-                    <select id='backend_paraphraser'> </select>
-                </div>
-    
-                <p>Alignment backend: </p>
-                <div>
-                    <select id='backend_aligner'></select>
-                </div>
-    
-                <p>Tokenization backend: </p>
-                <div>
-                    <select id='backend_tokenizer'></select>
-                </div>
-    
-                <a href='https://github.com/zouharvi/ptakopet' style='display: block; margin-top: 50px;'>About Ptakopět</a>
-            </div>
+    <div id='burger_main_side'>
+        <div id='burger_back_div'>
+            <img id='burger_back_arrow' src="img/iconmonstr-arrow-25.svg" />
+            <span style='font-size: 1.6em; margin-left: 50px;'>Settings</span>
         </div>
+        <div id='burger_settings'>
+            <p>Translator backend: </p>
+            <div>
+                <select id='backend_translator'></select>
+            </div>
+
+            <p>Quality estimator backend: </p>
+            <div>
+                <select id='backend_estimator'> </select>
+            </div>
+
+            <p>Paraphraser backend: </p>
+            <div>
+                <select id='backend_paraphraser'> </select>
+            </div>
+
+            <p>Alignment backend: </p>
+            <div>
+                <select id='backend_aligner'></select>
+            </div>
+
+            <p>Tokenization backend: </p>
+            <div>
+                <select id='backend_tokenizer'></select>
+            </div>
+
+            <a href='https://github.com/zouharvi/ptakopet' style='display: block; margin-top: 50px;'>About Ptakopět</a>
+        </div>
+    </div>
 
     <h1 id='title_name'>
         <input id='burger_show_arrow' type="image" src="img/iconmonstr-menu-1.svg" />
         <img id='ptakopet_logo' src='img/ptakopet_logo.svg' style='width: 130px;' alt='Ptakopět title logo'>
         <a href='http://browser.mt'>
-            <img src='img/bergamot_logo.svg' style='float: right; width: 125px; margin-right: 40px;' alt='Bergamot title logo'>
+            <img src='img/bergamot_logo.svg' style='float: right; width: 125px; margin-right: 40px;'
+                alt='Bergamot title logo'>
         </a>
     </h1>
 
     <div id='main_content'>
         <div id='study_content_block' style='display: none; vertical-align: top;'>
             <div style='margin-bottom: 20px;'>
-                <div id='study_instructions' style='float: left; width: calc(100% - 165px); text-align: left; margin-left: 10px;'>
+                <div id='study_instructions'
+                    style='float: left; text-align: left; margin-left: 10px;'>
                     Translate the following text:
                 </div>
-                <div style='float: right; width: 150px; text-align: right;'>
+                <div style='float: right; width: 190px; text-align: right;'>
+                    <div id='study_progress' style='margin-bottom: 5px;'>Progress: 5/20, Block: 0/3</div>
                     <span style='margin-right: 8px;'>Confidence:</span>
                     <input id='study_skip_button' type='button' value='SKIP'>
                     <!-- <input id='study_ok_button' type='button' value='OK'> -->
@@ -110,12 +113,12 @@
                 <textarea tabindex='2' id='input_target' spellcheck="false" class='hwt-content'></textarea>
             </div>
 
-            <div id='input_back_block'  class='content_block' style='max-width: 470px;'>
+            <div id='input_back_block' class='content_block' style='max-width: 470px;'>
                 <div>Backward translation:</div>
                 <textarea disabled id='input_back' spellcheck="false" class='hwt-content-disabled'></textarea>
             </div>
 
-            <div id='input_para_block'  class='content_block' style='max-width: 470px;'>
+            <div id='input_para_block' class='content_block' style='max-width: 470px;'>
                 <div>Paraphrases:
                     <div id='indicator_paraphraser' class="loader"></div>
                     <img id='warning_paraphraser' class='settings_warning' src='img/iconmonstr-warning-5.svg'
@@ -123,7 +126,8 @@
                 </div>
                 <div id='input_para'></div>
             </div>
-            <input id='join_study_button' type='button' style='display: block; margin: auto; margin-top: 50px;' value='Enter experiment'>
+            <input id='join_study_button' type='button' style='display: block; margin: auto; margin-top: 50px;'
+                value='Enter experiment'>
         </div>
     </div>
 
