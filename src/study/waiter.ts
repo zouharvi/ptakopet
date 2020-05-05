@@ -5,12 +5,13 @@ import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { SettingsProfile, SettingsProfiles } from '../misc/settings_profiles'
 import { baked_study } from './baked_study'
 import { paraphraser } from '../messages/paraphraser'
-import { aligner } from '../messages/aligner'
 
 export class Waiter {
     public bakedQueue: Array<[string, string]> = []
+    public bakedQueueAll: Array<Array<string>> = []
     public bakedIndex: number = 0
-    public userID: string | null = null
+    public bakedBlock: number = 0
+    public userID: string = 'default'
 
     private localStorageID: string | null = null
 
@@ -20,7 +21,7 @@ export class Waiter {
         okButtonsParent: JQuery<HTMLElement>,
         private skipButton: JQuery<HTMLElement>,
         private joinButton: JQuery<HTMLElement>,
-        private studyBlock: JQuery<HTMLElement>,
+        private studyParent: JQuery<HTMLElement>,
         private moduleMainContent: JQuery<HTMLElement>,
     ) {
 
@@ -45,25 +46,24 @@ export class Waiter {
         if (userID == null) {
             return
         }
+
         if (!baked_study.users.hasOwnProperty(userID)) {
-            alert('Unknown userID. Falling back to public version.')
-            logger.on(false)
+            alert(`Unknown userID "${userID}". Login forbidden.`)
             return
         }
 
         this.userID = userID
-        this.localStorageID = 'ptakopet_progress_' + (this.userID as string)
         logger.on(true)
-        let keys = baked_study.users[this.userID].bakedQueue
 
-        for (let key in keys) {
-            let qID = keys[key]
-            let qIDbare = qID
-            if(qID.indexOf('#') != -1) {
-                qIDbare = qID.substring(0, qID.indexOf('#'))
-            }
-            this.bakedQueue.push([qID, baked_study.stimuli[qIDbare]])
+        this.localStorageID = `ptakopet_progress_${this.userID}`;
+        [this.bakedIndex, this.bakedBlock] = this.getProgress()
+        this.bakedQueueAll = baked_study.users[this.userID]
+        if (this.bakedQueueAll.length <= this.bakedBlock) {
+            alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nLogin forbidden.`)
+            return
         }
+
+        this.generateCurrentQueue()
 
         logger.log(logger.Action.START,
             {
@@ -72,33 +72,68 @@ export class Waiter {
             }
         )
 
-        $(this.studyBlock).show()
+        $(this.studyParent).show()
         $(this.joinButton).hide()
         $(this.moduleMainContent).attr('study_active', '')
-
-        SettingsProfiles.setSettingsTag('edin')
-
-        let tmpDataIndex: string | null = window.localStorage.getItem(this.localStorageID)
-        if (tmpDataIndex == null) {
-            window.localStorage.setItem(this.localStorageID, this.bakedIndex.toString())
-        } else {
-            this.bakedIndex = parseInt(tmpDataIndex)
-        }
 
         // reset question index
         this.serveQuestion()
     }
 
+    private generateCurrentQueue() {
+        let keys = baked_study.users[this.userID][this.bakedBlock]
+        this.bakedQueue = []
+        for (let key in keys) {
+            let qID = keys[key]
+            let qIDbare = qID
+            if (qID.indexOf('#') != -1) {
+                qIDbare = qID.substring(0, qID.indexOf('#'))
+            }
+            this.bakedQueue.push([qID, baked_study.stimuli[qIDbare]])
+        }
+    }
+
+    private getProgress(): [number, number] {
+        let progressRaw: string | null = window.localStorage.getItem(this.localStorageID as string)
+        if (progressRaw == null) {
+            let progress = { index: 0, block: 0 }
+            window.localStorage.setItem(this.localStorageID as string, JSON.stringify(progress))
+            return [0, 0]
+        } else {
+            let progress: { index: number, block: number } = JSON.parse(progressRaw)
+            return [progress.index, progress.block]
+        }
+    }
+
+    private saveProgress(): void {
+        let progressRaw: string | null = window.localStorage.getItem(this.localStorageID as string)
+        if (progressRaw == null) {
+            throw new Error(`Tried to update block to ${this.bakedBlock}, but no local storage found.`)
+        } else {
+            let progress = { index: this.bakedIndex, block: this.bakedBlock }
+            window.localStorage.setItem(this.localStorageID as string, JSON.stringify(progress))
+        }
+    }
+
     /**
      * Tries to advance the question index 
      */
-    private advanceIndex(): void {
+    private advanceIndex(): boolean {
         this.bakedIndex += 1
         if (this.bakedIndex == this.bakedQueue.length) {
-            logger.log(logger.Action.END, {})
-            alert('Testing finished. Thank you. | Konec testování. Děkujeme.')
+            this.bakedBlock += 1
             this.bakedIndex = 0
+            this.saveProgress()
+            if (this.bakedBlock == this.bakedQueueAll.length) {
+                logger.log(logger.Action.END, {})
+                alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
+                return false
+            } else {
+                alert(`Block progress: ${this.bakedBlock}/${this.bakedQueueAll.length}. Please continue.`)
+                this.generateCurrentQueue()
+            }
         }
+        return true
     }
 
     /**
@@ -107,7 +142,7 @@ export class Waiter {
     public nextOk(value?: number): void {
         if (value == undefined) {
             // User tries to skip the current question
-            let reason = prompt("Reason: | Důvod: ")
+            let reason = prompt("Reason: ")
             logger.log(logger.Action.CONFIRM_SKIP,
                 {
                     text1: translator_source.curSource,
@@ -131,8 +166,12 @@ export class Waiter {
             )
         }
 
-        this.advanceIndex()
-        this.serveQuestion()
+        let serveNext = this.advanceIndex()
+        if (serveNext) {
+            this.serveQuestion()
+        } else {
+            window.setTimeout(() => window.location.reload(), 1000)
+        }
     }
 
     /**
@@ -179,7 +218,7 @@ export class Waiter {
                 questionKey: this.bakedQueue[this.bakedIndex][0],
             }
         )
-        window.localStorage.setItem(this.localStorageID as string, this.bakedIndex.toString())
+        this.saveProgress()
     }
 }
 

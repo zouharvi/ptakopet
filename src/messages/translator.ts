@@ -71,7 +71,7 @@ export abstract class Translator extends AsyncMessage {
             },
             languages: Utils.generatePairsArray<LanguageCode>(['cs', 'en', 'fr', 'de'], false),
             default: ['cs', 'en'],
-            name: 'ÚFAL Translation',
+            name: 'LINDAT Translation',
         },
         neurotolge: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
@@ -114,14 +114,6 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'et'],
             name: 'Quest EN-ET',
         },
-        identity: {
-            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
-                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve([text, undefined]))
-            },
-            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
-            default: ['en', 'cs'],
-            name: 'Identity',
-        },
         weakENCS: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
@@ -150,7 +142,14 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'cs'],
             name: 'Weak EN-CS',
         },
-
+        identity: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve([text, undefined]))
+            },
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, true),
+            default: ['en', 'cs'],
+            name: 'Identity',
+        },
         none: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => resolve(['', undefined]))

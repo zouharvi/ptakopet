@@ -5,7 +5,7 @@ import { Utils } from '../misc/utils'
  * session id generation which is used to separate data between instances.
  */
 
-export enum LogAction { 
+export enum LogAction {
     START, END,
     NEXT,
     CONFIRM_OK, CONFIRM_SKIP,
@@ -26,7 +26,7 @@ export class Logger {
     constructor() {
         this.sessionID = Utils.randomString(10)
     }
-   
+
     /**
      * Switch Logger globally on or off
      */
@@ -37,7 +37,7 @@ export class Logger {
     /**
      * Log extra
      */
-    public log(action: LogAction, extra: object = {}) : void {
+    public log(action: LogAction, extra: object = {}): void {
         if (this.running) {
             this.dispatch(action, extra)
         }
@@ -46,11 +46,11 @@ export class Logger {
     /**
      * Send logged data to the loggin server
      */
-    private dispatch(action: LogAction, extra: object) : void {
+    private dispatch(action: LogAction, extra: object): void {
         // Reverse enum mapping is not guaranteed!
         let data = {
             sessionID: this.sessionID,
-            userID: (waiter.userID ? waiter.userID : 'default'),
+            userID: waiter.userID + '-' + waiter.bakedBlock,
             action: LogAction[action],
             // Date.now() returns epoch number in milliseconds
             time: Date.now(),

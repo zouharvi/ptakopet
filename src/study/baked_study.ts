@@ -3,7 +3,7 @@ import { SettingsProfile } from '../misc/settings_profiles.js'
 
 interface BakedStudyType {
     users: {
-        [id: string]: { bakedQueue: Array<string>}
+        [id: string]: Array<Array<string>>
     },
     stimuli: { [id: string]: string },
     stimuliRules: {

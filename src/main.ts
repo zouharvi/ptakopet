@@ -78,14 +78,16 @@ if ('userID' in params) {
 
 // Burger menu
 
-$('#burger_back_div').click(() => {
-    $('#burger_main').hide()
-})
-
-$('#burger_rest').click(() => {
-    $('#burger_main').hide()
+$("body > *").not("body > #burger_main_side").click((event: JQuery.ClickEvent<HTMLElement, null, HTMLElement>) => {
+    if (event.target.id == 'burger_show_arrow')
+        return
+    $('#burger_main_side').hide()
 })
 
 $('#burger_show_arrow').click(() => {
-    $('#burger_main').show()
+    $('#burger_main_side').show()
+})
+
+$('#burger_back_arrow').click(() => {
+    $('#burger_main_side').hide()
 })

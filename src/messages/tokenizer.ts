@@ -43,23 +43,6 @@ export class Tokenizer {
             },
             name: 'Moses',
         },
-
-        local: {
-            async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
-                //  Tokenize input string according to some basic rules (collapse whitespace, newlines etc)
-                //  This is sometimes used for debugging just because it is local and fast
-                return new Promise<Tokenization>((resolve, reject) => {
-                    let res: Array<string> = TextUtils.clean(text).split(/[\s\n\'\"]+/)
-
-                    // special case for empty string
-                    if (res.length == 1 && res[0] == "") {
-                        return []
-                    }
-                    resolve(res)
-                })
-            },
-            name: 'Local',
-        },
         space: {
             async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
                 //  Tokenize input string according to whitespaces
@@ -75,6 +58,22 @@ export class Tokenizer {
                 })
             },
             name: 'Spaces',
+        },
+        local: {
+            async composeRequest(text: string, lang: LanguageCode): Promise<Tokenization> {
+                //  Tokenize input string according to some basic rules (collapse whitespace, newlines etc)
+                //  This is sometimes used for debugging just because it is local and fast
+                return new Promise<Tokenization>((resolve, reject) => {
+                    let res: Array<string> = TextUtils.clean(text).split(/[\s\n\'\"]+/)
+
+                    // special case for empty string
+                    if (res.length == 1 && res[0] == "") {
+                        return []
+                    }
+                    resolve(res)
+                })
+            },
+            name: 'Local',
         },
     }
 }
