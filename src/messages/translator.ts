@@ -123,7 +123,7 @@ export abstract class Translator extends AsyncMessage {
                         type: "POST",
                         contentType: "application/x-www-form-urlencoded",
                         dataType: "json",
-                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}`,
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}_weak`,
                         data: { input_text: text },
                         crossDomain: true,
                         accepts: {
@@ -141,6 +141,34 @@ export abstract class Translator extends AsyncMessage {
             languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
             default: ['en', 'cs'],
             name: 'Weak EN-CS',
+        },
+        strongENCS: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
+                    if (text == '')
+                        resolve(['', undefined])
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        dataType: "json",
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}`,
+                        data: { input_text: text },
+                        crossDomain: true,
+                        accepts: {
+                            text: "application/json",
+                        },
+                        async: true,
+                    })
+                        .done((result) => {
+                            let text = result.map((x: any) => x.sent).join(' ')
+                            resolve([text, result as ExtraTranslationInfo])
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
+            default: ['en', 'cs'],
+            name: 'Strong EN-CS',
         },
         identity: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
