@@ -227,8 +227,9 @@
         "s59": "<p>The name iPod was proposed by Vinnie Chieco, a freelance copywriter, who (with others) was called by Apple to figure out how to introduce the new player to the public. After Chieco saw a prototype, he thought of the movie <mark>2001: A Space Odyssey</mark> and the phrase \"Open the pod bay door, Hal!\", which refers to the white EVA Pods of the Discovery One spaceship. Chieco saw an analogy to the relationship between the spaceship and the smaller independent pods in the relationship between a personal computer and the music player. Apple researched the trademark and found that it was already in use. Joseph N. Grasso of New Jersey had originally listed an \"iPod\" trademark with the U.S. Patent and Trademark Office (USPTO) in July 2000 for Internet kiosks. The first iPod kiosks had been demonstrated to the public in New Jersey in March 1998, and commercial use began in January 2000, but had apparently been discontinued by 2001. The trademark was registered by the USPTO in November 2003, and Grasso assigned it to Apple Computer, Inc. in 2005.</p>",
         "z59": "<p>Jméno iPod navrhl Vinnie Chieco, textař na volné noze, který (spolu s ostatními) byl společností Apple vyzván, aby přišel na to, jak nového hráče představit veřejnosti. Když Chieco viděl prototyp, vzpomněl si na film <mark>2001: Vesmírná odysea</mark> a věta \"Otevři dveře doku, Hale!\", která odkazuje na bílé EVA moduly kosmické lodi Discovery One. Chieco spatřoval analogii vztahu mezi kosmickou lodí a menšími nezávislými moduly ve vztahu mezi osobním počítačem a hudebním přehrávačem. Apple prozkoumal ochrannou známku a zjistil, že je již používána. Joseph N. Grasso z New Jersey měl původně na seznamu ochrannou známku \"iPod\" s USA. Patent and Trademark Office (USPTO) v červenci 2000 pro internetové kiosky. První iPod kiosky byly předvedeny veřejnosti v New Jersey v březnu 1998 a komerční využití začalo v lednu 2000, ale do roku 2001 bylo zřejmě ukončeno. Ochranná známka byla zaregistrována USPTO v listopadu 2003 a společnost Grasso ji přidělila společnosti Apple Computer, Inc. v roce 2005.</p>"
     },
-    "stimuliRules": {
-        "t..": {
+    "stimuliRules": [
+        {
+            "rule": "t..",
             "message": "Ve stručnosti popište následující problém technické podpoře, která komunikuje pouze německy. Pokuste popsat problém tak, aby dle vašeho odhadu byl překlad co nejlepší.",
             "profile": {
                 "settings": {
@@ -245,7 +246,8 @@
                 "manual": false
             }
         },
-        "[szp]..": {
+        {
+            "rule": "[szp]..",
             "message": "Formulujte otázku, na kterou v kontextu věty a textu odpovídá zvýrazněná část. Pokuste se ji vytvořit tak, aby dle vašeho odhadu byl překlad co nejlepší.",
             "profile": {
                 "settings": {
@@ -262,5 +264,5 @@
                 "manual": false
             }
         }
-    }
+    ]
 }

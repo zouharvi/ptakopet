@@ -23,7 +23,7 @@ export class Aligner {
             return new Promise<Alignment>((resolve, reject) => { resolve([]) })
         } else {
             let request = Settings.backendAligner.composeRequest(
-                [Settings.language1, Settings.language1] as [LanguageCode, LanguageCode],
+                [Settings.language1, Settings.language2] as [LanguageCode, LanguageCode],
                 [$(this.source).val(), $(this.target).val()] as [string, string]
             )
             request.then((alignment: Alignment) => {

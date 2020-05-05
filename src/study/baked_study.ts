@@ -6,12 +6,11 @@ interface BakedStudyType {
         [id: string]: Array<Array<string>>
     },
     stimuli: { [id: string]: string },
-    stimuliRules: {
-        [id: string]: {
-            message?: string,
-            profile?: SettingsProfile,
-        }
-    },
+    stimuliRules: Array<{
+        rule: string,
+        message?: string,
+        profile?: SettingsProfile,
+    }>,
 }
 
 let baked_study = _baked_study_raw as BakedStudyType
