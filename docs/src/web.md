@@ -1,5 +1,3 @@
-DISCLAIMER: Information here is very much outdated.
-
 The code is hosted as [zouharvi/ptakopet](https://github.com/zouharvi/ptakopet)
 
 ## Build
@@ -14,13 +12,13 @@ npm install
 npm run build
 ```
 
-The file `dist/ptakopet-web.js` should now contain live code. You can run
+The file `dist/ptakopet-web.js` should now contain the code built in production mode. You can run
 
 ```
 npm run dev
 ```
 
-to rebuild the code each time one of the source files changes.
+to rebuild the code in develpoment mode each time one of the source files changes.
 
 ## Technical design
 

@@ -5,7 +5,9 @@ interface BakedStudyType {
     users: {
         [id: string]: Array<Array<string>>
     },
-    stimuli: { [id: string]: string },
+    stimuli: {
+        [id: string]: string
+    },
     stimuliRules: Array<{
         rule: string,
         message?: string,

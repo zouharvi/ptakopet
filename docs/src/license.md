@@ -1,3 +1,5 @@
+Incomplete list of used projects:
+
 Ptakopět-web depends on the following projects:
 - [jQuery](https://jquery.com/)
 - [TypeScript](https://www.typescriptlang.org/)

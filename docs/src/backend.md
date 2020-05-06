@@ -1,11 +1,8 @@
-DISCLAIMER: Information here is very much outdated.
-
 The code is hosted as [zouharvi/ptakopet-server](https://github.com/zouharvi/ptakopet-server)
 
 ## Build
 
-The multiservice backend is stitched from multiple projects. The server itself is written in Python3 with Flask WSGI, fast_align is C/C++, QuEst++ uses Java and Python2 and deepQuest Python3 with Tensorflow. Since the setup for each project is quite cumbersome, ptakopet-server ships with auto install bash script, which checks for dependencies and fetches all necessary files. To build the multiservice backend, execute the following lines of code:
-
+The multiservice backend is stitched from multiple projects. The server itself is written in Python 3 with Flask WSGI, fast_align is C/C++, QuEst++ uses Java and Python 2 and deepQuest Python3 with Tensorflow. Since the setup for each project is quite cumbersome, ptakopet-server ships with auto install bash script, which checks for dependencies and fetches all necessary files. To build the multiservice backend, execute the following lines of code:
 
 ```
 git clone https://github.com/zouharvi/ptakopet-server
@@ -56,8 +53,10 @@ The REST urls are as follows:
 - `/qe/questplusplus` for QuEst++ quality estimation
 - `/qe/deepQuest` for deepQuest quality estimation
 - `/align/fast_align` for fast_align alignment
+- `/tokenize/moses` for Moses tokenization
+- `/paraphrase/mock` for slow mockup paraphgrasing
 
-The valid responses is always in this JSON Schema (either `qe` or `alignment` is used):
+The valid responses is always in this JSON Schema (either `qe`, `alignment`, `tokenization` or `paraphrases` is used):
 
 ```
 
@@ -73,6 +72,18 @@ The valid responses is always in this JSON Schema (either `qe` or `alignment` is
     },
     "alignment": {
       "type": "array",
+      "items": {
+        "type": "string"
+      },
+    },
+    "tokenize": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+    },
+    "paraphrases": {
+      "type": "object",
       "items": {
         "type": "string"
       },

@@ -9,7 +9,7 @@ The progress per user is stored in local storage of the browser, so users should
 3. Stimulus is shown
 4. User tries to respond to the stimulus by input in one of the forms
 5. A response is shown (backward translation, quality estimation, paraphrasing)
-6. - If the user is satisfied, the click one of the button on the goodness palette (`1`, `2`, `3`, `4`, `5`)
+6. - If the user is satisfied, the click one of the button on the goodness palette (`1` to `5`)
    - If the they are not satisfied, they can change the input (__5.__)
    - If there is a problem, they can click `SKIP` and describe the issue
 7. Another stimulus is shown (__3__) from the baked queue (if not empty)
@@ -35,9 +35,10 @@ The experiment can be described by a single JSON file with the following schema:
     },
     "users": {
         ...,
-        "userID": {
-            "bakedQueue": ["sID", "sID", ...],
-        },
+        "userID": [
+            ["sID", "sID", ...],
+            ["sID", "sID", ...]
+        ],
         ...,
     }
 }
@@ -109,6 +110,7 @@ Every user has to have a `userID`.
 
 We use the concept of baked queues. This means, that the order of stimuli for a specific user is predetermined by the researcher. Every user should then have a list of `sID`s, which will be shown in sequence. If the user leaves the session (closes the browser), the position in the queue is restored after they log in again.
 
+Every `userID` is associated with an array of array of `stimuliID`. The innermost array correspond to blocks to which the whole queue is segmented.
 
 ## Logs
 

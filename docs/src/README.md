@@ -7,4 +7,4 @@ It was created first as a semestral project and then as part of Bergamot.
 - Issues are managed in the corresponding GitHub repositories [main (frontend, experiment)](https://github.com/zouharvi/ptakopet), [backend](https://github.com/zouharvi/ptakopet-server).
 
 
-Since Ptakopět depends on many other great projects, they are all listed on the [License](license.md) page with their respective licensing policies.
+Since Ptakopět depends on many other great projects, most of them are listed on the [License](license.md) page.
