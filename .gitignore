@@ -2,3 +2,4 @@ logs/*.log
 server/*.log
 *.swp
 tmp/*
+logs-backup-*/*

@@ -7,7 +7,7 @@ if __name__ == 'logger':
         print(f'Creating logs dir at {os.getcwd()}/logs')
 
 def organizeData(request):
-    order = ['lang1', 'lang2', 'questionKey', 'confidence', 'reason', 'text1', 'text2', 'estimation', 'alignment', 'queue', 'agent']
+    order = ['lang1', 'lang2', 'questionKey', 'confidence', 'reason', 'text1', 'text2', 'text3', 'estimation', 'alignment', 'queue', 'agent']
     result = []
     for o in order:
         if o in request.keys():
@@ -19,6 +19,8 @@ def organizeData(request):
     return result
 
 def log(sessionID, userID, action, time, **request):
+    if '..' in userID:
+        raise Exception('Invalid userID')
     logFile = f'logs/{userID}.log'
     with open(logFile, 'a') as logFile:
         line = f'{action},{time},{",".join(organizeData(request))}\n'
