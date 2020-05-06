@@ -4,8 +4,6 @@ import json
 import os
 import qe, align, tokenizer, logger
 
-print(dir(tokenizer))
-
 # create new Flask app
 app = Flask(__name__)
 # allow Cross-origin resource sharing access
