@@ -1,4 +1,3 @@
-[submodule "web/highlight-within-textarea"]
-	path = web/highlight-within-textarea
+[submodule "dist/highlight-within-textarea"]
+	path = dist/highlight-within-textarea
 	url = https://github.com/zouharvi/highlight-within-textarea
-

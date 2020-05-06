@@ -1,5 +1,5 @@
 node_modules/
-web/ptakopet-web.js
+dist/ptakopet-web.js
 *.swp
 meta/study/squad-train-v2.0.json
 meta/study/zilinec-train-v2.1.json

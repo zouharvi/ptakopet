@@ -19,10 +19,10 @@ module.exports = (env, argv) => {
       },
       output: {
          filename: 'ptakopet-web.js',
-         path: path.resolve(__dirname, 'web')
+         path: path.resolve(__dirname, 'dist')
       },
       devServer: {
-         contentBase: path.join(__dirname, 'web'),
+         contentBase: path.join(__dirname, 'dist'),
          compress: true,
          port: 9000,
       },

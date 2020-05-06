@@ -14,7 +14,7 @@ npm install
 npm run build
 ```
 
-The file `web/ptakopet-web.js` should now contain live code. You can run
+The file `dist/ptakopet-web.js` should now contain live code. You can run
 
 ```
 npm run dev
