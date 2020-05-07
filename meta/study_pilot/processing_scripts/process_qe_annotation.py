@@ -11,11 +11,11 @@ COLOR_FV = 'greenyellow'
 COLOR_FN = 'olivedrab'
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
+parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 parser.add_argument('-f', '--fix_usid', help='Fix USID mapping and save it to a0csv', action='store_true')
 args = parser.parse_args()
 
-with open(args.blog2file, 'rb') as f:
+with open(args.blogfile, 'rb') as f:
     segments = pickle.load(f)
 
 tFVdom = dict()

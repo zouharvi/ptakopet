@@ -10,12 +10,12 @@ import copy
 # To fix this, the fixUSIDsMap is constructed, which simulates the bad USIDs and maps them to correct
 # USIDs. 
 # Another issue was that first viables were estimated by the translation length and not source length
-# (firstViableSrc vs firstViableTrg), so the blog2 file now contains both first_viable_src and
+# (firstViableSrc vs firstViableTrg), so the blog file now contains both first_viable_src and
 # first_viable_trg.
-# The stable blog2 file is stored in merged_a0.blog2
+# The stable blog file is stored in merged_a0.blog
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog2',  help='Path to the binary log 2 (.blog2) file')
+parser.add_argument('blog',  help='Path to the binary log (.blog) file')
 parser.add_argument('a0csv',  help='Path to the a0.csv file')
 parser.add_argument('a0csvf',  help='Path to the fixed a0.csv file')
 args = parser.parse_args()
@@ -80,7 +80,7 @@ def isFixed(segments, ratingsOld, ratingsNew):
             return False
     return True
 
-with open(args.blog2, 'rb') as f:
+with open(args.blog, 'rb') as f:
     segments = pickle.load(f)
 
 with open(args.a0csv, 'r') as f:

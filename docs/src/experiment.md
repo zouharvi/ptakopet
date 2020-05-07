@@ -126,6 +126,7 @@ Annotation data from te user are collected in the following way:
 | TRANSLATE2 | TXT2, TXT3 | Backward translation is displayed |
 | ESTIMATE   | ESTIMATION | Quality estimation is computed |
 | ALIGN      | ALIGNMENT  | Alignment is computed |
+| PARAPHRASE | PARAPHRASES | Paraphrases are displayed, joined by `|` |
 | NOTE       | NOTE  | User sends a note |
 
 Additionally, each logged event contains Unix timestamp in milliseconds.

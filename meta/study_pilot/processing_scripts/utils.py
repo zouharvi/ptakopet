@@ -10,6 +10,10 @@ def prefixMapArray(logs, prefix, func=lambda x: x):
 def prefixMap(logs, prefix, func=lambda x: x):
     return list(map(func, filter(lambda x: x['type'] == prefix, logs['items'])))
 
+# Filter actions, then perform func
+def prefixMapAll(logs, prefix, func=lambda x: x):
+    return list(map(func, filter(lambda x: x['type'] == prefix, logs['items'])))
+
 # Join array by newlines (syntactic sugar)
 def nJoin(l):
     return '\n'.join(l)

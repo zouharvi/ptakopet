@@ -4,13 +4,6 @@ import pickle
 import re
 from utils import prefixMap, firstViableSrc, firstViableTrg, isWithoutBacktracking
 
-# This script processes blog1 binary file and outputs corresponding blog2 file
-
-# parser = argparse.ArgumentParser(description='')
-# parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file in question')
-# parser.add_argument('blog2file',  help='Path to the binary log 2 (.blog2) file in question')
-# args = parser.parse_args()
-
 # Get segment domain
 def getSID(segment):
     firstNext = prefixMap(segment, 'NEXT', lambda x: x['sid'])
@@ -19,7 +12,7 @@ def getSID(segment):
     else:
         return firstNext[0]
 
-def createBlog2(segments):
+def createBlog(segments):
     newSegments = []
     for seg in segments:
         newSeg = dict()
@@ -51,9 +44,3 @@ def createBlog2(segments):
         newSeg['backtracking'] = not isWithoutBacktracking(newSeg)
         newSegments.append(newSeg)
     return newSegments
-
-# with open(args.blog1file, 'rb') as f:
-#     segments = pickle.load(f)
-
-# with open(args.blog2file, 'wb') as f:
-#     pickle.dump(createBlog2(segments), f)

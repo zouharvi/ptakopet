@@ -1,7 +1,8 @@
 node_modules/
 dist/ptakopet-web.js
 *.swp
-meta/study/squad-train-v2.0.json
-meta/study/zilinec-train-v2.1.json
-meta/study/logs-backup-2/*
+meta/study_pilot/squad-train-v2.0.json
+meta/study_pilot/zilinec-train-v2.1.json
+meta/study_pilot/baked.json
+meta/study_pilot/logs-backup-2/*
 tmp/*

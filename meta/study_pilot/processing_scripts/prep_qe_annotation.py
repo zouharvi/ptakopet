@@ -7,7 +7,7 @@ from utils import prefixMap, firstViableTrg
 # Prepare quality estimation text
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog1file',  help='Path to the binary log (.blog1) file in question')
+parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 parser.add_argument('questions_flat',  help='Path to the questions_flat.json file')
 parser.add_argument('--a0md', help='Path to the annotation markdown file')
 parser.add_argument('--a0csv', help='Path to the annotation csv file')
@@ -23,10 +23,10 @@ def prepareA0(segments, questions):
             confirm = confirm[-1]
         else:
             continue
-        out.setdefault(confirm['sid'], []).append((str(confirm['usid']), confirm['text2']))
+        out.setdefault(confirm['sid'], []).append((str(seg['usid']), confirm['text2']))
         firstViable = firstViableTrg(seg)
         if firstViable:
-            out.setdefault(confirm['sid'], []).append((f'v{confirm["usid"]}', firstViable['text2']))
+            out.setdefault(confirm['sid'], []).append((f'v{seg["usid"]}', firstViable['text2']))
 
     markdown = ''
     csv = 'USID, Score\n'

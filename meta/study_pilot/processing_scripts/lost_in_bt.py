@@ -7,11 +7,11 @@ from difflib import SequenceMatcher
 # Lost in Back-Translation export script
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog2in',  help='Path to input binary log 2 (.blog2) file')
+parser.add_argument('blogin',  help='Path to input binary log (.blog) file')
 parser.add_argument('csvout',  help='Path to output tsv file')
 args = parser.parse_args()
 
-with open(args.blog2in, 'rb') as f:
+with open(args.blogin, 'rb') as f:
     segments = pickle.load(f)
 
 def isSimilar(src1, src2):
@@ -38,8 +38,6 @@ for segment in segments:
                 if isSimilar(text1, text3):
                     out.append((segment['rating']['final'], text1, text2, text3))
                     break
-    # if ('first_viable_src' in segment['rating']) and ('rating' in segment) and ('final' in segment['rating']):
-    #   continue
         
 # sort by score
 out = sorted(out, key=lambda x: x[0], reverse=True)

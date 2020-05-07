@@ -70,7 +70,7 @@ for u in range(tusers):
 count = lambda prefix, u: len(list(filter(lambda x: x.startswith(prefix), segUsr[u])))
 
 # Distribution statistics
-print('s: SQuAD, z: Zilinec, t: Tech issues, p: Praha 6')
+print('s: SQuAD, z: SQuAD Czech, t: Tech issues, p: Praha 6')
 print("     s  z  t  p")
 for u in range(tusers):
     stats = [f'{count(x, u):02}' for x in ["s", "z", "t", "p"]]
@@ -87,11 +87,12 @@ for u1 in range(tusers):
         print(str(intSize).rjust(4), end='')
     print()
 
-print('\nHistogram:')
+print('\nHistogram: X stimuli used by Y users')
 # flatten
 segFlat = [item for sublist in segUsr for item in sublist]
 from collections import Counter
-print(dict(Counter(Counter(segFlat).values())))
+histogram = dict(Counter(Counter(segFlat).values()))
+print(', '.join(map(lambda key: f'{histogram[key]:2.0f}: {key}', sorted(histogram))))
     
 # Write to file
 with open(args.file, 'w') as f:

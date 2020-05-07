@@ -2,15 +2,15 @@
 import argparse
 import pickle
 
-# Add quality annotations to blog file and convert it to blog2
+# Add quality annotations to blog file and convert it to blog
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog2in',  help='Path to input binary log 2 (.blog2) file')
-parser.add_argument('blog2out',  help='Path to output binary log 2 (.blog2) file')
+parser.add_argument('blogin',  help='Path to input binary log (.blog) file')
+parser.add_argument('blogout',  help='Path to output binary log (.blog) file')
 parser.add_argument('a0csv',  help='Path to the fixed a0.csv file')
 args = parser.parse_args()
 
-with open(args.blog2in, 'rb') as f:
+with open(args.blogin, 'rb') as f:
     segments = pickle.load(f)
 
 with open(args.a0csv, 'r') as f:
@@ -27,5 +27,5 @@ for seg in segments:
     if 'v' + usid in scoreMap:
         seg['rating']['first_viable'] = scoreMap['v' + usid]
 
-with open(args.blog2out, 'wb') as f:
+with open(args.blogout, 'wb') as f:
     pickle.dump(segments, f)

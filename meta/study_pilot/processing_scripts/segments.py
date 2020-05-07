@@ -9,7 +9,7 @@ from utils import prefixMap, isWithoutBacktracking, tokenize, firstViableSrc
 # segments blogfile.
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('blog1file',  help='Path to the binary log 1 (.blog1) file in question')
+parser.add_argument('blogfile',  help='Path to the binary log (.blog) file in question')
 parser.add_argument('-sr1', '--segments_r1',
                     help='Path to file for segments readable 1 output')
 parser.add_argument('-sr2', '--segments_r2',
@@ -38,7 +38,7 @@ def withoutBacktracking(segments):
 def segmentR1(segment):
     out = ''
     l1, l2, l3 = '-', '-', '-'
-    for line in segment:
+    for line in segment['items']:
         write = False
         if line['type'] == 'TRANSLATE1':
             l1 = line['text1'] # source
@@ -55,8 +55,8 @@ def segmentR1(segment):
 # Each segment progression is turned into the sequence: `<src>`.
 def segmentR2(segment):
     out = ''
-    for line in segment:
-        if line[1] == 'TRANSLATE1':
+    for line in segment['items']:
+        if line['type'] == 'TRANSLATE1':
             out += f'{line["text1"]}\n'
     return out + '\n###\n'
 
@@ -64,10 +64,10 @@ def segmentR2(segment):
 # Each segment progression is turned into the last two available values for: `<src>, <back>`.
 def segmentR3(segment):
     l1, l3 = '-', '-'
-    for line in segment:
-        if line[1] == 'TRANSLATE1':
+    for line in segment['items']:
+        if line['type'] == 'TRANSLATE1':
             l1 = line['text1'] # source
-        if line[1] == 'TRANSLATE2':
+        if line['type'] == 'TRANSLATE2':
             l3 = line['text3'] # back
     return f'{l1}\n{l3}\n###'
 
@@ -79,7 +79,12 @@ def segmentR4(segment):
         return '<None>|<Linear>\n'
     else:
         viable = viable['text1']
-    sm = SequenceMatcher(None, tokenize(viable), tokenize(segment[-1]['text1']))
+    lastApplicable = list(filter(lambda x: x['type'] == 'CONFIRM', segment['items']))
+    if len(lastApplicable) >= 0:
+        lastApplicable = lastApplicable[-1]
+    else:
+        return '<None>|<Linear>\n'
+    sm = SequenceMatcher(None, tokenize(viable), tokenize(lastApplicable['text1']))
     opcodes = sm.get_opcodes()
     opcodes_equals = list(filter(lambda x: x[0] == 'equal', opcodes))
     opcodes_replace = list(filter(lambda x: x[0] == 'replace', opcodes))
@@ -92,8 +97,8 @@ def segmentR4(segment):
     return \
 f"""\
 First: {viable}
-Final: {segment[-1]['text1']}
-Translation: {segment[-1]['text2']}
+Final: {lastApplicable['text1']}
+Translation: {lastApplicable['text2']}
 Similarity: {sm.ratio()*100:.2f}%
 Equals/Replace/Insert/Delete: {sum_equals}/{sum_replace}/{sum_insert}/{sum_delete}
 """
@@ -103,13 +108,13 @@ Equals/Replace/Insert/Delete: {sum_equals}/{sum_replace}/{sum_insert}/{sum_delet
 def segmentR5(segments):
     out = dict()
     for seg in segments:
-        for i in range(len(seg)-1, -1, -1):
-            confirm = seg[i]
-            if confirm[1] == 'CONFIRM':
+        for i in range(len(seg['items'])-1, -1, -1):
+            confirm = seg['items'][i]
+            if confirm['type'] == 'CONFIRM':
                 break
-        if confirm[1] != 'CONFIRM':
+        if confirm['type'] != 'CONFIRM':
             continue
-        out.setdefault(confirm[3], []).append((confirm['text1'], confirm['text2']))
+        out.setdefault(confirm['sid'], []).append((confirm['text1'], confirm['text2']))
     outStr = ''
     for k, tups in out.items():
         outStr += f'# {k}\n'

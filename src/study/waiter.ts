@@ -144,7 +144,7 @@ export class Waiter {
                 alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
                 return false
             } else {
-                alert(`Block progress: ${this.bakedBlock}/${this.bakedQueueAll.length}. Please continue.`)
+                alert(`Block progress: ${this.bakedBlock}/${this.bakedQueueAll.length}. Please continue with the next block of stimuli.`)
                 this.generateCurrentQueue()
             }
         }
