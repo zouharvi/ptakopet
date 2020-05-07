@@ -12,7 +12,8 @@ export enum LogAction {
     TRANSLATE1, TRANSLATE2,
     PARAPHRASE,
     ESTIMATE, ALIGN,
-    LANG_CHANGE
+    LANG_CHANGE,
+    NOTE
 }
 
 export class Logger {

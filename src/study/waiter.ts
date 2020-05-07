@@ -20,6 +20,7 @@ export class Waiter {
     private studyProgress: JQuery<HTMLElement> = $('#study_progress')
     private okButtonsParent: JQuery<HTMLElement> = $('#study_ok_buttons')
     private skipButton: JQuery<HTMLElement> = $('#study_skip_button')
+    private noteButton: JQuery<HTMLElement> = $('#study_note_button')
     private joinButton: JQuery<HTMLElement> = $('#join_study_button')
     private studyParent: JQuery<HTMLElement> = $('#study_content_block')
     private moduleMainContent: JQuery<HTMLElement> = $('#module_main_content')
@@ -34,6 +35,17 @@ export class Waiter {
 
         // lambda is used here to capture 'this' context
         $(this.skipButton).click(() => this.nextOk(undefined))
+        $(this.noteButton).click(() => {
+            let message = prompt('Enter message:', '')
+            if (message == null)
+                return
+            logger.log(logger.Action.NOTE,
+                {
+                    note: message,
+                    questionKey: this.bakedQueue[this.bakedIndex][0],
+                }
+            )
+        })
     }
 
     /**
@@ -55,7 +67,7 @@ export class Waiter {
         this.userID = userID
         logger.on(true)
 
-        this.localStorageID = `ptakopet_progress_${this.userID}`;
+        this.localStorageID = `ptakopet_progress_multi_${this.userID}`;
         [this.bakedIndex, this.bakedBlock] = this.getProgress()
         this.bakedQueueAll = baked_study.users[this.userID]
         if (this.bakedQueueAll.length <= this.bakedBlock) {
@@ -178,7 +190,7 @@ export class Waiter {
      * Display the current question
      */
     private serveQuestion(): void {
-        this.studyProgress.text(`Progress: ${this.bakedIndex+1}/${this.bakedQueue.length}, Block: ${this.bakedBlock+1}/${this.bakedQueueAll.length}`)
+        this.studyProgress.text(`Stimulus: ${this.bakedIndex + 1}/${this.bakedQueue.length}, Block: ${this.bakedBlock + 1}/${this.bakedQueueAll.length}`)
 
         let question: [string, string] = this.bakedQueue[this.bakedIndex]
         let qID: string = question[0]
