@@ -133,11 +133,14 @@ export class Waiter {
     private advanceIndex(): boolean {
         this.bakedIndex += 1
         if (this.bakedIndex == this.bakedQueue.length) {
+            if (this.bakedBlock + 1 == this.bakedQueueAll.length) {
+                // The conditions are not merged so that the logger logs the non-incremented block
+                logger.log(logger.Action.END, {})
+            }
             this.bakedBlock += 1
             this.bakedIndex = 0
             this.saveProgress()
             if (this.bakedBlock == this.bakedQueueAll.length) {
-                logger.log(logger.Action.END, {})
                 alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
                 return false
             } else {
