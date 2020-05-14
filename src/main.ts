@@ -47,7 +47,16 @@ $('#input_target').on('input', function () {
 
 let params = Utils.parseGETParams()
 
-// log init
+// Store response ID if applicable
+if ('responseID' in params) {
+    waiter.responseID = params['responseID']
+}
+// Store source ID if applicable
+if ('source' in params) {
+    waiter.sourceID = params['source']
+}
+
+// Log init
 logger.log(logger.Action.START,
     {
         queue: 'public',

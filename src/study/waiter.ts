@@ -12,6 +12,8 @@ export class Waiter {
     public bakedIndex: number = 0
     public bakedBlock: number = 0
     public userID: string = 'default'
+    public responseID?: string
+    public sourceID?: string
 
     private localStorageID: string | null = null
 
@@ -77,12 +79,14 @@ export class Waiter {
 
         this.generateCurrentQueue()
 
-        logger.log(logger.Action.START,
-            {
-                queue: this.bakedQueue.map((x) => x[0]).join('|'),
-                agent: navigator.userAgent,
-            }
-        )
+        let logData : any = {
+            queue: this.bakedQueue.map((x) => x[0]).join('|'),
+            agent: navigator.userAgent,
+        }
+        if(this.responseID) logData['responseID'] = this.responseID
+        if(this.sourceID) logData['sourceID'] = this.sourceID
+
+        logger.log(logger.Action.START, logData)
 
         $(this.studyParent).show()
         $(this.joinButton).hide()
