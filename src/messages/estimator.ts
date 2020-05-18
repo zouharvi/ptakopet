@@ -184,6 +184,29 @@ export class Estimator extends AsyncMessage {
             name: 'deepQuest',
         },
 
+        sheffield: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
+                return new Promise<Estimation>((resolve, reject) => {
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "http://dq.fredblain.org/",
+                        data: JSON.stringify({ translation: text2.replace(/\n/, " "), translationTokenized: extra.tokenization,  wordScores: extra.tokenScore}),
+                    })
+                        .done((data: any) => {
+                            if(data['success']) {
+                                resolve(data['predictions'])
+                            } else {
+                                reject(data)
+                            }
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: new Set([['en', 'et'], ['et', 'en']]),
+            name: 'Sheffield',
+        },
+
         random: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
@@ -202,6 +225,11 @@ export class Estimator extends AsyncMessage {
         manual: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>(async (resolve, reject) => {
+                    if (extra.silent) {
+                        resolve([])
+                        return
+                    }
+
                     let tokens = await tokenizer.tokenize(text2, Settings.language2 as LanguageCode)
 
                     let zeroes: Estimation = []

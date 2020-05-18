@@ -79,12 +79,12 @@ export class SettingsProfiles {
 
 SettingsProfiles.profiles['default'] = {
     settings: {
-        backendTranslator: 'ufalTransformer',
-        backendEstimator: 'openkiwi',
+        backendTranslator: 'avgENET',
+        backendEstimator: 'sheffield',
         backendParaphraser: 'rainbow',
         backendAligner: 'fastAlign',
         language1: 'en',
-        language2: 'de',
+        language2: 'et',
     },
     qe: true,
     mt: true,

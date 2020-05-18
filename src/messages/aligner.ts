@@ -84,9 +84,9 @@ export class Aligner {
                 })
             },
             languages: new Set([
-                ...Utils.generatePairsArray<LanguageCode>(['en', 'cs', 'fr']),
-                ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs']),
-                ...Utils.generatePairsArray<LanguageCode>(['en', 'et']),
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'cs', 'fr'], false),
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs'], false),
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
             ]),
             name: 'fast_align',
         },
@@ -105,7 +105,7 @@ export class Aligner {
                     resolve(alignment)
                 })
             },
-            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, false),
             name: 'Diagonal',
         },
 
@@ -115,7 +115,7 @@ export class Aligner {
                     resolve([])
                 })
             },
-            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages),
+            languages: Utils.generatePairsSet<LanguageCode>(Utils.Languages, false),
             name: 'None',
         },
     }

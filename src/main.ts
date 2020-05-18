@@ -56,6 +56,15 @@ if ('source' in params) {
     waiter.sourceID = params['source']
 }
 
+if('test' in params) {
+    let action = params['test']
+    if(action == 'workload') {
+        Tester.workload()
+    } else if(action == 'services') {
+        Tester.services()
+    }
+}
+
 // Log init
 logger.log(logger.Action.START,
     {
@@ -83,7 +92,6 @@ if ('userID' in params) {
     let userID = params['userID']
     waiter.joinStudy(userID)
 }
-
 
 // Burger menu
 
