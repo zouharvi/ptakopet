@@ -53,6 +53,8 @@ export class Estimator extends AsyncMessage {
 
 
         request.then(async (estimation: Estimation) => {
+            console.warn(estimation)
+
             if (estimation.length == 0) {
                 // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
                 return
@@ -191,7 +193,8 @@ export class Estimator extends AsyncMessage {
                         type: "POST",
                         contentType: "application/json",
                         url: "http://dq.fredblain.org/",
-                        data: JSON.stringify({ translation: text2.replace(/\n/, " "), translationTokenized: extra.tokenization,  wordScores: extra.tokenScore}),
+                        // data: JSON.stringify({ translation: text2.replace(/\n/, " "), translationTokenized: extra.tokenization,  wordScores: extra.tokenScore}),
+                        data: JSON.stringify(extra),
                     })
                         .done((data: any) => {
                             if(data['success']) {

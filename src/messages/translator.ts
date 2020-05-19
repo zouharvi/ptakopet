@@ -132,14 +132,8 @@ export abstract class Translator extends AsyncMessage {
                         async: true,
                     })
                         .done((result) => {
-                            let text = result.map((x: any) => x.sent).join(' ')
-                            let tokenization = result.map((x: any) => x.tokens).flat(1)
-                            let scores = result.map((x: any) => x.token_scores).flat(1)
-                            let extra : ExtraTranslationInfo = {
-                                tokenization: tokenization,
-                                tokenScore: scores 
-                            }
-                            resolve([text, extra])
+                            let text = result['data'].map((x: any) => x['sent']).join(' ')
+                            resolve([text, result])
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
@@ -166,14 +160,8 @@ export abstract class Translator extends AsyncMessage {
                         async: true,
                     })
                         .done((result) => {
-                            let text = result.map((x: any) => x.sent).join(' ')
-                            let tokenization = result.map((x: any) => x.tokens).flat(1)
-                            let scores = result.map((x: any) => x.token_scores).flat(1)
-                            let extra : ExtraTranslationInfo = {
-                                tokenization: tokenization,
-                                tokenScore: scores 
-                            }
-                            resolve([text, extra])
+                            let text = result['data'].map((x: any) => x['sent']).join(' ')
+                            resolve([text, result])
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
@@ -191,7 +179,7 @@ export abstract class Translator extends AsyncMessage {
                         type: "GET",
                         contentType: "application/x-www-form-urlencoded",
                         dataType: "json",
-                        url: `http://quest.ms.mff.cuni.cz/ptakopet-mt380/translate/${lang1}-${lang2}`,
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt380/translate/${lang1}-${lang2}`,
                         data: { text: text },
                         crossDomain: true,
                         accepts: {
@@ -200,22 +188,8 @@ export abstract class Translator extends AsyncMessage {
                         async: true,
                     })
                         .done((result) => {
-                            if (result['text'].length == 0) {
-                                let extra : ExtraTranslationInfo = {
-                                    translationTokenized: [],
-                                    wordScores: []
-                                }
-                                resolve(['', extra])
-                            } else {
-                                let text = result['text'][0].map((x: any) => x['nBest'][0]['translation']).join(' ')
-                                let tokenization = result['text'][0].map((x: any) => x['nBest'][0]['translationTokenized']).flat(1)
-                                let scores = result['text'][0].map((x: any) => x['nBest'][0]['wordScores']).flat(1)
-                                let extra : ExtraTranslationInfo = {
-                                    tokenization: tokenization,
-                                    tokenScore: scores
-                                }
-                                resolve([text, extra])
-                            }
+                            let text = result['data'].map((x: any) => x['sent']).join(' ')
+                            resolve([text, result])
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
