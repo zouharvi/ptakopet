@@ -139,3 +139,18 @@ SettingsProfiles.profiles['sao'] = {
     pp: true,
     manual: true,
 }
+
+SettingsProfiles.profiles['csen'] = {
+    settings: {
+        backendTranslator: 'ufalTransformer',
+        backendEstimator: 'openkiwi',
+        backendAligner: 'fastAlign',
+        language1: 'cs',
+        language2: 'en',
+    },
+    qe: true,
+    mt: true,
+    bt: true,
+    pp: true,
+    manual: true,
+}
