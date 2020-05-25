@@ -6,4 +6,4 @@ This repository contains documentation, meta files and also the web frontend. Th
 
 Documentation can be found [here](http://ptakopet.vilda.net/docs).
 
-This is the final Ptakopět project as part of Bergamot (not to be confused with the two previous versions `v1, v2`, which are archived [here](https://github.com/zouharvi/ptakopet-v1-v2)).
+This is the final Ptakopět project as part of Bergamot (not to be confused with the two previous versions `old-1, old-2`, which are archived [here](https://github.com/zouharvi/ptakopet-old)).
