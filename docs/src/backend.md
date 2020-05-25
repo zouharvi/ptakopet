@@ -107,4 +107,4 @@ For the purposes of [ptakopet.vilda.net](https://ptakopet.vilda.net), the server
 
 This diagram describes the overall project architecture as well as relevant data structure.
 
-<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/backend_object_design.svg?sanitize=true' style='width: 70%; min-width: 500px'>
+<img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/object_design/backend.svg?sanitize=true' style='width: 70%; min-width: 500px'>

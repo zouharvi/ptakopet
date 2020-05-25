@@ -3,7 +3,7 @@
 
 * [Home](/)
 * [Technical documentation](tech.md "Technical documentation for Ptakopět")
-* * [Web frontend](web.md "Web frontend")
+* * [Web frontend](frontend.md "Web frontend")
 * * [Multiservice backend](backend.md "Multiservice backend")
 * [User documentation](user.md "User documentation for Ptakopět")
 * [Experiment documentation](experiment.md "Experiment documentation for Ptakopět")
