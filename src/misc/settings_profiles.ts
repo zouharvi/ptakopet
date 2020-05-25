@@ -80,9 +80,9 @@ export class SettingsProfiles {
 SettingsProfiles.profiles['default'] = {
     settings: {
         backendTranslator: 'avgENET',
-        backendEstimator: 'sheffield',
+        backendEstimator: 'sheffield_enet',
         backendParaphraser: 'rainbow',
-        backendAligner: 'fastAlign',
+        backendAligner: 'fast_align_michal',
         language1: 'en',
         language2: 'et',
     },
@@ -97,7 +97,7 @@ SettingsProfiles.profiles['pilot'] = {
     settings: {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
-        backendAligner: 'fastAlign',
+        backendAligner: 'fast_align_ubuntu',
         language1: 'cs',
         language2: 'de',
     },
@@ -113,7 +113,7 @@ SettingsProfiles.profiles['edin'] = {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
         backendParaphraser: 'rainbow',
-        backendAligner: 'fastAlign',
+        backendAligner: 'fast_align_michal',
         language1: 'en',
         language2: 'cs',
     },
@@ -144,7 +144,7 @@ SettingsProfiles.profiles['csen'] = {
     settings: {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'openkiwi',
-        backendAligner: 'fastAlign',
+        backendAligner: 'fast_align_ubuntu',
         language1: 'cs',
         language2: 'en',
     },

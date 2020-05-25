@@ -69,7 +69,7 @@ Stimuli can also have different `SettingsProfile`s, which instructs Ptakopět wh
     "settings": {
         "backendTranslator": "ufalTransformer",
         "backendEstimator": "openkiwi",
-        "backendAligner": "fastAlign",
+        "backendAligner": "fast_align_ubuntu",
         "language1": "cs",
         "language2": "de",
     },

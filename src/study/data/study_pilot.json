@@ -235,7 +235,7 @@
                 "settings": {
                     "backendTranslator": "ufalTransformer",
                     "backendEstimator": "openkiwi",
-                    "backendAligner": "fastAlign",
+                    "backendAligner": "fast_align_ubuntu",
                     "language1": "cs",
                     "language2": "de"
                 },
@@ -253,7 +253,7 @@
                 "settings": {
                     "backendTranslator": "ufalTransformer",
                     "backendEstimator": "openkiwi",
-                    "backendAligner": "fastAlign",
+                    "backendAligner": "fast_align_ubuntu",
                     "language1": "cs",
                     "language2": "de"
                 },

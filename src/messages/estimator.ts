@@ -108,7 +108,7 @@ export class Estimator extends AsyncMessage {
             intensities[alignment[i][0]].push(estimation[alignment[i][1]])
         }
 
-        // We use 0.87 implicitly for unaligned source tokens, but other strategy may be better 
+        // We use 0.87 implicitly for unaligned source tokens and average for others, but other strategy may be better 
         return intensities.map((arr) => arr.length == 0 ? 0.87 : arr.reduce((a, b) => a + b, 0) / arr.length)
     }
 
@@ -186,28 +186,23 @@ export class Estimator extends AsyncMessage {
             name: 'deepQuest',
         },
 
-        sheffield: {
+        sheffield_enet: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "http://dq.fredblain.org/",
-                        // data: JSON.stringify({ translation: text2.replace(/\n/, " "), translationTokenized: extra.tokenization,  wordScores: extra.tokenScore}),
+                        url: "https://dq.fredblain.org/",
                         data: JSON.stringify(extra),
                     })
                         .done((data: any) => {
-                            if(data['success']) {
-                                resolve(data['predictions'])
-                            } else {
-                                reject(data)
-                            }
+                            resolve(data.map((x: any) => x.predictions).flat(1))
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
             languages: new Set([['en', 'et'], ['et', 'en']]),
-            name: 'Sheffield',
+            name: 'Sheffield EN-ET',
         },
 
         random: {

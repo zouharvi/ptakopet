@@ -63,14 +63,13 @@ export class Aligner {
 
     // Object of available backends and their implementations
     public static backends: { [index: string]: AlignerBackend } = {
-        fastAlign: {
+        fast_align_ubuntu: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]): Promise<Alignment> {
                 return new Promise<Alignment>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/align/fast_align",
                         data: { sourceLang: lang1, targetLang: lang2, sourceText: text1, targetText: text2 },
-                        async: true,
                     })
                         .done((data: AlignmentResponse) => {
                             if (data['status'] == 'OK') {
@@ -88,7 +87,29 @@ export class Aligner {
                 ...Utils.generatePairsArray<LanguageCode>(['en', 'de', 'cs'], false),
                 ...Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
             ]),
-            name: 'fast_align',
+            name: 'fast_align Ubuntu',
+        },
+
+        fast_align_michal: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string]): Promise<Alignment> {
+                return new Promise<Alignment>((resolve, reject) => {
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json',
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt380/align/${lang1}-${lang2}`,
+                        data: JSON.stringify({ src_text: text1, trg_text: text2 }),
+                    })
+                        .done((data: { alignment: string }) => {
+                            resolve(Aligner.pharaohToObject(data.alignment))
+                        })
+                        .fail(reject)
+                })
+            },
+            languages: new Set([
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
+                ...Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
+            ]),
+            name: 'fast_align Michal',
         },
 
         diagonal: {

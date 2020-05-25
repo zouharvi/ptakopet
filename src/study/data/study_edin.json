@@ -15,7 +15,7 @@
                 "settings": {
                     "backendTranslator": "ufalTransformer",
                     "backendEstimator": "random",
-                    "backendAligner": "fastAlign",
+                    "backendAligner": "fast_align_michal",
                     "language1": "en",
                     "language2": "cs"
                 },
@@ -33,7 +33,7 @@
                 "settings": {
                     "backendTranslator": "neurotolge",
                     "backendEstimator": "random",
-                    "backendAligner": "fastAlign",
+                    "backendAligner": "fast_align_michal",
                     "language1": "en",
                     "language2": "et"
                 },
@@ -47,7 +47,7 @@
                 "settings": {
                     "backendTranslator": "ufalTransformer",
                     "backendEstimator": "random",
-                    "backendAligner": "fastAlign",
+                    "backendAligner": "fast_align_michal",
                     "language1": "en",
                     "language2": "cs"
                 },

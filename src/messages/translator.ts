@@ -63,7 +63,6 @@ export abstract class Translator extends AsyncMessage {
                             Accept: "application/json",
                         },
                         data: { src: lang1, tgt: lang2, input_text: text },
-                        async: true,
                     })
                         .done((data: Array<string>) => resolve([data.join(' ').replace(/\n$/, ''), undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
@@ -85,7 +84,6 @@ export abstract class Translator extends AsyncMessage {
                             Accept: "application/json",
                         },
                         data: { auth: "public", conf: lang2, src: text },
-                        async: true,
                     })
                         .done((data: any) => resolve([data['tgt'], undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
@@ -104,7 +102,6 @@ export abstract class Translator extends AsyncMessage {
                         type: "GET",
                         url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${lang1}-${lang2}`,
                         data: { text: text },
-                        async: true,
                     })
                         .done((data: any) => resolve([data['text'], undefined]))
                         .fail((xhr: JQueryXHR) => reject(xhr))
@@ -129,7 +126,6 @@ export abstract class Translator extends AsyncMessage {
                         accepts: {
                             text: "application/json",
                         },
-                        async: true,
                     })
                         .done((result) => {
                             let text = result['data'].map((x: any) => x['sent']).join(' ')
@@ -157,7 +153,6 @@ export abstract class Translator extends AsyncMessage {
                         accepts: {
                             text: "application/json",
                         },
-                        async: true,
                     })
                         .done((result) => {
                             let text = result['data'].map((x: any) => x['sent']).join(' ')
@@ -185,7 +180,6 @@ export abstract class Translator extends AsyncMessage {
                         accepts: {
                             text: "application/json",
                         },
-                        async: true,
                     })
                         .done((result) => {
                             let text = result['data'].map((x: any) => x['sent']).join(' ')
