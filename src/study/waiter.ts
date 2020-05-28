@@ -79,12 +79,12 @@ export class Waiter {
 
         this.generateCurrentQueue()
 
-        let logData : any = {
+        let logData: any = {
             queue: this.bakedQueue.map((x) => x[0]).join('|'),
             agent: navigator.userAgent,
         }
-        if(this.responseID) logData['responseID'] = this.responseID
-        if(this.sourceID) logData['sourceID'] = this.sourceID
+        if (this.responseID) logData['responseID'] = this.responseID
+        if (this.sourceID) logData['sourceID'] = this.sourceID
 
         logger.log(logger.Action.START, logData)
 
@@ -146,6 +146,13 @@ export class Waiter {
             this.saveProgress()
             if (this.bakedBlock == this.bakedQueueAll.length) {
                 alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
+                if (this.sourceID == 'Qualtrics') {
+                    $.ajax({
+                        type: 'GET',
+                        url: "https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=xxxxxx&CallStatus=finalised",
+                        data: { userID: this.userID, CallStatus: 'finalised' }
+                    })
+                }
                 return false
             } else {
                 alert(`Block progress: ${this.bakedBlock}/${this.bakedQueueAll.length}. Please continue with the next block of stimuli.`)

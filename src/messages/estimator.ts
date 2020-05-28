@@ -53,8 +53,6 @@ export class Estimator extends AsyncMessage {
 
 
         request.then(async (estimation: Estimation) => {
-            console.warn(estimation)
-
             if (estimation.length == 0) {
                 // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
                 return
