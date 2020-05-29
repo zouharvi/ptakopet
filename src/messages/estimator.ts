@@ -186,6 +186,12 @@ export class Estimator extends AsyncMessage {
 
         sheffield_enet: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
+                if (extra.options) {
+                    extra.options.lang = lang2
+                } else {
+                    extra.options = { lang: lang2 }
+                }
+
                 return new Promise<Estimation>((resolve, reject) => {
                     $.ajax({
                         type: "POST",
@@ -194,12 +200,13 @@ export class Estimator extends AsyncMessage {
                         data: JSON.stringify(extra),
                     })
                         .done((data: any) => {
+                            console.log(data)
                             resolve(data.map((x: any) => x.predictions).flat(1))
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: new Set([['en', 'et'], ['et', 'en']]),
+            languages: new Set([['en', 'et'], ['en', 'cs']]),
             name: 'Sheffield EN-ET',
         },
 

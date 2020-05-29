@@ -150,7 +150,7 @@ export class Waiter {
                     $.ajax({
                         type: 'GET',
                         url: "https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=xxxxxx&CallStatus=finalised",
-                        data: { userID: this.userID, CallStatus: 'finalised' }
+                        data: { userID: this.userID, responseID: this.responseID, CallStatus: 'finalised' }
                     })
                 }
                 return false
