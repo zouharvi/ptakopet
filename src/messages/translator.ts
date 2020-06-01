@@ -93,24 +93,6 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'et'],
             name: 'Neurotõlge',
         },
-        questENET: {
-            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
-                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
-                    if (text == '')
-                        resolve(['', undefined])
-                    $.ajax({
-                        type: "GET",
-                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt80/translate/${lang1}-${lang2}`,
-                        data: { text: text },
-                    })
-                        .done((data: any) => resolve([data['text'], undefined]))
-                        .fail((xhr: JQueryXHR) => reject(xhr))
-                })
-            },
-            languages: Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
-            default: ['en', 'et'],
-            name: 'Quest EN-ET',
-        },
         weakENCS: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {

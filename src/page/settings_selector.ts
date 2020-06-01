@@ -23,7 +23,8 @@ export class SettingsSelector {
         public lang1Select: JQuery<HTMLElement>,
         public lang2Select: JQuery<HTMLElement>,
         private warningEstimator: JQuery<HTMLElement>,
-        private warningAligner: JQuery<HTMLElement>
+        private warningAligner: JQuery<HTMLElement>,
+        private warningParaphraser: JQuery<HTMLElement>,
     ) {
 
         // setup translator backend change callback
@@ -122,25 +123,43 @@ export class SettingsSelector {
      */
     private warningEstimatorThrottler = new Throttler(200)
     private warningAlignerThrottler = new Throttler(200)
+    private warningParaphraserThrottler = new Throttler(200)
     private refreshWarning(): void {
-        if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
-            this.warningEstimatorThrottler.throttle(
-                () => $(this.warningEstimator).fadeOut()
-            )
-        } else {
-            this.warningEstimatorThrottler.throttle(
-                () => $(this.warningEstimator).fadeIn()
-            )
+        if (Settings.backendEstimator) {
+
+            if (Utils.setContainsArray(Settings.backendEstimator.languages, [Settings.language1, Settings.language2])) {
+                this.warningEstimatorThrottler.throttle(
+                    () => $(this.warningEstimator).fadeOut()
+                )
+            } else {
+                this.warningEstimatorThrottler.throttle(
+                    () => $(this.warningEstimator).fadeIn()
+                )
+            }
         }
 
-        if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
-            this.warningAlignerThrottler.throttle(
-                () => $(this.warningAligner).fadeOut()
-            )
-        } else {
-            this.warningAlignerThrottler.throttle(
-                () => $(this.warningAligner).fadeIn()
-            )
+        if (Settings.backendAligner) {
+            if (Utils.setContainsArray(Settings.backendAligner.languages, [Settings.language1, Settings.language2])) {
+                this.warningAlignerThrottler.throttle(
+                    () => $(this.warningAligner).fadeOut()
+                )
+            } else {
+                this.warningAlignerThrottler.throttle(
+                    () => $(this.warningAligner).fadeIn()
+                )
+            }
+        }
+
+        if (Settings.backendParaphraser) {
+            if (Settings.backendParaphraser.languages.has(Settings.language1 as LanguageCode)) {
+                this.warningParaphraserThrottler.throttle(
+                    () => $(this.warningParaphraser).fadeOut()
+                )
+            } else {
+                this.warningParaphraserThrottler.throttle(
+                    () => $(this.warningParaphraser).fadeIn()
+                )
+            }
         }
     }
 
@@ -165,6 +184,7 @@ export class SettingsSelector {
         // Set default language
         if (Settings.language1 == undefined) {
             Settings.language1 = Settings.backendTranslator.default[0]
+            Settings.language2 = Settings.backendTranslator.default[1]
         }
 
         // Try to keep the current language
@@ -173,6 +193,8 @@ export class SettingsSelector {
         } else {
             Settings.language1 = Settings.backendTranslator.default[0]
             Settings.language2 = Settings.backendTranslator.default[1]
+            $(this.lang1Select).val(Settings.language1)
+            $(this.lang2Select).val(Settings.language2)
         }
     }
 
@@ -207,6 +229,8 @@ export class SettingsSelector {
         } else {
             Settings.language1 = Settings.backendTranslator.default[0]
             Settings.language2 = Settings.backendTranslator.default[1]
+            $(this.lang1Select).val(Settings.language1)
+            $(this.lang2Select).val(Settings.language2)
         }
     }
 
@@ -251,6 +275,8 @@ export class SettingsSelector {
 
         // unmute
         this.muteServices(false)
+
+        this.refreshWarning()
     }
 
     /**

@@ -191,6 +191,7 @@ export class Waiter {
                 }
             )
         }
+        console.warn('NEXT OK')
 
         let serveNext = this.advanceIndex()
         if (serveNext) {
@@ -209,6 +210,8 @@ export class Waiter {
         let question: [string, string] = this.bakedQueue[this.bakedIndex]
         let qID: string = question[0]
         let formattedText: string = question[1]
+
+        console.warn('SERVING NEXT', question, qID, formattedText)
 
         // clear artifacts
         highlighter_source.clean()

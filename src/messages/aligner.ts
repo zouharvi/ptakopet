@@ -27,8 +27,12 @@ export class Aligner {
                 [$(this.source).val(), $(this.target).val()] as [string, string]
             )
             request.then((alignment: Alignment) => {
-                let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join(' ')
-                logger.log(logger.Action.ALIGN, { alignment: stringified })
+                if(alignment.some((x:any) => isNaN(x))) {
+                    // Empty texts
+                } else {
+                    let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join(' ')
+                    logger.log(logger.Action.ALIGN, { alignment: stringified })
+                }
             })
             return request
         }

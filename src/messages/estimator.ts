@@ -44,6 +44,10 @@ export class Estimator extends AsyncMessage {
 
         let hash = new RequestHashTwo(this)
 
+        if(hash.curSource == '') {
+            return
+        }
+
         let alignment = await aligner.align()
 
         let request = Settings.backendEstimator.composeRequest(
@@ -184,7 +188,7 @@ export class Estimator extends AsyncMessage {
             name: 'deepQuest',
         },
 
-        sheffield_enet: {
+        sheffield: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], [text1, text2]: [string, string], extra: ExtraTranslationInfo): Promise<Estimation> {
                 if (extra.options) {
                     extra.options.lang = lang2
@@ -200,14 +204,13 @@ export class Estimator extends AsyncMessage {
                         data: JSON.stringify(extra),
                     })
                         .done((data: any) => {
-                            console.log(data)
-                            resolve(data.map((x: any) => x.predictions).flat(1))
+                            resolve(data.map((x: any) => x.probas).flat(1))
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
             languages: new Set([['en', 'et'], ['en', 'cs']]),
-            name: 'Sheffield EN-ET',
+            name: 'Sheffield QE',
         },
 
         random: {

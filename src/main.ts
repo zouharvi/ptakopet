@@ -29,7 +29,8 @@ let settings_selector: SettingsSelector = new SettingsSelector(
     $('#language_select_source'),
     $('#language_select_target'),
     $('#warning_estimator'),
-    $('#warning_aligner')
+    $('#warning_aligner'),
+    $('#warning_paraphraser'),
 )
 SettingsProfiles.setSettingsTag('default')
 export { settings_selector }
