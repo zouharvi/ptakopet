@@ -14,12 +14,6 @@ print('Histogram:')
 counter = Counter([int(x[1]) for x in data])
 print(sorted(counter.items()))
 
-def one_match(keys, signature):
-    total = 0
-    for key in keys:
-        if key in signature:
-            total += 1
-    return total == 1
 
 for esid, value in data:
     value = int(value)
@@ -30,7 +24,7 @@ for esid, value in data:
         if key+'.n' in esid:
             buckets.setdefault(key+'.n', []).append(value)
     for key in keys_lang:
-        if key in esid and one_match(keys_lang, esid):
+        if esid.endswith(key):
             buckets.setdefault(key, []).append(value)
 
 

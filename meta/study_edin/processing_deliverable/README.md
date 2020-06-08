@@ -23,6 +23,7 @@ Piece-wise results:
  pp.n: 3.95
  qe.y: 3.98
    et: 4.02
+  csw: 4.05
  ft.y: 4.09
  qe.n: 4.19
    cs: 4.19
