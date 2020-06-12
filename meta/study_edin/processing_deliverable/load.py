@@ -5,10 +5,11 @@ import argparse
 import pickle
 import re
 
-parser = argparse.ArgumentParser(description='Load log objects.')
-parser.add_argument('directory', help='Path to a directory from where to get all .log files')
-parser.add_argument('-b3', '--blog3', help='Path to a blog3 file')
-args = parser.parse_args()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Load log objects.')
+    parser.add_argument('directory', help='Path to a directory from where to get all .log files')
+    parser.add_argument('-b3', '--blog3', help='Path to a blog3 file')
+    args = parser.parse_args()
 
 # Configuration ID
 class CID:

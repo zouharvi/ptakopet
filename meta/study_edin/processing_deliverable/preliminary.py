@@ -4,10 +4,12 @@ import sys
 from collections import Counter
 import argparse
 import pickle
+import re
 from load import Segment, CID
 
 parser = argparse.ArgumentParser(description='Preliminary log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
+parser.add_argument('--filter', type=int, default=0, help='Which filter to use')
 args = parser.parse_args()
 
 buckets = {}
@@ -16,6 +18,15 @@ keys_lang = ['cs', 'csw', 'et']
 
 with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
+
+if args.filter == 1:
+    # "No Czech knowledge people || Estonian model"
+    knows_czech = ['legend', 'romaine', 'strain']
+    data = list(filter(lambda x: (not x.uid in knows_czech) or (x.cid.engine == 'et'), data))
+elif args.filter == 2:
+    # "Some Czech knowledge && Czech Model"
+    knows_czech = ['legend', 'romaine', 'strain']
+    data = list(filter(lambda x: x.uid in knows_czech and (x.cid.engine in ['cs', 'csw']), data))
 
 print('Rating histogram:')
 counter = Counter([x.score for x in filter(lambda x: x.success, data)])
