@@ -149,8 +149,8 @@ export class Waiter {
                 if (this.sourceID == 'Qualtrics') {
                     $.ajax({
                         type: 'GET',
-                        url: "https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=xxxxxx&CallStatus=finalised",
-                        data: { userID: this.userID, responseID: this.responseID, CallStatus: 'finalised' }
+                        url: "https://statmt.org/bergamot/cgi/translationexperiment.php",
+                        data: { userID: this.userID, CallSource: 'ptakopet', CallState: 'completed' }
                     })
                 }
                 return false
