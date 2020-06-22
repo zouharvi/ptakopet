@@ -55,13 +55,20 @@ if ('responseID' in params) {
 // Store source ID if applicable
 if ('source' in params) {
     waiter.sourceID = params['source']
+
+    // Special Qualtrics handling
+    if (params['source'] == 'Qualtrics') {
+        $('#read_instructions').show()
+        $('#read_instructions_button_head').show()
+        $('#read_instructions_close').click(() => $('#read_instructions').hide())
+    }
 }
 
-if('test' in params) {
+if ('test' in params) {
     let action = params['test']
-    if(action == 'workload') {
+    if (action == 'workload') {
         Tester.workload()
-    } else if(action == 'services') {
+    } else if (action == 'services') {
         Tester.services()
     }
 }
