@@ -197,9 +197,12 @@
 }
 
 .read_instructions_button {
-  margin-left: 8px;
-  margin-right: 8px;
   font-size: 1.2em;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.read_instructions_link {
   font-style: normal;
   font-weight: bold;
 }
