@@ -146,7 +146,7 @@ export class Waiter {
             this.saveProgress()
             if (this.bakedBlock == this.bakedQueueAll.length) {
                 alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
-                if (this.sourceID == 'Qualtrics') {
+                if (this.sourceID == 'statmt') {
                     $.ajax({
                         type: 'GET',
                         url: "https://statmt.org/bergamot/cgi/translationexperiment.php",
