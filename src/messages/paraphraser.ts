@@ -62,25 +62,22 @@ export class Paraphraser extends AsyncMessage {
             }
 
             for (let lang of Object.keys(paraphrase)) {
-                // disregard other information, such as status
-                if (Utils.Languages.has(lang as LanguageCode)) {
-                    let data: string = paraphrase[lang as LanguageCode] as string
+                let data: string = paraphrase[lang as LanguageCode] as string
 
-                    // skip if equal to the currently displayed source
-                    if (TextUtils.vagueEqual(data, hash.text)) {
-                        continue;
-                    }
+                // skip if equal to the currently displayed source
+                if (TextUtils.vagueEqual(data, hash.text)) {
+                    continue;
+                }
 
-                    let ok: boolean = true
-                    for (let other of toDisplay) {
-                        if (TextUtils.vagueEqual(other, data)) {
-                            ok = false;
-                            break;
-                        }
+                let ok: boolean = true
+                for (let other of toDisplay) {
+                    if (TextUtils.vagueEqual(other, data)) {
+                        ok = false;
+                        break;
                     }
-                    if (ok) {
-                        toDisplay.push(data)
-                    }
+                }
+                if (ok) {
+                    toDisplay.push(data)
                 }
             }
             logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
@@ -125,6 +122,7 @@ export class Paraphraser extends AsyncMessage {
                     })
                         .done((data: ParaphraseResponse) => {
                             if (data['status'] == 'OK') {
+                                delete data['status']
                                 resolve(data)
                             } else {
                                 console.warn(data['error'])

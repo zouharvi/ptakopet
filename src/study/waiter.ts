@@ -146,13 +146,6 @@ export class Waiter {
             this.saveProgress()
             if (this.bakedBlock == this.bakedQueueAll.length) {
                 alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nTesting finished.`)
-                if (this.sourceID == 'statmt') {
-                    $.ajax({
-                        type: 'GET',
-                        url: "https://statmt.org/bergamot/cgi/translationexperiment.php",
-                        data: { userID: this.userID, CallSource: 'ptakopet', CallState: 'completed' }
-                    })
-                }
                 return false
             } else {
                 alert(`Block progress: ${this.bakedBlock}/${this.bakedQueueAll.length}. Please continue with the next block of stimuli.`)
@@ -197,7 +190,16 @@ export class Waiter {
         if (serveNext) {
             this.serveQuestion()
         } else {
-            window.setTimeout(() => window.location.reload(), 1000)
+            if (this.sourceID == 'statmt') {
+                $.ajax({
+                    type: 'GET',
+                    url: "https://statmt.org/bergamot/cgi/translationexperiment.php",
+                    data: { userID: this.userID, CallSource: 'ptakopet', CallState: 'completed' },
+                    complete: () => {
+                            window.location.reload()
+                    }
+                })
+            }
         }
     }
 

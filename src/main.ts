@@ -56,8 +56,8 @@ if ('responseID' in params) {
 if ('source' in params) {
     waiter.sourceID = params['source']
 
-    // Special Qualtrics handling
-    if (params['source'] == 'Qualtrics') {
+    // Special statmt/Qualtrics handling
+    if (params['source'] == 'statmt') {
         $('#read_instructions').show()
         $('#read_instructions_button_head').show()
         $('#read_instructions_close').click(() => $('#read_instructions').hide())
