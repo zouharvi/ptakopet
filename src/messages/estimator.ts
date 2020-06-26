@@ -14,7 +14,7 @@ export type EstimationResponse = { 'status': string, 'qe': Estimation | undefine
 
 export class Estimator extends AsyncMessage {
     public curEstimation: Estimation = []
-    private throttler = new Throttler(500)
+    private throttler = new Throttler(1100)
 
     /**
      * Make a estimator request, which can be later interrupted. 

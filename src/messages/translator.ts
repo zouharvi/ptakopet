@@ -14,7 +14,7 @@ export type ExtraTranslationInfo = any | undefined
  * Template for forward and backward translators
  */
 export abstract class Translator extends AsyncMessage {
-    private throttler = new Throttler(500)
+    private throttler = new Throttler(1100)
 
 
     /**
