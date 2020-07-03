@@ -3,8 +3,8 @@ import { estimator } from '../messages/estimator'
 import { translator_source, translator_target } from '../messages/translator'
 import { highlighter_source, highlighter_target } from '../page/highlighter'
 import { SettingsProfile, SettingsProfiles } from '../misc/settings_profiles'
-import { baked_study } from './baked_study'
 import { paraphraser } from '../messages/paraphraser'
+import { load_baked_study, BakedStudyType } from './baked_study'
 
 export class Waiter {
     public bakedQueue: Array<[string, string]> = []
@@ -14,7 +14,9 @@ export class Waiter {
     public userID: string = 'default'
     public responseID?: string
     public sourceID?: string
-
+    
+    private experimentName: string = 'edin'
+    private baked_study?: BakedStudyType
     private localStorageID: string | null = null
 
     private textContainer: JQuery<HTMLElement> = $('#study_text')
@@ -53,15 +55,17 @@ export class Waiter {
     /**
      * Prepares the interface after the users joins the study
      */
-    public joinStudy(userID: string | null = null): void {
+    public async joinStudy(userID: string | null = null): Promise<void> {
         if (userID == null) {
-            userID = prompt('UserID:', '')
+            userID = prompt('Loging in may take a while. Enter UserID:', '')
         }
         if (userID == null) {
             return
         }
 
-        if (!baked_study.users.hasOwnProperty(userID)) {
+        this.baked_study = await load_baked_study(this.experimentName)
+
+        if (!this.baked_study.users.hasOwnProperty(userID)) {
             alert(`Unknown userID "${userID}". Login forbidden.`)
             return
         }
@@ -71,7 +75,7 @@ export class Waiter {
 
         this.localStorageID = `ptakopet_progress_multi_${this.userID}`;
         [this.bakedIndex, this.bakedBlock] = this.getProgress()
-        this.bakedQueueAll = baked_study.users[this.userID]
+        this.bakedQueueAll = this.baked_study.users[this.userID]
         if (this.bakedQueueAll.length <= this.bakedBlock) {
             alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nLogin forbidden.`)
             return
@@ -97,7 +101,7 @@ export class Waiter {
     }
 
     private generateCurrentQueue() {
-        let keys = baked_study.users[this.userID][this.bakedBlock]
+        let keys = this.baked_study!.users[this.userID][this.bakedBlock]
         this.bakedQueue = []
         for (let key in keys) {
             let qID = keys[key]
@@ -105,7 +109,7 @@ export class Waiter {
             if (qID.indexOf('#') != -1) {
                 qIDbare = qID.substring(0, qID.indexOf('#'))
             }
-            this.bakedQueue.push([qID, baked_study.stimuli[qIDbare]])
+            this.bakedQueue.push([qID, this.baked_study!.stimuli[qIDbare]])
         }
     }
 
@@ -230,7 +234,7 @@ export class Waiter {
         // apply regex rules 
         // this could be rewritten so that the settings is set only once, but no elegant
         // solution exists, as TS doesn't allow deep merging of two objects
-        for (let settings of baked_study.stimuliRules) {
+        for (let settings of this.baked_study!.stimuliRules) {
             if ((new RegExp(settings.rule)).test(qID)) {
                 if (settings.profile != undefined) {
                     SettingsProfiles.setSettings(settings.profile as SettingsProfile)

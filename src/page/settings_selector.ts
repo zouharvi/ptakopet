@@ -33,6 +33,8 @@ export class SettingsSelector {
             this.instantiateLanguagesSource()
             this.instantiateLanguagesTarget()
             this.refreshWarning()
+            translator_target.clean()
+            estimator.clean()
             translator_source.translate()
         })
 
@@ -64,8 +66,8 @@ export class SettingsSelector {
                 Utils.setContainsArray(Settings.backendTranslator.languages, [Settings.language2 as LanguageCode, Settings.language1 as LanguageCode])) {
                 let tmp = Settings.language1 as LanguageCode
                 Settings.language1 = Settings.language2
-
                 Settings.language2 = tmp
+
                 this.instantiateLanguagesTarget()
                 $(translator_source.source).val($(translator_source.target).val() as string)
                 // Clean the current highlight

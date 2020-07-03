@@ -25,6 +25,8 @@ export class Estimator extends AsyncMessage {
 
     public clean() {
         this.curEstimation = []
+        highlighter_source.clean()
+        highlighter_target.clean()
     }
 
     /**

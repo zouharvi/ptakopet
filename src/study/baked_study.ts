@@ -1,7 +1,6 @@
-import _baked_study_raw from './data/study_edin.json'
 import { SettingsProfile } from '../misc/settings_profiles.js'
 
-interface BakedStudyType {
+export type BakedStudyType = {
     users: {
         [id: string]: Array<Array<string>>
     },
@@ -15,5 +14,14 @@ interface BakedStudyType {
     }>,
 }
 
-let baked_study = _baked_study_raw as BakedStudyType
-export { baked_study }
+export async function load_baked_study(name: string): Promise<BakedStudyType> {
+    return new Promise<BakedStudyType>((resolve, reject) => {
+        $.ajax({
+            url: `baked_queues/study_${name}.json`,
+            dataType: 'json',
+            success: (data) => {
+                resolve(data as BakedStudyType)
+            },
+        }).fail(reject)
+    })
+}
