@@ -14,13 +14,13 @@ export type EstimationResponse = { 'status': string, 'qe': Estimation | undefine
 
 export class Estimator extends AsyncMessage {
     public curEstimation: Estimation = []
-    private throttler = new Throttler(1100)
+    private throttler = new Throttler(800)
 
     /**
      * Make a estimator request, which can be later interrupted. 
      */
     public estimate_throttle() {
-        this.throttler.throttle(this.estimate)
+        this.throttler.throttle(() => this.estimate())
     }
 
     public clean() {
@@ -57,6 +57,7 @@ export class Estimator extends AsyncMessage {
 
 
         request.then(async (estimation: Estimation) => {
+
             if (estimation.length == 0) {
                 // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
                 return

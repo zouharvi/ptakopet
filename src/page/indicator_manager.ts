@@ -6,7 +6,7 @@ export class IndicatorManager {
         this.indicator = indicator
     }
 
-    private n: number = 0
+    public n: number = 0
     private indicator: JQuery<HTMLElement>
 
     /**
@@ -14,6 +14,9 @@ export class IndicatorManager {
      * @param n Balance (on iff n < 0)
      */
     public add(n: number) {
+        if(n == 0) {
+            return;
+        }
         this.n += n
 
         if (this.n < 0) {
@@ -21,5 +24,13 @@ export class IndicatorManager {
         } else {
             this.indicator.animate({ opacity: 0 }, 300)
         }
+    }
+
+    /**
+     * Returns to the initial state
+     */
+    public reset() {
+        this.n = 0;
+        this.add(0)
     }
 }

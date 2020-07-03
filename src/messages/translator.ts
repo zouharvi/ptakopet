@@ -14,7 +14,7 @@ export type ExtraTranslationInfo = any | undefined
  * Template for forward and backward translators
  */
 export abstract class Translator extends AsyncMessage {
-    private throttler = new Throttler(1100)
+    private throttler = new Throttler(1000)
 
 
     /**
@@ -221,8 +221,8 @@ export class TranslatorSource extends Translator {
             highlighter_target.clean()
 
             $(this.target).val(text)
-            translator_target.translate()
-            estimator.estimate()
+            translator_target.translate_throttle()
+            estimator.estimate_throttle()
         })
 
         super.dispatch(request)

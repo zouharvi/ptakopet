@@ -27,12 +27,26 @@ export class AsyncMessage {
         if (this.msgRec > msgIndex) {
             return false
         } else {
+            // Bug in TS preventing from the use of optional chaining
             if (this.indicatorHandle != undefined) {
                 this.indicatorHandle.add(msgIndex - this.msgRec)
             }
             this.msgRec = msgIndex
             return true
         }
+    }
+
+    /**
+     * Makes all promises obsolete.
+     */
+    public clear() {
+        // Bug in TS preventing from the use of optional chaining
+        if (this.indicatorHandle != undefined) {
+            this.indicatorHandle.add(this.msgNext-this.msgRec -1)
+        }
+
+        this.msgRec = this.msgNext;
+        this.msgNext += 1;
     }
 
     /**
@@ -54,7 +68,7 @@ export class AsyncMessage {
                     callback(text)
                 }
             },
-            (_:any) => {
+            (_: any) => {
                 // Do nothing except for fix the message id
                 this.receiveCheck(msgCurrent)
             }
