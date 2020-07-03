@@ -5,6 +5,11 @@ import { Aligner } from "../messages/aligner";
 import { Tokenizer } from "../messages/tokenizer";
 import { Paraphraser } from "../messages/paraphraser";
 
+// Workaround before Promise.allSettled gets into mainstream
+declare interface PromiseConstructor {
+    allSettled(promises: Array<Promise<any>>): Promise<Array<{status: 'fulfilled' | 'rejected', value?: any, reason?: any}>>;
+}
+
 /**
  * Small static class for testing the system
  */
@@ -48,7 +53,7 @@ export class Tester {
             return backend.composeRequest(languages, "Hello there")
                 .then(() => appendMessage(`OK - ${name}`), () => appendMessage(`ERROR - ${name}`))
         })
-        await Promise.all(promises)
+        await Promise.allSettled(promises)
 
         appendTitle("Estimators")
         promises = Object.keys(Estimator.backends).map((key) => {
@@ -68,7 +73,7 @@ export class Tester {
             return backend.composeRequest(languages, ["Hello there", "Ahoj tady"], extra)
                 .then(() => appendMessage(`OK - ${name}`), () => appendMessage(`ERROR - ${name}`))
         })
-        await Promise.all(promises)
+        await Promise.allSettled(promises)
 
         appendTitle("Paraphrasers")
         promises = Object.keys(Paraphraser.backends).map((key) => {
@@ -78,7 +83,7 @@ export class Tester {
             return backend.composeRequest(language, "Hello there")
                 .then(() => appendMessage(`OK - ${name}`), () => appendMessage(`ERROR - ${name}`))
         })
-        await Promise.all(promises)
+        await Promise.allSettled(promises)
 
         appendTitle("Aligners")
         promises = Object.keys(Aligner.backends).map((key) => {
@@ -88,7 +93,7 @@ export class Tester {
             return backend.composeRequest(languages, ["Hello there", "Ahoj tady"])
                 .then(() => appendMessage(`OK - ${name}`), () => appendMessage(`ERROR - ${name}`))
         })
-        await Promise.all(promises)
+        await Promise.allSettled(promises)
 
         appendTitle("Tokenizers")
         promises = Object.keys(Tokenizer.backends).map((key) => {
@@ -98,7 +103,7 @@ export class Tester {
             return backend.composeRequest("Hello there.", language)
                 .then(() => appendMessage(`OK - ${name}`), () => appendMessage(`ERROR - ${name}`))
         })
-        await Promise.all(promises)
+        await Promise.allSettled(promises)
 
         appendTitle("Done")
     }
