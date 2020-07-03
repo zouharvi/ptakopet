@@ -205,6 +205,7 @@ export class TranslatorSource extends Translator {
         if (!this.running)
             return
         this.curSource = $(this.source).val() as string
+        let curSourceLog = this.curSource as string
 
         let request = Settings.backendTranslator.composeRequest(
             [Settings.language1, Settings.language2] as [LanguageCode, LanguageCode],
@@ -212,7 +213,7 @@ export class TranslatorSource extends Translator {
         )
 
         request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
-            logger.log(logger.Action.TRANSLATE1, { text1: this.curSource, text2: text })
+            logger.log(logger.Action.TRANSLATE1, { text1: curSourceLog, text2: text })
             this.curTranslation = text
             this.curExtra = extra
 
@@ -248,14 +249,14 @@ export class TranslatorTarget extends Translator {
             return
         }
         this.curSource = $(this.source).val() as string
+        let curSourceLog = this.curSource as string
 
-        let targetText = $(this.source).val() as string
         let request = Settings.backendTranslator.composeRequest(
             [Settings.language2, Settings.language1] as [LanguageCode, LanguageCode],
             this.curSource
         )
         request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
-            logger.log(logger.Action.TRANSLATE2, { text2: targetText, text3: text })
+            logger.log(logger.Action.TRANSLATE2, { text2: curSourceLog, text3: text })
             this.curTranslation = text
             $(this.target).val(text)
         })
