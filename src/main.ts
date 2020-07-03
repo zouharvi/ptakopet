@@ -5,6 +5,7 @@
 // This was replaced by server-side .htaccess file
 
 import { translator_source, translator_target } from './messages/translator'
+import { paraphraser } from './messages/paraphraser'
 import { estimator } from './messages/estimator'
 import { SettingsSelector } from './page/settings_selector'
 import { SettingsProfiles } from './misc/settings_profiles'
@@ -38,6 +39,7 @@ export { settings_selector }
 
 $('#input_source').on('input', function () {
     translator_source.translate_throttle()
+    paraphraser.paraphrase_throttle()
 })
 
 $('#input_target').on('input', function () {

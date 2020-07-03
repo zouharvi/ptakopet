@@ -223,7 +223,6 @@ export class TranslatorSource extends Translator {
             $(this.target).val(text)
             translator_target.translate()
             estimator.estimate()
-            paraphraser.paraphrase_throttle()
         })
 
         super.dispatch(request)
