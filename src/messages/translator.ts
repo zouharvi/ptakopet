@@ -230,6 +230,7 @@ export class TranslatorSource extends Translator {
         this.curTranslation = ''
         $(this.source).val('')
         $(this.target).val('')
+        this.cancel()
     }
 }
 

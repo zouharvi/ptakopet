@@ -203,6 +203,10 @@ export class Waiter {
                             window.location.reload()
                     }
                 })
+            } else {
+                window.setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
             }
         }
     }

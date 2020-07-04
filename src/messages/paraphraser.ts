@@ -24,6 +24,7 @@ export class Paraphraser extends AsyncMessage {
 
     public clean() {
         this.paraphraserElement.html('<div></div>')
+        this.cancel()
     }
 
     /**
