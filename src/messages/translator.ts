@@ -16,7 +16,6 @@ export type ExtraTranslationInfo = any | undefined
 export abstract class Translator extends AsyncMessage {
     private throttler = new Throttler(1000)
 
-
     /**
      * Make a translator request, which can be later interrupted. 
      */
@@ -212,7 +211,7 @@ export class TranslatorSource extends Translator {
             this.curSource
         )
 
-        request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
+        super.dispatch(request, ([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE1, { text1: curSourceLog, text2: text })
             this.curTranslation = text
             this.curExtra = extra
@@ -224,8 +223,6 @@ export class TranslatorSource extends Translator {
             translator_target.translate_throttle()
             estimator.estimate_throttle()
         })
-
-        super.dispatch(request)
     }
 
     public clean = () => {
@@ -254,13 +251,12 @@ export class TranslatorTarget extends Translator {
             [Settings.language2, Settings.language1] as [LanguageCode, LanguageCode],
             this.curSource
         )
-        request.then(([text, extra]: [string, ExtraTranslationInfo]) => {
+
+        super.dispatch(request, ([text, extra]: [string, ExtraTranslationInfo]) => {
             logger.log(logger.Action.TRANSLATE2, { text2: curSourceLog, text3: text })
             this.curTranslation = text
             $(this.target).val(text)
         })
-
-        super.dispatch(request)
     }
 
     public clean = () => {

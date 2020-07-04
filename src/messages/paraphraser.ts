@@ -52,7 +52,7 @@ export class Paraphraser extends AsyncMessage {
             Settings.language1 as LanguageCode,
             hash.text)
 
-        request.then(async (paraphrase: Paraphrase) => {
+        super.dispatch(request, async (paraphrase: Paraphrase) => {
             $(this.paraphraserElement).empty()
             let toDisplay: Array<string> = []
 
@@ -89,8 +89,6 @@ export class Paraphraser extends AsyncMessage {
                 $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
             }
         })
-
-        super.dispatch(request)
     }
 
     /**

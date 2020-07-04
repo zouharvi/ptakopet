@@ -1,4 +1,5 @@
 import { IndicatorManager } from '../page/indicator_manager'
+import { TranslatorSource } from './translator'
 
 /**
  * AsyncMessage resolves a promise, notes message id and if 
@@ -24,7 +25,7 @@ export class AsyncMessage {
      * and possibly increase the latter
      */
     private receiveCheck(msgIndex: number): boolean {
-        if (this.msgRec > msgIndex) {
+        if (this.msgRec >= msgIndex) {
             return false
         } else {
             // Bug in TS preventing from the use of optional chaining
@@ -39,14 +40,14 @@ export class AsyncMessage {
     /**
      * Makes all promises obsolete.
      */
-    public clear() {
+    public cancel() {
         // Bug in TS preventing from the use of optional chaining
         if (this.indicatorHandle != undefined) {
-            this.indicatorHandle.add(this.msgNext-this.msgRec -1)
+            this.indicatorHandle.reset()
         }
 
-        this.msgRec = this.msgNext;
-        this.msgNext += 1;
+        this.msgRec = this.msgNext
+        this.msgNext += 1
     }
 
     /**
@@ -62,10 +63,10 @@ export class AsyncMessage {
         }
 
         message.then(
-            (text) => {
+            (data) => {
                 // If in an increasing sequence invoke callback
                 if (this.receiveCheck(msgCurrent) && callback) {
-                    callback(text)
+                    callback(data)
                 }
             },
             (_: any) => {

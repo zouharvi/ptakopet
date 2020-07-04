@@ -38,8 +38,8 @@ export { settings_selector }
 
 
 $('#input_source').on('input', function () {
-    estimator.clear()
-    translator_target.clear()
+    estimator.cancel()
+    translator_target.cancel()
     translator_source.translate_throttle()
     paraphraser.paraphrase_throttle()
 })

@@ -14,7 +14,7 @@ export type EstimationResponse = { 'status': string, 'qe': Estimation | undefine
 
 export class Estimator extends AsyncMessage {
     public curEstimation: Estimation = []
-    private throttler = new Throttler(800)
+    private throttler = new Throttler(1000)
 
     /**
      * Make a estimator request, which can be later interrupted. 
@@ -58,7 +58,7 @@ export class Estimator extends AsyncMessage {
             { ...translator_source.curExtra, alignment: alignment })
 
 
-        request.then(async (estimation: Estimation) => {
+        super.dispatch(request, async (estimation: Estimation) => {
 
             if (estimation.length == 0) {
                 // Used for none estimator to stop cascade but also useful to other, as this limits the log clutter
@@ -84,8 +84,6 @@ export class Estimator extends AsyncMessage {
             let intensities = Estimator.computeSourceComplexity(alignment, estimation, tokenizationSource)
             highlighter_source.highlight(intensities, tokenizationSource)
         })
-
-        super.dispatch(request)
     }
 
     /**
