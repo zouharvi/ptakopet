@@ -1,16 +1,14 @@
 import { AsyncMessage } from "./async_message"
 import { LanguageCode, Utils } from "../misc/utils"
 import { Settings, RequestHashOne } from '../misc/settings'
-import { highlighter_target } from '../page/highlighter'
 import { IndicatorManager } from "../page/indicator_manager"
-import { aligner } from "./aligner"
 import { Throttler } from "./throttler"
 import { logger } from '../study/logger'
-import { tokenizer } from './tokenizer'
-import { TextUtils } from "../misc/text_utils"
 
-export type Paraphrase = { [key in LanguageCode]?: string }
-export type ParaphraseResponse = { 'status': string, 'error'?: string } & Paraphrase
+export type ParaphraseGID = { 'text': string, 'pivot': string, 'gid': number }
+export type Paraphrases = Array<string>
+export type ParaphrasesResponse = { 'status': string, 'error'?: string } & { [key in LanguageCode]?: string }
+export type ParaphrasesGIDResponse = Array<ParaphraseGID>
 
 export class Paraphraser extends AsyncMessage {
     private throttler = new Throttler(2500)
@@ -53,7 +51,7 @@ export class Paraphraser extends AsyncMessage {
             Settings.language1 as LanguageCode,
             hash.text)
 
-        super.dispatch(request, async (paraphrase: Paraphrase) => {
+        super.dispatch(request, async (paraphrases: Paraphrases) => {
             $(this.paraphraserElement).empty()
             let toDisplay: Array<string> = []
 
@@ -62,31 +60,12 @@ export class Paraphraser extends AsyncMessage {
                 return
             }
 
-            for (let lang of Object.keys(paraphrase)) {
-                let data: string = paraphrase[lang as LanguageCode] as string
-
-                // skip if equal to the currently displayed source
-                if (TextUtils.vagueEqual(data, hash.text)) {
-                    continue;
-                }
-
-                let ok: boolean = true
-                for (let other of toDisplay) {
-                    if (TextUtils.vagueEqual(other, data)) {
-                        ok = false;
-                        break;
-                    }
-                }
-                if (ok) {
-                    toDisplay.push(data)
-                }
-            }
             logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
 
-            for (let data of toDisplay) {
+            for (let data of paraphrases) {
                 $(this.paraphraserElement).append("<div>" + data + "</div>")
             }
-            if (toDisplay.length == 0) {
+            if (paraphrases.length == 0) {
                 $(this.paraphraserElement).append("<div style='font-style: italic'>None available.</div>")
             }
         })
@@ -111,18 +90,18 @@ export class Paraphraser extends AsyncMessage {
     // Object of available backends and their implementations
     public static backends: { [index: string]: ParaphraserBackend } = {
         mock: {
-            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrase> {
-                return new Promise<Paraphrase>((resolve, reject) => {
+            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrases> {
+                return new Promise<Paraphrases>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/zouharvi/paraphrase/mock",
                         data: { lang: lang, text: text.replace(/\n/, " ") },
                         async: true,
                     })
-                        .done((data: ParaphraseResponse) => {
+                        .done((data: ParaphrasesResponse) => {
                             if (data['status'] == 'OK') {
                                 delete data['status']
-                                resolve(data)
+                                resolve(Object.values(data) as Paraphrases)
                             } else {
                                 console.warn(data['error'])
                                 reject(data['error'] as string)
@@ -136,16 +115,28 @@ export class Paraphraser extends AsyncMessage {
         },
 
         rainbow: {
-            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrase> {
-                return new Promise<Paraphrase>((resolve, reject) => {
+            composeRequest(lang: LanguageCode, text: string): Promise<Paraphrases> {
+                return new Promise<Paraphrases>((resolve, reject) => {
                     $.ajax({
                         type: "GET",
                         url: "https://quest.ms.mff.cuni.cz/paraf/translate",
                         data: { lang: lang, text: text.replace(/\n/, " ") },
                         async: true,
                     })
-                        .done((data: ParaphraseResponse) => {
-                            resolve(data)
+                        .done((data: ParaphrasesGIDResponse) => {
+                            let out: Paraphrases = new Array<string>()
+                            let processed : Set<number> = new Set<number>()
+                            data.forEach((value: ParaphraseGID) => {
+                                if (value.gid <= 0) {
+                                    return
+                                }
+                                if (processed.has(value.gid)) {
+                                    return
+                                }
+                                out.push(value.text)
+                                processed.add(value.gid)
+                            })
+                            resolve(out)
                         })
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
@@ -154,9 +145,9 @@ export class Paraphraser extends AsyncMessage {
             name: 'Rainbow',
         },
         none: {
-            composeRequest(language: LanguageCode, text: string): Promise<Paraphrase> {
-                return new Promise<Paraphrase>((resolve, reject) => {
-                    resolve({})
+            composeRequest(language: LanguageCode, text: string): Promise<Paraphrases> {
+                return new Promise<Paraphrases>((resolve, reject) => {
+                    resolve([])
                 })
             },
             languages: Utils.Languages,
@@ -167,7 +158,7 @@ export class Paraphraser extends AsyncMessage {
 
 export interface ParaphraserBackend {
     // Return a finished promise object, which can later be resolved
-    composeRequest: (lang: LanguageCode, text: string) => Promise<Paraphrase>,
+    composeRequest: (lang: LanguageCode, text: string) => Promise<Paraphrases>,
 
     // Array of available languages to this backend
     languages: Set<LanguageCode>,
