@@ -1,4 +1,6 @@
-*.[sd]r[0-9]
 study_pilot/*.json
 **/__pycache__/*
 **/tmp*
+no_commit*
+*.log
+*.blog[123]

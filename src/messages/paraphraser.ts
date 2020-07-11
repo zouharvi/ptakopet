@@ -141,7 +141,7 @@ export class Paraphraser extends AsyncMessage {
                         .fail((xhr: JQueryXHR) => reject(xhr))
                 })
             },
-            languages: new Set<LanguageCode>(['de', 'en', 'es', 'hu', 'lt', 'ru']),
+            languages: new Set<LanguageCode>(['de', 'en', 'es', 'hu', 'lt', 'ru', 'cs', 'et']),
             name: 'Rainbow',
         },
         none: {

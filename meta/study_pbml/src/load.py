@@ -29,6 +29,7 @@ class Segment:
         self.data = data
         self.uid = uid
         self.block = block
+        self.grades = {}
         for line in data:
             if line[0] == 'CONFIRM_OK':
                 self.success = True
