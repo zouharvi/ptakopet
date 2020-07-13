@@ -8,7 +8,7 @@ import numpy as np
 from collections import Counter
 import math
 
-GRAYSCALE = True
+GRAYSCALE = False
 
 parser = argparse.ArgumentParser(description='PBML log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
@@ -24,7 +24,7 @@ grades = []
 
 for segment in data:
     if segment.grades != {}:
-        grades.append(math.floor(np.average(list(segment.grades.values()))))
+        grades.append(np.round(np.average(list(segment.grades.values()))))
         ratings.append(segment.score)
 
 ratings = Counter(ratings)
