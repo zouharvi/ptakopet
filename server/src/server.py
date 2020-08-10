@@ -11,9 +11,6 @@ CORS(app)
 
 CONTENT_TYPE = {'Content-Type': 'application/json; charset=utf-8'}
 
-def disable(_func):
-  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
-
 @app.route('/')
 def index():
   return 'This is the Ptakopět server. For info about this project or the API please see the <a href="http://ptakopet.vilda.net/docs">documentation</a>.'
@@ -34,7 +31,7 @@ def loginService():
   Provides logging in service
   """
   try:
-    queue = json.load(open('baked_studies/study_edin.json', 'r'))
+    queue = json.load(open('server/baked_queues/study_edin.json', 'r'))
     if not request.values['uid'] in queue['users']:
       return {'status': 'FAIL', 'error': 'Non-existent user id.'}
     queue['users'] = {k:v for k,v in queue['users'].items() if k == request.values['uid']}
@@ -44,11 +41,11 @@ def loginService():
 
 
 @app.route('/align/<backend>', methods = ['GET', 'POST'])
-@disable
 def alignService(backend):
   """
   Provides word alignment backend
   """
+  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
   try:
     if not backend in backends['align'].keys():
       raise Exception("Invalid backend selected")
@@ -69,11 +66,11 @@ def tokenizeService(backend):
     return {'status': 'FAIL', 'error': str(error) }
 
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
-@disable
 def qeService(backend):
   """
   Provides quality estimation backend
   """
+  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
   try:
     if not backend in backends['qe'].keys():
       raise Exception("Invalid backend selected")
@@ -84,11 +81,11 @@ def qeService(backend):
     return {'status': 'FAIL', 'error': str(error) }
 
 @app.route('/paraphrase/<backend>', methods = ['GET', 'POST'])
-@disable
 def paraphraseService(backend):
   """
   Provides mock up paraphrasing backend
   """
+  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
   try:
     if not backend in backends['paraphrase'].keys():
       raise Exception("Invalid backend selected")
