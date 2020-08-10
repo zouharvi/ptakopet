@@ -32,6 +32,7 @@ def loginService():
   """
   try:
     queue = json.load(open('server/baked_queues/study_edin.json', 'r'))
+    print(request.values['uid'])
     if not request.values['uid'] in queue['users']:
       return {'status': 'FAIL', 'error': 'Non-existent user id.'}
     queue['users'] = {k:v for k,v in queue['users'].items() if k == request.values['uid']}
