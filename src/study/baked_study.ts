@@ -14,11 +14,12 @@ export type BakedStudyType = {
     }>,
 }
 
-export async function load_baked_study(name: string): Promise<BakedStudyType> {
+export async function load_baked_study(name: string, userID: string): Promise<BakedStudyType> {
     return new Promise<BakedStudyType>((resolve, reject) => {
         $.ajax({
-            url: `baked_queues/study_${name}.json`,
-            dataType: 'json',
+            method: 'POST',
+            url: 'https://quest.ms.mff.cuni.cz/zouharvi/login',
+            data: {uid: userID},
             success: (data) => {
                 resolve(data as BakedStudyType)
             },

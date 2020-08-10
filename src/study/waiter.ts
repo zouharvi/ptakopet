@@ -57,18 +57,18 @@ export class Waiter {
      */
     public async joinStudy(userID: string | null = null): Promise<void> {
         if (userID == null) {
-            userID = prompt('Loging in may take a while. Enter UserID:', '')
+            userID = prompt('Enter UserID:', '')
         }
         if (userID == null) {
             return
         }
 
-        this.baked_study = await load_baked_study(this.experimentName)
+        let bakedStudyPromise = load_baked_study(this.experimentName, userID)
+        bakedStudyPromise.catch(() => {
+            alert(`Login with "${userID}" failed.`)
+        })
 
-        if (!this.baked_study.users.hasOwnProperty(userID)) {
-            alert(`Unknown userID "${userID}". Login forbidden.`)
-            return
-        }
+        this.baked_study = await bakedStudyPromise
 
         this.userID = userID
         logger.on(true)
