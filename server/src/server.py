@@ -11,22 +11,8 @@ CORS(app)
 
 CONTENT_TYPE = {'Content-Type': 'application/json; charset=utf-8'}
 
-if __name__ == 'server':
-  backends = dict()
-  backends['qe'] = {
-    'questplusplus': qe.QuestPlusPlus(),
-    'deepquest': qe.DeepQuest(),
-    'openkiwi': qe.OpenKiwi(),
-  }
-  backends['align'] = {
-    'fast_align': align.FastAlign(),
-  }
-  backends['tokenize'] = {
-    'moses': tokenizer.MosesTokenizer(),
-  }
-  backends['paraphrase'] = {
-    'mock': paraphraser.Mock(),
-  }
+def disable(_func):
+  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
 
 @app.route('/')
 def index():
@@ -42,8 +28,23 @@ def logService():
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
+@app.route('/login', methods = ['GET', 'POST'])
+def loginService():
+  """
+  Provides logging in service
+  """
+  try:
+    queue = json.load(open('baked_studies/study_edin.json', 'r'))
+    if not request.values['uid'] in queue['users']:
+      return {'status': 'FAIL', 'error': 'Non-existent user id.'}
+    queue['users'] = {k:v for k,v in queue['users'].items() if k == request.values['uid']}
+    return queue
+  except Exception as error:
+    return {'status': 'FAIL', 'error': str(error) }
+
 
 @app.route('/align/<backend>', methods = ['GET', 'POST'])
+@disable
 def alignService(backend):
   """
   Provides word alignment backend
@@ -51,7 +52,6 @@ def alignService(backend):
   try:
     if not backend in backends['align'].keys():
       raise Exception("Invalid backend selected")
-    assertArgs(request.args, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
     return json.dumps(backends['align'][backend].align(**request.args)), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
@@ -64,12 +64,12 @@ def tokenizeService(backend):
   try:
     if not backend in backends['tokenize'].keys():
       raise Exception("Invalid backend selected")
-    assertArgs(request.args, ['text', 'lang'])
     return json.dumps(backends['tokenize'][backend].tokenize(**request.args), ensure_ascii=False), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
 @app.route('/qe/<backend>', methods = ['GET', 'POST'])
+@disable
 def qeService(backend):
   """
   Provides quality estimation backend
@@ -77,7 +77,6 @@ def qeService(backend):
   try:
     if not backend in backends['qe'].keys():
       raise Exception("Invalid backend selected")
-    assertArgs(request.values, ['sourceLang', 'targetLang', 'sourceText', 'targetText'])
     if len(request.values['sourceLang']) == 0 or len(request.values['targetText']) == 0:
       return jsonify({'status': 'OK', 'qe': []}) 
     return json.dumps(backends['qe'][backend].qe(**request.values), ensure_ascii=False), CONTENT_TYPE
@@ -85,6 +84,7 @@ def qeService(backend):
     return {'status': 'FAIL', 'error': str(error) }
 
 @app.route('/paraphrase/<backend>', methods = ['GET', 'POST'])
+@disable
 def paraphraseService(backend):
   """
   Provides mock up paraphrasing backend
@@ -92,17 +92,6 @@ def paraphraseService(backend):
   try:
     if not backend in backends['paraphrase'].keys():
       raise Exception("Invalid backend selected")
-    assertArgs(request.values, ['lang', 'text'])
     return json.dumps(backends['paraphrase'][backend].paraphrase(**request.values), ensure_ascii=False), CONTENT_TYPE
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
-
-def assertArgs(args, assertees):
-  """
-  Throws an exception if assertees are not a subset of args
-  """
-  if type(assertees) is not list:
-    assertees = [assertees]
-  for assertee in assertees:
-    if assertee not in args.keys():
-      raise Exception("Parameter '{}' is missing".format(assertee))
