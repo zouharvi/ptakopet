@@ -53,7 +53,7 @@ def loginService():
     print('LOGIN ATTEMPT', request.values['uid'])
     if not request.values['uid'] in queue:
       return {'status': 'FAIL', 'error': 'Non-existent user id.'}
-    rest['queue'] = queuep[request.values['uid']]
+    rest['queue'] = queue[request.values['uid']]
     return rest
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
