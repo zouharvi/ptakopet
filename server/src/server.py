@@ -11,6 +11,23 @@ CORS(app)
 
 CONTENT_TYPE = {'Content-Type': 'application/json; charset=utf-8'}
 
+if __name__ == 'server':
+  backends = dict()
+  backends['qe'] = {
+    'questplusplus': qe.QuestPlusPlus(),
+    'deepquest': qe.DeepQuest(),
+    'openkiwi': qe.OpenKiwi(),
+  }
+  backends['align'] = {
+    'fast_align': align.FastAlign(),
+  }
+  backends['tokenize'] = {
+    'moses': tokenizer.MosesTokenizer(),
+  }
+  backends['paraphrase'] = {
+    'mock': paraphraser.Mock(),
+  }
+  
 @app.route('/')
 def index():
   return 'This is the Ptakopět server. For info about this project or the API please see the <a href="http://ptakopet.vilda.net/docs">documentation</a>.'
