@@ -1,9 +1,7 @@
 import { SettingsProfile } from '../misc/settings_profiles.js'
 
 export type BakedStudyType = {
-    users: {
-        [id: string]: Array<Array<string>>
-    },
+    queue: Array<Array<string>>,
     stimuli: {
         [id: string]: string
     },

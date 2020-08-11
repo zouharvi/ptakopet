@@ -75,7 +75,7 @@ export class Waiter {
 
         this.localStorageID = `ptakopet_progress_multi_${this.userID}`;
         [this.bakedIndex, this.bakedBlock] = this.getProgress()
-        this.bakedQueueAll = this.baked_study.users[this.userID]
+        this.bakedQueueAll = this.baked_study.queue
         if (this.bakedQueueAll.length <= this.bakedBlock) {
             alert(`${this.bakedBlock}/${this.bakedQueueAll.length} blocks annotated. Stimuli count: ${this.bakedQueueAll.map((queue) => queue.length.toString()).join(', ')}.\nLogin forbidden.`)
             return
@@ -101,7 +101,7 @@ export class Waiter {
     }
 
     private generateCurrentQueue() {
-        let keys = this.baked_study!.users[this.userID][this.bakedBlock]
+        let keys = this.baked_study!.queue[this.bakedBlock]
         this.bakedQueue = []
         for (let key in keys) {
             let qID = keys[key]

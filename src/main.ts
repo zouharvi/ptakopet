@@ -39,12 +39,14 @@ export { settings_selector }
 
 $('#input_source').on('input', function () {
     estimator.cancel()
+    translator_source.cancel()
     translator_target.cancel()
     translator_source.translate_throttle()
     paraphraser.paraphrase_throttle()
 })
 
 $('#input_target').on('input', function () {
+    translator_target.cancel()
     translator_target.translate_throttle()
     estimator.estimate_throttle()
 })
