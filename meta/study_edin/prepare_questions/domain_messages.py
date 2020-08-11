@@ -13,7 +13,7 @@ with open(args.tsvfile) as tsvfile:
     reader = csv.reader(tsvfile, delimiter='\t')
     for row in reader:
         out.append({
-            'rule': '^' + row[0].rstrip('.png') + '.*-csw?',
+            'rule': '^' + row[0].rstrip('.png') + '.*-cs[ws]?',
             'message': f'Translate the highlighted text in the online form into Czech.<br>Try to achieve the best possible translation quality.<div style="margin-top: 15px; font-size: 15pt; font-weight: bold;">{row[1]}</div>',
         })
         out.append({

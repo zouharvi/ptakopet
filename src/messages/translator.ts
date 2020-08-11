@@ -92,34 +92,7 @@ export abstract class Translator extends AsyncMessage {
             default: ['en', 'et'],
             name: 'Neurotõlge',
         },
-        weakENCS: {
-            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
-                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
-                    if (text == '')
-                        resolve(['', undefined])
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/x-www-form-urlencoded",
-                        dataType: "json",
-                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}_weak`,
-                        data: { input_text: text },
-                        crossDomain: true,
-                        accepts: {
-                            text: "application/json",
-                        },
-                    })
-                        .done((result) => {
-                            let text = result['data'].map((x: any) => x['sent']).join(' ')
-                            resolve([text, result])
-                        })
-                        .fail((xhr: JQueryXHR) => reject(xhr))
-                })
-            },
-            languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
-            default: ['en', 'cs'],
-            name: 'Weak EN-CS',
-        },
-        strongENCS: {
+        tENCSstrong: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
@@ -144,9 +117,63 @@ export abstract class Translator extends AsyncMessage {
             },
             languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
             default: ['en', 'cs'],
-            name: 'Strong EN-CS',
+            name: 'T2T EN-CS Strong',
         },
-        avgENET: {
+        tENCSweak: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
+                    if (text == '')
+                        resolve(['', undefined])
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        dataType: "json",
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt280/api/v2/models/${lang1}-${lang2}_weak`,
+                        data: { input_text: text },
+                        crossDomain: true,
+                        accepts: {
+                            text: "application/json",
+                        },
+                    })
+                        .done((result) => {
+                            let text = result['data'].map((x: any) => x['sent']).join(' ')
+                            resolve([text, result])
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
+            default: ['en', 'cs'],
+            name: 'T2T EN-CS Weak',
+        },
+        mENCS: {
+            composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
+                return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
+                    if (text == '')
+                        resolve(['', undefined])
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/x-www-form-urlencoded",
+                        dataType: "json",
+                        url: `https://quest.ms.mff.cuni.cz/ptakopet-mt380/translate/${lang1}-${lang2}`,
+                        data: { text: text },
+                        crossDomain: true,
+                        accepts: {
+                            text: "application/json",
+                        },
+                    })
+                        .done((result) => {
+                            let text = result['data'].map((x: any) => x['sent']).join(' ')
+                            resolve([text, result])
+                        })
+                        .fail((xhr: JQueryXHR) => reject(xhr))
+                })
+            },
+            languages: Utils.generatePairsArray<LanguageCode>(['en', 'cs'], false),
+            default: ['en', 'cs'],
+            name: 'Marian EN-CS',
+        },
+        mENET: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {
                 return new Promise<[string, ExtraTranslationInfo]>((resolve, reject) => {
                     if (text == '')
@@ -171,7 +198,7 @@ export abstract class Translator extends AsyncMessage {
             },
             languages: Utils.generatePairsArray<LanguageCode>(['en', 'et'], false),
             default: ['en', 'et'],
-            name: 'Avg EN-ET',
+            name: 'Marian EN-ET',
         },
         identity: {
             composeRequest([lang1, lang2]: [LanguageCode, LanguageCode], text: string): Promise<[string, ExtraTranslationInfo]> {

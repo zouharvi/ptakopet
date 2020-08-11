@@ -79,7 +79,7 @@ export class SettingsProfiles {
 
 SettingsProfiles.profiles['default'] = {
     settings: {
-        backendTranslator: 'avgENET',
+        backendTranslator: 'mENET',
         backendEstimator: 'sheffield',
         backendParaphraser: 'rainbow',
         backendAligner: 'fast_align_michal',
