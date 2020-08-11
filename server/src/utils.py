@@ -60,13 +60,17 @@ def multiReplace(text, replacement):
     else:
         return multiReplace(re.sub(replacement[0][0], replacement[0][1], text), replacement[1:])
 
+tokenizers = {}
+
 def tokenize(text, language, join=True):
     """
     Tokenize text with mosestokenizer 
     """
-    tokenize = mosestokenizer.MosesTokenizer(language)
-    tokens = tokenize(text)
-    tokenize.close()
+    if not language in tokenizers:
+        tokenizers[language] = mosestokenizer.MosesTokenizer(language)
+    tokenizer = tokenizers[language]
+    tokens = tokenizer(text)
+    # tokenize.close()
     if join:
         tokens = ' '.join(tokens)
     return tokens
