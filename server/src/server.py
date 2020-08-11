@@ -48,12 +48,13 @@ def loginService():
   Provides logging in service
   """
   try:
-    queue = json.load(open('server/baked_queues/study_edin.json', 'r'))
-    print(request.values['uid'])
-    if not request.values['uid'] in queue['users']:
+    queue = json.load(open('server/baked_queues/study_edin_queue.json', 'r'))
+    rest = json.load(open('server/baked_queues/study_edin.json', 'r'))
+    print('LOGIN ATTEMPT', request.values['uid'])
+    if not request.values['uid'] in queue:
       return {'status': 'FAIL', 'error': 'Non-existent user id.'}
-    queue['users'] = {k:v for k,v in queue['users'].items() if k == request.values['uid']}
-    return queue
+    rest['queue'] = queuep[request.values['uid']]
+    return rest
   except Exception as error:
     return {'status': 'FAIL', 'error': str(error) }
 
