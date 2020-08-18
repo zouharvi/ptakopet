@@ -64,7 +64,7 @@ def alignService(backend):
   """
   Provides word alignment backend
   """
-  return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
+  #return {'status': 'FAIL', 'error': 'This service is temporarily disabled.'}
   try:
     if not backend in backends['align'].keys():
       raise Exception("Invalid backend selected")
