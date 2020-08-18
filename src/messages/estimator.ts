@@ -74,7 +74,7 @@ export class Estimator extends AsyncMessage {
             let tokenizationSource = await tokenizer.tokenize(hash.curSource, Settings.language2 as LanguageCode)
             let tokenizationTarget = await tokenizer.tokenize(hash.curTarget, Settings.language1 as LanguageCode)
             highlighter_target.highlight(estimation, tokenizationTarget)
-            logger.log(logger.Action.ESTIMATE, { estimation: estimation.join(' ') })
+            logger.log(logger.Action.ESTIMATE, { estimation: estimation.join('-') })
 
             // Make sure that we drop the pending quality estimation after lang switch
             if (!hash.valid()) {
