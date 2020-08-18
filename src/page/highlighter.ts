@@ -58,7 +58,7 @@ export class Highlighter {
         // Compute colors from intensities
         let highlights: Array<{ highlight: [number, number], className: string }> = []
         for (let i = 0; i < indices.length; i++) {
-            let styleColor: string = `rgba(255, 0, 0, ${(1 - intensities[i]) / 3})`
+            let styleColor: string = `rgba(255, 0, 0, ${(1 - intensities[i]) / 1.5})`
             highlights.push({ highlight: indices[i], className: `style='background-color: ${styleColor};'` })
         }
 
