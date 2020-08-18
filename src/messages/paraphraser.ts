@@ -53,14 +53,13 @@ export class Paraphraser extends AsyncMessage {
 
         super.dispatch(request, async (paraphrases: Paraphrases) => {
             $(this.paraphraserElement).empty()
-            let toDisplay: Array<string> = []
 
             // Skip if source is obsolete
             if (!hash.valid()) {
                 return
             }
 
-            logger.log(logger.Action.PARAPHRASE, { paraphrase: toDisplay.join('|') })
+            logger.log(logger.Action.PARAPHRASE, { paraphrase: paraphrases.join('|') })
 
             for (let data of paraphrases) {
                 $(this.paraphraserElement).append("<div>" + data + "</div>")
