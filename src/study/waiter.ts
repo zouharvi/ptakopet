@@ -195,18 +195,13 @@ export class Waiter {
             this.serveQuestion()
         } else {
             if (this.sourceID == 'statmt') {
-                $.ajax({
-                    type: 'GET',
-                    url: "https://statmt.org/bergamot/cgi/translationexperiment.php",
-                    data: { userID: this.userID, CallSource: 'ptakopet', CallState: 'completed' },
-                    complete: () => {
-                            window.location.reload()
-                    }
-                })
+                window.setTimeout(() => {
+                    window.location.href =  `https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=${this.userID}&CallSource=ptakopet&CallState=completed`
+                }, 1500)
             } else {
                 window.setTimeout(() => {
                     window.location.reload()
-                }, 1000)
+                }, 1500)
             }
         }
     }

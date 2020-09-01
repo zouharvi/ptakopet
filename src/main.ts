@@ -82,7 +82,7 @@ if ('test' in params) {
 // Log init
 logger.log(logger.Action.START,
     {
-        queue: 'public',
+        queue: 'public no-queue',
         agent: navigator.userAgent,
     }
 )
@@ -122,3 +122,5 @@ $('#burger_show_arrow').click(() => {
 $('#burger_back_arrow').click(() => {
     $('#burger_main_side').hide()
 })
+
+logger.on(false);

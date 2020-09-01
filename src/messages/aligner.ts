@@ -30,7 +30,6 @@ export class Aligner {
                 if(alignment.some((x:any) => !Array.isArray(x))) {
                     // Empty texts
                 } else {
-                    console.warn('does this even happen')
                     let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join('+')
                     logger.log(logger.Action.ALIGN, { alignment: stringified })
                 }
