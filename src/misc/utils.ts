@@ -130,8 +130,8 @@ export module Utils {
      * @param elem Needle
      */
     export function setContainsArray<R>(arr: Set<Array<R>>, elem: Array<R>): boolean {
-        for(let a of arr.values()) {
-            if(a.join('-') == elem.join('-')) {
+        for (let a of arr.values()) {
+            if (a.join('-') == elem.join('-')) {
                 return true
             }
         }
@@ -182,10 +182,10 @@ export module Utils {
     /**
      * Returns associative array of GET parameters
      **/
-    export function parseGETParams(): {[key: string]: string} {
-        let queryString : string = window.location.search.substring(1)
+    export function parseGETParams(): { [key: string]: string } {
+        let queryString: string = window.location.search.substring(1)
 
-        let params : {[key: string]: string} = {}
+        let params: { [key: string]: string } = {}
         let queries = queryString.split("&")
 
         queries.forEach((indexQuery: string) => {
@@ -207,7 +207,7 @@ export module Utils {
         let characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
         let charactersLength = characters.length
         for (let i = 0; i < length; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength))
+            result += characters.charAt(Math.floor(Math.random() * charactersLength))
         }
         return result
     }

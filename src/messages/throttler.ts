@@ -3,8 +3,8 @@
  * Used mostly for keyboard input.
  */
 export class Throttler {
-    private activationDelay : number
-    private timeoutId : NodeJS.Timeout | undefined
+    private activationDelay: number
+    private timeoutId: NodeJS.Timeout | undefined
 
     /**
      * @param activationDelay Delay after which the latest request is fired.
@@ -12,13 +12,13 @@ export class Throttler {
     public constructor(activationDelay: number) {
         this.activationDelay = activationDelay
     }
-    
+
     /**
      * Reset the previous delay and add new one. 
      * @param func Function which is eventually called.
      */
     public throttle(func: () => any) {
-        if(this.timeoutId != undefined) {
+        if (this.timeoutId != undefined) {
             clearTimeout(this.timeoutId)
         }
         this.timeoutId = setTimeout(func, this.activationDelay)

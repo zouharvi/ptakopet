@@ -27,7 +27,7 @@ export class Aligner {
                 [$(this.source).val(), $(this.target).val()] as [string, string]
             )
             request.then((alignment: Alignment) => {
-                if(alignment.some((x:any) => !Array.isArray(x))) {
+                if (alignment.some((x: any) => !Array.isArray(x))) {
                     // Empty texts
                 } else {
                     let stringified = alignment.map((x: [number, number]) => x[0].toString() + '-' + x[1].toString()).join('+')

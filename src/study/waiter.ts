@@ -14,7 +14,7 @@ export class Waiter {
     public userID: string = 'default'
     public responseID?: string
     public sourceID?: string
-    
+
     private experimentName: string = 'edin'
     private baked_study?: BakedStudyType
     private localStorageID: string | null = null
@@ -196,7 +196,7 @@ export class Waiter {
         } else {
             if (this.sourceID == 'statmt') {
                 window.setTimeout(() => {
-                    window.location.href =  `https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=${this.userID}&CallSource=ptakopet&CallState=completed`
+                    window.location.href = `https://www.statmt.org/bergamot/cgi/translationexperiment.php?userID=${this.userID}&CallSource=ptakopet&CallState=completed`
                 }, 1500)
             } else {
                 window.setTimeout(() => {

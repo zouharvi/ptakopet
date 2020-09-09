@@ -17,7 +17,7 @@ export async function load_baked_study(name: string, userID: string): Promise<Ba
         $.ajax({
             method: 'POST',
             url: 'https://quest.ms.mff.cuni.cz/zouharvi/login',
-            data: {uid: userID},
+            data: { uid: userID },
             success: (data) => {
                 resolve(data as BakedStudyType)
             },

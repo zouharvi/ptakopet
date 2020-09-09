@@ -124,7 +124,7 @@ export class Paraphraser extends AsyncMessage {
                     })
                         .done((data: ParaphrasesGIDResponse) => {
                             let out: Paraphrases = new Array<string>()
-                            let processed : Set<number> = new Set<number>()
+                            let processed: Set<number> = new Set<number>()
                             data.forEach((value: ParaphraseGID) => {
                                 if (value.gid <= 0) {
                                     return

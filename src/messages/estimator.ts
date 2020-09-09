@@ -46,7 +46,7 @@ export class Estimator extends AsyncMessage {
 
         let hash = new RequestHashTwo(this)
 
-        if(hash.curSource == '') {
+        if (hash.curSource == '') {
             return
         }
 

@@ -29,9 +29,9 @@ export class Tokenizer {
                     })
                         .done((data: TokenizerResponse) => {
                             let tokens: Tokenization = data['tokenization'] as Tokenization
-                            for(let i = 0; i < tokens.length; i++) {
+                            for (let i = 0; i < tokens.length; i++) {
                                 tokens[i] = TextUtils.decodeHTMLEntities(tokens[i])
-                            } 
+                            }
                             if (data['status'] == 'OK') {
                                 resolve(tokens)
                             } else {

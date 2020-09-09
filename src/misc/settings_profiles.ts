@@ -25,19 +25,19 @@ export interface SettingsProfile {
 }
 
 export class SettingsProfiles {
-    public static profiles: {[id: string]: SettingsProfile} = {}
+    public static profiles: { [id: string]: SettingsProfile } = {}
 
     public static setSettingsTag(profile: string) {
         this.setSettings(this.profiles[profile])
     }
 
     public static setSettings(profile: SettingsProfile) {
-        if(profile.qe != undefined) {
-            if(profile.qe) {
+        if (profile.qe != undefined) {
+            if (profile.qe) {
                 // This is very much an edge case. If qe is to be shown but the settings
                 // object contains no backend, then this could be confusing for the user.
             } else {
-                if(profile.settings != undefined) {
+                if (profile.settings != undefined) {
                     profile.settings.backendEstimator = 'none'
                 } else {
                     profile.settings = { backendEstimator: 'none' }
@@ -45,30 +45,30 @@ export class SettingsProfiles {
             }
         }
 
-        if(profile.settings != undefined) {
+        if (profile.settings != undefined) {
             settings_selector.forceSettings(profile.settings)
         }
 
         settings_selector.hide(profile.manual == undefined || !profile.manual)
 
-        if(profile.mt != undefined) {
-            if(profile.mt) {
+        if (profile.mt != undefined) {
+            if (profile.mt) {
                 $('#input_target_block').show()
             } else {
                 $('#input_target_block').hide()
             }
         }
 
-        if(profile.bt != undefined) {
-            if(profile.bt) {
+        if (profile.bt != undefined) {
+            if (profile.bt) {
                 $('#input_back_block').show()
             } else {
                 $('#input_back_block').hide()
             }
         }
 
-        if(profile.pp != undefined) {
-            if(profile.pp) {
+        if (profile.pp != undefined) {
+            if (profile.pp) {
                 $('#input_para_block').show()
             } else {
                 $('#input_para_block').hide()

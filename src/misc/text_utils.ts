@@ -51,17 +51,17 @@ export module TextUtils {
      */
     export function decodeHTMLEntities(raw: string) {
         var translate_re = /&(nbsp|amp|apos|quot|lt|gt);/g;
-        var translate : {[index : string]: string} = {
+        var translate: { [index: string]: string } = {
             "nbsp": " ",
-            "amp" : "&",
+            "amp": "&",
             "apos": "'",
             "quot": '"',
-            "lt"  : "<",
-            "gt"  : ">"
+            "lt": "<",
+            "gt": ">"
         };
-        return raw.replace(translate_re, function(match, entity) {
+        return raw.replace(translate_re, function (match, entity) {
             return translate[entity];
-        }).replace(/&#(\d+);/gi, function(match, numStr) {
+        }).replace(/&#(\d+);/gi, function (match, numStr) {
             var num = parseInt(numStr, 10);
             return String.fromCharCode(num);
         });
@@ -72,7 +72,7 @@ export module TextUtils {
      * @param str1 
      * @param str2 
      */
-    export function vagueEqual(str1: string, str2: string) : boolean {
+    export function vagueEqual(str1: string, str2: string): boolean {
         return str1.toLowerCase().trim() == str2.toLowerCase().trim()
     }
 }

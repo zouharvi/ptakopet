@@ -44,7 +44,7 @@ export class Highlighter {
             return
         }
 
-        if(intensities.length != indices.length) {
+        if (intensities.length != indices.length) {
             console.warn('Estimation does not match the tokenization in length.', 'Refusing to continue.')
             return
         }
