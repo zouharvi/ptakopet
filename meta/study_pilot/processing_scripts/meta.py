@@ -21,10 +21,13 @@ args = parser.parse_args()
 # Estimate total user time
 def userTime(logs, maxrest=60):
     timestamps = [int(x[1]) for x in logs]
+    timestamps = sorted(timestamps)
     # assuming it's not empty
     last = timestamps.pop(0)
     total = 0
     for x in timestamps:
+        if x < last:
+            continue
         if x - last <= maxrest:
             total += x - last
         last = x
@@ -36,7 +39,7 @@ def averageTime(logs, maxduration=500):
     segments = confirmSplit(logs)
     segments = filter(lambda x: len(x) > 1, segments)
     out = [int(s[-1][1]) - int(s[0][1]) for s in segments]
-    out = list(filter(lambda x: x < maxduration, out))
+    out = list(filter(lambda x: x < maxduration and x > 0, out))
     time = sum(out)/len(out)
     print(f'Average time per task: {time:.0f}s')
     return time
