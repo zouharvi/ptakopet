@@ -1,10 +1,10 @@
 {
   "main": "webpack.config.js",
   "devDependencies": {
-    "@types/jquery": "^3.5.0",
+    "@types/jquery": "^3.5.2",
     "ts-loader": "^6.2.2",
-    "typescript": "^3.9.6",
-    "webpack": "^4.43.0",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
@@ -21,6 +21,6 @@
     "url": "https://github.com/zouharvi/ptakopet"
   },
   "dependencies": {
-    "@types/node": "^14.0.14"
+    "@types/node": "^14.11.8"
   }
 }
