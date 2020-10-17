@@ -19,36 +19,25 @@ def viable(text):
     return re.match(r"^.*[\.\?]\s*$", text)
 
 count = 0
+length_ratios = []
 for segment in valid_data:
     out = []
-    bad_confirm_ok = False
     for line in segment.data:
-        if line[0] == 'CONFIRM_OK' and not viable(line[3]):
-            bad_confirm_ok = True
-            bad_confirm_ok_word = line[3].strip().split(' ')[-1]
-            bad_confirm_ok_sent = line[3]
-            # print(line[3])
-            # print(bad_confirm_ok_word)
-    if bad_confirm_ok:
-        for line in segment.data:
-            if line[0] == 'TRANSLATE1':
-                if line[2].rstrip().split(' ')[-1] == bad_confirm_ok_word and line[2] != bad_confirm_ok_sent:
-                    count += 1
-                    print(line[2])
-    # count += len(out)
-    # print(out)
+        if line[0] == 'CONFIRM_OK':
+            confirm_viable = viable(line[3])
+            confirm_sent = line[3].strip()
+            if not viable(confirm_sent):
+                confirm_last = line[3].strip().split(' ')[-1]
+    for line in segment.data:
+        if line[0] == 'TRANSLATE1' and line[2].strip() != confirm_sent:
+            if viable(line[2]) or (not confirm_viable and line[2].rstrip().split(' ')[-1] == confirm_last):
+                out.append(line[2])
+    out = set(out)
+    if len(out) != 0:
+        length_ratios += [len(x)/len(confirm_sent) for x in out]
+    count += len(out)
 
-print(count)
-
-# count = 0
-# for segment in valid_data:
-#     out = []
-#     for line in segment.data:
-#         if line[0] == 'TRANSLATE1' and viable(line[2]):
-#             out.append(line[2])
-#         if line[0] == 'CONFIRM_OK' and not viable(line[3]):
-#             out.append(line[3])
-#     count += len(out)
-#     print(out)
-
-# print(count)
+print('Unique viables', count)
+print('Segments', len(valid_data))
+print('Ratio', count/len(valid_data))
+print('Avg length ratios', sum(length_ratios)/len(length_ratios))
