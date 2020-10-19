@@ -4,8 +4,7 @@ import pickle
 import argparse
 from load import Segment, CID
 import re
-from numpy import average
-from collections import Counter
+import numpy as np
 from utils import CONFIG_ORDER
 
 parser = argparse.ArgumentParser(description='PBML log processing.')
@@ -18,36 +17,50 @@ with open(args.blog3, 'rb') as f:
 data = [x for x in data if not x.invalid]
 
 config_time = {}
-lang_count = {}
+lang_time = {}
+total_time = []
+config_events = {}
+lang_events = {}
+total_events = []
 
 def segment_time(segment):
-    return 5
+    times = [int(x[1]) for x in segment.data]
+    return (max(times)-min(times))/(10**3)
+
+def segment_events(segment):
+    return sum([1 for x in segment.data if x[0] in {'TRANSLATE1', 'TRANSLATE2'}])/2
+
+def average_sane(data, limit=60*10):
+    l = [x for x in data if x <= limit]
+    return np.average(l)
 
 for segment in data:
-    config_time.setdefault(segment.cid.nicename_nomt_noft(), []).append(segment_time(segment))
-    lang_count.setdefault(segment.cid.engine,[]).append(segment_time(segment))
+    s_time = segment_time(segment)
+    config_time.setdefault(segment.cid.nicename_nomt_noft(), []).append(s_time)
+    lang_time.setdefault(segment.cid.engine,[]).append(s_time)
+    total_time.append(s_time)
+
+
+    s_events = segment_events(segment)
+    config_events.setdefault(segment.cid.nicename_nomt_noft(), []).append(s_events)
+    lang_events.setdefault(segment.cid.engine,[]).append(s_events)
+    total_events.append(s_events)
 
 print(('\n'+'%'*10)*4)
 
-print(f'Czech MT 1 & {average(lang_count["csw"])} \\\\') 
-print(f'Czech MT 2 & {average(lang_count["cs"])} \\\\') 
-print(f'Czech MT 3 & {average(lang_count["css"])} \\\\') 
-print(f'Estonian & {average(lang_count["et"])} \\\\ \hline') 
+print(f'Czech MT 1 & {average_sane(lang_time["csw"]):.0f} & {average_sane(lang_events["csw"]):.2f}  \\\\') 
+print(f'Czech MT 2 & {average_sane(lang_time["cs"]):.0f}  & {average_sane(lang_events["cs"]):.2f}  \\\\') 
+print(f'Czech MT 3 & {average_sane(lang_time["css"]):.0f} & {average_sane(lang_events["css"]):.2f}  \\\\') 
+print(f'Estonian   & {average_sane(lang_time["et"]):.0f}  & {average_sane(lang_events["et"]):.2f}  \\\\ \hline') 
 
 for order in CONFIG_ORDER:
-    # for configuration in config_count.keys():
-    #     if re.match(f'ft\.y-{order}-\w+', configuration):
-    #         total_succ += config_count[configuration]
-    #     if re.match(f'ft\.y-{order}-\w+_skip', configuration):
-    #         total_skip += config_count[configuration]
-    # find some passing CID:
-    for d in data:
-        if re.match('.*' + order + '.*', d.cid.__str__()):
-            print(f'{d.cid.nicename_nomt_noft()} & {average(config_time[d.cid.nicename_nomt_noft()])} \\\\')
-            break
+    cid = CID(order)
+    time = average_sane(config_time[cid.nicename_nomt_noft()])
+    events = average_sane(config_events[cid.nicename_nomt_noft()], limit=1000)
+    print(f'{cid.nicename_nomt_noft()} & {time:.0f} & {events:.2f} \\\\')
 
 print('\\hline')
 
-print(f'Total & {abs_total_succ} & {abs_total_skip} \\\\')
+print(f'Total & {average_sane(total_time):.0f} & {average_sane(total_events, limit=1000):.2f} \\\\')
 
 print(('\n'+'%'*10)*4)
