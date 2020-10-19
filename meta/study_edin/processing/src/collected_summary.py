@@ -5,6 +5,7 @@ import argparse
 from load import Segment, CID
 import re
 from collections import Counter
+from utils import CONFIG_ORDER
 
 parser = argparse.ArgumentParser(description='PBML log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
@@ -20,7 +21,6 @@ config_count = {}
 lang_count = {}
 abs_total_succ = 0
 abs_total_skip = 0
-CONFIG_ORDER = ['bt.y-pp.y-qe.y', 'bt.y-pp.y-qe.n', 'bt.y-pp.n-qe.y', 'bt.n-pp.y-qe.y', 'bt.y-pp.n-qe.n', 'bt.n-pp.y-qe.n', 'bt.n-pp.n-qe.y', 'bt.n-pp.n-qe.n']
 
 for segment in data:
     if segment.success:
