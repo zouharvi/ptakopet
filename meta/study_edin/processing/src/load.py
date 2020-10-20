@@ -46,7 +46,7 @@ class CID:
 
 class Segment:
     def __init__(self, data, uid, block):
-        sorted(data, key=lambda x: int(x[1]))
+        data = sorted(data, key=lambda x: int(x[1]))
         self.data = data
         self.uid = uid
         self.block = block
@@ -104,9 +104,10 @@ if __name__ == '__main__':
 
     segments = len(data)
 
-    print(f'Lines:    {lines}')
-    print(f'Blocks:   {blocks}')
-    print(f'Segments: {segments}')
+    print(f'Lines:       {lines}')
+    print(f'Blocks:      {blocks}')
+    print(f'Segments:    {segments}')
+    print(f'OK Segments: {len([x for x in data if not x.invalid])}')
 
     if args.blog3:
         with open(args.blog3, 'wb') as f:
