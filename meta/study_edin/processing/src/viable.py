@@ -27,7 +27,7 @@ def viable_src_to_confirm(src, tgt):
     return rat <= 1.3 and rat >= 0.7
 
 def viable_basic(text):
-    return len(text) >= 15
+    return len(text) >= 7
 
 def standardize(text):
     return text.replace('&#44;', ',').replace('<br>', '\\n').strip()
