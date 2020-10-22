@@ -5,16 +5,19 @@ import argparse
 from load import Segment, CID
 import re
 from collections import Counter
+from random import shuffle
 
 parser = argparse.ArgumentParser(description='PBML log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 parser.add_argument('-o', '--out-sentences', help='Path to a file to which to output all viable sentences, including confirmed', default=None)
+parser.add_argument('-l', '--lang', help='Language', default='cs')
 args = parser.parse_args()
 
 with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
 
 valid_data = [x for x in data if not x.invalid]
+valid_data = [x for x in data if x.cid.lang == args.lang]
 
 def viable(text):
     return re.match(r"^.*[\.\?]\s*$", text) and len(text) >= 10
@@ -78,6 +81,9 @@ print('Unique viables', len(a_viables))
 print('Segments', len(valid_data))
 print('Ratio', count_viables/count_confirm)
 print('Avg length ratios', sum(length_ratios)/len(length_ratios))
+
+a_viables = list(a_viables)
+shuffle(a_viables)
 
 if args.out_sentences:
     with open(args.out_sentences, 'w') as f:
