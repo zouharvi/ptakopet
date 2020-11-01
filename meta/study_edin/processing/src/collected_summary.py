@@ -7,7 +7,7 @@ import re
 from collections import Counter
 from utils import CONFIG_ORDER
 
-parser = argparse.ArgumentParser(description='PBML log processing.')
+parser = argparse.ArgumentParser(description='Ptakopět log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 args = parser.parse_args()
 
@@ -54,11 +54,7 @@ for order in CONFIG_ORDER:
             total_succ += config_count[configuration]
         if re.match(f'ft\.y-{order}-\w+_skip', configuration):
             total_skip += config_count[configuration]
-    # find some passing CID:
-    for d in data:
-        if re.match('.*' + order + '.*', d.cid.__str__()):
-            print(f'{d.cid.nicename_nomt_noft()} & {total_succ} & {total_skip} \\\\')
-            break
+    print(f'{CID(order).nicename_nomt_noft()} & {total_succ} & {total_skip} \\\\')
 
 print('\\hline')
 

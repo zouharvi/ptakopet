@@ -6,7 +6,7 @@ from load import Segment, CID
 import numpy as np
 from utils import CONFIG_ORDER
 
-parser = argparse.ArgumentParser(description='PBML log processing.')
+parser = argparse.ArgumentParser(description='Ptakopět log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 args = parser.parse_args()
 

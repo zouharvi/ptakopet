@@ -7,7 +7,7 @@ import re
 from collections import Counter
 from random import shuffle
 
-parser = argparse.ArgumentParser(description='PBML log processing.')
+parser = argparse.ArgumentParser(description='Ptakopět log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 parser.add_argument('-o', '--out-sentences', help='Path to a file to which to output all viable sentences, including confirmed', default=None)
 parser.add_argument('-l', '--lang', help='Language', default='cs')
