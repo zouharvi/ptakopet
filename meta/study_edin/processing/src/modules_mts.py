@@ -14,7 +14,7 @@ with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
 
 # Take only successful ones
-data = [x for x in data if hasattr(x, 'score') and not x.invalid]
+data = [x for x in data if hasattr(x, 'score') and (not x.invalid) and (x.grade_c is not None)]
 
 # TODO: Do this per model?
 dataM = {
@@ -31,8 +31,7 @@ dataG = {
 users = set()
 
 for segment in data:
-    avgGrade = np.average(list(segment.grades.values()))
-    avgGrade = segment.score+0.5
+    avgGrade = np.average([float(x) for x in segment.grade_c[6:11]])
 
     users.add(segment.uid)
     if segment.cid.qe:
@@ -57,7 +56,7 @@ for segment in data:
         dataG['bt-'].append(avgGrade)
 
     dataM[segment.cid.engine].append(segment.score)
-    dataG[segment.cid.engine].append(segment.score+0.5)
+    dataG[segment.cid.engine].append(avgGrade)
 
     dataM['all'].append(segment.score)
     dataG['all'].append(avgGrade)
@@ -90,6 +89,7 @@ plt.scatter([1+offsetX], [dataG['bt+']], s=MARKER_SIZE, marker='2', c='darkgreen
 plt.scatter([1+offsetX], [dataG['bt-']], s=MARKER_SIZE, marker='1', c='seagreen')
 plt.scatter([2+offsetX], [dataG['pp+']], s=MARKER_SIZE, marker='2', c='darkgreen')
 plt.scatter([2+offsetX], [dataG['pp-']], s=MARKER_SIZE, marker='1', c='seagreen')
+plt.scatter([3-offsetX], [dataG['csw']],  s=MARKER_SIZE, marker='2', c='darkgreen')
 plt.scatter([3.5-offsetX], [dataG['cs']],  s=MARKER_SIZE, marker='2', c='darkgreen')
 plt.scatter([4-offsetX],   [dataG['css']], s=MARKER_SIZE, marker='2', c='darkgreen')
 plt.scatter([4.5-offsetX], [dataG['et']],  s=MARKER_SIZE, marker='2', c='darkgreen')
