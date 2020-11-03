@@ -3,6 +3,7 @@
 import pickle
 import argparse
 from load import Segment, CID
+from grades import QALog
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -14,7 +15,7 @@ with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
 
 # Take only successful ones
-data = [x for x in data if hasattr(x, 'score') and (not x.invalid) and (x.grade_c is not None)]
+data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0)]
 
 # TODO: Do this per model?
 dataM = {
@@ -31,7 +32,10 @@ dataG = {
 users = set()
 
 for segment in data:
-    avgGrade = np.average([float(x) for x in segment.grade_c[6:11]])
+    if segment.grade_f:
+        avgGrade = np.average([float(x.overall) for x in segment.grade_f])
+    else:
+        continue
 
     users.add(segment.uid)
     if segment.cid.qe:
