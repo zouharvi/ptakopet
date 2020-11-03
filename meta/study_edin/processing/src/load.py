@@ -53,6 +53,7 @@ class Segment:
         self.grades = {}
         self.invalid = True
         self.delete = True
+        self.score = None
 
         for line in data:
             if line[0] == 'CONFIRM_OK':

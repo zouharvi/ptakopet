@@ -3,6 +3,7 @@
 import pickle
 import argparse
 from load import Segment, CID
+from grades import QALog
 from collections import Counter
 from random import shuffle
 from functools import reduce
@@ -14,103 +15,173 @@ parser = argparse.ArgumentParser(description='Ptakopět log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 args = parser.parse_args()
 
+OFFSET = 0.07
+NLOCATORS = 4
+LEGEND = False
+XAXIS_DESC = False
+ENGINE_NAME = 'Czech 3'
+ENGINE_CODE = 'css'
+
 with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
 
-data = [x for x in data if hasattr(x, 'score') and not x.invalid]
-d_req = {}
-d_tim = {}
-d_lin = {}
-d_inc = {}
-d_len = {}
+data = [
+    x for x in data if
+    (len(x.grade_f) != 0) and
+    (x.score is not None) and
+    not x.invalid and
+    (x.cid.engine == ENGINE_CODE) and
+    len([x for line in x.data if line[0] == 'TRANSLATE1']) != 0
+]
+
+c_req = {}
+c_tim = {}
+c_len = {}
+q_req = {}
+q_tim = {}
+q_len = {}
 
 for segment in data:
+    avgGrade = np.round(np.average([float(x.overall)
+                                    for x in segment.grade_f]))
+
     texts = [s[2] for s in segment.data if s[0] == 'TRANSLATE1']
     texts_len = [len(s[2]) for s in segment.data if s[0] == 'TRANSLATE1']
 
     if len(texts) != 0:
-        d_req.setdefault(segment.score, []).append(len(texts))
+        c_req.setdefault(segment.score, []).append(len(texts))
+        q_req.setdefault(avgGrade, []).append(len(texts))
+
         time = float(segment.data[-1][1])-float(segment.data[0][1])
-        d_len.setdefault(segment.score, []).append(np.average(texts_len))
+        c_len.setdefault(segment.score, []).append(np.average(texts_len))
+        q_len.setdefault(avgGrade, []).append(np.average(texts_len))
+
         if time <= 6*60*1000:
-            d_tim.setdefault(segment.score, []).append(time/1000)
+            c_tim.setdefault(segment.score, []).append(time/1000)
+            q_tim.setdefault(avgGrade, []).append(time/1000)
 
-    linear = reduce(
-        lambda a, b: (
-            a[0] and (a[1] in b), b
-        ),
-        texts,
-        (True, '')
-    )[0]
-    d_lin.setdefault(segment.score, []).append(linear)
 
-    increasing = reduce(lambda a, b: (
-        a[0] and (len(a[1]) <= len(b)), b), texts, (True, ''))[0]
-    d_inc.setdefault(segment.score, []).append(increasing)
-
-OFFSET = 0.07
-SCORES = [x for x in range(1,5+1)]
-d_req = {k: np.average(v) for (k, v) in d_req.items()}
-d_tim = {k: np.average(v) for (k, v) in d_tim.items()}
-d_len = {k: np.average(v) for (k, v) in d_len.items()}
+SCORES = [x for x in range(1, 5+1)]
+c_req = {k: np.average(v) for (k, v) in c_req.items()}
+c_tim = {k: np.average(v) for (k, v) in c_tim.items()}
+c_len = {k: np.average(v) for (k, v) in c_len.items()}
+q_req = {k: np.average(v) for (k, v) in q_req.items()}
+q_tim = {k: np.average(v) for (k, v) in q_tim.items()}
+q_len = {k: np.average(v) for (k, v) in q_len.items()}
 
 # display plot
-plt.rcParams.update({'font.size': 14})
+plt.rcParams.update({'font.size': 13})
 
-fig = plt.figure(figsize=(10, 4.5))
+fig = plt.figure(figsize=(5, 4.5 if LEGEND else 3))
 
+# display confidence
 ax1 = fig.add_subplot()
 color = 'darkgreen'
-ax1.set_xlabel('Self-reported user confidence')
 ax1.set_ylabel('Source text length (char)', color=color)
 ax1.tick_params(axis='y', labelcolor=color)
 sc1 = ax1.plot(
     [str(x) for x in SCORES],
-    [d_len[k] for k in SCORES],
+    [c_len[k] for k in SCORES],
     color=color, label='Source text length',
     markersize=10, marker='o',
     alpha=0.6
 )
-ax1.yaxis.set_major_locator(MaxNLocator(5))
+ax1.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
+ax1.set_ylim(15, 85)
 
 ax2 = ax1.twinx()
-color = 'red'
+color = 'darkred'
 ax2.set_ylabel('Requests', color=color)
 ax2.tick_params(axis='y', labelcolor=color)
 sc2 = ax2.plot(
     [str(x) for x in SCORES],
-    [d_req[k] for k in SCORES],
+    [c_req[k] for k in SCORES],
     color=color, label='Requests',
     markersize=10, marker='v',
     alpha=0.6
 )
-ax2.yaxis.set_major_locator(MaxNLocator(5))
+ax2.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
+ax2.set_ylim(1, 4.8)
 
 ax3 = ax1.twinx()
-color = 'blue'
+color = 'darkblue'
 ax3.set_ylabel('Time (s)', color=color)
 ax3.tick_params(axis='y', labelcolor=color)
 sc3 = ax3.plot(
     [str(x) for x in SCORES],
-    [d_tim[k] for k in SCORES],
+    [c_tim[k] for k in SCORES],
     color=color, label='Time',
     markersize=10, marker='s',
     alpha=0.6
 )
-ax3.spines['right'].set_position(('outward', 60))
-ax3.yaxis.set_major_locator(MaxNLocator(5, min_n_ticks=5))
+ax3.spines['right'].set_position(('outward', 35))
+ax3.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
+ax3.set_ylim(33, 90)
 
 
-# legend
-lns = sc1+sc2+sc3
-plt.legend(handles=lns, labels=[l.get_label() for l in lns],
-           loc='upper center',
-           fancybox=True,
-           bbox_to_anchor=(0.5, 1.18),
-           ncol=3)
+# display qualities
+ax4 = ax1.twinx()
+color = 'lightgreen'
+ax4.set_ylabel('Source text length (char)', color=color)
+ax4.tick_params(axis='y', labelcolor=color)
+sc4 = ax4.plot(
+    [str(x) for x in SCORES],
+    [q_len[k] for k in SCORES],
+    linestyle='--',
+    color=color, label='Source text length',
+    markersize=10, marker='o',
+    alpha=1
+)
+ax4.yaxis.set_visible(False)
+ax4.set_ylim(15, 85)
+
+ax5 = ax1.twinx()
+color = 'lightcoral'
+ax5.set_ylabel('Requests', color=color)
+ax5.tick_params(axis='y', labelcolor=color)
+sc5 = ax5.plot(
+    [str(x) for x in SCORES],
+    [q_req[k] for k in SCORES],
+    linestyle='--',
+    color=color, label='Requests',
+    markersize=10, marker='v',
+    alpha=1
+)
+ax5.yaxis.set_visible(False)
+ax5.set_ylim(1.0, 4.8)
+
+ax6 = ax1.twinx()
+color = 'lightblue'
+ax6.set_ylabel('Time (s)', color=color)
+ax6.tick_params(axis='y', labelcolor=color)
+sc6 = ax6.plot(
+    [str(x) for x in SCORES],
+    [q_tim[k] for k in SCORES],
+    linestyle='--',
+    color=color, label='Time',
+    markersize=10, marker='s',
+    alpha=1
+)
+ax6.yaxis.set_visible(False)
+ax6.set_ylim(33, 88)
 
 
-fig.tight_layout(rect=[0, 0, 1, 1])
+if XAXIS_DESC:
+    ax1.set_xlabel('Self-reported user confidence, Overal translation quality')
+if LEGEND:
+    lns = sc1+sc4+sc2+sc5+sc3+sc6
+    lbs = ['Text length, conf.', 'Text length, qual.',
+           'Requests, conf.', 'Requests, qual.', 'Time, conf.', 'Time, qual.']
+    plt.legend(
+        handles=lns, labels=[l.get_label() for l in lns],
+        loc='upper center',
+        fancybox=True,
+        bbox_to_anchor=(0.5, 1.3),
+        ncol=3
+    )
+fig.tight_layout(rect=[-0.03, -0.05, 1.03, 1])
+# fig.text(0.01, 0.43, ENGINE_NAME, rotation=90)
+plt.title(ENGINE_NAME)
 
 plt.show()
 # print(Counter(requests))
