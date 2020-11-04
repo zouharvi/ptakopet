@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 OFFSET = 0.07
 NLOCATORS = 4
-LEGEND = False
+LEGEND = True
 XAXIS_DESC = False
 ENGINE_NAME = 'Czech 3'
 ENGINE_CODE = 'css'
@@ -169,15 +169,17 @@ ax6.set_ylim(33, 88)
 if XAXIS_DESC:
     ax1.set_xlabel('Self-reported user confidence, Overal translation quality')
 if LEGEND:
-    lns = sc1+sc4+sc2+sc5+sc3+sc6
-    lbs = ['Text length, conf.', 'Text length, qual.',
-           'Requests, conf.', 'Requests, qual.', 'Time, conf.', 'Time, qual.']
+    lns = sc1+sc2+sc3+sc4+sc5+sc6
+    lbs = [
+        'Text length, conf.', 'Requests, conf.', 'Time, conf.',
+        'Text length, qual.', 'Requests, qual.', 'Time, qual.'
+    ]
     plt.legend(
-        handles=lns, labels=[l.get_label() for l in lns],
+        handles=lns, labels=lbs,
         loc='upper center',
         fancybox=True,
         bbox_to_anchor=(0.5, 1.3),
-        ncol=3
+        ncol=2
     )
 fig.tight_layout(rect=[-0.03, -0.05, 1.03, 1])
 # fig.text(0.01, 0.43, ENGINE_NAME, rotation=90)

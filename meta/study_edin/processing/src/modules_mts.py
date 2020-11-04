@@ -17,7 +17,6 @@ with open(args.blog3, 'rb') as f:
 # Take only successful ones
 data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0)]
 
-# TODO: Do this per model?
 CONFIG_KEYS = {
     'qe+', 'pp+', 'ft+', 'bt+', 'all',
     'qe-', 'pp-', 'ft-', 'bt-',
