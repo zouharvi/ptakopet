@@ -8,6 +8,12 @@ from collections import Counter
 from utils import CONFIG_ORDER
 from viable import standardize
 
+def sanitize_int(val):
+    try:
+        return int(val)
+    except ValueError:
+        return None 
+
 class QALog:
     def __init__(self, data, line=None):
         self.line = line
@@ -23,11 +29,11 @@ class QALog:
         self.domain = data[8]
         self.src = data[9]
         self.tgt = data[10]
-        self.src_sti_adq = int(data[11])
-        self.tgt_src_adq = int(data[12])
-        self.tgt_sti_adq = int(data[13])
-        self.tgt_flu = int(data[14])
-        self.overall = int(data[15])
+        self.src_sti_adq = sanitize_int(data[11])
+        self.tgt_src_adq = sanitize_int(data[12])
+        self.tgt_sti_adq = sanitize_int(data[13])
+        self.tgt_flu = sanitize_int(data[14])
+        self.overall = sanitize_int(data[15])
         self.notes = data[16]
 
 if __name__ == '__main__':
@@ -47,7 +53,7 @@ if __name__ == '__main__':
         s.grade_v = []
         s.grade_f = []
         for (i, line) in enumerate(s.data):
-            if line[0] == 'TRANSLATION1':
+            if line[0] == 'TRANSLATE1':
                 src = standardize(line[2])
                 tgt = standardize(line[3])
                 for log in logs:
