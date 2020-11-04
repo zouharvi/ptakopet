@@ -51,16 +51,14 @@ if __name__ == '__main__':
                 src = standardize(line[2])
                 tgt = standardize(line[3])
                 for log in logs:
-                    if log[9] == src and log[10] == tgt:
+                    if int(log[7]) == s.sid and log[9] == src and log[10] == tgt:
                         s.grade_v.append(QALog(log, line=i))
-                        break
             elif line[0] == 'CONFIRM_OK':
                 src = standardize(line[3])
                 tgt = standardize(line[4])
                 for log in logs:
-                    if log[9] == src and log[10] == tgt:
+                    if int(log[7]) == s.sid and log[9] == src and log[10] == tgt:
                         s.grade_f.append(QALog(log))
-                        break
-
+                       
     with open(args.blog3o, 'wb') as f:
         pickle.dump(data, f)
