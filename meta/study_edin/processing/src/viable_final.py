@@ -76,14 +76,14 @@ ax1.set_ylabel('Score')
 
 ax2 = ax1.twinx()
 dh = ax2.plot(range(5), dff, markersize=14, marker='.', color='darkred', alpha=0.6, linestyle='--')
+ax2.set_ylim(0, 0.15)
 ax2.set_ylabel('Difference')
 
 plt.legend(
     vh+fh+dh,
     ['Viables', 'Final', 'Final-Viables'],
-    loc='upper center',
-    bbox_to_anchor=(0.5, 1.2),
-    ncol=3,
+    loc='upper right',
+    ncol=1,
 )
 fig.tight_layout(rect=[-0.03, -0.02, 1.01, 1.03])
 plt.show()
