@@ -33,7 +33,7 @@ users = set()
 
 for segment in data:
     if segment.grade_f:
-        avgGrade = np.average([float(x.overall) for x in segment.grade_f])
+        avgGrade = np.average([float(x.overall) for x in segment.grade_f if x.overall is not None])
     else:
         continue
 
