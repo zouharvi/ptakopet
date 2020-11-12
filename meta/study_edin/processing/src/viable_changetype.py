@@ -10,7 +10,7 @@ from utils import CONFIG_ORDER
 from viable import standardize
 import sys
 
-# nature values:
+# Values of the QALog.changetype attribute:
 # the final viable contains a ??? the current viable, where ??? is
 # P = paraphrase (rather lexical or combination of grammatical and lexical) of
 # PG = grammatical paraphrase of
@@ -18,12 +18,13 @@ import sys
 # T = correction of a typo in
 # E = important additional information not present in
 # Q = quotation or other emphasis of a phrase from
+# or any combination of the above
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Ptakopět log processing.')
     parser.add_argument('blog3', help='Path to a blog3 file')
-    parser.add_argument('annot', help='Path to the viable nature annnotation file')
+    parser.add_argument('annot', help='Path to the file with change types for all unique viable--final pairs annotated')
     parser.add_argument('blog3o', help='Path to an output blog3 file')
     args = parser.parse_args()
 
@@ -35,7 +36,7 @@ if __name__ == '__main__':
         for x in f.readlines():
             annot_list = x.rstrip('\n').split('\t', 2)
             if annot_list[2] in annot_dict:
-                print("The nature of the viable already loaded: {:s} vs. {:s}. Skipping...".format(annot_dict[annot_list[2]], annot_list[0]))
+                print("The change type of the viable--final pair already loaded: {:s} vs. {:s}. Skipping...".format(annot_dict[annot_list[2]], annot_list[0]))
             else:
                 annot_dict[annot_list[2]] = annot_list[0]
 
@@ -48,10 +49,10 @@ if __name__ == '__main__':
             if v.src != grade_f_src:
                 key = "\t".join([v.src, grade_f_src])
                 if key in annot_dict:
-                    nature_val = annot_dict["\t".join([v.src, grade_f_src])]
-                    v.nature = nature_val
+                    changetype_val = annot_dict["\t".join([v.src, grade_f_src])]
+                    v.changetype = changetype_val
                 else:
-                    print("Nature for the viable pair '{:s}' has not been annotated. Skipping...".format(key), file=sys.stderr)
+                    print("Change type for the viable--final pair '{:s}' has not been annotated. Skipping...".format(key), file=sys.stderr)
     
     with open(args.blog3o, 'wb') as f:
         pickle.dump(data, f)
