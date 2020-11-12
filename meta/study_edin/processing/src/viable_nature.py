@@ -10,9 +10,15 @@ from utils import CONFIG_ORDER
 from viable import standardize
 import sys
 
-#class QALogWithNature(QALog):
-#    def __init__(self, data, line=None):
-        
+# nature values:
+# the final viable contains a ??? the current viable, where ??? is
+# P = paraphrase (rather lexical or combination of grammatical and lexical) of
+# PG = grammatical paraphrase of
+# PM = variant with shifted meaning of
+# T = correction of a typo in
+# E = important additional information not present in
+# Q = quotation or other emphasis of a phrase from
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Ptakopět log processing.')
