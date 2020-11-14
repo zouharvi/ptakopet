@@ -15,9 +15,8 @@ import sys
 # P = paraphrase (rather lexical or combination of grammatical and lexical) of
 # PG = grammatical paraphrase of
 # PM = variant with shifted meaning of
-# T = correction of a typo in
-# E = important additional information not present in
 # Q = quotation or other emphasis of a phrase from
+# X = correction of the viable, which is obviously an intermediate version (e.g. contains typo, ungrammatical phrases, missing information)
 # or any combination of the above
 
 
@@ -40,11 +39,10 @@ if __name__ == '__main__':
             else:
                 annot_dict[annot_list[2]] = annot_list[0]
 
-    for i, x in enumerate(data):
+    for x in data:
         if not len(x.grade_f):
             continue
         grade_f_src = (x.grade_f[0]).src
-        print(i, file=sys.stderr)
         for v in x.grade_v:
             if v.src != grade_f_src:
                 key = "\t".join([v.src, grade_f_src])
