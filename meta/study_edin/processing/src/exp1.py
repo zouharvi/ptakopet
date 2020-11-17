@@ -109,7 +109,7 @@ sc1 = ax1.plot(
 )
 ax1.yaxis.labelpad = -2
 ax1.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
-ax1.set_ylim(15, 140)
+ax1.set_ylim(45, 140)
 
 ax2 = ax1.twinx()
 color = 'darkred'
@@ -157,7 +157,7 @@ sc4 = ax4.plot(
     alpha=1
 )
 ax4.yaxis.set_visible(False)
-ax4.set_ylim(15, 150)
+ax4.set_ylim(45, 150)
 
 ax5 = ax1.twinx()
 color = 'lightcoral'
