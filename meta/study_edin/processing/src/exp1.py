@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 OFFSET = 0.07
 NLOCATORS = 4
-LEGEND = True
+LEGEND = False
 XAXIS_DESC = False
 ENGINE_NAME = 'Czech 3'
 ENGINE_CODE = 'css'
@@ -43,7 +43,7 @@ q_len = {}
 
 for segment in data:
     avgGrade = np.round(np.average([float(x.overall)
-                                    for x in segment.grade_f]))
+                                    for x in segment.grade_v if x.overall is not None]))
 
     texts = [s[2] for s in segment.data if s[0] == 'TRANSLATE1']
     texts_len = [len(s[2]) for s in segment.data if s[0] == 'TRANSLATE1']
@@ -51,6 +51,27 @@ for segment in data:
     if len(texts) != 0:
         c_req.setdefault(segment.score, []).append(len(texts))
         q_req.setdefault(avgGrade, []).append(len(texts))
+
+        time = float(segment.data[-1][1])-float(segment.data[0][1])
+        c_len.setdefault(segment.score, []).append(np.average(texts_len))
+        q_len.setdefault(avgGrade, []).append(np.average(texts_len))
+
+        if time <= 6*60*1000:
+            c_tim.setdefault(segment.score, []).append(time/1000)
+            q_tim.setdefault(avgGrade, []).append(time/1000)
+
+
+for segment in data:
+    avgGrade = np.round(np.average([float(x.overall)
+                                    for x in segment.grade_f if x.overall is not None]))
+
+    texts = [s[3] for s in segment.data if s[0] == 'CONFIRM_OK']
+    texts_len = [len(s[3]) for s in segment.data if s[0] == 'CONFIRM_OK']
+    requests_count = len([s[2] for s in segment.data if s[0] == 'TRANSLATE1'])
+
+    if len(texts) != 0:
+        c_req.setdefault(segment.score, []).append(requests_count)
+        q_req.setdefault(avgGrade, []).append(requests_count)
 
         time = float(segment.data[-1][1])-float(segment.data[0][1])
         c_len.setdefault(segment.score, []).append(np.average(texts_len))
@@ -70,7 +91,7 @@ q_tim = {k: np.average(v) for (k, v) in q_tim.items()}
 q_len = {k: np.average(v) for (k, v) in q_len.items()}
 
 # display plot
-plt.rcParams.update({'font.size': 13})
+plt.rcParams.update({'font.size': 11})
 
 fig = plt.figure(figsize=(5, 4.5 if LEGEND else 3))
 
@@ -86,8 +107,9 @@ sc1 = ax1.plot(
     markersize=10, marker='o',
     alpha=0.6
 )
+ax1.yaxis.labelpad = -2
 ax1.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
-ax1.set_ylim(15, 85)
+ax1.set_ylim(45, 140)
 
 ax2 = ax1.twinx()
 color = 'darkred'
@@ -101,7 +123,8 @@ sc2 = ax2.plot(
     alpha=0.6
 )
 ax2.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
-ax2.set_ylim(1, 4.8)
+ax2.yaxis.labelpad = -1
+ax2.set_ylim(1, 8)
 
 ax3 = ax1.twinx()
 color = 'darkblue'
@@ -114,9 +137,10 @@ sc3 = ax3.plot(
     markersize=10, marker='s',
     alpha=0.6
 )
-ax3.spines['right'].set_position(('outward', 35))
+ax3.spines['right'].set_position(('outward', 30))
+ax3.yaxis.labelpad = -5
 ax3.yaxis.set_major_locator(MaxNLocator(NLOCATORS, min_n_ticks=NLOCATORS))
-ax3.set_ylim(33, 90)
+ax3.set_ylim(33, 100)
 
 
 # display qualities
@@ -133,7 +157,7 @@ sc4 = ax4.plot(
     alpha=1
 )
 ax4.yaxis.set_visible(False)
-ax4.set_ylim(15, 85)
+ax4.set_ylim(45, 150)
 
 ax5 = ax1.twinx()
 color = 'lightcoral'
@@ -148,7 +172,7 @@ sc5 = ax5.plot(
     alpha=1
 )
 ax5.yaxis.set_visible(False)
-ax5.set_ylim(1.0, 4.8)
+ax5.set_ylim(1.0, 8)
 
 ax6 = ax1.twinx()
 color = 'lightblue'
@@ -163,7 +187,7 @@ sc6 = ax6.plot(
     alpha=1
 )
 ax6.yaxis.set_visible(False)
-ax6.set_ylim(33, 88)
+ax6.set_ylim(33, 100)
 
 
 if XAXIS_DESC:
