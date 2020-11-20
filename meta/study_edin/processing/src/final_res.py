@@ -39,6 +39,9 @@ with open(args.blog3, 'rb') as f:
 # Take only successful ones
 data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0)]
 
+#data = [x for x in data if len(x.grade_v) > 0]
+#data = [x for x in data if any([x.grade_f[0].src != g.src for g in x.grade_v])]
+
 data_line = filter_data(data, lambda sid: sid.engine == "csw")
 scores_line = average_final_scores(data_line)
 print_tab_line(scores_line, "Czech MT 1")
