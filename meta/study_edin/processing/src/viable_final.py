@@ -14,6 +14,7 @@ import re
 import sys
 from pprint import pprint
 from scipy.stats import wilcoxon, mannwhitneyu
+from collections import Counter
 
 SCORE_NAMES = ["src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall"]
 
@@ -187,10 +188,10 @@ vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
 type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * QE PP segments ========", vfc_line)
 print_tab_line(dff_line, pvals_line, "QE PP")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and not x.pp)
-vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "BT")
+vfc_bt = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and not x.pp)
+vgs_bt, fgs_bt, dff_bt, pvals_bt = calculate_plots(vfc_bt)
+type_plots(vgs_bt, fgs_bt, dff_bt, pvals_bt, "========= * BT segments ========", vfc_bt)
+print_tab_line(dff_bt, pvals_bt, "BT")
 
 vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and x.qe and not x.pp)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
@@ -202,76 +203,45 @@ vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
 type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * PP segments ========", vfc_line)
 print_tab_line(dff_line, pvals_line, "PP")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and not x.pp)
-vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * - segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "--")
+vfc_none = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and not x.pp)
+vgs_none, fgs_none, dff_none, pvals_none = calculate_plots(vfc_none)
+type_plots(vgs_none, fgs_none, dff_none, pvals_none, "========= * - segments ========", vfc_none)
+print_tab_line(dff_none, pvals_none, "--")
 
 print("\\hline")
 
 print_tab_line(dff_noXPM, pvals_noXPM, "Total")
 
-vfc_qe_all = filter_vfc(vfc_noXPM, config_filter=lambda x: x.qe)
-vgs, fgs, dff, pvals = calculate_plots(vfc_qe_all)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, all QE segments ========", vfc_qe_all)
+# inintialize plot bases
 
+vfc_pb = vfc_bt
+#vfc_pb = vfc_none
+dff_pb = dff_bt
+#dff_pb = dff_none
 
-vfc_P = filter_vfc(vfc_noXPM, changetype_filter=lambda x: re.match(r"P", x))
-vgs, fgs, dff, pvals = calculate_plots(vfc_P)
-type_plots(vgs, fgs, dff, pvals, "========= * P pairs ========", vfc_P)
+#print(Counter([x[2] for x in vfc_pb]), file=sys.stderr)
 
-vfc_PG = filter_vfc(vfc_noXPM, changetype_filter=lambda x: re.match(r"PG", x))
-vgs, fgs, dff_PG, pvals = calculate_plots(vfc_PG)
-type_plots(vgs, fgs, dff_PG, pvals, "========= * PG pairs ========", vfc_PG)
+#exit()
 
-vfc_PnotG = filter_vfc(vfc_P, changetype_filter=lambda x: not re.match(r"PG", x))
-vgs, fgs, dff_PnotG, pvals = calculate_plots(vfc_PnotG)
-type_plots(vgs, fgs, dff_PnotG, pvals, "========= * P-PG pairs ========", vfc_PnotG)
+vfc_pbP = filter_vfc(vfc_pb, changetype_filter=lambda x: re.match(r"P", x))
+vgs_pbP, fgs_pbP, dff_pbP, pvals_pbP = calculate_plots(vfc_pbP)
 
-vfc_Q = filter_vfc(vfc_noXPM, changetype_filter=lambda x: re.match(r"Q", x))
-vgs, fgs, dff_Q, pvals = calculate_plots(vfc_Q)
-type_plots(vgs, fgs, dff_Q, pvals, "========= * Q pairs ========", vfc_Q)
+vfc_pbPG = filter_vfc(vfc_pb, changetype_filter=lambda x: re.match(r"PG", x))
+vgs_pbPG, fgs_pbPG, dff_pbPG, pvals_pbPG = calculate_plots(vfc_pbPG)
 
-print(file=sys.stderr)
-print("#########################################################################", file=sys.stderr)
-print(file=sys.stderr)
+vfc_pbPnotG = filter_vfc(vfc_pbP, changetype_filter=lambda x: not re.match(r"PG", x))
+vgs_pbPnotG, fgs_pbPnotG, dff_pbPnotG, pvals_pbPnotG = calculate_plots(vfc_pbPnotG)
 
-
-vfc_qe_all = filter_vfc(vfc_noXPM, config_filter=lambda x: x.qe)
-vgs, fgs, dff, pvals = calculate_plots(vfc_qe_all)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, all QE segments ========", vfc_qe_all)
-
-vfc_pp_all = filter_vfc(vfc_noXPM, config_filter=lambda x: x.pp)
-vgs, fgs, dff, pvals = calculate_plots(vfc_pp_all)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, all PP segments ========", vfc_pp_all)
-
-vfc_bt_all = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt)
-vgs, fgs, dff, pvals = calculate_plots(vfc_bt_all)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, BT segments ========", vfc_bt_all)
-
-vfc_bt_nqe = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe)
-vgs, fgs, dff, pvals = calculate_plots(vfc_bt_nqe)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, BT and not QE segments ========", vfc_bt_nqe)
-
-vfc_bt_npp = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.pp)
-vgs, fgs, dff, pvals = calculate_plots(vfc_bt_npp)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, BT and not PP segments ========", vfc_bt_npp)
-
-vfc_bt_nqe_pp = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and x.pp)
-vgs, fgs, dff, pvals = calculate_plots(vfc_bt_nqe_pp)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, BT and PP and not QE segments ========", vfc_bt_nqe_pp)
-
-vfc_bt_nqe_npp = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and not x.pp)
-vgs, fgs, dff, pvals = calculate_plots(vfc_bt_nqe_npp)
-type_plots(vgs, fgs, dff, pvals, "========= * not (X or PM) pairs, BT and not QE and not PP segments ========", vfc_bt_nqe_npp)
+vfc_pbQ = filter_vfc(vfc_pb, changetype_filter=lambda x: re.match(r"Q", x))
+vgs_pbQ, fgs_pbQ, dff_pbQ, pvals_pbQ = calculate_plots(vfc_pbQ)
 
 OFFSETX = 0.15
 fig = plt.figure(figsize=(4.2, 3.2))
 ax1 = fig.add_subplot()
-noXPM_p = ax1.plot(range(5), dff_noXPM, markersize=8, marker='s', color='darkblue', alpha=0.6)
-Q_p = ax1.plot(range(5), dff_Q, markersize=8, marker='v', color='darkgreen', alpha=0.6)
-PG_p = ax1.plot(range(5), dff_PG, markersize=14, marker='.', color='darkred', alpha=0.6, linestyle='--')
-PnotG_p = ax1.plot(range(5), dff_PnotG, markersize=8, marker='v', color='darkorange', alpha=0.6)
+pb_p = ax1.plot(range(5), dff_pb, markersize=8, marker='s', color='darkblue', alpha=0.6)
+pbQ_p = ax1.plot(range(5), dff_pbQ, markersize=8, marker='v', color='darkgreen', alpha=0.6)
+pbPG_p = ax1.plot(range(5), dff_pbPG, markersize=14, marker='.', color='darkred', alpha=0.6, linestyle='--')
+pbPnotG_p = ax1.plot(range(5), dff_pbPnotG, markersize=8, marker='v', color='darkorange', alpha=0.6)
 #ax1.set_ylim(3.9, 4.5)
 ax1.set_xticks(range(5))
 ax1.set_xticklabels(['SRC-STI', 'TGT-SRC', 'TGT-STI', 'Fluency', 'Overall'])
@@ -283,13 +253,13 @@ ax1.set_ylabel('Score difference')
 #ax2.set_ylabel('Difference')
 
 plt.legend(
-    noXPM_p + Q_p + PG_p + PnotG_p,
+    pb_p + pbQ_p + pbPG_p + pbPnotG_p,
     ['All', 'Emphasis', 'Gram. paraph.', 'Lex. paraph.'],
     loc='upper right',
     ncol=1,
 )
 fig.tight_layout(rect=[-0.03, -0.02, 1.01, 1.03])
-plt.show()
+#plt.show()
 
 if args.pdf is not None:
     fig.savefig(args.pdf)
