@@ -41,9 +41,9 @@ print('Invalid data:', len(invalid_data))
 
 print(('\n'+'%'*10)*4)
 
-print(f'Czech MT 1 & {lang_count["csw_succ"]} & {lang_count["csw_skip"]} \\\\') 
-print(f'Czech MT 2 & {lang_count["cs_succ"]} &  {lang_count["cs_skip"]} \\\\') 
-print(f'Czech MT 3 & {lang_count["css_succ"]} & {lang_count["css_skip"]} \\\\') 
+print(f'Czech 1 & {lang_count["csw_succ"]} & {lang_count["csw_skip"]} \\\\') 
+print(f'Czech 2 & {lang_count["cs_succ"]} &  {lang_count["cs_skip"]} \\\\') 
+print(f'Czech 3 & {lang_count["css_succ"]} & {lang_count["css_skip"]} \\\\') 
 print(f'Estonian & {lang_count["et_succ"]} & {lang_count["et_skip"]} \\\\ \hline') 
 
 for order in CONFIG_ORDER:

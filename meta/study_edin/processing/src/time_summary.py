@@ -62,9 +62,9 @@ print(('\n'+'%'*10)*4)
 #csw_zip = list(zip(lang_time["csw"], lang_events["csw"], lang_timeperevent["csw"]))
 #print(csw_zip)
 
-print(f'Czech MT 1 & {average_sane(lang_time["csw"], method=np.median):.0f} & {average_sane(lang_events["csw"], limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["csw"], lang_events["csw"], limitL=1, limitR=1000):.0f} \\\\') 
-print(f'Czech MT 2 & {average_sane(lang_time["cs"], method=np.median):.0f}  & {average_sane(lang_events["cs"],  limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["cs"], lang_events["cs"], limitL=1, limitR=1000):.0f} \\\\') 
-print(f'Czech MT 3 & {average_sane(lang_time["css"], method=np.median):.0f} & {average_sane(lang_events["css"], limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["css"], lang_events["css"], limitL=1, limitR=1000):.0f} \\\\') 
+print(f'Czech 1 & {average_sane(lang_time["csw"], method=np.median):.0f} & {average_sane(lang_events["csw"], limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["csw"], lang_events["csw"], limitL=1, limitR=1000):.0f} \\\\') 
+print(f'Czech 2 & {average_sane(lang_time["cs"], method=np.median):.0f}  & {average_sane(lang_events["cs"],  limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["cs"], lang_events["cs"], limitL=1, limitR=1000):.0f} \\\\') 
+print(f'Czech 3 & {average_sane(lang_time["css"], method=np.median):.0f} & {average_sane(lang_events["css"], limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["css"], lang_events["css"], limitL=1, limitR=1000):.0f} \\\\') 
 print(f'Estonian   & {average_sane(lang_time["et"], method=np.median):.0f}  & {average_sane(lang_events["et"],  limitL=1, limitR=1000):.2f} & {average_sane_timeperevent(lang_timeperevent["et"], lang_events["et"], limitL=1, limitR=1000):.0f} \\\\ \hline') 
 
 for order in CONFIG_ORDER:
