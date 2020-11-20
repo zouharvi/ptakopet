@@ -44,18 +44,18 @@ data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0)]
 
 data_line = filter_data(data, lambda sid: sid.engine == "csw")
 scores_line = average_final_scores(data_line)
-print_tab_line(scores_line, "Czech MT 1")
-print("Czech MT 1: len = {:d}".format(len(data_line)), file=sys.stderr)
+print_tab_line(scores_line, "Czech 1")
+print("Czech 1: len = {:d}".format(len(data_line)), file=sys.stderr)
 
 data_line = filter_data(data, lambda sid: sid.engine == "cs")
 scores_line = average_final_scores(data_line)
-print_tab_line(scores_line, "Czech MT 2")
-print("Czech MT 2: len = {:d}".format(len(data_line)), file=sys.stderr)
+print_tab_line(scores_line, "Czech 2")
+print("Czech 2: len = {:d}".format(len(data_line)), file=sys.stderr)
 
 data_line = filter_data(data, lambda sid: sid.engine == "css")
 scores_line = average_final_scores(data_line)
-print_tab_line(scores_line, "Czech MT 3")
-print("Czech MT 3: len = {:d}".format(len(data_line)), file=sys.stderr)
+print_tab_line(scores_line, "Czech 3")
+print("Czech 3: len = {:d}".format(len(data_line)), file=sys.stderr)
 
 data_line = filter_data(data, lambda sid: sid.engine == "et")
 scores_line = average_final_scores(data_line)

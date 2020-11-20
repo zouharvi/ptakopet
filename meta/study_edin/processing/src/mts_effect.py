@@ -30,9 +30,9 @@ lang_count = {k:np.average(v) for k,v in lang_count.items()}
 
 print(('\n'+'%'*10)*4)
 
-print(f'Czech MT 1 & {lang_count["csw"]:.2f} & {lang_count["csw"]:.2f} \\\\') 
-print(f'Czech MT 2 & {lang_count["cs"]:.2f}  &  {lang_count["cs"]:.2f} \\\\') 
-print(f'Czech MT 3 & {lang_count["css"]:.2f} & {lang_count["css"]:.2f} \\\\') 
+print(f'Czech 1 & {lang_count["csw"]:.2f} & {lang_count["csw"]:.2f} \\\\') 
+print(f'Czech 2 & {lang_count["cs"]:.2f}  &  {lang_count["cs"]:.2f} \\\\') 
+print(f'Czech 3 & {lang_count["css"]:.2f} & {lang_count["css"]:.2f} \\\\') 
 print(f'Estonian &   {lang_count["et"]:.2f}  &  {lang_count["et"]:.2f} \\\\ \hline') 
 
 for order in CONFIG_ORDER:
