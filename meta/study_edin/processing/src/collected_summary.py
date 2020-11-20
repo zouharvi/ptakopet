@@ -22,8 +22,11 @@ lang_count = {}
 abs_total_succ = 0
 abs_total_skip = 0
 
+users = set()
+
 for segment in data:
     if segment.success:
+        users.add(segment.uid)
         config_count[f'{segment.cid}_succ'] = config_count.setdefault(f'{segment.cid}_succ', 0) + 1
         lang_count[f'{segment.cid.engine}_succ'] = lang_count.get(f'{segment.cid.engine}_succ', 0) + 1
         abs_total_succ += 1
@@ -36,7 +39,7 @@ for segment in data:
     lang_count[f'{segment.cid.engine}'] = lang_count.get(f'{segment.cid.engine}', 0) + 1
 
 
-
+print('Success user count', len(users))
 print('Invalid data:', len(invalid_data))
 
 print(('\n'+'%'*10)*4)
