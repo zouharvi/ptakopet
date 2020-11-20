@@ -7,6 +7,7 @@ import re
 from collections import Counter
 from utils import CONFIG_ORDER
 from viable import standardize
+import numpy as np
 
 def sanitize_int(val):
     try:
@@ -39,12 +40,24 @@ class QALog:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Ptakopět log processing.')
     parser.add_argument('blog3', help='Path to a blog3 file')
-    parser.add_argument('log', help='Path to Michal\'s tsv log file')
-    parser.add_argument('blog3o', help='Path to an output blog3 file')
+    parser.add_argument('--log', help='Path to Michal\'s tsv log file', default=None)
+    parser.add_argument('--blog3o', help='Path to an output blog3 file', default=None)
     args = parser.parse_args()
 
     with open(args.blog3, 'rb') as f:
         data = pickle.load(f)
+
+    if args.log is None and args.blog3o is None:
+        grades_per_viable = {}
+        for s in data:
+            vs = ["__"+v.src+"__" for v in s.grade_f] + [v.src for v in s.grade_v]
+            c = Counter(vs)
+            grades_per_viable.setdefault("total", []).extend(c.values())
+            grades_per_viable.setdefault(s.cid.lang, []).extend(c.values())
+        print("GRADES PER CS VIABLE: {:.2f}".format(np.average(grades_per_viable["cs"])))
+        print("GRADES PER ET VIABLE: {:.2f}".format(np.average(grades_per_viable["et"])))
+        print("GRADES PER VIABLE: {:.2f}".format(np.average(grades_per_viable["total"])))
+        exit()
 
     with open(args.log, 'r') as f:
         logs = [x.rstrip('\n').split('\t') for x in f.readlines()]
