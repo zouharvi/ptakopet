@@ -33,7 +33,7 @@ heat = [[0]*5 for _ in range(5)]
 total = 0
 
 for segment in data:
-    local_grades = [x.overall for x in segment.grade_v if x.overall is not None]
+    local_grades = [x.overall for x in segment.grade_f if x.overall is not None]
     if len(local_grades) == 0:
         continue
     grade = np.round(np.average(local_grades))
