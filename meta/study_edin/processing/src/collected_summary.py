@@ -3,6 +3,7 @@
 import pickle
 import argparse
 from load import Segment, CID
+from grades import QALog
 import re
 from collections import Counter
 from utils import CONFIG_ORDER
@@ -62,5 +63,9 @@ for order in CONFIG_ORDER:
 print('\\hline')
 
 print(f'Total & {abs_total_succ} & {abs_total_skip} \\\\')
+data_annotated_succ = [x for x in data if (len(x.grade_f) != 0) and x.success]
+data_annotated_skip = [x for x in data if (len(x.grade_f) != 0) and not x.success]
+print(f'QA Annotated & {len(data_annotated_succ)} & {len(data_annotated_skip)} \\\\')
+
 
 print(('\n'+'%'*10)*4)
