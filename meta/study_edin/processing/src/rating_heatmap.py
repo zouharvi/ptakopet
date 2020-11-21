@@ -33,7 +33,7 @@ heat = [[0]*5 for _ in range(5)]
 total = 0
 
 for segment in data:
-    local_grades = [x.overall for x in segment.grade_f if x.overall is not None]
+    local_grades = [x.overall for x in segment.grade_v if x.overall is not None]
     if len(local_grades) == 0:
         continue
     grade = np.round(np.average(local_grades))
@@ -47,7 +47,7 @@ for segment in data:
 heatv = list(heat)
 heat = [[x/total for x in row] for row in heat]
 
-fig, ax = plt.subplots(figsize=(4,4))
+fig, ax = plt.subplots(figsize=(3.7,3.7))
 
 if GRAYSCALE:
     plt.gray()

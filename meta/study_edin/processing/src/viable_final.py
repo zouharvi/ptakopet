@@ -166,7 +166,7 @@ vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
 type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * ET segments ========", vfc_line)
 print_tab_line(dff_line, pvals_line, "Estonian")
 
-print("\\hline")
+print("\\midrule")
 
 vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and x.qe and x.pp)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
@@ -208,7 +208,7 @@ vgs_none, fgs_none, dff_none, pvals_none = calculate_plots(vfc_none)
 type_plots(vgs_none, fgs_none, dff_none, pvals_none, "========= * - segments ========", vfc_none)
 print_tab_line(dff_none, pvals_none, "--")
 
-print("\\hline")
+print("\\midrule")
 
 print_tab_line(dff_noXPM, pvals_noXPM, "Total")
 
