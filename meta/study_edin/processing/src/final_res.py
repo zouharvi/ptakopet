@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-SCORE_NAMES = ["src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall"]
-
 def filter_data(data, config_filter=None):
     return [ x for x in data if config_filter(x.cid) ]
 
