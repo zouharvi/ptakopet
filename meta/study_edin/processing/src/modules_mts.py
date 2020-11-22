@@ -105,7 +105,7 @@ plt.xticks(
     ['QE', 'BT', 'PP', 'CS 1', 'CS 2', 'CS 3', 'ET'],
     rotation=0)
 plt.ylabel('Score')
-plt.ylim(3.4, 4.4)
+plt.ylim(3.15, 4.4)
 plt.xlim(-0.45, 6.45)
 
 plt.legend(
@@ -117,7 +117,7 @@ plt.legend(
     loc='lower center',
 )
 
-plt.tight_layout(rect=[0, 0, 1, 1])
+plt.tight_layout(rect=[-0.03, 0, 1, 1])
 plt.show()
 
 print('score',dataM)
