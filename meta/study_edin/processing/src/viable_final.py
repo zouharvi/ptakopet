@@ -101,7 +101,7 @@ def type_plots(vgs, fgs, dff, pvals, header, vfc):
     print("PV:\t" + str(["{:.3f}".format(v) for v in pvals]), file=sys.stderr)
 
 def print_tab_line(dff, pvals, title):
-    linestr = " & ".join([title] + ["{:.2f}".format(df_val) for df_val in dff])
+    linestr = " & ".join([title] + ["\\textcolor{{{:s}}}{{{:+.2f}}}".format("darkgreen" if df_val > 0 else "darkred", df_val) for df_val in dff])
     linestr += " \\\\"
     print(linestr)
     
@@ -168,45 +168,76 @@ print_tab_line(dff_line, pvals_line, "Estonian")
 
 print("\\hline")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and x.qe and x.pp)
-vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT QE PP segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "BT QE PP")
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and x.qe and x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT QE PP segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "BT QE PP")
+#
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and x.qe and not x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT QE segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "BT QE")
+#
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT PP segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "BT PP")
+#
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and x.qe and x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * QE PP segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "QE PP")
+#
+#vfc_bt = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and not x.pp)
+#vgs_bt, fgs_bt, dff_bt, pvals_bt = calculate_plots(vfc_bt)
+#type_plots(vgs_bt, fgs_bt, dff_bt, pvals_bt, "========= * BT segments ========", vfc_bt)
+#print_tab_line(dff_bt, pvals_bt, "BT")
+#
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and x.qe and not x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * QE segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "QE")
+#
+#vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and x.pp)
+#vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
+#type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * PP segments ========", vfc_line)
+#print_tab_line(dff_line, pvals_line, "PP")
+#
+#vfc_none = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and not x.pp)
+#vgs_none, fgs_none, dff_none, pvals_none = calculate_plots(vfc_none)
+#type_plots(vgs_none, fgs_none, dff_none, pvals_none, "========= * - segments ========", vfc_none)
+#print_tab_line(dff_none, pvals_none, "--")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and x.qe and not x.pp)
+vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT QE segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "BT QE")
+type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * +BT segments ========", vfc_line)
+print_tab_line(dff_line, pvals_line, "+BT")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and x.pp)
+vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * BT PP segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "BT PP")
+type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * -BT segments ========", vfc_line)
+print_tab_line(dff_line, pvals_line, "-BT")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and x.qe and x.pp)
-vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * QE PP segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "QE PP")
-
-vfc_bt = filter_vfc(vfc_noXPM, config_filter=lambda x: x.bt and not x.qe and not x.pp)
+vfc_bt = filter_vfc(vfc_noXPM, config_filter=lambda x: x.qe)
 vgs_bt, fgs_bt, dff_bt, pvals_bt = calculate_plots(vfc_bt)
-type_plots(vgs_bt, fgs_bt, dff_bt, pvals_bt, "========= * BT segments ========", vfc_bt)
-print_tab_line(dff_bt, pvals_bt, "BT")
+type_plots(vgs_bt, fgs_bt, dff_bt, pvals_bt, "========= * +QE segments ========", vfc_bt)
+print_tab_line(dff_bt, pvals_bt, "+QE")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and x.qe and not x.pp)
+vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.qe)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * QE segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "QE")
+type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * -QE segments ========", vfc_line)
+print_tab_line(dff_line, pvals_line, "-QE")
 
-vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and x.pp)
+vfc_line = filter_vfc(vfc_noXPM, config_filter=lambda x: x.pp)
 vgs_line, fgs_line, dff_line, pvals_line = calculate_plots(vfc_line)
-type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * PP segments ========", vfc_line)
-print_tab_line(dff_line, pvals_line, "PP")
+type_plots(vgs_line, fgs_line, dff_line, pvals_line, "========= * +PP segments ========", vfc_line)
+print_tab_line(dff_line, pvals_line, "+PP")
 
-vfc_none = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.bt and not x.qe and not x.pp)
+vfc_none = filter_vfc(vfc_noXPM, config_filter=lambda x: not x.pp)
 vgs_none, fgs_none, dff_none, pvals_none = calculate_plots(vfc_none)
-type_plots(vgs_none, fgs_none, dff_none, pvals_none, "========= * - segments ========", vfc_none)
-print_tab_line(dff_none, pvals_none, "--")
+type_plots(vgs_none, fgs_none, dff_none, pvals_none, "========= * -PP segments ========", vfc_none)
+print_tab_line(dff_none, pvals_none, "-PP")
+
 
 print("\\hline")
 
