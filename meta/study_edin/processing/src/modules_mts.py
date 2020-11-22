@@ -15,7 +15,7 @@ with open(args.blog3, 'rb') as f:
     data = pickle.load(f)
 
 # Take only successful ones
-data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0)]
+data = [x for x in data if (not x.invalid) and (len(x.grade_f) != 0) and x.score is not None]
 
 CONFIG_KEYS = {
     'qe+', 'pp+', 'ft+', 'bt+', 'all',
@@ -58,6 +58,7 @@ for segment in data:
     else:
         dataM['bt-'].append(segment.score)
         dataG['bt-'].append(avgGrade)
+
 
     dataM[segment.cid.engine].append(segment.score)
     dataG[segment.cid.engine].append(avgGrade)
