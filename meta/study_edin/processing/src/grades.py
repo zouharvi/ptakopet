@@ -9,28 +9,11 @@ from utils import CONFIG_ORDER
 from viable import standardize
 import numpy as np
 
-SCORE_NAMES = ["src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall"]
-
 def sanitize_int(val):
     try:
         return int(val)
     except ValueError:
         return None 
-
-def standardize_grades(all_qalogs):
-    all_users = set([ q.user for q in all_qalogs])
-    for u in all_users:
-        user_qalogs = [q for q in all_qalogs if q.user == u]
-        user_scores = np.array([[getattr(q, s) for s in SCORE_NAMES] for q in user_qalogs], dtype=float)
-        score_means = np.mean(user_scores, axis=0)
-        score_std = np.std(user_scores, axis=0)
-        for q in user_qalogs:
-            for i, s in enumerate(SCORE_NAMES):
-                v = getattr(q, s) if getattr(q, s) is not None else np.nan
-                new_v = (v - score_means[i]) / score_std[i]
-                setattr(q, s, new_v)
-                print("\t".join([u, v, new_v]))
-    
 
 class QALog:
     def __init__(self, data, line=None):
@@ -59,7 +42,6 @@ if __name__ == '__main__':
     parser.add_argument('blog3', help='Path to a blog3 file')
     parser.add_argument('--log', help='Path to Michal\'s tsv log file', default=None)
     parser.add_argument('--blog3o', help='Path to an output blog3 file', default=None)
-    parser.add_argument('--std', action="store_true", help="Standardize scores to each individual assessor's overall mean and standard deviation")
     args = parser.parse_args()
 
     with open(args.blog3, 'rb') as f:
@@ -80,11 +62,7 @@ if __name__ == '__main__':
     with open(args.log, 'r') as f:
         logs = [x.rstrip('\n').split('\t') for x in f.readlines()]
 
-    all_qalogs = []
-
-    for i, s in enumerate(data):
-        if i % 100 == 0:
-            print(i)
+    for s in data:
         s.grade_v = []
         s.grade_f = []
         for (i, line) in enumerate(s.data):
@@ -93,20 +71,13 @@ if __name__ == '__main__':
                 tgt = standardize(line[3])
                 for log in logs:
                     if int(log[7]) == s.sid and log[9] == src and log[10] == tgt:
-                        qalog = QALog(log, line=i)
-                        s.grade_v.append(qalog)
-                        all_qalogs.append(qalog)
+                        s.grade_v.append(QALog(log, line=i))
             elif line[0] == 'CONFIRM_OK':
                 src = standardize(line[3])
                 tgt = standardize(line[4])
                 for log in logs:
                     if int(log[7]) == s.sid and log[9] == src and log[10] == tgt:
-                        qalog = QALog(log)
-                        s.grade_f.append(qalog)
-                        all_qalogs.append(qalog)
-
-    if args.std:
-        standardize_grades(all_qalogs)
+                        s.grade_f.append(QALog(log))
 
     with open(args.blog3o, 'wb') as f:
         pickle.dump(data, f)
