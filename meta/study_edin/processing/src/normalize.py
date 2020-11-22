@@ -93,7 +93,7 @@ if args.std:
     standardize_grades(all_qalogs)
     standardize_confscores(data)
 else:
-    standardize_grades_mm(all_qalogs)
+#    standardize_grades_mm(all_qalogs)
     standardize_confscores_mm(data)
 
 #print([x.score for x in data])
