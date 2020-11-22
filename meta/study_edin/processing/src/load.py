@@ -78,6 +78,7 @@ class Segment:
 def create_segments(data, uid, block):
     segments = []
     buffer = []
+    data.sort(key=lambda x: int(x[1]))
     for line in data:
         buffer.append(line)
         if line[0].startswith('CONFIRM'):

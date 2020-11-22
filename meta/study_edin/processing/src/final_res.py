@@ -67,7 +67,7 @@ scores_line = average_final_scores(data_line)
 print_tab_line(scores_line, "Estonian")
 print("Estonian: len = {:d}".format(len(data_line)), file=sys.stderr)
 
-print("\\hline")
+print("\\midrule")
 
 data_line = filter_data(data, lambda sid: sid.bt and sid.qe and sid.pp)
 scores_line = average_final_scores(data_line)
@@ -109,7 +109,7 @@ scores_line = average_final_scores(data_line)
 print_tab_line(scores_line, "--")
 print("--: len = {:d}".format(len(data_line)), file=sys.stderr)
 
-print("\\hline")
+print("\\midrule")
 
 scores_line = average_final_scores(data)
 print_tab_line(scores_line, "Total")
