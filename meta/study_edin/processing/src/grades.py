@@ -11,11 +11,17 @@ import numpy as np
 
 SCORE_NAMES = ["src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall"]
 
-def aggr_grades_by_src(qalogs, average=True):
+def aggr_grades_by_src(qalogs, average=True, changetype=False):
     grades_by_src = {}
     for q in qalogs:
-        grades_by_src.setdefault(q.src, (q.src, q.tgt, []))[2].append([getattr(q, s) for s in SCORE_NAMES])
-    return [ (src, tgt, np.nanmean(np.array(scores, dtype=float), axis=0) if average else np.array(scores, dtype=float)) for src, tgt, scores in grades_by_src.values() ] 
+        deftuple = (q.src, q.tgt, [])
+        if changetype:
+            deftuple += (q.changetype if hasattr(q, "changetype") else None, )
+        grades_by_src.setdefault(q.src, deftuple)[2].append([getattr(q, s) for s in SCORE_NAMES])
+    if changetype:
+        return [ (t[0], t[1], np.nanmean(np.array(t[2], dtype=float), axis=0) if average else np.array(t[2], dtype=float), t[3]) for t in grades_by_src.values() ]
+    else:
+        return [ (t[0], t[1], np.nanmean(np.array(t[2], dtype=float), axis=0) if average else np.array(t[2], dtype=float)) for t in grades_by_src.values() ]
 
 def sanitize_int(val):
     try:
