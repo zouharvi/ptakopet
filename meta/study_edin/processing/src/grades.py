@@ -9,6 +9,14 @@ from utils import CONFIG_ORDER
 from viable import standardize
 import numpy as np
 
+SCORE_NAMES = ["src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall"]
+
+def aggr_grades_by_src(qalogs, average=True):
+    grades_by_src = {}
+    for q in qalogs:
+        grades_by_src.setdefault(q.src, (q.src, q.tgt, []))[2].append([getattr(q, s) for s in SCORE_NAMES])
+    return [ (src, tgt, np.nanmean(np.array(scores, dtype=float), axis=0) if average else np.array(scores, dtype=float)) for src, tgt, scores in grades_by_src.values() ] 
+
 def sanitize_int(val):
     try:
         return int(val)
@@ -50,6 +58,10 @@ if __name__ == '__main__':
     if args.log is None and args.blog3o is None:
         grades_per_viable = {}
         for s in data:
+            #print("F: " + str(aggr_grades_by_src(s.grade_f, average=False)))
+            #print("FAVG: " + str(aggr_grades_by_src(s.grade_f)))
+            #print("V: " + str(aggr_grades_by_src(s.grade_v, average=False)))
+            #print("VAVG: " + str(aggr_grades_by_src(s.grade_v)))
             vs = ["__"+v.src+"__" for v in s.grade_f] + [v.src for v in s.grade_v]
             c = Counter(vs)
             grades_per_viable.setdefault("total", []).extend(c.values())
