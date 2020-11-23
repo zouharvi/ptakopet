@@ -3,7 +3,7 @@
 import pickle
 import argparse
 from load import Segment, CID
-from grades import QALog
+from grades import QALog, aggr_grades_by_src
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
@@ -14,15 +14,11 @@ def filter_data(data, config_filter=None):
     return [ x for x in data if config_filter(x.cid) ]
 
 def average_final_scores(data):
-    all_grades = []
-    all_confid = []
-    for segment in data:
-        seg_grades = [[getattr(f, sn) for sn in SCORE_NAMES] for f in segment.grade_f]
-        all_grades.extend(seg_grades)
-        all_confid.append(segment.score)
-    avg_grades_arr = np.nanmean(np.array(all_grades, dtype=float), axis=0)
-    avg_confid = np.mean(all_confid)
-    return avg_grades_arr.tolist() + [ avg_confid ]
+    all_grades = np.array([aggr_grades_by_src(x.grade_f)[0][2] for x in data], dtype=float)
+    all_confid = np.array([x.score for x in data], dtype=float)
+    avg_grades = np.nanmean(all_grades, axis=0)
+    avg_confid = np.nanmean(all_confid, axis=0)
+    return avg_grades.tolist() + [ avg_confid.tolist() ]
 
 def print_tab_line(scores, title):
     linestr = " & ".join([title] + ["{:.2f}".format(s) for s in scores])
