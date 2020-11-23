@@ -72,7 +72,7 @@ dataG = {k:np.average(v) for (k,v) in dataG.items()}
 OFFSETX = 0
 MARKER_SIZE = 100
 
-fig = plt.figure(figsize=(4, 5))
+fig = plt.figure(figsize=(4, 4))
 
 aConfLine  = plt.plot([-0.2, 6.2], [dataM['all']]*2, c='gray', linestyle=':')
 aGradeLine = plt.plot([-0.2, 6.2], [dataG['all']]*2, c='gray', linestyle='-.')
