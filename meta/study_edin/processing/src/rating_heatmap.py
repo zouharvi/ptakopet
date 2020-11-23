@@ -47,12 +47,12 @@ for segment in data:
 heatv = list(heat)
 heat = [[x/total for x in row] for row in heat]
 
-fig, ax = plt.subplots(figsize=(3.7,3.7))
+fig, ax = plt.subplots(figsize=(4, 3.4))
 
 if GRAYSCALE:
     plt.gray()
 
-im = ax.imshow(heat)
+im = ax.imshow(heat, aspect=0.85)
 
 ax.set_xticks(np.arange(5))
 ax.set_yticks(np.arange(5))
@@ -68,6 +68,6 @@ for i in range(5):
 plt.xlabel('Self-reported confidence')
 plt.ylabel('Average grade (rounded)')
 
-fig.tight_layout()
+fig.tight_layout(rect=[-0.03, 0, 1, 1])
 
 plt.show()
