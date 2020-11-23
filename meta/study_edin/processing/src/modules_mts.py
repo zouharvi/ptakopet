@@ -5,6 +5,7 @@ import argparse
 from load import Segment, CID
 from grades import QALog
 import matplotlib.pyplot as plt
+import scipy.stats
 import numpy as np
 
 parser = argparse.ArgumentParser(description='PBML log processing.')
@@ -65,6 +66,23 @@ for segment in data:
 
     dataM['all'].append(segment.score)
     dataG['all'].append(avgGrade)
+
+# t-test
+# meanBP = np.average(dataM[EXAMINED_VARIABLE+'+'])
+# meanBN = np.average(dataM[EXAMINED_VARIABLE+'-'])
+# stdBP = np.std(dataM[EXAMINED_VARIABLE+'+'])
+# stdBN = np.std(dataM[EXAMINED_VARIABLE+'-'])
+# lenBP = len(dataM[EXAMINED_VARIABLE+'+'])
+# lenBN = len(dataM[EXAMINED_VARIABLE+'-'])
+# tVal = (meanBP - meanBN - DIFFERENCE) / np.sqrt(stdBP*stdBP/lenBP+stdBN*stdBN/lenBN)
+# dgFreedom = lenBP + lenBN - 2
+# print(tVal, dgFreedom)
+
+EXAMINED_VARIABLE = 'bt'
+DIFFERENCE = 0
+uval = scipy.stats.mannwhitneyu([x-DIFFERENCE for x in dataM[EXAMINED_VARIABLE+'+']], dataM[EXAMINED_VARIABLE+'-'])
+print(uval)
+print(f'{uval.pvalue:.9f}')
 
 dataM = {k:np.average(v) for (k,v) in dataM.items()}
 dataG = {k:np.average(v) for (k,v) in dataG.items()}
