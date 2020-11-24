@@ -18,7 +18,7 @@ args = parser.parse_args()
 OFFSET = 0.07
 NLOCATORS = 4
 LEGEND = False
-XAXIS_DESC = False
+XAXIS_DESC = True
 ENGINE_NAME = 'Czech 3'
 ENGINE_CODE = 'css'
 
@@ -191,7 +191,7 @@ ax6.set_ylim(33, 100)
 
 
 if XAXIS_DESC:
-    ax1.set_xlabel('Self-reported user confidence, Overal translation quality')
+    ax1.set_xlabel('Self-reported user confidence, Overall translation quality')
 if LEGEND:
     lns = sc1+sc2+sc3+sc4+sc5+sc6
     lbs = [
