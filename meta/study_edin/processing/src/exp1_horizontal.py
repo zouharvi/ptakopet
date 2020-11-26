@@ -201,7 +201,7 @@ for (graph_index, (ENGINE_CODE, ENGINE_NAME)) in enumerate([('csw', 'Czech 1'), 
 
 
     if graph_index == 1 and LEGEND:
-        plt.xlabel('Self-reported user confidence, Overal translation quality')
+        plt.xlabel('Self-reported user confidence, Overall translation quality')
         lns = sc1+sc4+sc2+sc5+sc3+sc6
         lbs = [
             'Text length, conf.', 'Text length, qual.',
