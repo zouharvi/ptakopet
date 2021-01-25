@@ -1,15 +1,21 @@
 import pickle
 import argparse
 import numpy as np
+import numpy.ma as ma
 from load import Segment, CID
 import krippendorff
 from pprint import pprint
+import sys
+
+def print_masked_matrix(mm):
+    for i in range(mm.shape[0]):
+        print(" ".join(["{:.2f}".format(x) for x in mm[i,:]]))
+
 
 parser = argparse.ArgumentParser(description='Ptakopět log processing.')
 parser.add_argument('blog3', help='Path to a blog3 file')
 parser.add_argument('-l', '--lang', help='Target language', default=None)
 parser.add_argument('-s', '--score', help='Score to calculate ("src_sti_adq", "tgt_src_adq", "tgt_sti_adq", "tgt_flu", "overall")', default=None)
-#parser.add_argument('-l', '--lang', help='Language', default='cs')
 args = parser.parse_args()
     
 with open(args.blog3, 'rb') as f:
@@ -27,17 +33,28 @@ for x in data_lang:
     for viable in x.grade_f + x.grade_v:
         rater_name = viable.user
         transl_id = str(x.sid) + "\t" + viable.tgt
-        grades_per_transl_rater.setdefault(rater_name, {})[transl_id] = getattr(viable, args.score)
+        score = getattr(viable, args.score)
+        grades_per_transl_rater.setdefault(rater_name, {})[transl_id] = score if score is not None else 0
         transl_ids.add(transl_id)
-
 
 rates_matrix = []
 
 for rater_name in sorted(grades_per_transl_rater.keys()):
     rates_for_transl = [grades_per_transl_rater[rater_name].get(transl_id, np.nan) for transl_id in sorted(transl_ids)]
+#    print("{:s}'s ratings count: {:d}".format(rater_name, len([x for x in rates_for_transl if not np.isnan(x)])))
     rates_matrix.append(rates_for_transl)
 
+print("{:s} raters on {:s}".format(args.lang, args.score).upper())
+print("-----------------------------------------------")
+
+rates_matrix = np.array(rates_matrix, dtype=float)
+rates_matrix_masked = ma.masked_invalid(rates_matrix)
+
+corrmat = ma.corrcoef(rates_matrix_masked)
+print("Correlation coefficients matrix:")
+print_masked_matrix(corrmat)
+
 alpha = krippendorff.alpha(reliability_data=rates_matrix, value_domain=range(1,6), level_of_measurement='ordinal')
-print("Krippendorf's alpha of the {:s} raters on {:s}: {:.2f}".format(args.lang, args.score, alpha))
+print("Krippendorf's alpha: {:.2f}".format(alpha))
 
 
