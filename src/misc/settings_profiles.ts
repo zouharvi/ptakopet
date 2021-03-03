@@ -79,6 +79,21 @@ export class SettingsProfiles {
 
 SettingsProfiles.profiles['default'] = {
     settings: {
+        backendTranslator: 'ufalTransformer',
+        backendEstimator: 'random',
+        backendAligner: 'fast_align_michal',
+        language1: 'cs',
+        language2: 'en',
+    },
+    qe: true,
+    mt: true,
+    bt: true,
+    pp: true,
+    manual: true,
+}
+
+SettingsProfiles.profiles['default_et'] = {
+    settings: {
         backendTranslator: 'mENET',
         backendEstimator: 'sheffield',
         backendParaphraser: 'rainbow',
