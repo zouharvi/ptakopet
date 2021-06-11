@@ -82,6 +82,7 @@ SettingsProfiles.profiles['default'] = {
         backendTranslator: 'ufalTransformer',
         backendEstimator: 'random',
         backendAligner: 'fast_align_michal',
+        backendParaphraser: 'rainbow',
         language1: 'cs',
         language2: 'en',
     },
