@@ -1,6 +1,6 @@
 <img src='https://raw.githubusercontent.com/zouharvi/ptakopet/master/meta/logo/logo.svg?sanitize=true' width='200px'>
 
-System for translation quality estimation, mostly outbound translation. [Check it out](http://ptakopet.vilda.net)
+System for translation quality estimation, mostly outbound translation. [Watch the NAACL 2021 presentation](https://youtu.be/9V7VSYspdtQ).
 
 This repository contains documentation, meta files and also the web frontend. There's also an associated repository for [Ptakopět multiservice backend](https://github.com/zouharvi/ptakopet-server).
 
