@@ -11,23 +11,9 @@ This is the final Ptakopět project as part of Bergamot (not to be confused with
 
 ## Citation
 
-If you refer to this work, please use the following ciations:
+If you refer to this work, please use the following citations:
 
 ```
-@article{zouhar2019outbound,
-  title={Outbound Translation User Interface Ptakopet: A Pilot Study},
-  author={Zouhar, Vil{\'e}m and Bojar, Ond{\v{r}}ej},
-  journal={arXiv preprint arXiv:1911.10835},
-  year={2019}
-}
-
-@phdthesis{zouhar2020enabling,
-  title={Enabling Outbound Machine Translation},
-  author={Zouhar, Vil{\'e}m},
-  year={2020},
-  school={Univerzita Karlova, Matematicko-fyzik{\'a}ln{\'\i} fakulta}
-}
-
 @article{zouhar2020extending,
   title={Extending Ptakop{\v{e}}t for Machine Translation User Interaction Experiments},
   author={Zouhar, Vil{\'e}m and Nov{\'a}k, Michal},
@@ -36,4 +22,25 @@ If you refer to this work, please use the following ciations:
   pages={129--142},
   year={2020}
 }
+
+@phdthesis{zouhar2020enabling,
+  title={Enabling Outbound Machine Translation},
+  author={Zouhar, Vil{\'e}m},
+  year={2020},
+  school={Univerzita Karlova, Matematicko-fyzik{\'a}ln{\'\i} fakulta},
+  note={Bachelor thesis},
+}
+
+@inproceedings{zouhar2019outbound,
+  title={Outbound Translation User Interface Ptakopet: A Pilot Study},
+  author={Zouhar, Vil{\'e}m and Bojar, Ond{\v{r}}ej},
+  booktitle={Proceedings of the Twelfth Language Resources and Evaluation Conference},
+  month=may,
+  year={2020},
+  address={Marseille, France},
+  publisher={European Language Resources Association},
+  url={https://aclanthology.org/2020.lrec-1.860},
+}
 ```
+
+[![Paper video presentation](https://img.youtube.com/vi/9V7VSYspdtQ/0.jpg)](https://www.youtube.com/watch?v=9V7VSYspdtQ)
