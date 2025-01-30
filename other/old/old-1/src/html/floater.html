@@ -1,0 +1,42 @@
+<div id='ptakopet_floater' style="display: none;">
+    <div id='ptakopet_control_bar'>
+        <i id='ptakopet_close' class="fas fa-times" style='width: 20px; float: left;'></i>
+        <img class='extension_url_img' p_src="../src/logo_small.png">
+        <i id='ptakopet_dir' class="fas fa-arrow-right" style='width: 20px; float: right;'></i>
+    </div>
+    <textarea id='ptakopet_ta1'></textarea>
+    <div id='ptakopet_middle_bar' style='margin-top: 5px;'>
+        This plugin:
+        <select id='ptakopet_language_select_1' style='margin-right: 40px;'>
+            <option selected value='cs'>cs</option>
+            <option value='en'>en</option>
+        </select>
+        Page language:
+        <select id='ptakopet_language_select_2'></select>
+    </div>
+    <textarea id='ptakopet_ta2' readonly></textarea>
+    <div id='ptakopet_bottom_hidable'>
+        <div>
+            <div id='ptakopet_settings'>
+                <div>
+                    <span style='margin-top:4px; display: inline-block;'>Engine:</span>
+                    <select id='ptakopet_engine_select'></select>
+                </div>
+                <label>Small font: <input id='ptakopet_settings_small_font' type='checkbox'></label>
+                <label>Open requests: <span id='ptakopet_progress_span'>0</span></label>
+            </div>
+            <img class='extension_url_img' id='ptakopet_infographics' p_src="../src/translation_flow.png">
+        </div>
+    </div>
+    <div id='bottom_bar'> </div>
+</div>
+
+<img class='extension_url_img' p_src="../src/logo_bird_mini.png" id="ptakopet_floater_icon">
+
+<script class='extension_url_script' p_src_late='true' p_src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script class='extension_url_script' p_src="../js/ptakopet_init_user.js"></script>
+<script class='extension_url_script' p_src='../js/ptakopet_arch.js'></script>
+<script class='extension_url_script' p_src='../js/ptakopet_translator.js'></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+<link class='extension_url_style' rel="stylesheet" p_href="../css/floater.css">

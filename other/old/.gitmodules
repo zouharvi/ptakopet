@@ -1,0 +1,12 @@
+[submodule "old-2/quality_estimation/quest_extractor"]
+	path = old-2/quality_estimation/quest_extractor
+	url = git@github.com:zouharvi/questplusplus.git
+[submodule "old-2/web/highlight-within-textarea"]
+	path = old-2/web/highlight-within-textarea
+	url = git@github.com:zouharvi/highlight-within-textarea.git
+[submodule "old-2/quality_estimation/fast_align"]
+	path = old-2/quality_estimation/fast_align
+	url = git@github.com:zouharvi/fast_align.git
+[submodule "old-2/quality_estimation/deepQuest"]
+	path = old-2/quality_estimation/deepQuest
+	url = https://github.com/sheffieldnlp/deepQuest

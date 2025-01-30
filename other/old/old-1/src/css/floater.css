@@ -1,0 +1,109 @@
+div#ptakopet_floater {
+    width: 400px;
+    height: auto;
+    position: fixed;
+    top: 10px;
+
+    background-color: #d6d6d6ee;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Noto Sans', sans-serif;
+
+    /* visibility: hidden; */
+
+    z-index: 120391241;
+}
+
+#ptakopet_control_bar {
+    height: 35px;
+}
+
+#ptakopet_floater #ptakopet_control_bar i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#ptakopet_floater #ptakopet_control_bar {
+    text-align: center;
+}
+
+#ptakopet_floater #ptakopet_control_bar img {
+    display: inline-block;
+}
+
+#ptakopet_floater textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+    resize: none;
+    overflow-x: hidden;
+    outline:none;
+}
+
+#ptakopet_floater textarea /*:first-of-type*/ {
+    background-color: #ffffffe3;
+}
+
+#ptakopet_floater textarea:last-of-type {
+    background-color: #dfdfdfe8;
+}
+
+#ptakopet_middle_bar {
+    height: 38px;
+}
+
+#ptakopet_middle_bar select {
+    font-size: 18px;
+    height: 30px;
+    width: 58px;
+}
+
+#ptakopet_floater #bottom_bar {
+    height: 4px; 
+    font-size: 20px;
+}
+
+#ptakopet_floater_icon {
+    visibility: hidden;
+    position: absolute;
+    z-index: 120391231;
+    cursor: pointer;
+    width: 25px;
+    padding: 2px;
+    background-color: #f3f3f3a4;
+    border-radius: 3px;
+}
+
+#ptakopet_infographics {
+    width: 150px;
+    float: right;
+    margin-right: 2px;
+}
+
+#ptakopet_bottom_hidable {
+    margin-top: 10px;
+}
+
+#ptakopet_settings {
+    vertical-align: top;
+}
+
+#ptakopet_engine_select {
+    font-size: 18px;
+    height: 30px;
+    width: 140px;
+    vertical-align: top;
+}
+
+#ptakopet_settings {
+    display: inline-block;
+}
+
+#ptakopet_settings label {
+    margin-top: 10px;
+    display: block;
+}
+
+#ptakopet_settings label input {
+    vertical-align: middle;
+}

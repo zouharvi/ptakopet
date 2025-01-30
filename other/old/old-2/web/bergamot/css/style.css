@@ -1,0 +1,91 @@
+* {
+    font-family: 'Zilla Slab', 'Open Sans', sans-serif;
+}
+
+.input_div, #option_div {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+#option_div .option_wrapper_div div {
+    margin-top: 10px;
+    width: 350px;
+}
+
+#option_div div div select {
+    float: right;
+}
+
+#option_div #open_indicator_estimator, #option_div #open_indicator_translator {
+    float: right;
+    margin-left: 7px;
+}
+
+.input_div div {
+    margin-bottom: 20px;
+}
+
+.input_div div span { /* input textarea title */
+    width: 200px;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.input_div div select { /* language select */
+    width: 120px;
+    float: right;
+    font-size: 20px;
+}
+
+select {
+    background-color: white;
+}
+
+select:focus {
+    outline: none !important;
+}
+
+textarea {
+    resize: none;
+}
+
+    
+.hwt-content, .hwt-content-disabled {
+    width: 800px;
+    height: 100px;
+    padding: 2px;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    outline: none !important;
+}
+
+.hwt-container {
+    border-radius: 5px;
+    background: #FFFFFF;
+    /* this is probably not necessary */
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+}
+
+textarea:disabled { 
+    background: #e4e4e4 !important;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

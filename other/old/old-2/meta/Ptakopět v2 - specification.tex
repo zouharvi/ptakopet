@@ -1,0 +1,43 @@
+% !TeX spellcheck = cs_CZ
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+%\setlength\parindent{0pt} % indent
+
+% Onřej Bojar
+\def\repl#1#2{\textcolor{red}{\sout{#1}}\textcolor{blue}{#2}}
+\def\XXX#1{\textcolor{red}{XXX #1}}
+
+\begin{document}
+
+\title{Ptakopět v2\\ \large Překlad tam a kontrolně zpět \\ \large Specification }
+\author{Vilém Zouhar, Ondřej Bojar \small{(advisor)}}
+\date{Feb 2019 \\ Rev. 2}
+\maketitle 
+
+\section{Overview}
+Ptakopět v2 aims to extend the functionality of Ptakopět v1 as part of the Semestral Project in the summer semester of 2018/2019. Ptakopět is a sample user interface for the so-called Outbound Translation, allowing the user to produce text in a language they don't speak. The goal of the extension is to provide further information to the user in order the improve the confidence of the user that the translation to the target and unknown language is correct. The main focus will be on utilizing a quality estimation model.
+
+\section{Phases}
+The development goals are split into three phases:
+
+\subsection{Robust interface}
+Ptakopět v1 was developed as a browser agnostic plugin. This resulted in several technical issues which we were not able to resolve (most notably custom input elements). The basic functionality will be migrated to a static page \href{https://ptakopet.vilda.net}{ptakopet.vilda.net}. This will resolve the problem of system's dependency on third party websites.
+
+The general applicability of Ptakopět gets somewhat decreased by this change (the user can no longer use Ptakopět on any web page) but the implementation of Ptakopět will remain as independent of the web page as possible. In other words, adding Ptakopět functionality to a web page containing a text form will be still very easy for \emph{the web page owner} by a small modification of the web page source but no longer for the web page user.
+
+\subsection{Quality Estimation Model}
+We will  find and set up a quality estimation model with exposed API to be used in Ptakopět. We will utilize some of the models which participated in \href{http://www.statmt.org/wmt18/quality-estimation-task.html}{WMT Quality Estimation Task} (eg. \href{https://github.com/ghpaetzold/questplusplus}{Quest++}).
+
+\subsection{Quality Estimation User Interface}
+We will explore possibilities of passing relevant quality estimation information to the user in Ptakopět v2. For this part we may need to utilize some sort of world alignment. Relevant systems are: \href{https://github.com/clab/fast_align}{fast\_align}, \href{https://github.com/moses-smt/mgiza}{MGiza} and \href{https://github.com/moses-smt/giza-pp}{Giza++}.
+
+The first UI implementation should include color underlining based on the quality estimation model output values. Other alternatives will be highlighting words with quality value below some threshold. Both approaches should provide a fluent and non-obstructing translation quality estimation service to the user. 
+
+\end{document}

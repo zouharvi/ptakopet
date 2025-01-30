@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&amp;subset=cyrillic,cyrillic-ext,latin-ext"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Ptakopět v2</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="src/icon.png">
+    <link rel='stylesheet' type='text/css' href='highlight-within-textarea/jquery.highlight-within-textarea.css'>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
+    <script src='highlight-within-textarea/jquery.highlight-within-textarea.js'></script>
+    <link rel='stylesheet' type='text/css' href='css/style.css'>
+    <script src='js/arch.js'></script>
+    <script src='js/estimator.js'></script>
+    <script src='js/translator.js'></script>
+    <script src='js/utils.js'></script>
+    <script src='js/indicator.js'></script>
+</head>
+
+<body style='margin: 0; background-color: #f7f3f1;'>
+    <div class='input_div'>
+        <img src="src/bergamot_logo.svg" style="width: 300px; display: inline-block; margin-bottom: -60px; margin-right: -20px;">
+        <div style='display: inline-block;'>
+            <p style='font-size: 60px;'>Bergamot</p>
+            <p style='font-size: 30px; margin-top: -50px;'>Outbound Translation</p>
+            <p style='font-size: 30px; margin-top: -30px;'>Interface Proof of Concept: Ptakopět</p>
+        </div>
+    </div>
+    <div class='input_div'>
+        <div>
+            <span>Source language:</span>
+            <select id='language_select_source'></select>
+        </div>
+        <textarea id='input_source' class='hwt-content'></textarea>
+    </div>
+    <div class='input_div'>
+        <div>
+            <span>Target language:</span>
+            <select id='language_select_target'></select>
+        </div>
+        <textarea id='input_target' class='hwt-content'></textarea>
+    </div>
+    <div class='input_div'>
+        <div>
+            <span>Backward language:</span>
+            <select disabled id='language_select_back'></select>
+        </div>
+        <textarea disabled id='input_back' class='hwt-content'></textarea>
+    </div>
+    <div id='option_div' style='margin-top: 20px; margin-bottom: 80px;'>
+        <div class='option_wrapper_div' style='display: inline-block;'>
+            <div>
+                <span>Translator backend: </span>
+                <span id='open_indicator_translator'>0</span>
+                <select id='translator_backend'>
+                    <option value='transformer'>MT Transformer</option>
+                    <option value='khresmoi'>Khresmoi (medical)</option>
+                </select>
+            </div>
+            <div>
+                <span>Quality estimator backend: </span>
+                <span id='open_indicator_estimator'>0</span>
+                <select id='estimator_backend'>
+                    <option value='quest'>QuEst++ pipeline</option>
+                    <option value='deepQuest'>deepQuest</option>
+                    <option value='none'>None</option>
+                </select>
+            </div>
+        </div>
+        <img src="src/logo.svg" style="width: 200px; display: inline-block; margin-left: 120px; margin-bottom: 20px;">
+        <!-- <div style='text-align: left; display: block; width: 430px; margin-top: 10px;'>
+            <div>Created by Vilém Zouhar with Ondřej Bojar as an advisor.</div>
+            <div>For version 1 click
+                <a href='https://vilda.net/s/dod_ptakopet' target='blank'>here.</a>
+            </div>
+        </div> -->
+    </div>
+
+
+    <script src='js/main.js'></script>
+</body>
+
+</html>
